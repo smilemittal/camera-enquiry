@@ -21,8 +21,8 @@ class CreateAttributeValuesTable extends Migration
             $table->unsignedBigInteger('system_type_id');
             $table->timestamps();
             $table->softDeletes('deleted_at');
-            /*$table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
-            $table->foreign('system_type_id')->references('id')->on('system_types')->onDelete('cascade');*/
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('system_type_id')->references('id')->on('system_types')->onDelete('cascade');
         });
     }
 
