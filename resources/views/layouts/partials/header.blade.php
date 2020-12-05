@@ -1,5 +1,5 @@
 <!-- BEGIN: Header-->
-<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light">
+    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light">
         <div class="navbar-wrapper">
             <div class="navbar-container content">
                 <div class="collapse navbar-collapse show" id="navbar-mobile">

@@ -15,6 +15,14 @@
                         </li>
                     </ul>
                 </li>
+                <li class=" nav-item"><a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Standards</span></a>
+                            <ul class="menu-content">
+                                <li class=""><a class="menu-item" href="{{ route('standards.create') }}">Add</a>
+                                </li>
+                                <li><a class="menu-item" href="{{ route('standards.index') }}">List</a>
+                                </li>
+                            </ul>  
+                </li>
                 
             </ul>
         </div>

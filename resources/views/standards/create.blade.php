@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('content')
-    <!-- BEGIN: Content-->
-            <div class="content-body">
-                <!-- Basic form layout section start -->
+<!-- BEGIN: Content-->
+<div class="content-body">
+                <!--Form layout section start -->
                 <section id="basic-form-layouts">
                     <div class="row match-height justify-content-center">
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> Update Product</h4>
+                                    <h4 class="card-title" id="basic-layout-form">Add Standard</h4>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>
@@ -38,38 +38,29 @@
                                     </div>
                                 </div>
                                 <div class="card-content collapse show">
-                                    <div class="card-body " >
-                                        <div class="card-text">
-                                            @if(\Session::has('success'))
-                                                <div class="alert alert-success">
-                                                        {{\Session::get('success')}}
-                                                </div>
-                                            @endif
-                                            @if($errors->all())
-                                                <div class="alert alert-danger">
-                                                    @foreach($errors->all() as $error)
-                                                
-                                                    <p>{{$error}}</p> 
+                                    <div class="card-body">
+                                        @if($errors->all())
+                                        <div class="alert alert-danger">
+                                            @foreach($errors->all() as $error)
                                             
-                                                    @endforeach
-                                                </div>
-                                            @endif
-                                                <!--p>This is the most basic and default form having form section.</p-->
-                                        </div>
-                                        <form method="post" action="{{ route('product.update', $product->id) }}" class="form" >
-                                        @csrf
+                                               <p>{{$error}}</p> 
+                                        
+                                            @endforeach
+                                            </div>
+                                        @endif
+                                        <form class="form" action="{{ route('standards.store') }}" method="post">
+                                            @csrf  
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="Name">Product Name</label>
-                                                    <input type="text" id="name" class="form-control" value="{{$product->name}}" name="name">
-                                                </div> 
-                                                <div class="form-actions" style="text-align:center">
-                                                    <a  class=" btn btn-primary" href="{{ route('product.index') }}"> View All</a>             
-                                                    <button type="submit" name="submit" class="btn btn-success">
-                                                        <i class=""></i> Save
-                                                    </button>
+                                                    <label for="name">Name</label>
+                                                    <input type="text" id="name" class="form-control" placeholder="Name" name="name">
                                                 </div>
-                                           </div>
+                                            </div>
+                                            <div class="form-actions" style="text-align: center;">
+                                                <a href="{{ route('standards.index')}}" method="post" class="btn btn-primary" type="submit"> View all</a>    
+                                                <button type="submit" class="btn btn-success">Save
+                                                </button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -77,10 +68,5 @@
                         </div>
                     </div>
                 </section>
-                <!-- // Basic form layout section end -->
-            </div>
-       
-    <!-- END: Content-->
-
+</div>
 @endsection
-
