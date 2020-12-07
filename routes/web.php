@@ -24,7 +24,10 @@ Route::get('/', function () {
 // Route::delete('system_types/destroy/{id}','SystemTypesController@destroy')->name('system_types.destroy');
 Route::resource('system_types', 'SystemTypesController');
 Route::post('system_types/fetchtypes','SystemTypesController@getSystemTypes')->name('get.system_types');
-//Route::resource('attribute-values', 'AttributeValuesController');
+
+Route::resource('attribute-values', 'AttributeValuesController');
+Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
+
 
 Route::get('products/create','ProductController@create')->name('product.create');
 Route::post('products/store','ProductController@store')->name('product.store');

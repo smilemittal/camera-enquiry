@@ -59,7 +59,7 @@
                                     </div>
                                 @endif
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered zero-configuration" id="system_types" style="width: 100%">
+                                        <table class="table table-striped table-bordered zero-configuration" id="attribute-values" style="width: 100%">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
@@ -70,9 +70,6 @@
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                        
-                                            </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th>ID</th>
@@ -106,22 +103,22 @@
     <script>
         $(document).ready(function(){
             // Data table for serverside
-            $('#attribute_types').DataTable({
+            $('#attribute-values').DataTable({
                 "order": [[ 0, 'desc' ]],
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
-                    "url": "{{ route('get.attribute_types') }}",
+                    "url": "{{ route('get.attribute_values') }}",
                     "dataType": "json",
                     "type": "POST",
-                    "data":{ _token: "{{csrf_token()}}",route:'{{route('attribute_types.index')}}'}
+                    "data":{ _token: "{{csrf_token()}}",route:'{{route('attribute-values.index')}}'}
                 },
                 "columns": [
                     { "data": "id" },
                     { "data": "attribute_id" },
                     { "data": "value" },
-                    { "data": "displayorder" },
-                    { "data": "system_types_id" },
+                    { "data": "display_order" },
+                    { "data": "system_type_id" },
                     { "data": "action" }
                 ],
                 aoColumnDefs: [

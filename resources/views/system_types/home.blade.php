@@ -57,8 +57,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('system_types.index')}}" method="post" class="btn btn-primary" type="submit"> View all</a>    
-                                                <button type="submit" class="btn btn-success">Save
+                                                <a href="{{ route('system_types.index')}}" method="post" class="btn btn-primary"> View all</a>    
+                                                <button type="submit" name="submit" class="btn btn-success">Save
                                                 </button>
                                             </div>
                                         </form>
