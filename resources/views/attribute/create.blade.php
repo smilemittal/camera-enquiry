@@ -61,7 +61,7 @@
                                             @endif
                                                 <!--p>This is the most basic and default form having form section.</p-->
                                         </div>
-                                        <form method="post" action="{{ route('product.store') }}" class="form" >
+                                        <form method="post" action="{{ route('attribute.store') }}" class="form" >
                                          @csrf
                                             <div class="form-body">
                                                      <div class="form-group">
@@ -71,17 +71,22 @@
                                                      <div class="form-group">
                                                             <label for="type">Type</label>
                                                                 <select id="type" name="type" class="form-control">
-                                                                        <option value="Camera">Camera</option>
-                                                                        <option value="Nvr">Nvr</option>
+                                                                        <option value="camera">Camera</option>
+                                                                        <option value="nvr">Nvr</option>
                                                                 </select>
                                                      </div>
                                                      <div class="form-group">
-                                                            <label for="Name"> Display_Order</label>
+                                                            <label for="Name"> Display Order</label>
                                                             <input type="text" id="display_order" class="form-control" placeholder="display_order" name="display_order">
                                                      </div> 
                                                      <div class="form-group">
-                                                            <label for="System"> System_type_ID</label>
-                                                            <input type="text" id="system_id" class="form-control" placeholder="system_id" name="system_id">
+                                                            <label for="system_type_id"> System Type</label>
+                                                           
+                                                           <select name="system_type_id" id="system_type_id" class="form-control">
+                                                            @foreach($system_types as $system_type)
+                                                                <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
+                                                            @endforeach
+                                                           </select>
                                                      </div> 
 
                                                     <div class="form-actions" style="text-align:center">
