@@ -47,9 +47,9 @@
                 </li>
                 <li class=" nav-item"><a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Attributes</span></a>
                     <ul class="menu-content">
-                        <li class=""><a class="menu-item" href="">Add</a>
+                        <li class=""><a class="menu-item" href="{{ route('attribute.create') }}">Add</a>
                         </li>
-                        <li><a class="menu-item" href="">List</a>
+                        <li><a class="menu-item" href="{{ route('attribute.index') }}">List</a>
                         </li>
                     </ul>
                 </li>
