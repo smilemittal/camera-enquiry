@@ -110,7 +110,8 @@ class AttributeController extends Controller
         $deletes->delete();
         return redirect()->route('attribute.index')->with('success', 'Product deleted successfully');
     }
-    public function getattribute(Request $request) {
+    public function getattribute(Request $request) 
+    {
 
         $totalData = Attribute::count();
         $totalFiltered = $totalData;

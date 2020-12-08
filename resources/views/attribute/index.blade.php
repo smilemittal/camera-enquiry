@@ -58,7 +58,7 @@
                                                         <th>Type</th>
                                                         <th> Display Order</th>
                                                         <th>System Type</th>
-                                                        <th>Action>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -72,7 +72,7 @@
                                                         <th>Type</th>
                                                         <th> Display Order</th>
                                                         <th>System Type</th>
-                                                        <th>Action>
+                                                        <th>Action</th>
                                                     </tr> 
                                              </tfoot>
                                                

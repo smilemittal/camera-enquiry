@@ -16,10 +16,11 @@ class AttributeValuesController extends Controller
      */
     public function index()
     {
-        $attributes=Attribute::all();
+        $attribute_values=AttributeValue::with('system_type', 'attribute')->get();
+       
         $system_types=SystemType::all();
 
-        return view('attribute_values.index',compact('attributes','system_types'));
+        return view('attribute_values.index',compact('attribute_values','system_types'));
     }
 
     /**
@@ -52,7 +53,7 @@ class AttributeValuesController extends Controller
 
         AttributeValue::create($request->all());
 
-        return redirect()->route('attribute-values.index')->with('success','Attribute ID added successfully');
+        return redirect()->route('attribute-values.index')->with('success','Attribute Value added successfully');
     }
 
     /**
@@ -100,7 +101,7 @@ class AttributeValuesController extends Controller
         $attribute_values=AttributeValue::find($id);          
         $attribute_values->update($request->all()); 
 
-        return redirect()->route('attribute-values.index')->with('success','System type updated successfully');;
+        return redirect()->route('attribute-values.index')->with('success','Attribute Value updated successfully');;
     }
 
     /**
@@ -114,9 +115,17 @@ class AttributeValuesController extends Controller
         $attribute_values=AttributeValue::find($id);  
         $attribute_values->delete();
         
-         return redirect()->route('attribute-values.index')->with('success','System type deleted successfully');
+         return redirect()->route('attribute-values.index')->with('success','Attribute Value deleted successfully');
     }
-    public function getAttributeValues(Request $request) {
+
+    /**
+     * Fetching, Sorting attribute values and Pagination.  
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getAttributeValues(Request $request) 
+    {
         $totalData = AttributeValue::count();
         $totalFiltered = $totalData;
         $columns = array(
@@ -124,7 +133,7 @@ class AttributeValuesController extends Controller
             1 =>'attribute_id',
             2 =>'value',
             3 =>'display_order',
-            4 =>'system_types_id',
+            4 =>'system_type_id',
             5 =>'action'
         );
         $limit = $request->input('length');
@@ -143,7 +152,7 @@ class AttributeValuesController extends Controller
                 ->orWhere('attribute_id', 'LIKE',"%{$search}%")
                 ->orWhere('value', 'LIKE',"%{$search}%")
                 ->orWhere('display_order', 'LIKE',"%{$search}%")
-                ->orWhere('system_types_id', 'LIKE',"%{$search}%")
+                ->orWhere('system_type_id', 'LIKE',"%{$search}%")
                 ->orderBy($order, $dir)
                 ->paginate($limit, ['*'], 'page', $start + 1);
 
@@ -153,10 +162,10 @@ class AttributeValuesController extends Controller
         if (!empty($attribute_values)) {
             foreach ($attribute_values as $key => $attribute_value) {
                 $nestedData['id'] = ($start * $limit) + $key + 1;
-                $nestedData['attribute_id'] = $attribute_value->attribute_id;
+                $nestedData['attribute_id'] = $attribute_value->attribute->name;
                 $nestedData['value'] = $attribute_value->value;
                 $nestedData['display_order'] = $attribute_value->display_order;
-                $nestedData['system_type_id'] = $attribute_value->system_type_id;
+                $nestedData['system_type_id'] = $attribute_value->system_type->name;
                 $index = route('attribute-values.index' ,  encrypt($attribute_value->id));
                 $edit = route('attribute-values.update' ,  encrypt($attribute_value->id));
                 $delete = route('attribute-values.destroy' ,  encrypt($attribute_value->id));

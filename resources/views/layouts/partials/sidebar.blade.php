@@ -1,6 +1,5 @@
 <!-- BEGIN: Main Menu-->
     <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="app-assets/images/backgrounds/02.jpg">
-
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="index.html"><!-- <img class="brand-logo" alt="Chameleon admin logo" src="{{asset('app-assets\images\logo\logo.png')}}" /> -->
@@ -62,6 +61,6 @@
                     </ul>
                 </li> 
             </ul>
+        </div>
     </div>
-</div>
-    <!-- END: Main Menu-->
+<!-- END: Main Menu-->

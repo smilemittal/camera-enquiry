@@ -37,6 +37,7 @@
                                         </ul>
                                     </div>
                                 </div>
+                            <!-- Card content body start -->    
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         @if($errors->all())

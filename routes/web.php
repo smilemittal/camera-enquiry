@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout.home');
+    return view('welcome');
 });
 // Route::get('system_types/create', 'SystemTypesController@create')->name('system_types.create');
 // Route::post('system_types/store', 'SystemTypesController@store')->name('system_types.store');

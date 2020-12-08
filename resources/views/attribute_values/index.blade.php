@@ -40,7 +40,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <!--Card Content start-->
+                                <!--Card Content body start-->
                                 <div class="card-content collapse show">
                                 <div class="card-body">
                                     @if(\Session::has('success'))
@@ -59,7 +59,7 @@
                                     </div>
                                 @endif
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered zero-configuration" id="attribute-values" style="width: 100%">
+                                        <table class="table table-striped table-bordered zero-configuration" id="attribute-values" style="width: 100%; display: table;">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
