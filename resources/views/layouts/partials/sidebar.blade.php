@@ -33,7 +33,7 @@
                     </ul>
                 </li>
                 <li class=" nav-item">
-                    <a href="#"><i class="ft-edit"></i>
+                    <a href="#"><i class="ft-layers"></i>
                         <span class="menu-title" data-i18n="">Standards</span>
                     </a>
                     <ul class="menu-content">
@@ -46,7 +46,7 @@
                     </ul>
                 </li>
                 <li class=" nav-item">
-                    <a href="#"><i class="ft-edit"></i>
+                    <a href="#"><i class="ft-package"></i>
                         <span class="menu-title" data-i18n="">Products</span></a>
                     <ul class="menu-content">
                         <li>
@@ -68,7 +68,7 @@
                     </ul>
                 </li>
                 <li class=" nav-item">
-                    <a href="#"><i class="ft-edit"></i>
+                    <a href="#"><i class="ft-check-circle"></i>
                         <span class="menu-title" data-i18n="">Attributes</span></a>
                     <ul class="menu-content">
                         <li class="">
