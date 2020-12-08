@@ -79,10 +79,10 @@
                                                     <th>System Types</th>
                                                     <th>Action</th>
                                                 </tr>
-                                                </tr>
+            
                                             </tfoot>
                                         </table>
-                                    </div>
+                                    <div>
                                 </div>
                                 </div>
                             </div>

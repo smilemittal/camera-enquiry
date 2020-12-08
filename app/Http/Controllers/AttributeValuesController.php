@@ -17,10 +17,8 @@ class AttributeValuesController extends Controller
     public function index()
     {
         $attribute_values=AttributeValue::with('system_type', 'attribute')->get();
-       
-        $system_types=SystemType::all();
-
-        return view('attribute_values.index',compact('attribute_values','system_types'));
+        
+        return view('attribute_values.index',compact('attribute_values'));
     }
 
     /**
@@ -76,8 +74,8 @@ class AttributeValuesController extends Controller
     public function edit($id)
     {
         $attribute_value=AttributeValue::find($id);
-         $attributes=Attribute::all();
-          $system_types=SystemType::all();
+        $attributes=Attribute::all();
+        $system_types=SystemType::all();
 
         return view('attribute_values.edit',compact('attributes','attribute_value','system_types'));
     }
@@ -115,7 +113,7 @@ class AttributeValuesController extends Controller
         $attribute_values=AttributeValue::find($id);  
         $attribute_values->delete();
         
-         return redirect()->route('attribute-values.index')->with('success','Attribute Value deleted successfully');
+        return redirect()->route('attribute-values.index')->with('success','Attribute Value deleted successfully');
     }
 
     /**

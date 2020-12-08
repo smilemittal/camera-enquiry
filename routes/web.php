@@ -49,4 +49,4 @@ Route::resource('attribute', 'AttributeController');
 Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name('get.attribute');
 
 
-// Route::resource('product-attributes', 'ProductAttributesController');
+ Route::resource('product-attribute', 'ProductAttributesController');
