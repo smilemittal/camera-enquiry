@@ -67,7 +67,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item">
+                <li class="nav-item @if(\Route::currentRouteName() == 'attribute.create' || \Route::currentRouteName() == 'attribute.index' || \Route::currentRouteName() == 'attribute-values.create' || \Route::currentRouteName() == 'attribute-values.index') open @endif">
                     <a href="#"><i class="ft-check-circle"></i>
                         <span class="menu-title" data-i18n="">Attributes</span></a>
                     <ul class="menu-content">
@@ -77,7 +77,7 @@
                         <li>
                             <a class="menu-item" href="{{ route('attribute.index') }}">List</a>
                         </li>
-                        <li><a class="menu-item" href="#">Attribute Values</a>
+                        <li class=" @if(\Route::currentRouteName() == 'attribute-values.create' || \Route::currentRouteName() == 'attribute-values.index') open @endif"><a class="menu-item " href="#">Attribute Values</a>
                             <ul class="menu-content">
                                 <li class="">
                                     <a class="menu-item" href="{{ route('attribute-values.create') }}">Add</a>

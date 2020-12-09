@@ -12,7 +12,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> Add Product</h4>
+                                    <h4 class="card-title" id="basic-layout-form"> Add Attribute</h4>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>
@@ -73,6 +73,8 @@
                                                                 <select id="type" name="type" class="form-control">
                                                                         <option value="camera">Camera</option>
                                                                         <option value="nvr">Nvr</option>
+                                                                        <option value="recorder">Recorder</option>
+                                                                        <option value="switch">Switch</option>
                                                                 </select>
                                                      </div>
                                                      <div class="form-group">

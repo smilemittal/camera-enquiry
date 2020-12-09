@@ -16,7 +16,7 @@ class CreateAttributesTable extends Migration
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
             $table->string('name',191);
-            $table->enum('type',['camera','nvr']);
+            $table->enum('type',['camera','nvr','recorder','switch']);
             $table->integer('display_order');
             $table->unsignedBigInteger('system_type_id');
             $table->timestamps();

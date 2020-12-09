@@ -55,7 +55,7 @@
                                                     <label for="attribute_id"> Attribute </label>
                                                     <select name="attribute_id" id="attribute_id" class="form-control">
                                                         @foreach($attributes as $attribute)
-                                                            <option value="{{ $attribute->id }}">{{ $attribute->name }}
+                                                            <option value="{{ $attribute->id }}" {{ $attribute->id == $attribute_value->attribute_id ? 'selected' : '' }}>{{ $attribute->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -74,7 +74,7 @@
 
                                                         @foreach($system_types as $system_type)
                                                             
-                                                            <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
+                                                            <option value="{{ $system_type->id }}" {{ $system_type->id == $attribute_value->system_type_id ? 'selected' : '' }}>{{ $system_type->name }}</option>
                                                         
                                                         @endforeach
                                                         

@@ -74,6 +74,8 @@
                                                                 <select id="type" name="type"  class="form-control">
                                                                         <option value="camera" @if($attribute->type == 'camera') selected  @endif>Camera</option>
                                                                         <option value="nvr" @if($attribute->type == 'nvr') selected  @endif>Nvr</option>
+                                                                        <option value="recorder" @if($attribute->type == 'camera') selected  @endif>Recorder</option>
+                                                                        <option value="switch" @if($attribute->type == 'switch') selected  @endif>Switch</option>
                                                                 </select>
                                                      </div>
                                                      <div class="form-group">

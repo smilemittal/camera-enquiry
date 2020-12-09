@@ -141,12 +141,12 @@ class AttributeValuesController extends Controller
         $dir = $request->input('order.0.dir');
         if(empty($request->input('search.value')))
         {
-            $attribute_values = AttributeValue::orderBy($order, $dir)
+            $attribute_values = AttributeValue::with('system_type', 'attribute')->orderBy($order, $dir)
             ->paginate($limit, ['*'], 'page', $start + 1);
             $totalFiltered = $totalData;
         }else {
             $search = $request->input('search.value');
-            $attribute_values =  AttributeValue::where('id','LIKE',"%{$search}%")
+            $attribute_values =  AttributeValue::with('system_type', 'attribute')->where('id','LIKE',"%{$search}%")
                 ->orWhere('attribute_id', 'LIKE',"%{$search}%")
                 ->orWhere('value', 'LIKE',"%{$search}%")
                 ->orWhere('display_order', 'LIKE',"%{$search}%")
@@ -159,11 +159,12 @@ class AttributeValuesController extends Controller
         $data = array();
         if (!empty($attribute_values)) {
             foreach ($attribute_values as $key => $attribute_value) {
+
                 $nestedData['id'] = ($start * $limit) + $key + 1;
-                $nestedData['attribute_id'] = $attribute_value->attribute->name;
+                $nestedData['attribute_id'] = !empty($attribute_value->attribute) ?$attribute_value->attribute->name : '';
                 $nestedData['value'] = $attribute_value->value;
                 $nestedData['display_order'] = $attribute_value->display_order;
-                $nestedData['system_type_id'] = $attribute_value->system_type->name;
+                $nestedData['system_type_id'] = !empty($attribute_value->system_type) ? $attribute_value->system_type->name : '';
                 $index = route('attribute-values.index' ,  encrypt($attribute_value->id));
                 $edit = route('attribute-values.update' ,  encrypt($attribute_value->id));
                 $delete = route('attribute-values.destroy' ,  encrypt($attribute_value->id));

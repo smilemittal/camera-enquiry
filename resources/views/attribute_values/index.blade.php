@@ -63,20 +63,20 @@
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Attribute ID</th>
+                                                    <th>Attribute</th>
                                                     <th>Value</th>
                                                     <th>Display Order</th>
-                                                    <th>System Types</th>
+                                                    <th>System Type</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Attribute ID</th>
+                                                    <th>Attribute</th>
                                                     <th>Value</th>
                                                     <th>Display Order</th>
-                                                    <th>System Types</th>
+                                                    <th>System Type</th>
                                                     <th>Action</th>
                                                 </tr>
             
