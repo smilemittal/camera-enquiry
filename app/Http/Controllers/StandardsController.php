@@ -105,6 +105,7 @@ class StandardsController extends Controller
 
       return redirect()->route('standards.index')->with('success','Standard deleted successfully');
     }
+    
     public function getStandard(Request $request) {
         $totalData = Standard::count();
         $totalFiltered = $totalData;
