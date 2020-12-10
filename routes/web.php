@@ -54,4 +54,3 @@ Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name
 
 Route::resource('product-attribute', 'ProductAttributesController');
 
-
