@@ -51,6 +51,7 @@ Route::resource('attribute', 'AttributeController');
 Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name('get.attribute');
 
 
-
+Route::get('product-attributes/import', 'ProductAttributesController@getProductAttribute')->name('product-attributes.import');
+Route::post('product-attributes/post-import', 'ProductAttributesController@postImport')->name('product-attributes.post-import');
 Route::resource('product-attributes','ProductAttributesController');
 Route::post('product-attributes/fetchtypes','ProductAttributesController@getProductAttribute')->name('get.ProductAttributes');
