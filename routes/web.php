@@ -25,12 +25,11 @@ Route::get('/', function () {
 Route::resource('system_types', 'SystemTypesController');
 Route::post('system_types/fetchtypes','SystemTypesController@getSystemTypes')->name('get.system_types');
 
+
 Route::get('attribute-values/import', 'AttributeValuesController@importAttributeValues')->name('attribute-values.import');
 Route::post('attribute-values/post-import', 'AttributeValuesController@postImport')->name('attribute-values.post-import');
 Route::resource('attribute-values', 'AttributeValuesController');
 Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
-
-
 
 Route::get('products/create','ProductController@create')->name('product.create');
 Route::post('products/store','ProductController@store')->name('product.store');
@@ -52,5 +51,6 @@ Route::resource('attribute', 'AttributeController');
 Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name('get.attribute');
 
 
-Route::resource('product-attribute', 'ProductAttributesController');
 
+Route::resource('product-attributes','ProductAttributesController');
+Route::post('product-attributes/fetchtypes','ProductAttributesController@getProductAttribute')->name('get.ProductAttributes');
