@@ -49,10 +49,10 @@
                                     </div>
                                 @endif
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered zero-configuration" id="system_types" style="width: 100%">
+                                        <table class="table table-striped table-bordered zero-configuration" id="system_types" style="width: 100%; display: table;">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>ID</th>
                                                     <th>Name</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -62,7 +62,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>ID</th>
                                                     <th>Name</th>
                                                     <th>Action</th>
                                                 </tr>

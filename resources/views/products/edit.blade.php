@@ -58,6 +58,7 @@
                                         </div>
                                         <form method="post" action="{{ route('product.update', $product->id) }}" class="form" >
                                         @csrf
+                                        @method('PATCH')
                                             <div class="form-body">
                                                 <div class="form-group">
                                                     <label for="Name">Product Name</label>

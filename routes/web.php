@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout.home');
+    return view('welcome');
 });
 // Route::get('system_types/create', 'SystemTypesController@create')->name('system_types.create');
 // Route::post('system_types/store', 'SystemTypesController@store')->name('system_types.store');
@@ -24,14 +24,19 @@ Route::get('/', function () {
 // Route::delete('system_types/destroy/{id}','SystemTypesController@destroy')->name('system_types.destroy');
 Route::resource('system_types', 'SystemTypesController');
 Route::post('system_types/fetchtypes','SystemTypesController@getSystemTypes')->name('get.system_types');
-// Route::resource('attribute-values', 'AttributeValuesController');
+
+
+Route::get('attribute-values/import', 'AttributeValuesController@importAttributeValues')->name('attribute-values.import');
+Route::post('attribute-values/post-import', 'AttributeValuesController@postImport')->name('attribute-values.post-import');
+Route::resource('attribute-values', 'AttributeValuesController');
+Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
 
 Route::get('products/create','ProductController@create')->name('product.create');
 Route::post('products/store','ProductController@store')->name('product.store');
 Route::get('products/index','ProductController@index')->name('product.index');
 Route::delete('products/destroy/{id}','ProductController@destroy')->name('product.destroy');
 Route::get('products/edit/{id}','ProductController@edit')->name('product.edit');
-Route::post('products/update/{id}','ProductController@update')->name('product.update');
+Route::patch('products/update/{id}','ProductController@update')->name('product.update');
 Route::post('products/getproduct','ProductController@getproduct')->name('get.product');
 
 Route::get('standards/create','StandardsController@create')->name('standards.create');
@@ -43,6 +48,12 @@ Route::delete('standards/destroy/{id}','StandardsController@destroy')->name('sta
 Route::post('standards/getstandard','StandardsController@getStandard')->name('get.standards');
 
 Route::resource('attribute', 'AttributeController');
+Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name('get.attribute');
+
+
+Route::resource('product-attribute', 'ProductAttributesController');
+
+
 
 Route::resource('product-attributes','ProductAttributesController');
 Route::post('product-attributes/fetchtypes','ProductAttributesController@getProductAttribute')->name('get.ProductAttributes');
