@@ -24,7 +24,7 @@ Route::get('/', function () {
 // Route::delete('system_types/destroy/{id}','SystemTypesController@destroy')->name('system_types.destroy');
 Route::resource('system_types', 'SystemTypesController');
 Route::post('system_types/fetchtypes','SystemTypesController@getSystemTypes')->name('get.system_types');
-Route::resource('attribute-values', 'AttributeValuesController');
+// Route::resource('attribute-values', 'AttributeValuesController');
 
 Route::get('products/create','ProductController@create')->name('product.create');
 Route::post('products/store','ProductController@store')->name('product.store');
@@ -35,7 +35,7 @@ Route::post('products/update/{id}','ProductController@update')->name('product.up
 Route::post('products/getproduct','ProductController@getproduct')->name('get.product');
 
 Route::get('standards/create','StandardsController@create')->name('standards.create');
-Route::post('standards/store','StandardsController@store')->name('standards.storepost');
+Route::post('standards/store','StandardsController@store')->name('standards.store');
 Route::get('standards/index','StandardsController@index')->name('standards.index');
 Route::get('standards/edit/{id}','StandardsController@edit')->name('standards.edit');
 Route::patch('standards/update/{id}','StandardsController@update')->name('standards.update');
@@ -44,4 +44,5 @@ Route::post('standards/getstandard','StandardsController@getStandard')->name('ge
 
 Route::resource('attribute', 'AttributeController');
 
-Route::resource('product-attributes', 'ProductAttributesController');
+Route::resource('product-attributes','ProductAttributesController');
+Route::post('product-attributes/fetchtypes','ProductAttributesController@getProductAttribute')->name('get.ProductAttributes');
