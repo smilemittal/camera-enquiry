@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout.home');
+    return view('welcome');
 });
 // Route::get('system_types/create', 'SystemTypesController@create')->name('system_types.create');
 // Route::post('system_types/store', 'SystemTypesController@store')->name('system_types.store');
@@ -25,8 +25,11 @@ Route::get('/', function () {
 Route::resource('system_types', 'SystemTypesController');
 Route::post('system_types/fetchtypes','SystemTypesController@getSystemTypes')->name('get.system_types');
 
+Route::get('attribute-values/import', 'AttributeValuesController@importAttributeValues')->name('attribute-values.import');
+Route::post('attribute-values/post-import', 'AttributeValuesController@postImport')->name('attribute-values.post-import');
 Route::resource('attribute-values', 'AttributeValuesController');
 Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
+
 
 
 Route::get('products/create','ProductController@create')->name('product.create');
@@ -49,4 +52,6 @@ Route::resource('attribute', 'AttributeController');
 Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name('get.attribute');
 
 
-// Route::resource('product-attributes', 'ProductAttributesController');
+Route::resource('product-attribute', 'ProductAttributesController');
+
+

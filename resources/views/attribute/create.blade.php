@@ -73,6 +73,8 @@
                                                                 <select id="type" name="type" class="form-control">
                                                                         <option value="camera">Camera</option>
                                                                         <option value="nvr">Nvr</option>
+                                                                        <option value="recorder">Recorder</option>
+                                                                        <option value="switch">Switch</option>
                                                                 </select>
                                                      </div>
                                                      <div class="form-group">

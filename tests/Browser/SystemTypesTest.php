@@ -25,20 +25,20 @@ class SystemTypesTest extends DuskTestCase
                 ->pause(2000); 
 
             $browser->visit(route('system_types.index'))
-                ->with('#system_types', function ($table) {
-                    $table->assertSee('Pepsi')
-                ->click('btnSearchDrop12')
+                ->with('#system_types', function ($table) {     
+            $table->assertSee('test')
+                ->click('.btnSearchDrop12')
                 ->pause(1000)
                 ->click('a.edit');
             })
-                ->type('name', 'update-test')
+                ->type('name', 'update-tag-test')
                 ->press('submit')
                 ->assertSee('System type updated successfully.');
 
             $browser->visit(route('system_types.delete'))
                 ->with('#system_types', function ($table) {
             $table->assertSee('Pepsi')
-                ->click('btnSearchDrop12')
+                ->click('.btnSearchDrop12')
                 ->pause(1000)
                 ->click('a.delete');
             })

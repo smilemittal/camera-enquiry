@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Excel;
 use App\Models\Attribute;
 use App\Models\SystemType;
+use Illuminate\Http\Request;
 use App\Models\AttributeValue;
+use App\Imports\AttributeValuesImport;
+
 
 class AttributeValuesController extends Controller
 {
@@ -16,10 +19,9 @@ class AttributeValuesController extends Controller
      */
     public function index()
     {
-        $attributes=Attribute::all();
-        $system_types=SystemType::all();
-
-        return view('attribute_values.index',compact('attributes','system_types'));
+        $attribute_values=AttributeValue::with('system_type', 'attribute')->get();
+        
+        return view('attribute_values.index',compact('attribute_values'));
     }
 
     /**
@@ -52,7 +54,7 @@ class AttributeValuesController extends Controller
 
         AttributeValue::create($request->all());
 
-        return redirect()->route('attribute-values.index')->with('success','Attribute ID added successfully');
+        return redirect()->route('attribute-values.index')->with('success','Attribute Value added successfully');
     }
 
     /**
@@ -75,8 +77,8 @@ class AttributeValuesController extends Controller
     public function edit($id)
     {
         $attribute_value=AttributeValue::find($id);
-         $attributes=Attribute::all();
-          $system_types=SystemType::all();
+        $attributes=Attribute::all();
+        $system_types=SystemType::all();
 
         return view('attribute_values.edit',compact('attributes','attribute_value','system_types'));
     }
@@ -100,7 +102,7 @@ class AttributeValuesController extends Controller
         $attribute_values=AttributeValue::find($id);          
         $attribute_values->update($request->all()); 
 
-        return redirect()->route('attribute-values.index')->with('success','System type updated successfully');;
+        return redirect()->route('attribute-values.index')->with('success','Attribute Value updated successfully');;
     }
 
     /**
@@ -114,9 +116,17 @@ class AttributeValuesController extends Controller
         $attribute_values=AttributeValue::find($id);  
         $attribute_values->delete();
         
-         return redirect()->route('attribute-values.index')->with('success','System type deleted successfully');
+        return redirect()->route('attribute-values.index')->with('success','Attribute Value deleted successfully');
     }
-    public function getAttributeValues(Request $request) {
+
+    /**
+     * Fetching, Sorting attribute values and Pagination.  
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getAttributeValues(Request $request) 
+    {
         $totalData = AttributeValue::count();
         $totalFiltered = $totalData;
         $columns = array(
@@ -124,7 +134,7 @@ class AttributeValuesController extends Controller
             1 =>'attribute_id',
             2 =>'value',
             3 =>'display_order',
-            4 =>'system_types_id',
+            4 =>'system_type_id',
             5 =>'action'
         );
         $limit = $request->input('length');
@@ -134,16 +144,16 @@ class AttributeValuesController extends Controller
         $dir = $request->input('order.0.dir');
         if(empty($request->input('search.value')))
         {
-            $attribute_values = AttributeValue::orderBy($order, $dir)
+            $attribute_values = AttributeValue::with('system_type', 'attribute')->orderBy($order, $dir)
             ->paginate($limit, ['*'], 'page', $start + 1);
             $totalFiltered = $totalData;
         }else {
             $search = $request->input('search.value');
-            $attribute_values =  AttributeValue::where('id','LIKE',"%{$search}%")
+            $attribute_values =  AttributeValue::with('system_type', 'attribute')->where('id','LIKE',"%{$search}%")
                 ->orWhere('attribute_id', 'LIKE',"%{$search}%")
                 ->orWhere('value', 'LIKE',"%{$search}%")
                 ->orWhere('display_order', 'LIKE',"%{$search}%")
-                ->orWhere('system_types_id', 'LIKE',"%{$search}%")
+                ->orWhere('system_type_id', 'LIKE',"%{$search}%")
                 ->orderBy($order, $dir)
                 ->paginate($limit, ['*'], 'page', $start + 1);
 
@@ -152,11 +162,12 @@ class AttributeValuesController extends Controller
         $data = array();
         if (!empty($attribute_values)) {
             foreach ($attribute_values as $key => $attribute_value) {
+
                 $nestedData['id'] = ($start * $limit) + $key + 1;
-                $nestedData['attribute_id'] = $attribute_value->attribute_id;
+                $nestedData['attribute_id'] = !empty($attribute_value->attribute) ?$attribute_value->attribute->name : '';
                 $nestedData['value'] = $attribute_value->value;
                 $nestedData['display_order'] = $attribute_value->display_order;
-                $nestedData['system_type_id'] = $attribute_value->system_type_id;
+                $nestedData['system_type_id'] = !empty($attribute_value->system_type) ? $attribute_value->system_type->name : '';
                 $index = route('attribute-values.index' ,  encrypt($attribute_value->id));
                 $edit = route('attribute-values.update' ,  encrypt($attribute_value->id));
                 $delete = route('attribute-values.destroy' ,  encrypt($attribute_value->id));
@@ -174,4 +185,21 @@ class AttributeValuesController extends Controller
         );
         return json_encode($json_data);
     }
+
+    public function importAttributeValues(){
+        return view('imports.attribute-values');
+    }
+
+    public function postImport(Request $request){
+
+        if($request->hasFile('import-attribute-values')){
+          
+            Excel::import(new AttributeValuesImport, request()->file('import-attribute-values'));
+
+        }
+      
+        return redirect()->route('attribute-values.import')->with('success', 'Products exported successfully');
+    }
+
+
 }

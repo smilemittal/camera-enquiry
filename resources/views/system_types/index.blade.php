@@ -49,7 +49,7 @@
                                     </div>
                                 @endif
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered zero-configuration" id="system_types" style="width: 100%">
+                                        <table class="table table-striped table-bordered zero-configuration" id="system_types" style="width: 100%; display: table;">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>

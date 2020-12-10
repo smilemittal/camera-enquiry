@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductAttributes extends Model
+class ProductAttribute extends Model
 {
     use HasFactory;
     use SoftDeletes;
