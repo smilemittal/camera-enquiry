@@ -58,10 +58,10 @@
                         <li><a class="menu-item" href="#">Product Attributes</a>
                             <ul class="menu-content">
                                 <li class="">
-                                    <a class="menu-item" href="{{ route('product-attribute.create') }}">Add</a>
+                                    <a class="menu-item" href="{{ route('product-attributes.create') }}">Add</a>
                                 </li>
                                 <li>
-                                    <a class="menu-item" href="{{ route('product-attribute.index') }}">List</a>
+                                    <a class="menu-item" href="{{ route('product-attributes.index') }}">List</a>
                                 </li>
                             </ul>
                         </li>
