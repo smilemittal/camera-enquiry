@@ -83,7 +83,7 @@
                                                     </select>
                                                 </div>
                                             
-                                            <div class="form-actions" style="text-align: center;">
+                                                <div class="form-actions" style="text-align: center;">
                                                 <a href="{{ route('product-attributes.index')}}" method="post" class="btn btn-primary" type="submit">View all</a>    
                                                 <button type="submit" class="btn btn-success">Save
                                                 </button>

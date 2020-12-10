@@ -8,9 +8,6 @@ use App\Models\ProductAttribute;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
 
-
-
-
 class ProductAttributesController extends Controller
 
 {
@@ -97,8 +94,8 @@ class ProductAttributesController extends Controller
     public function update(Request $request, $id)
     {
          $request->validate(['product_id'=>'required',
-                      'attribute_id'=>'required',
-                'attribute_value_id'=>'required']);
+                           'attribute_id'=>'required',
+                     'attribute_value_id'=>'required']);
 
          $product_attributes = ProductAttribute::find($id);
          $product_attributes->update($request->all());
@@ -122,7 +119,8 @@ class ProductAttributesController extends Controller
 
     }
     
-        public function getProductAttribute(Request $request) {
+        public function getProductAttribute(Request $request) 
+        {
         $totalData = ProductAttribute::count();
         $totalFiltered = $totalData;
         $columns = array(
@@ -159,18 +157,9 @@ class ProductAttributesController extends Controller
         if (!empty($productatrributes)) {
             foreach ($productatrributes as $key => $productatrribute) {
                 $nestedData['id'] = ($start * $limit) + $key + 1;
-                $nestedData['product_id']=($productatrribute->id);
-                $nestedData['attribute_id']=($productatrribute->id);
-                $nestedData['attribute_value_id']=($productatrribute->id);
-
-
-
-
-/*
-                $nestedData['product_id'] = !empty($productatrribute->product) ?$productatrribute->product->name:'';
-                $nestedData['attribute_id'] = !empty($productatrribute->attribute) ?$productatrribute->attribute->name:'';
-                $nestedData['attribute_value_id'] = !empty($productatrribute->attribute_value) ?$productatrribute->attributevalue->id:'';*/
-
+                $nestedData['product_id'] = !empty($productatrribute->product) ?$productatrribute->product->name : '';
+                $nestedData['attribute_id'] = !empty($productatrribute->attribute) ?$productatrribute->attribute->name : '';
+                $nestedData['attribute_value_id'] = !empty($productatrribute->attribute_value) ?$productatrribute->attribute_value->value: '';
                 $index = route('product-attributes.index' ,  encrypt($productatrribute->id));
                 $edit = route('product-attributes.edit' ,  encrypt($productatrribute->id));
                 $delete = route('product-attributes.destroy' ,  encrypt($productatrribute->id));
@@ -187,10 +176,10 @@ class ProductAttributesController extends Controller
             "data" => $data
         );
         return json_encode($json_data);
-    
+        }
+}
 
-}
-}
+
 
 
 
