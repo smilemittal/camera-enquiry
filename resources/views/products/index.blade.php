@@ -50,7 +50,7 @@
                                     @endif
                                    
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered zero-configuration" style="width:100%" id="product">
+                                            <table class="table table-striped table-bordered zero-configuration" style="width:100%; display:table;"  id="product">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>

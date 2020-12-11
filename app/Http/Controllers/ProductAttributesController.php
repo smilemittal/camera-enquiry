@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Excel;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
-
-
-
+use App\Imports\ProductAttributesImport;
 
 class ProductAttributesController extends Controller
 
@@ -21,7 +20,7 @@ class ProductAttributesController extends Controller
      */
     public function index()
     {
-        $productattributes = ProductAttribute::all();
+        $productattributes = ProductAttribute::with('product','attribute','attribute_value')->get();
          
 
          return view('productattributes.index', compact('productattributes'));         
@@ -37,6 +36,7 @@ class ProductAttributesController extends Controller
         $products = Product::all();
         $attributes = Attribute::all();
         $attributevalues =AttributeValue::all();
+
          return view('productattributes.create', compact('products', 'attributes','attributevalues'));
     }
 
@@ -48,9 +48,11 @@ class ProductAttributesController extends Controller
      */
     public function store(Request $request)
     {
-    $request->validate(['product_id'=>'required',
-                      'attribute_id'=>'required',
-                'attribute_value_id'=>'required']);
+        $request->validate([
+            'product_id'=>'required',
+            'attribute_id'=>'required',
+            'attribute_value_id'=>'required'
+        ]);
 
         ProductAttribute::create($request->all());
 
@@ -82,6 +84,7 @@ class ProductAttributesController extends Controller
         $products = Product::all();
         $attributes = Attribute::all();
         $attributevalues =AttributeValue::all();
+
          return view('productattributes.edit', compact('id','product_attributes','products', 'attributes','attributevalues'));
        
     }
@@ -95,9 +98,12 @@ class ProductAttributesController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $request->validate(['product_id'=>'required',
-                      'attribute_id'=>'required',
-                'attribute_value_id'=>'required']);
+         $request->validate
+         ([
+            'product_id'=>'required',
+            'attribute_id'=>'required',
+            'attribute_value_id'=>'required'
+        ]);
 
          $product_attributes = ProductAttribute::find($id);
          $product_attributes->update($request->all());
@@ -117,21 +123,30 @@ class ProductAttributesController extends Controller
 
     $product_attributes = ProductAttribute::find($id);
     $product_attributes->delete();
+
     return redirect()->route('product-attributes.index')->with('success','ProductAttributes deleted successfully');         
 
     }
+    /**
+     * Fetching, Sorting attribute values and Pagination.  
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     
-        public function getProductAttribute(Request $request) 
+    public function getProductAttribute(Request $request)
         {
         $totalData = ProductAttribute::count();
         $totalFiltered = $totalData;
         $columns = array(
-            0 =>'id',
-            1 =>'product_id',
-            2 =>'attribute_id',
-            3 =>'attribute_value_id',
-            4 =>'action',   
+        0 =>'id',
+        1 =>'product_id',
+        2 =>'attribute_id',
+        3 =>'attribute_value_id',
+        4 =>'action',
+
         );
+
         $limit = $request->input('length');
         $start = $request->input('start');
         $start = $start ? $start / $limit : 0;
@@ -139,66 +154,68 @@ class ProductAttributesController extends Controller
         $dir = $request->input('order.0.dir');
         if(empty($request->input('search.value')))
         {
-            $productatrributes = ProductAttribute::with('product', 'attribute','attributevalue')->orderBy($order, $dir)
-            ->paginate($limit, ['*'], 'page', $start + 1);
-            $totalFiltered = $totalData;
-        }
-        else 
-        {
-            $search = $request->input('search.value');
-            $productatrributes =  ProductAttribute::with('product', 'attribute','attributevalue')->where('id','LIKE',"%{$search}%")
-                ->orWhere('product_id', 'LIKE',"%{$search}%")
-                ->orWhere('attribute_id', 'LIKE',"%{$search}%")
-                ->orWhere('attribute_value_id', 'LIKE',"%{$search}%")
-                ->orderBy($order, $dir)
-                ->paginate($limit, ['*'], 'page', $start + 1);
+        $productattributes = ProductAttribute::with('product','attribute','attribute_value')->orderBy($order, $dir)
+        ->paginate($limit, ['*'], 'page', $start + 1);
+        $totalFiltered = $totalData;
+        }else {
+        $search = $request->input('search.value');
+        $productattributes = ProductAttribute::with('product','attribute','attribute_value')->where('id','LIKE',"%{$search}%")
+        ->orWhere('product_id', 'LIKE',"%{$search}%")
+        ->orWhere('attribute_id', 'LIKE',"%{$search}%")
+        ->orWhere('attribute_value_id', 'LIKE',"%{$search}%")
+        ->orderBy($order, $dir)
+        ->paginate($limit, ['*'], 'page', $start + 1);
 
-            $totalFiltered = $productatrributes->count();
+        $totalFiltered = $productattributes->count();
         }
+        
         $data = array();
-        if (!empty($productatrributes)) 
-        {
-            foreach ($productatrributes as $key => $productattribute) 
-            {
-                $nestedData['id'] = ($start * $limit) + $key + 1;
-                $nestedData['product_id']= !empty($productattribute->product) ?$productattribute->id :'';
-                $nestedData['attribute_id']= !empty($productattribute->attribute) ?$productattribute->id : '';
-                $nestedData['attribute_value_id']= !empty($productattribute->attributevalue) ?$productattribute->value : '';
-                $index = route('product-attributes.index' ,  encrypt($productattribute->id));
-                $edit = route('product-attributes.edit' ,  encrypt($productattribute->id));
-                $delete = route('product-attributes.destroy' ,  encrypt($productattribute->id));
-                $exist = $productattribute;
-                $comp = true;
-                $nestedData['action'] = view('productattributes.partials.setting-action',compact('index','exist','comp','edit','delete', 'productattribute'))->render();
-                $data[] = $nestedData;
-            }
+        if (!empty($productattributes)) {
+        foreach ($productattributes as $key => $productattribute) {
+        $nestedData['id'] = ($start * $limit) + $key + 1;
+        $nestedData['product_id'] = !empty($productattribute->product) ?$productattribute->product->name : '';
+        $nestedData['attribute_id'] = !empty($productattribute->attribute) ?$productattribute->attribute->name : '';
+        $nestedData['attribute_value_id'] = !empty($productattribute->attribute_value) ?$productattribute->attribute_value->value: '';
+        $index = route('product-attributes.index' , encrypt($productattribute->id));
+        $edit = route('product-attributes.edit' , encrypt($productattribute->id));
+        $delete = route('product-attributes.destroy' , encrypt($productattribute->id));
+        $exist = $productattribute;
+        $comp = true;
+        $nestedData['action'] = view('productattributes.partials.setting-action',compact('index','exist','comp','edit','delete', 'productattribute'))->render();
+        $data[] = $nestedData;
+        }
         }
         $json_data = array(
-            "draw"=> intval($request->input('draw')),
-            "recordsTotal" => intval($totalData),
-            "recordsFiltered" => intval($totalFiltered),
-            "data" => $data
+        "draw"=> intval($request->input('draw')),
+        "recordsTotal" => intval($totalData),
+        "recordsFiltered" => intval($totalFiltered),
+        "data" => $data
         );
         return json_encode($json_data);
-    
+
 
         }
 
-    public function importProductAttributes(){
-        return view('imports.product-attributes');
-    }
+     public function importProductAttribute()
+        {
+            return view('imports.product-attributes');
+        }
 
-    public function postImport(Request $request){
+        public function postImport(Request $request)
+        {
 
-        if($request->hasFile('import-product-attributes')){
+            if($request->hasFile('import-product-attributes')){
+              
+                Excel::import(new ProductAttributesImport, request()->file('import-product-attributes'));
+
+        }
           
-            Excel::import(new ProductAttributesImport, request()->file('import-product-attributes'));
-
+            return redirect()->route('product-attributes.import')->with('success', 'Products imported successfully');
         }
-      
-        return redirect()->route('product-attributes.import')->with('success', 'Products exported successfully');
-    }       
+
 }
+
+
 
 
 
