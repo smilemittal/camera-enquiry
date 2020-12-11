@@ -52,38 +52,33 @@
                                         <form class="form" action="{{ route('product-attributes.update',$id) }}" method="post">
                                             @method('PATCH')
                                             @csrf  
-                                            <div class="form-body">
                                                 <div class="form-group">
                                                     <label for="Product_id">Product</label>
-                                                   
                                                     <select name="product_id" id="product_id" class="form-control">
-
-
                                                     @foreach($products as $product)
-                                                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                        <option value="{{ $product->id }}" {{ $product->id == $product_attributes->product_id ? 'selected' : '' }}>{{ $product->name }}</option>
+
                                                     @endforeach 
-                                                    </select>
-                                                   
-                                                </div>
-                                            </div>
-                                            <div class="form-body">
-                                                <div class="form-group">
+                                                    </select>                                                 
+                                                </div>                                         
+                                             <div class="form-group">
                                                     <label for="name">Attribute</label>
-                                                  <!--  <input type="text" id="attributes id" class="form-control" placeholder="attribute id" name="attributes_id">-->
-                                                 <select name="attribute_id" id="attribute_id" class="form-control">
+                                               <select name="attribute_id" id="attribute_id" class="form-control">
                                                     @foreach($attributes as $attribute)
-                                                        <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
+                                                    <option value="{{ $attribute->id }}" {{ $attribute->id == $product_attributes->attribute_id ? 'selected' : '' }}>{{ $attribute->name }}</option>
+
+                                                    
                                                     @endforeach 
-                                                    </select>
-                                                </div>
+                                               </select>
                                             </div>
                                             <div class="form-body">
                                                 <div class="form-group">
                                                     <label for="name">Attribute Value</label>
-                                                   <!-- <input type="text" id="attributes value id" class="form-control" placeholder="attribute value id" name="attributes_value_id">-->
-                                                   <select name="attribute_value_id" id="attribute_id" class="form-control">
+                                                 <select name="attribute_value_id" id="attribute_value_id" class="form-control">
                                                     @foreach($attributevalues as $attributevalue)
-                                                        <option value="{{ $attributevalue->id }}">{{ $attributevalue->value }}</option>
+                                                        
+                                                        <option value="{{ $attributevalue->id }}" {{ $attributevalue->id == $product_attributes->attribute_value_id ? 'selected' : '' }}>{{ $attributevalue->value }}</option>
+
                                                     @endforeach 
                                                     </select>
                                                 </div>
@@ -93,8 +88,6 @@
                                                 <button type="submit" class="btn btn-success">Save
                                                 </button>
                                             </div>
-
-                                          
                                           </form>
                                     </div>
                                 </div>
@@ -102,7 +95,5 @@
                         </div>
                     </div>
                 </section>
-
-
-</div> -->
+</div>
 @endsection
