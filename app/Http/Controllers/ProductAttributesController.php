@@ -8,6 +8,9 @@ use App\Models\ProductAttribute;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
 
+
+
+
 class ProductAttributesController extends Controller
 
 {
@@ -100,7 +103,7 @@ class ProductAttributesController extends Controller
          $product_attributes = ProductAttribute::find($id);
          $product_attributes->update($request->all());
          
-          return redirect()->route('product-attributes.index')->with('success','ProductAttributes updated successfully');         
+          return redirect()->route('product-attributes.index')->with('updated_success','ProductAttributes updated successfully');         
 
     }
 
@@ -115,7 +118,7 @@ class ProductAttributesController extends Controller
 
     $product_attributes = ProductAttribute::find($id);
     $product_attributes->delete();
-    return redirect()->route('product-attributes.index')->with('success','ProductAttributes deleted successfully');         
+    return redirect()->route('product-attributes.index')->with('deleted_success','ProductAttributes deleted successfully');         
 
     }
     
@@ -139,33 +142,33 @@ class ProductAttributesController extends Controller
         $dir = $request->input('order.0.dir');
         if(empty($request->input('search.value')))
         {
-            $productatrributes = ProductAttribute::orderBy($order, $dir)
+            $productattributes = ProductAttribute::orderBy($order, $dir)
             ->paginate($limit, ['*'], 'page', $start + 1);
             $totalFiltered = $totalData;
         }else {
             $search = $request->input('search.value');
-            $productatrributes =  ProductAttribute::where('id','LIKE',"%{$search}%")
+            $productattributes =  ProductAttribute::where('id','LIKE',"%{$search}%")
                 ->orWhere('product_id', 'LIKE',"%{$search}%")
                 ->orWhere('attribute_id', 'LIKE',"%{$search}%")
                 ->orWhere('attribute_value_id', 'LIKE',"%{$search}%")
                 ->orderBy($order, $dir)
                 ->paginate($limit, ['*'], 'page', $start + 1);
 
-            $totalFiltered = $productatrributes->count();
+            $totalFiltered = $productattributes->count();
         }
         $data = array();
-        if (!empty($productatrributes)) {
-            foreach ($productatrributes as $key => $productatrribute) {
+        if (!empty($productattributes)) {
+            foreach ($productattributes as $key => $productattribute) {
                 $nestedData['id'] = ($start * $limit) + $key + 1;
-                $nestedData['product_id'] = !empty($productatrribute->product) ?$productatrribute->product->name : '';
-                $nestedData['attribute_id'] = !empty($productatrribute->attribute) ?$productatrribute->attribute->name : '';
-                $nestedData['attribute_value_id'] = !empty($productatrribute->attribute_value) ?$productatrribute->attribute_value->value: '';
-                $index = route('product-attributes.index' ,  encrypt($productatrribute->id));
-                $edit = route('product-attributes.edit' ,  encrypt($productatrribute->id));
-                $delete = route('product-attributes.destroy' ,  encrypt($productatrribute->id));
-                $exist = $productatrribute;
+                $nestedData['product_id'] = !empty($productattribute->product) ?$productattribute->product->name : '';
+                $nestedData['attribute_id'] = !empty($productattribute->attribute) ?$productattribute->attribute->name : '';
+                $nestedData['attribute_value_id'] = !empty($productattribute->attribute_value) ?$productattribute->attribute_value->value: '';
+                $index = route('product-attributes.index' ,  encrypt($productattribute->id));
+                $edit = route('product-attributes.edit' ,  encrypt($productattribute->id));
+                $delete = route('product-attributes.destroy' ,  encrypt($productattribute->id));
+                $exist = $productattribute;
                 $comp = true;
-                $nestedData['action'] = view('productattributes.partials.setting-action',compact('index','exist','comp','edit','delete', 'productatrribute'))->render();
+                $nestedData['action'] = view('productattributes.partials.setting-action',compact('index','exist','comp','edit','delete', 'productattribute'))->render();
                 $data[] = $nestedData;
             }
         }
@@ -176,7 +179,10 @@ class ProductAttributesController extends Controller
             "data" => $data
         );
         return json_encode($json_data);
+    
+
         }
+
 }
 
 

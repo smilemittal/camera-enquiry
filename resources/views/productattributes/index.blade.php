@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('styles')
-<link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
 @endsection  
 @section('content') 
 <!--BEGIN content--> 
@@ -39,13 +39,23 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                 </div>
                     <!--Card Content start-->
                     <div class="card-content collapse show">
 	                    <div class="card-body">
 	                        @if(\Session::has('success'))
                                 <div class="alert alert-success">
                                     {{\Session::get('success')}}
+                                </div>
+                            @endif
+                            @if(\Session::has('updated_success'))
+                                <div class="alert alert-warning">
+                                    {{\Session::get('updated_success')}}
+                                </div>
+                            @endif
+                            @if(\Session::has('deleted_success'))
+                                <div class="alert alert-danger">
+                                    {{\Session::get('deleted_success')}}
                                 </div>
                             @endif
 	                   
@@ -58,35 +68,16 @@
                                              <th>Attribute</th>
                                               <th>Attribute Value</th>
                                               <th>Action</th>
-	                                        
 	                                    </tr>
 	                                </thead>
-                                    <!-- <tbody>
-                                    @foreach($productattributes as $attribute)
-                                       <tr>
-                                            <td>{{$attribute->id}}</td>
-                                            <td>{{$attribute->product_id}}</td>
-                                            <td>{{$attribute->attribute_id}}</td>
-                                            <td>{{$attribute->attribute_value_id}}</td>
-                                            <td><a href="{{ route('product-attributes.edit', $attribute->id) }}" method="post">Edit</a>
-
-                                            <form action="{{ route('product-attributes.destroy', $attribute->id)}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger" type="submit">Delete</button>
-                                            </form>
-                                            </td> 
-                                            </tr>
-                                            @endforeach
-                                        </tbody> -->
                                     <tfoot>
-                                     <tr>
-                                        <th>ID</th>
-                                            <th>Product</th>
+                                        <tr>
+                                             <th>ID</th>
+                                             <th>Product</th>
                                              <th>Attribute</th>
-                                              <th>Attribute Value</th>
-                                            <th>Action</th>
-                                     </tr>   
+                                             <th>Attribute Value</th>
+                                             <th>Action</th>
+                                         </tr>   
                                     </tfoot> 
 	                            </table>
 	                        </div>
