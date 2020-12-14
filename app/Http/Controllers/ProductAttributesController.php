@@ -208,6 +208,7 @@ class ProductAttributesController extends Controller
 
             if($request->hasFile('import-product-attributes')){
               
+              
                 Excel::import(new ProductAttributesImport, request()->file('import-product-attributes'));
 
         }
