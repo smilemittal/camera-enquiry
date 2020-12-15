@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Excel;
 use Illuminate\Http\Request;
 use App\Imports\StandardsImport;
+use App\Exports\StandardsExport;
 use App\Models\Standard;
 
 class StandardsController extends Controller
@@ -174,5 +175,10 @@ class StandardsController extends Controller
     }
       
         return redirect()->route('standards.import')->with('success', 'Products Imported successfully');
+    }
+
+    public function export()
+    {
+        return Excel::download(new StandardsExport , "standards.xlsx");
     }
 }
