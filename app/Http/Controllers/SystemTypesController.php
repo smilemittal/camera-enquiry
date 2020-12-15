@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Excel;
+use App\Imports\SystemTypesImport;
 use Illuminate\Http\Request;
 use App\Models\SystemType;
 
@@ -156,5 +158,21 @@ class SystemTypesController extends Controller
         return json_encode($json_data);
     }
 
+        public function importSystemTypes()
+    {
+        return view('imports.system-types');
+    }
 
+    public function postImport(Request $request)
+    {
+
+        if($request->hasFile('import-system-types')){
+          
+            Excel::import(new SystemTypesImport, request()->file('import-system-types'));
+
+    }
+      
+        return redirect()->route('system-types.import')->with('success', 'Products Imported successfully');
+    }
+    
 }

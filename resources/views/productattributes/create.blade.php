@@ -7,35 +7,8 @@
                     <div class="row match-height justify-content-center">
                         <div class="col-md-8">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">Add ProductAttributes</h4>
-                                    <a class="heading-elements-toggle">
-                                        <i class="la la-ellipsis-v font-medium-3"></i>
-                                    </a>
-                                    <div class="heading-elements">
-                                        <ul class="list-inline mb-0">
-                                            <li>
-                                                <a data-action="collapse">
-                                                    <i class="ft-minus"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-action="reload">
-                                                    <i class="ft-rotate-cw"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-action="expand">
-                                                    <i class="ft-maximize"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-action="close">
-                                                    <i class="ft-x"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <div class="card-header" style="height: 50px;">
+                                    <h4 class="card-title" id="basic-layout-form">Add Product Attributes <a href="{{ route('product-attributes.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" style="float: right;"> Import </a></h4>
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
@@ -58,31 +31,24 @@
                                                         <option value="{{ $product->id }}">{{ $product->name }}</option>
                                                     @endforeach 
                                                     </select>
-                                                   
                                                 </div>
-                                            </div>
-                                            
                                                 <div class="form-group">
                                                     <label for="attribute_id">Attribute </label>
-                                                  <!--  <input type="text" id="attributes id" class="form-control" placeholder="attribute id" name="attributes_id">-->
                                                  <select name="attribute_id" id="attribute_id" class="form-control">
                                                     @foreach($attributes as $attribute)
                                                         <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
                                                     @endforeach 
                                                     </select>
                                                 </div>
-                                            
-                                            
                                                 <div class="form-group">
                                                     <label for="attributes_value_id">Attribute Value </label>
-                                                   <!-- <input type="text" id="attributes value id" class="form-control" placeholder="attribute value id" name="attributes_value_id">-->
                                                    <select name="attribute_value_id" id="attribute_value_id" class="form-control">
                                                     @foreach($attributevalues as $attributevalue)
                                                         <option value="{{ $attributevalue->id }}">{{ $attributevalue->value }}</option>
                                                     @endforeach 
                                                     </select>
                                                 </div>
-                                            
+                                                </div>
                                                 <div class="form-actions" style="text-align: center;">
                                                 <a href="{{ route('product-attributes.index')}}" method="post" class="btn btn-primary" type="submit">View all</a>    
                                                 <button type="submit" class="btn btn-success">Save
