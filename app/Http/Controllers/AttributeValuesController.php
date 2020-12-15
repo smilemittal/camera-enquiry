@@ -8,6 +8,7 @@ use App\Models\SystemType;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
 use App\Imports\AttributeValuesImport;
+use App\Exports\AttributeValuesExport;
 
 
 class AttributeValuesController extends Controller
@@ -200,7 +201,7 @@ class AttributeValuesController extends Controller
 
     }
       
-        return redirect()->route('attribute-values.import')->with('success', 'Products exported successfully');
+        return redirect()->route('attribute-values.import')->with('success', 'Products Imported successfully');
     }
     
 }

@@ -22,12 +22,15 @@ Route::get('/', function () {
 // Route::get('system_types/edit/{id}','SystemTypesController@edit')->name('system_types.edit');
 // Route::patch('system_types/update/{id}','SystemTypesController@update')->name('system_types.update');
 // Route::delete('system_types/destroy/{id}','SystemTypesController@destroy')->name('system_types.destroy');
+Route::get('system_types/import','SystemTypesController@importSystemTypes')->name('system-types.import');
+Route::post('system_types/post-import','SystemTypesController@postImport')->name('system-types.post-import');
 Route::resource('system_types', 'SystemTypesController');
 Route::post('system_types/fetchtypes','SystemTypesController@getSystemTypes')->name('get.system_types');
 
 
 Route::get('attribute-values/import', 'AttributeValuesController@importAttributeValues')->name('attribute-values.import');
 Route::post('attribute-values/post-import', 'AttributeValuesController@postImport')->name('attribute-values.post-import');
+Route::get('attribute-values/export', 'AttributeValuesController@export')->name('attribute-values.export');
 Route::resource('attribute-values', 'AttributeValuesController');
 Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
 
@@ -39,6 +42,9 @@ Route::get('products/edit/{id}','ProductController@edit')->name('product.edit');
 Route::patch('products/update/{id}','ProductController@update')->name('product.update');
 Route::post('products/getproduct','ProductController@getproduct')->name('get.product');
 
+
+Route::get('standards/import', 'StandardsController@importStandards')->name('standards.import');
+Route::post('standards/post-import', 'StandardsController@postImport')->name('standards.post-import');
 Route::get('standards/create','StandardsController@create')->name('standards.create');
 Route::post('standards/store','StandardsController@store')->name('standards.store');
 Route::get('standards/index','StandardsController@index')->name('standards.index');

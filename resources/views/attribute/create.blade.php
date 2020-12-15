@@ -69,19 +69,10 @@
                                                             <input type="text" id="name" class="form-control" placeholder="Name" name="name">
                                                      </div> 
                                                      <div class="form-group">
-                                                            <label for="type">Type</label>
-                                                                <select id="type" name="type" class="form-control">
-                                                                        <option value="camera">Camera</option>
-                                                                        <option value="nvr">Nvr</option>
-                                                                        <option value="recorder">Recorder</option>
-                                                                        <option value="switch">Switch</option>
-                                                                </select>
-                                                     </div>
-                                                     <div class="form-group">
                                                             <label for="Name"> Display Order</label>
                                                             <input type="text" id="display_order" class="form-control" placeholder="display_order" name="display_order">
                                                      </div> 
-                                                     <div class="form-group">
+                                                       <div class="form-group">
                                                             <label for="system_type_id"> System Type</label>
                                                            
                                                            <select name="system_type_id" id="system_type_id" class="form-control">
@@ -90,6 +81,16 @@
                                                             @endforeach
                                                            </select>
                                                      </div> 
+                                                     <div class="form-group">
+                                                            <label for="type">Type</label>
+                                                                <select id="type" name="type" class="form-control">
+                                                                        <option value="camera">Camera</option>
+                                                                        <option value="nvr">Nvr</option>
+                                                                        <option value="recorder">Recorder</option>
+                                                                        <option value="switch">Switch</option>
+                                                                </select>
+                                                     </div>
+                                                   
 
                                                     <div class="form-actions" style="text-align:center">
                                                             <a  class=" btn btn-primary" href="{{ route('attribute.index') }}"> View All</a>           
