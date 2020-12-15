@@ -68,6 +68,34 @@
                                                     <label for="Name">Product Name</label>
                                                     <input type="text" id="name" class="form-control" placeholder="name" name="name">
                                                 </div>   
+
+                                                <div class="form-group">
+                                                    <select name="type" id="type" class="form-control">
+                                                            <option value="">Select</option>  
+                                                            <option value="camera">Camera</option>
+                                                            <option value="nvr">Nvr</option>
+                                                            <option value="recorder">Recorder</option>
+                                                            <option value="switch">Switch</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <select name="system_type_id" id="system_type_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($system_types as $system_type)
+                                                            <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <hr>
+                                                <div>
+                                                   <h5>Add Product Attributes</h5>
+
+                                                   <div id="product_attribute_div">
+
+                                                   </div>
+                                                </div>
+                                               
                                                 <div class="form-actions" style="text-align:center">
                                                         <a  class=" btn btn-primary" href="{{ route('product.index') }}"> View All</a>           
                                                         <button type="submit" name="submit" class="btn btn-success">
@@ -89,3 +117,47 @@
 
 @endsection
 
+@section('scripts')
+    <script>
+        $('#type').on('change', function(){
+            var type = $(this).val();
+            var system_type_id = $("#system_type_id option:selected").val();
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('get-product-attributes') }}',
+                data: {
+                    'type': type,
+                    'system_type_id': system_type_id,
+                    '_token': '{{ csrf_token() }}',
+                },
+                success: function(data){
+                    console.log(data);
+                    $('#product_attribute_div').empty();
+                    $('#product_attribute_div').append(data.html);
+                }
+            });
+        });
+
+        $('#system_type_id').on('change', function(){
+            var type = $("#type option:selected").val()
+            var system_type_id = $(this).val();;
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('get-product-attributes') }}',
+                data: {
+                    'type': type,
+                    'system_type_id': system_type_id,
+                    '_token': '{{ csrf_token() }}',
+                },
+                success: function(data){
+                    console.log(data);
+                    $('#product_attribute_div').empty();
+                    $('#product_attribute_div').append(data.html);
+                }
+            });
+        });
+    </script>
+
+@endsection

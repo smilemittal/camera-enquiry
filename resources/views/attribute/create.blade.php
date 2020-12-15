@@ -92,6 +92,10 @@
                                                      </div>
                                                    
 
+                                                     
+                                                    
+                                                     
+
                                                     <div class="form-actions" style="text-align:center">
                                                             <a  class=" btn btn-primary" href="{{ route('attribute.index') }}"> View All</a>           
                                                             <button type="submit" name="submit" class="btn btn-success">
