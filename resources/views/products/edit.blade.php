@@ -64,6 +64,57 @@
                                                     <label for="Name">Product Name</label>
                                                     <input type="text" id="name" class="form-control" value="{{$product->name}}" name="name">
                                                 </div> 
+                                                
+                                                <div class="form-group">
+                                                    <select name="type" id="type" class="form-control">
+                                                            <option value="">Select</option>  
+                                                            <option value="camera" @if($product->type == 'camera') selected @endif>Camera</option>
+                                                            <option value="nvr" @if($product->type == 'nvr') selected @endif>Nvr</option>
+                                                            <option value="recorder" @if($product->type == 'recorder') selected @endif>Recorder</option>
+                                                            <option value="switch" @if($product->type == 'switch') selected @endif>Switch</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <select name="system_type_id" id="system_type_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($system_types as $system_type)
+                                                            <option value="{{ $system_type->id }}"  @if($product->system_type_id == $system_type->id) selected @endif>{{ $system_type->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+
+                                                <hr>
+                                                <div>
+                                                   <h5>Add Product Attributes</h5>
+
+                                                   <div id="product_attribute_div">
+                                                    @foreach($attributes as $attribute)
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <input type="text" id="attribute" data-attribute_id="{{ $attribute->id }}" value="{{ $attribute->name }}" readonly class="form-control">
+                                                                
+                                                                </div>
+                                                            </div>
+                                                         
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <select name="attribute_value[{{ $attribute->id }}]" id="" class="form-control">
+                                                                        <option value="">Select</option>
+                                                                        @if(!empty($attribute->attribute_values))
+                                                                            @foreach($attribute->attribute_values as $value) 
+                                                                                <option value="{{ $value->id }}" @if(!empty($attribute_value_ids) && in_array($value->id, $attribute_value_ids)) selected @endif>{{ $value->value }}</option>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                   </div>
+                                                </div>
+
                                                 <div class="form-actions" style="text-align:center">
                                                     <a  class=" btn btn-primary" href="{{ route('product.index') }}"> View All</a>             
                                                     <button type="submit" name="submit" class="btn btn-success">
@@ -82,6 +133,50 @@
             </div>
        
     <!-- END: Content-->
+
+@endsection
+@section('scripts')
+    <script>
+        $('#type').on('change', function(){
+            var type = $(this).val();
+            var system_type_id = $("#system_type_id option:selected").val();
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('get-product-attributes') }}',
+                data: {
+                    'type': type,
+                    'system_type_id': system_type_id,
+                    '_token': '{{ csrf_token() }}',
+                },
+                success: function(data){
+                    console.log(data);
+                    $('#product_attribute_div').empty();
+                    $('#product_attribute_div').append(data.html);
+                }
+            });
+        });
+
+        $('#system_type_id').on('change', function(){
+            var type = $("#type option:selected").val()
+            var system_type_id = $(this).val();;
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('get-product-attributes') }}',
+                data: {
+                    'type': type,
+                    'system_type_id': system_type_id,
+                    '_token': '{{ csrf_token() }}',
+                },
+                success: function(data){
+                    console.log(data);
+                    $('#product_attribute_div').empty();
+                    $('#product_attribute_div').append(data.html);
+                }
+            });
+        });
+    </script>
 
 @endsection
 

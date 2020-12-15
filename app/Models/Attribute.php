@@ -11,4 +11,8 @@ class Attribute extends Model
     use HasFactory;
     use SoftDeletes;
     public $fillable=['name','type','display_order','system_type_id'];
+
+    public function attribute_values(){
+        return $this->hasMany(AttributeValue::class, 'attribute_id', 'id');
+    }
 }
