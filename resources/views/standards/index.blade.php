@@ -19,7 +19,7 @@
                 <div class="card">
                     <div class="card-header" style="height: 50px;">
                         <div class="card-title layout_btns" id="basic-layout-form">
-                            <h3>System Types</h3>
+                            <h3>Standards</h3>
                                 <div class="btns-right-side">
                                     <a href="{{ route('standards.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >Import </a> 
                                     <a href="{{ route('standards.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" > Export</a>
