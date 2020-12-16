@@ -139,7 +139,7 @@ class AttributeController extends Controller
             $search = $request->input('search.value');
             $attributes =  Attribute::whereHas('system_type', function($q)use($search)
             {
-            $q->where('name','LIKE',"%{$search}%");
+                $q->where('name','LIKE',"%{$search}%");
             })
                 ->orWhere('name', 'LIKE',"%{$search}%")
                 ->orderBy($order, $dir)
