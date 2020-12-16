@@ -64,6 +64,15 @@
                                                     <label for="Name">Product Name</label>
                                                     <input type="text" id="name" class="form-control" value="{{$product->name}}" name="name">
                                                 </div> 
+
+                                                <div class="form-group">
+                                                    <select name="standard_id" id="standard_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($standards as $standard)
+                                                            <option value="{{ $standard->id }}" @if($product->standard_id == $standard->id) selected @endif>{{ $standard->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                                 
                                                 <div class="form-group">
                                                     <select name="type" id="type" class="form-control">
@@ -83,14 +92,7 @@
                                                     </select>
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <select name="standard_id" id="standard_id" class="form-control">
-                                                        <option value="">Select</option>
-                                                        @foreach($standards as $standard)
-                                                            <option value="{{ $standard->id }}" @if($product->standard_id == $standard->id) selected @endif>{{ $standard->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
+                                               
 
 
                                                 <hr>

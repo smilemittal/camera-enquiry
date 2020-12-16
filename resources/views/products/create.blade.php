@@ -70,6 +70,15 @@
                                                 </div>   
 
                                                 <div class="form-group">
+                                                    <select name="standard_id" id="standard_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($standards as $standard)
+                                                            <option value="{{ $standard->id }}">{{ $standard->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
                                                     <select name="type" id="type" class="form-control">
                                                             <option value="">Select</option>  
                                                             <option value="camera">Camera</option>
@@ -86,14 +95,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="form-group">
-                                                    <select name="standard_id" id="standard_id" class="form-control">
-                                                        <option value="">Select</option>
-                                                        @foreach($standards as $standard)
-                                                            <option value="{{ $standard->id }}">{{ $standard->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
+                                               
 
                                                 <hr>
                                                 <div id="add-attributes-div" style="display: none;">
