@@ -88,7 +88,7 @@
                                                 </div>
 
                                                 <hr>
-                                                <div>
+                                                <div id="add-attributes-div" style="display: none;">
                                                    <h5>Add Product Attributes</h5>
 
                                                    <div id="product_attribute_div">
@@ -132,9 +132,14 @@
                     '_token': '{{ csrf_token() }}',
                 },
                 success: function(data){
-                    console.log(data);
-                    $('#product_attribute_div').empty();
-                    $('#product_attribute_div').append(data.html);
+                   
+                    if(data.html != ''){
+                        $('#product_attribute_div').empty();
+                        $('#product_attribute_div').append(data.html);
+                        $('#add-attributes-div').show();   
+                    }else{
+                        $('#add-attributes-div').hide();
+                    }
                 }
             });
         });
@@ -152,9 +157,13 @@
                     '_token': '{{ csrf_token() }}',
                 },
                 success: function(data){
-                    console.log(data);
-                    $('#product_attribute_div').empty();
-                    $('#product_attribute_div').append(data.html);
+                    if(data.html != ''){
+                        $('#product_attribute_div').empty();
+                        $('#product_attribute_div').append(data.html);
+                        $('#add-attributes-div').show();   
+                    }else{
+                        $('#add-attributes-div').hide();
+                    }
                 }
             });
         });

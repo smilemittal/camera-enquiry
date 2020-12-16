@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Excel;
 use App\Imports\SystemTypesImport;
+use App\Exports\SystemTypesExport;
 use Illuminate\Http\Request;
 use App\Models\SystemType;
 
@@ -173,6 +174,11 @@ class SystemTypesController extends Controller
     }
       
         return redirect()->route('system-types.import')->with('success', 'Products Imported successfully');
+    }
+
+    public function export()
+    {
+        return Excel::download(new SystemTypesExport ,'systemtypes.xlsx');
     }
     
 }

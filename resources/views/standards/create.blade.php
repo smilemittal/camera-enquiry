@@ -8,7 +8,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header" style="height: 50px;">
-                                    <h4 class="card-title" id="basic-layout-form">Add Standard <a href="{{ route('standards.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" style="float: right;"> Import </a></h4>
+                                    <h4 class="card-title" id="basic-layout-form">Add Standard</h4>
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
