@@ -10,9 +10,9 @@ class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    public $fillable=['name','type', 'system_type_id'];
+    public $fillable=['name','type', 'system_type_id', 'standard_id'];
 
     public function product_attributes(){
-        return $this->hasMany(ProductAttribute::class, 'product_id', 'id');
+        return $this->hasMany('App\Models\ProductAttribute', 'product_id', 'id');
     }
 }

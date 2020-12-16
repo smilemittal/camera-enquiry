@@ -83,6 +83,15 @@
                                                     </select>
                                                 </div>
 
+                                                <div class="form-group">
+                                                    <select name="standard_id" id="standard_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($standards as $standard)
+                                                            <option value="{{ $standard->id }}" @if($product->standard_id == $standard->id) selected @endif>{{ $standard->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
 
                                                 <hr>
                                                 <div>
@@ -110,6 +119,7 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                            
                                                         </div>
                                                     @endforeach
                                                    </div>

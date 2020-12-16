@@ -1,0 +1,381 @@
+
+body{
+    font-family: 'Poppins';
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none !important;
+}
+p:not(.has-background):last-of-type {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+/*start-header*/
+
+.header nav {
+    padding: 0;
+}
+.header nav .navbar-toggler {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    outline: none;
+}
+.header nav .navbar-toggler i{
+    font-size: 30px;
+    color: #fff;
+}
+.header a.navbar-brand {
+    padding: 0;
+    font-size: 22px;
+    color: #fff;
+    font-weight: 700;
+}
+.header {
+    background: #007ecb;
+    padding: 10px 0px;
+    position: relative;
+}
+.header ul.navbar-nav li a {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+}
+.header ul.navbar-nav li {
+    padding-left: 43px;
+}
+.header ul.navbar-nav li a:hover {
+    color: #c1d2ea;
+}
+/*end-header*/
+.form-sec .accordion {
+  background-color: #a5a5a54d;
+  color: #000;
+  cursor: pointer;
+  padding: 14px 30px;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+  border: 1px solid #717070;
+  font-weight: 700;
+}
+
+.form-sec .panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+.form-sec {
+    width: 100%;
+    padding: 60px 0px;
+}
+.form-sec .col-radius-box {
+    margin: 10px 0px;
+    width: 100%;
+    display: flex;
+}
+
+.form-sec .col-radius-box form {
+    width: 50%;
+    float: left;
+    border: 2px solid #ddd;
+    padding: 35px 15px;
+    border-radius: 3px;
+}
+.form-sec .col-radius-box p {
+    font-size: 20px;
+    line-height: 24px;
+    color: #232323;
+}
+.form-sec .col-radius-box form .radio-col {
+    display: inline-block;
+    width: 100%;
+}
+
+.form-sec .col-radius-box form .radio-col .form-group {
+    margin: 0px;
+    display: inline-block;
+    padding-right: 20px;
+}
+
+.kemey-cameras-sec {
+    width: 100%;
+    background: #e4ebf7;
+    padding: 48px 0;
+}
+.heading-btns.three-btn-under {
+    padding-top: 20px;
+}
+.three-btn-sec {
+    background: #c1d2ea;
+    padding: 48px 0;
+    border-top: 1px solid #007ecb;
+}
+.col-kemey .row{
+    margin-left: -3px;
+    margin-right: -3px;
+}
+.col-kemey .row [class*="col"] {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.kemey-cameras-sec .col-kemey {
+    width: 100%;
+    margin: 20px 0px;
+}
+
+.kemey-cameras-sec .col-kemey .kamaroty label {
+    display:  block;
+    font-size: 16px;
+}
+.kemey-cameras-sec .col-kemey .kamaroty input {
+    height: 56px;
+    width: 100%;
+    border: 1px solid #7cbde4;
+    border-radius: 10px;
+    background: #fff;
+    outline: none;
+    padding: 0 5px;
+}
+.kemey-cameras-sec .btn {
+    background: #c6c6c6;
+    padding: 0px 30px;
+    height: 56px;
+    line-height: 56px;
+    width: 100%;
+    margin-right: 10px;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 20px;
+}
+.kemey-cameras-sec .btn:focus {
+    background: #007ecb;
+    box-shadow: none !important;
+}
+.kemey-cameras-sec .col-kemey p {
+    font-size: 20px;
+}
+.heading-btns h3 {
+    font-size: 20px;
+    padding-bottom: 6px;
+}
+.col-kemey button {
+    background: #c6c6c6;
+    padding: 0px 30px;
+    min-height: 56px;
+    line-height: 1;
+    width: 100%;
+    margin-right: 10px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 20px;
+}
+.col-kemey button:focus {
+    background: #007ecb;
+    outline: none;
+}
+.kemey-cameras-sec .card.card-body {
+    border: 0px;
+    padding: 20px;
+    background: #c1d2ea;
+}
+.kemey-cameras-sec .card.card-body .form-group label {
+    display: block;
+    font-size: 20px;
+    color: #000;
+    font-weight: 500;
+}
+.kemey-cameras-sec .card.card-body .form-group select {
+    width: 100%;
+    background: #ffffff;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 6px;
+    border: 1px solid #7cbde4;
+    color: #c5c6c6;
+}
+.kemey-cameras-sec .card.card-body .form-group p {
+    font-size: 17px;
+    margin: 10px 0px;
+    line-height: 20px;
+}
+.kemey-cameras-sec .card.card-body .earch {
+    margin: 0px;
+    font-size: 20px;
+    color: #000000;
+    font-weight: 600;
+}
+.kemey-boxbtn button {
+    background: #b1b1b1;
+}
+/*------footer------*/
+.footer-top {
+    background-image: -webkit-linear-gradient(top, #c6c7c7, #eeeeee);
+    background-image: -moz-linear-gradient(top, #c6c7c7, #eeeeee);
+    background-image: -ms-linear-gradient(top, #c6c7c7, #eeeeee);
+    background-image: -o-linear-gradient(top, #c6c7c7, #eeeeee);
+    background-image: linear-gradient(top, #c6c7c7, #eeeeee);
+    padding-top: 72px;
+}
+.footer-top *{
+	color: #3d3e3b;
+	font-weight: 500;
+}
+.footer-top h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 22px;
+}
+.footer-top ul {
+    margin-bottom: 32px;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-top ul li {
+    font-size: 14px;
+}
+.footer-botom {
+    background: #020202;
+    padding: 15px 0 150px;
+    font-size: 18px
+}
+.footer-botom *{
+	color: #9a9a9a;
+}
+.footer-inner-text {
+    min-height: 180px;
+}
+
+.footer-inner-text:not(.has-background):last-of-type {
+	min-height: auto;
+}
+.footer-botom h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 22px;
+    margin-top: 30px;
+
+}
+.footer-botom ul {
+    padding: 0;
+    list-style: none;
+}
+.footer-map {
+    width: 100%;
+    float: left;
+    text-align: center;
+    position: relative;
+}
+.footer-map img {
+    position: relative;
+    text-align: center;
+    width: 25%;
+    left: 0;
+    top: -117px;
+    z-index: 999;
+    margin: auto;
+    margin-bottom: -310px;
+}
+
+/*------footer-close------*/
+
+@media only screen and (min-width: 1300px) {
+
+.container{
+    max-width: 1375px;
+}
+
+}
+
+@media only screen and (max-width: 1199px) {
+
+.col-kemey p {
+    margin-top: 19px;
+}
+.footer-botom {
+    font-size: 16px;
+}
+.footer-botom h3 {
+    font-size: 20px;
+}
+}
+
+@media only screen and (max-width: 991px) {
+.col-kemey button, .kemey-cameras-sec .btn {
+    font-size: 16px;
+}
+.header nav .navbar-collapse .navbar-nav {
+    margin-top: 20px;
+}
+
+.header ul.navbar-nav li {
+    padding: 11px;
+    border-bottom: 1px solid #ffffff38;
+}
+
+.header ul.navbar-nav li a {
+    font-size: 15px;
+}
+
+.header ul.navbar-nav li:first-child {
+    border-top: 1px solid #ffffff38;
+}
+.footer-top {
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+.footer-map img {
+    top: -167px;
+}
+.footer-inner-text {
+    min-height: auto;
+}
+}
+
+@media only screen and (max-width: 767px) {
+
+.header a.navbar-brand img {
+    max-width: 140px;
+}
+.col-kemey button, .kemey-cameras-sec .btn {
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.footer-botom {
+    font-size: 16px;
+    padding: 15px 0 50px;
+}
+.footer-botom h3 {
+    font-size: 18px;
+}
+.form-sec .col-radius-box p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+.kemey-cameras-sec .col-kemey p, .kemey-cameras-sec .card.card-body .earch {
+    font-size: 16px;
+}
+.kemey-cameras-sec .card.card-body .form-group label {
+    font-size: 18px;
+}
+.kemey-cameras-sec .card.card-body .form-group p {
+    font-size: 14px;
+}
+.kemey-cameras-sec .card.card-body .form-group select {
+    font-size: 14px;
+}
+.footer-map img {
+    width: 35%;
+}
+
+}
