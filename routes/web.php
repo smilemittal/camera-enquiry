@@ -72,3 +72,7 @@ Route::resource('product-attributes','ProductAttributesController');
 Route::post('product-attributes/fetchtypes','ProductAttributesController@getProductAttribute')->name('get.ProductAttributes');
 
 Route::post('get-product-attributes', 'ProductController@getProductAttributes')->name('get-product-attributes');
+
+Route::get('home', 'FrontController@home')->name('home');
+
+Route::post('get-enquiry-product-attributes', 'FrontController@getEnquiryProductAttributes')->name('get_enquiry_product_attributes');

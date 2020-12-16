@@ -70,6 +70,26 @@
                                                 </div>   
 
                                                 <div class="form-group">
+                                                    <label for="standard_id">Standard</label>
+                                                    <select name="standard_id" id="standard_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($standards as $standard)
+                                                            <option value="{{ $standard->id }}">{{ $standard->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="system_type_id">System Type</label>
+                                                    <select name="system_type_id" id="system_type_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($system_types as $system_type)
+                                                            <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="type">Type</label>
                                                     <select name="type" id="type" class="form-control">
                                                             <option value="">Select</option>  
                                                             <option value="camera">Camera</option>
@@ -78,14 +98,8 @@
                                                             <option value="switch">Switch</option>
                                                     </select>
                                                 </div>
-                                                <div class="form-group">
-                                                    <select name="system_type_id" id="system_type_id" class="form-control">
-                                                        <option value="">Select</option>
-                                                        @foreach($system_types as $system_type)
-                                                            <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
+                                               
+                                               
 
                                                 <hr>
                                                 <div id="add-attributes-div" style="display: none;">

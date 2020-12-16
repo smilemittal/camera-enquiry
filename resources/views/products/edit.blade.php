@@ -64,8 +64,29 @@
                                                     <label for="Name">Product Name</label>
                                                     <input type="text" id="name" class="form-control" value="{{$product->name}}" name="name">
                                                 </div> 
+
+                                                <div class="form-group">
+                                                    <label for="standard_id">Standard</label>
+                                                    <select name="standard_id" id="standard_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($standards as $standard)
+                                                            <option value="{{ $standard->id }}" @if($product->standard_id == $standard->id) selected @endif>{{ $standard->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                
                                                 
                                                 <div class="form-group">
+                                                    <label for="system_type_id">System Type</label>
+                                                    <select name="system_type_id" id="system_type_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($system_types as $system_type)
+                                                            <option value="{{ $system_type->id }}"  @if($product->system_type_id == $system_type->id) selected @endif>{{ $system_type->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="type">Type</label>
                                                     <select name="type" id="type" class="form-control">
                                                             <option value="">Select</option>  
                                                             <option value="camera" @if($product->type == 'camera') selected @endif>Camera</option>
@@ -74,14 +95,8 @@
                                                             <option value="switch" @if($product->type == 'switch') selected @endif>Switch</option>
                                                     </select>
                                                 </div>
-                                                <div class="form-group">
-                                                    <select name="system_type_id" id="system_type_id" class="form-control">
-                                                        <option value="">Select</option>
-                                                        @foreach($system_types as $system_type)
-                                                            <option value="{{ $system_type->id }}"  @if($product->system_type_id == $system_type->id) selected @endif>{{ $system_type->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
+
+                                               
 
 
                                                 <hr>
@@ -110,6 +125,7 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                            
                                                         </div>
                                                     @endforeach
                                                    </div>

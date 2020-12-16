@@ -13,6 +13,11 @@ class Attribute extends Model
     public $fillable=['name','type','display_order','system_type_id'];
 
     public function attribute_values(){
-        return $this->hasMany(AttributeValue::class, 'attribute_id', 'id');
+        return $this->hasMany('App\Models\AttributeValue', 'attribute_id', 'id');
+    }
+
+    public function system_type()
+    {
+        return $this->belongsTo('App\Models\SystemType');
     }
 }

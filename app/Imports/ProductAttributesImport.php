@@ -3,8 +3,10 @@
 namespace App\Imports;
 
 use App\Models\Product;
-use App\Models\AttributeValue;
+use App\Models\Standard;
 use App\Models\Attribute;
+use App\Models\SystemType;
+use App\Models\AttributeValue;
 use App\Models\ProductAttribute;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -13,7 +15,7 @@ use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 
 HeadingRowFormatter::default('none');
 
-class ProductAttributesImport implements ToCollection ,WithHeadingRow 
+class ProductAttributesImport implements ToCollection, WithHeadingRow 
 {
 
     /**
@@ -25,31 +27,52 @@ class ProductAttributesImport implements ToCollection ,WithHeadingRow
     {
 
         foreach($rows as $row){
-
-
+         
         if(!empty($row['model']) && $row['model'] != null){
 
-
-           $product= Product::where('name','LIKE', $row['model'])->first();
-
-            if(!$product)
-            {
-            $products = Product::create(['name' => $row['model']]);
-            $product_id =$products->id;
-            }else{
-            $product_id =$product->id;
-            }
             $display_order =$row['display_order'];
-            $system_type_id = $row['system_type_id'];
+            $type = $row['type'];
+      
+
+            //get standard, if exists, get id, otherwise create new standard and get its id 
+            $standard = Standard::where('name', 'LIKE', $row['standards'])->first();
+            if($standard){
+                $standard_id = $standard->id;
+            }else{
+                $standards = Standard::create([
+                    'name' => $row['standards'],
+                ]);
+                $standard_id = $standards->id;
+            }
+            //get system type, if exists, get id, otherwise create new system type and get its id
+            $system_type = SystemType::where('name', 'LIKE', $row['system_type'])->first();
+            if($system_type){
+                $system_type_id = $system_type->id;
+            }else{
+                $system_types = SystemType::create([
+                    'name' => $row['system_type'],
+                ]);
+                $system_type_id = $system_types->id;
+            }
+             //get product, if exists, get id, otherwise create new product and get its id
+            $product= Product::where('name','LIKE', $row['model'])->where('type', 'LIKE', $type)->where('system_type_id', $system_type_id)->where('standard_id', $standard_id)->first();
+
+            if(!$product){
+                $products = Product::create(['name' => $row['model'], 'type' => $type, 'system_type_id' => $system_type_id, 'standard_id' => $standard_id]);
+                $product_id =$products->id;
+            }else{
+                $product_id =$product->id;
+            }
+           
             foreach($row as $key => $value)
             {
-                if($key != 'model' && $key != 'display_order' && $key != 'system_type_id')
+                if($key != 'model' && $key != 'display_order' && $key != 'system_type' && $key != 'type' && $key != 'standards' && $value != null && $value != '')
                 {
-                    
+
                 $attribute = Attribute::where('name', 'LIKE', $key)->where( 'system_type_id' , '=', $system_type_id)->first();
                 if(!$attribute)
                 {
-                    $attribute = Attribute::create(['name' => $value ,'display_order'=> $display_order , 'system_type_id' => $system_type_id]);
+                    $attribute = Attribute::create(['name' => $key ,'display_order'=> $display_order , 'system_type_id' => $system_type_id]);
 
                      $attribute_id =$attribute->id;
                 }

@@ -2,13 +2,13 @@
 @section('content')
 <!-- BEGIN: Content-->
 <div class="content-body">
-                <!--Form layout section start -->
+                  <!--Form layout section start -->
                 <section id="basic-form-layouts">
                     <div class="row match-height justify-content-center">
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header" style="height: 50px;">
-                                    <h4 class="card-title" id="basic-layout-form">Add Attributes Values <a href="{{ route('attribute-values.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" style="float: right;"> Import </a></h4>
+                                    <h4 class="card-title" id="basic-layout-form">Add Attributes Values <a href="{{ route('attribute-values.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" style="float: right;">Import </a></h4>
                                 </div>
                             <!-- Card content body start -->
                                 <div class="card-content collapse show">
