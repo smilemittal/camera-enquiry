@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Product;
+use App\Models\AttributeValue;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -17,7 +17,7 @@ class AttributeValuesImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        
+        //dd($row);
 
         return new AttributeValue
         ([

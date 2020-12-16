@@ -30,6 +30,9 @@ Route::get('attribute-values/import', 'AttributeValuesController@importAttribute
 Route::post('attribute-values/post-import', 'AttributeValuesController@postImport')->name('attribute-values.post-import');
 Route::resource('attribute-values', 'AttributeValuesController');
 Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
+//export
+//Route::get('attribute-values/export', 'AttributeValuesController@export')->name('export');
+//Route::get('attribute-values/ExportView', 'AttributeValuesController@importExportView')->name('view');
 
 Route::get('products/create','ProductController@create')->name('product.create');
 Route::post('products/store','ProductController@store')->name('product.store');
