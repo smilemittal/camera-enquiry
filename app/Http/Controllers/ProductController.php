@@ -65,9 +65,7 @@ class ProductController extends Controller
                         'attribute_id' => $attribute_id,
                         'attribute_value_id' => $attribute_value_id,
                     ]);
-                }
-                // dd($attribute_value_id);
-                
+                }                
             }
         }
         return redirect()->route('product.index')->with('success', 'Product added successfully');
