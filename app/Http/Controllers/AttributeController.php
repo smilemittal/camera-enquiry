@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Excel;
 use Illuminate\Http\Request;
 use App\Models\SystemType;
 use App\Models\Attribute;
+use App\Exports\AttributeExport;
+
 
 class AttributeController extends Controller
 {
@@ -169,4 +172,11 @@ class AttributeController extends Controller
         );
         return json_encode($json_data);
     }
+    
+          public function export() 
+          {
+        return Excel::download(new AttributeExport, 'AttributeData.xlsx');
+          }
+      
+
 }

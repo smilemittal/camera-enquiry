@@ -41,11 +41,16 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         @if($errors->all())
-                                    <div class="alert alert-danger">
+                                            <div class="alert alert-danger">
                                         @foreach($errors->all() as $error)
                                            <p>{{$error}}</p> 
                                         @endforeach
-                                    </div>
+                                            </div>
+                                        @endif
+                                        @if(\Session::has('success'))
+                                            <div class="alert alert-success">
+                                        {{\Session::get('success')}}
+                                            </div>
                                         @endif
                                         <form class="form" action="{{ route('attribute-values.post-import') }}" method="post" enctype="multipart/form-data">
                                             @csrf  

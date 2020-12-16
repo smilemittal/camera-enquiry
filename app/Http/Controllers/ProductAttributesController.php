@@ -9,9 +9,7 @@ use App\Models\ProductAttribute;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
 use App\Imports\ProductAttributesImport;
-
-
-
+use App\Exports\ProductAttributesExport;
 
 class ProductAttributesController extends Controller
 
@@ -216,6 +214,10 @@ class ProductAttributesController extends Controller
             return redirect()->route('product-attributes.import')->with('success', 'Products imported successfully');
         }
 
+        public function export()
+        {
+            return Excel::download(new ProductAttributesExport , 'productattributes.xlsx');
+        }
 
     }
 

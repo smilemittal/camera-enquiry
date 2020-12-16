@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Excel;
 use Illuminate\Http\Request;
+use App\Imports\StandardsImport;
+use App\Exports\StandardsExport;
 use App\Models\Standard;
 
 class StandardsController extends Controller
@@ -157,4 +160,25 @@ class StandardsController extends Controller
         return json_encode($json_data);
     }
 
+     public function importStandards()
+    {
+        return view('imports.standards');
+    }
+
+    public function postImport(Request $request)
+    {
+
+        if($request->hasFile('import-standards')){
+          
+            Excel::import(new StandardsImport, request()->file('import-standards'));
+
+    }
+      
+        return redirect()->route('standards.import')->with('success', 'Products Imported successfully');
+    }
+
+    public function export()
+    {
+        return Excel::download(new StandardsExport , "standards.xlsx");
+    }
 }

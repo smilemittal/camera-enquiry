@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Attribute;
+use App\Models\SystemType;
+use Illuminate\Http\Request;
+use App\Models\ProductAttribute;
 
 
 class ProductController extends Controller
@@ -31,7 +34,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $system_types = SystemType::all();
+        return view('products.create', compact('system_types'));
     }
 
     /**
@@ -43,10 +47,29 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required'
+            'name'=>'required',
+            'type' => 'required',
+            'system_type_id' => 'required'
         ]);
-        Product::create($request->all());
-            // 
+        $product = Product::create([
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+            'system_type_id' => $request->input('system_type_id'),
+            ]);
+       
+        if(!empty($request->input('attribute_value'))){
+            foreach($request->attribute_value as $attribute_id => $attribute_value_id){
+                if(!empty($attribute_value_id)){
+                    ProductAttribute::create([
+                        'product_id' => $product->id,
+                        'attribute_id' => $attribute_id,
+                        'attribute_value_id' => $attribute_value_id,
+                    ]);
+                }
+                // dd($attribute_value_id);
+                
+            }
+        }
         return redirect()->route('product.index')->with('success', 'Product added successfully');
      
     }
@@ -70,8 +93,15 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product=Product::find($id);
-        return view('products.edit', compact('product'));
+        $product=Product::with('product_attributes.attribute', 'product_attributes.attribute_value')->find($id);
+        $attribute_value_ids = $attribute_ids = [];
+        foreach($product->product_attributes as $product_attribute){
+            $attribute_value_ids[] = $product_attribute->attribute_value_id;
+            $attribute_ids[] = $product_attribute->attribute_id;
+        }
+        $attributes= Attribute::with('attribute_values')->where('created_at', '!=', Null)->where('type', $product->type)->where('system_type_id', $product->system_type_id)->get();
+        $system_types = SystemType::all();
+        return view('products.edit', compact('product', 'system_types', 'attribute_ids', 'attribute_value_ids', 'attributes'));
     }
 
     /**
@@ -83,10 +113,41 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([ 
-            'name'=>'required']);
+        $request->validate([
+            'name'=>'required',
+            'type' => 'required',
+            'system_type_id' => 'required'
+        ]);
+      
+       
         $product=Product::find($id);
-        $product->update($request->all());
+        $product->update([
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+            'system_type_id' => $request->input('system_type_id'),
+        ]);
+        if(!empty($request->input('attribute_value'))){
+            foreach($request->attribute_value as $attribute_id => $attribute_value_id){
+                if(!empty($attribute_value_id)){
+                    $product_attribute = ProductAttribute::where('product_id', $product->id)->where('attribute_id', $attribute_id)->first();
+                    if(!empty($product_attribute)){
+                        $product_attribute->update([
+                            'product_id' => $product->id,
+                            'attribute_id' => $attribute_id,
+                            'attribute_value_id' => $attribute_value_id,
+                        ]);
+                    }else{
+                        ProductAttribute::updateOrCreate([
+                            'product_id' => $product->id,
+                            'attribute_id' => $attribute_id,
+                            'attribute_value_id' => $attribute_value_id,
+                        ]);
+                    }
+                    
+                }
+                
+            }
+        }
        return redirect()->route('product.index')->with('success', 'Product updated successfully');
     }
 
@@ -153,4 +214,28 @@ class ProductController extends Controller
         return json_encode($json_data);
     }
 
+    public function getProductAttributes(Request $request){
+        if($request->ajax()){
+            $type = $request->type;
+            $system_type = $request->system_type_id;
+            
+            $attribute= Attribute::with('attribute_values')->where('created_at', '!=', Null);
+         
+            if(!empty($type)){
+                
+                $attribute->where('type','=' ,$type);
+            }
+           
+            if(!empty($system_type)){
+                $attribute->where('system_type_id','=', $system_type);
+            }
+           
+            $attributes = $attribute->get();
+    
+            $html = '';
+            $html .= view('products.partials.select-attributes', compact('attributes'))->render();
+            
+            return response()->json(['html' => $html, 'success' => true]);
+        }
+    }
 }

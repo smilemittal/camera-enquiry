@@ -22,12 +22,16 @@ Route::get('/', function () {
 // Route::get('system_types/edit/{id}','SystemTypesController@edit')->name('system_types.edit');
 // Route::patch('system_types/update/{id}','SystemTypesController@update')->name('system_types.update');
 // Route::delete('system_types/destroy/{id}','SystemTypesController@destroy')->name('system_types.destroy');
+Route::get('system_types/import','SystemTypesController@importSystemTypes')->name('system-types.import');
+Route::post('system_types/post-import','SystemTypesController@postImport')->name('system-types.post-import');
+Route::get('system_types/export','SystemTypesController@export')->name('system-types.export');
 Route::resource('system_types', 'SystemTypesController');
 Route::post('system_types/fetchtypes','SystemTypesController@getSystemTypes')->name('get.system_types');
 
 
 Route::get('attribute-values/import', 'AttributeValuesController@importAttributeValues')->name('attribute-values.import');
 Route::post('attribute-values/post-import', 'AttributeValuesController@postImport')->name('attribute-values.post-import');
+Route::get('attribute-values/export', 'AttributeValuesController@export')->name('attribute-values.export');
 Route::resource('attribute-values', 'AttributeValuesController');
 Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
 //export
@@ -42,6 +46,10 @@ Route::get('products/edit/{id}','ProductController@edit')->name('product.edit');
 Route::patch('products/update/{id}','ProductController@update')->name('product.update');
 Route::post('products/getproduct','ProductController@getproduct')->name('get.product');
 
+
+Route::get('standards/import', 'StandardsController@importStandards')->name('standards.import');
+Route::post('standards/post-import', 'StandardsController@postImport')->name('standards.post-import');
+Route::get('standards/export','StandardsController@export')->name('standards.export');
 Route::get('standards/create','StandardsController@create')->name('standards.create');
 Route::post('standards/store','StandardsController@store')->name('standards.store');
 Route::get('standards/index','StandardsController@index')->name('standards.index');
@@ -52,10 +60,15 @@ Route::post('standards/getstandard','StandardsController@getStandard')->name('ge
 
 Route::resource('attribute', 'AttributeController');
 Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name('get.attribute');
+Route::post('attribute/export','AttributeController@export')->name('attribute.export');
+
 
 
 
 Route::get('product-attributes/import', 'ProductAttributesController@importProductAttribute')->name('product-attributes.import');
 Route::post('product-attributes/post-import', 'ProductAttributesController@postImport')->name('product-attributes.post-import');
+Route::get('product-attributes/export' , 'ProductAttributesController@export')->name('product-attributes.export');
 Route::resource('product-attributes','ProductAttributesController');
 Route::post('product-attributes/fetchtypes','ProductAttributesController@getProductAttribute')->name('get.ProductAttributes');
+
+Route::post('get-product-attributes', 'ProductController@getProductAttributes')->name('get-product-attributes');

@@ -47,6 +47,11 @@
                                         @endforeach
                                     </div>
                                         @endif
+                                        @if(\Session::has('success'))
+                                            <div class="alert alert-success">
+                                        {{\Session::get('success')}}
+                                            </div>
+                                        @endif
                                         <form class="form" action="{{ route('product-attributes.post-import') }}" method="post" enctype="multipart/form-data">
                                             @csrf  
                                             <div class="form-body">

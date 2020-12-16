@@ -3,6 +3,13 @@
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
 @endsection
 @section('content')
+<style>
+    .layout_btns {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+</style>
         
             <div class="content-body">
                     <!-- Basic form layout section start -->
@@ -10,34 +17,14 @@
                     <div class="row match-height justify-content-center">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">Attribute</h4>
-                                    <a class="heading-elements-toggle">
-                                        <i class="la la-ellipsis-v font-medium-3"></i>
-                                    </a>
-                                    <div class="heading-elements">
-                                        <ul class="list-inline mb-0">
-                                            <li>
-                                                <a data-action="collapse">
-                                                    <i class="ft-minus"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-action="reload">
-                                                    <i class="ft-rotate-cw"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-action="expand">
-                                                    <i class="ft-maximize"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-action="close">
-                                                    <i class="ft-x"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                <div class="card-header" style="height: 50px;">
+                                    <div class="card-title layout_btns" id="basic-layout-form">
+                                        <h3>Attribute</h3>
+                                            <div>
+                                                <form action="{{ route('attribute.export')}}" method="post">
+                                                    @csrf
+                                                   <button class="btn mr-1 mb-1 btn-danger btn-sm" type="submit"> Export</button></form>
+                                            </div> 
                                     </div>
                                 </div>
                                 <div class="card-content collapse show">
@@ -99,6 +86,7 @@
         $(document).ready(function(){
             // Data table for serverside
             $('#attribute').DataTable({
+                "pageLength": 25,
                 "order": [[ 0, 'desc' ]],
                 "processing": true,
                 "serverSide": true,
