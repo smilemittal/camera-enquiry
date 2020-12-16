@@ -23,29 +23,32 @@ class ProductAttributesImport implements ToCollection ,WithHeadingRow
     */
     public function collection(collection $rows)
     {
-
+//dd($rows);
         foreach($rows as $row){
 
 
         if(!empty($row['model']) && $row['model'] != null){
 
-
-           $product= Product::where('name','LIKE', $row['model'])->first();
+            $display_order =$row['display_order'];
+            $system_type_id = $row['system_type_id'];
+            $type = $row['type'];
+            
+           $product= Product::where('name','LIKE', $row['model'])->where('type', 'LIKE', $type)->where('system_type_id', $system_type_id)->first();
 
             if(!$product)
             {
-            $products = Product::create(['name' => $row['model']]);
+            $products = Product::create(['name' => $row['model'], 'type' => $type, 'system_type_id' => $system_type_id]);
+            
             $product_id =$products->id;
             }else{
             $product_id =$product->id;
             }
-            $display_order =$row['display_order'];
-            $system_type_id = $row['system_type_id'];
+           
             foreach($row as $key => $value)
             {
-                if($key != 'model' && $key != 'display_order' && $key != 'system_type_id')
+                if($key != 'model' && $key != 'display_order' && $key != 'system_type_id' && $key != 'type')
                 {
-                    
+
                 $attribute = Attribute::where('name', 'LIKE', $key)->where( 'system_type_id' , '=', $system_type_id)->first();
                 if(!$attribute)
                 {
