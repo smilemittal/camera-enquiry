@@ -207,7 +207,7 @@ class AttributeValuesController extends Controller
 
     }
       
-        return redirect()->route('attribute-values.import')->with('success', 'Products Imported successfully');
+        return redirect()->route('attribute-values.import')->with('success', 'Attributes Imported successfully');
     }
     
 }
