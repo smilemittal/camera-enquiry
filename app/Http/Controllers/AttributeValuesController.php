@@ -150,7 +150,13 @@ class AttributeValuesController extends Controller
             $totalFiltered = $totalData;
         }else {
             $search = $request->input('search.value');
-            $attribute_values =  AttributeValue::with('system_type', 'attribute')->where('id','LIKE',"%{$search}%")
+            $attribute_values =  AttributeValue::with('system_type', 'attribute')->whereHas('system_type', function($q)use($search)
+                {
+                    $q->where('name','LIKE',"%{$search}%");
+                })->orWhereHas('attribute', function($q)use($search)
+                {
+                    $q->where('name','LIKE',"%{$search}%");
+                })   
                 ->orWhere('attribute_id', 'LIKE',"%{$search}%")
                 ->orWhere('value', 'LIKE',"%{$search}%")
                 ->orWhere('display_order', 'LIKE',"%{$search}%")

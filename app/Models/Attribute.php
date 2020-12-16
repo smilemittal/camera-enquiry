@@ -15,4 +15,9 @@ class Attribute extends Model
     public function attribute_values(){
         return $this->hasMany('App\Models\AttributeValue', 'attribute_id', 'id');
     }
+
+    public function system_type()
+    {
+        return $this->belongsTo('App\Models\SystemType');
+    }
 }
