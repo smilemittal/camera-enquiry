@@ -16,9 +16,11 @@ class AttributeController extends Controller
     public function index()
     {
         try{
-            $attributes=Attribute::all();
+            $attributes=Attribute::with('system_type')->get();
             return view('attribute.index',compact('attributes'));
-            }catch (Exception $e){
+            }
+            catch (Exception $e)
+            {
                 return redirect()->back()->with('error', $e->getMessage());
             }
     }
@@ -135,7 +137,10 @@ class AttributeController extends Controller
             $totalFiltered = $totalData;
         }else {
             $search = $request->input('search.value');
-            $attributes =  Attribute::where('id','LIKE',"%{$search}%")
+            $attributes =  Attribute::whereHas('system_type', function($q)use($search)
+            {
+            $q->where('name','LIKE',"%{$search}%");
+            })
                 ->orWhere('name', 'LIKE',"%{$search}%")
                 ->orderBy($order, $dir)
                 ->paginate($limit, ['*'], 'page', $start + 1);
@@ -149,7 +154,7 @@ class AttributeController extends Controller
                 $nestedData['name'] = ucfirst($attribute->name);
                 $nestedData['type'] =ucfirst($attribute->type);
                 $nestedData['display_order'] = $attribute->display_order;
-                $nestedData['system_type_id'] = $attribute->system_type_id;
+                $nestedData['system_type_id'] = !empty($attribute->system_type) ? $attribute->system_type->name : '';
                 
 
                 $index = route('attribute.index' ,  ($attribute->id));

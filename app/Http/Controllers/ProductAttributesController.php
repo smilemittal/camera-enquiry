@@ -161,10 +161,19 @@ class ProductAttributesController extends Controller
             $totalFiltered = $totalData;
         }else {
             $search = $request->input('search.value');
-            $productattributes =  ProductAttribute::where('id','LIKE',"%{$search}%")
+            $productattributes =  ProductAttribute::with('attribute_value', 'attribute','product')->whereHas('attribute', function($q)use($search)
+                { 
+                    $q->where('name','LIKE',"%{$search}%");
+                })->orWhereHas('attribute_value' , function($q)use($search)
+                {
+                    $q->where('value','LIKE',"%{$search}%");
+                })->orWhereHas('product', function($q)use($search)
+                {
+                    $q->where('name','LIKE', "%{$search}%");
+                })
+
                 ->orWhere('product_id', 'LIKE',"%{$search}%")
-                ->orWhere('attribute_id', 'LIKE',"%{$search}%")
-                ->orWhere('attribute_value_id', 'LIKE',"%{$search}%")
+                
                 ->orderBy($order, $dir)
                 ->paginate($limit, ['*'], 'page', $start + 1);
 
