@@ -174,7 +174,7 @@ class StandardsController extends Controller
 
     }
       
-        return redirect()->route('standards.import')->with('success', 'Products Imported successfully');
+        return redirect()->route('standards.import')->with('success', 'Standards Imported successfully');
     }
 
     public function export()
