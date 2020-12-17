@@ -60,7 +60,7 @@
                     </div>
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
                         <div class="card card-body">
-                            <input type="hidden" name="selected_camera_attribute">
+                            <input type="hidden" name="selected_camera_attributes">
                             <div class="row" id="camera_attribute_div">
                                 @if(!empty($attribute_camera))
                                 {!! $attrribute_camera !!}
@@ -98,6 +98,7 @@
                     </div>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
                         <div class="card card-body">
+                            <input type="hidden" name="selected_recorder_attributes">
                             <div class="row" id="recorder_attribute_div">
                                 @if(!empty($attribute_recorder))
                                 {!! $attribute_recorder !!}
@@ -183,12 +184,16 @@
         var attribute_value_arr = [];
         var cam_attribute_value_arr  = [];
         var rec_attribute_value_arr = [];
-        console.log($(this).data('product_type'));
-        $('select[name="attributes[]"] option:selected').each(function(){
+        var ele = $(this);
+        //console.log($(this).data('product_type'));
+
+
+        $('.attribute').each(function(){
+            
+            if($(this).val() != ''){
            
-            if($(this).val()){
-                if($(this).data('product_type') == 'camera'){
-                    
+                if($(ele).data('product_type') == 'camera'){
+                 
                     cam_attribute_value_arr.push($(this).val());
                 }else{
                     rec_attribute_value_arr.push($(this).val());
@@ -198,12 +203,14 @@
         
         });
         
-        if($(this).data('product_type') == 'camera'){
+        if($(ele).data('product_type') == 'camera'){
             var attribute_val = cam_attribute_value_arr.join(','); 
-        }else{
+             $('input[name="selected_camera_attributes"]').val(attribute_val);
+        }else if($(ele).data('product_type') == 'recorder'){
             var attribute_val = rec_attribute_value_arr.join(',');
+            $('input[name="selected_recorder_attributes"]').val(attribute_val);
         }
-     
+        console.log(attribute_val);
         
 
         var system_type = $(this).data('system_type');
@@ -219,7 +226,7 @@
                 'product_type': product_type
             },
             success: function(data){
-                if(data.success == true){
+                if(data.success == true && data.html != ''){
                     if(data.product_type == 'camera'){
                         $('#camera_attribute_div').empty();
                         $('#camera_attribute_div').append(data.html);

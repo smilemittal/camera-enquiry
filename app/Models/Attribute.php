@@ -13,7 +13,7 @@ class Attribute extends Model
     public $fillable=['name','type','display_order','system_type_id'];
 
     public function attribute_values(){
-        return $this->hasMany('App\Models\AttributeValue', 'attribute_id', 'id');
+        return $this->hasMany('App\Models\AttributeValue', 'attribute_id', 'id')->orderBy('display_order', 'ASC');
     }
 
     public function system_type()

@@ -46,19 +46,18 @@
     
         <div class="col-lg-3 col-md-6">
             <div class="form-group">
-             
-            <label>{{ $attribute['attribute_name'] }}</label>
-            <select name="attributes[]" id="recorder_attributes" class="attribute" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}"> 
-                    <option value="">Select</option>
-                    @if(!empty($attribute['attribute_values']))
-                   
-                        @foreach($attribute['attribute_values'] as $key => $value)
+                @if(!empty($attribute['attribute_values']))
                 
-                            <option value="{{ $key }}">{{ $value }}</option>
+            <label>{{ $attribute['attribute_name'] }}</label>
+            <select name="attributes[]" id="{{ $product_type.'_attributes' }}" class="attribute" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}"> 
+                    <option value="">Select</option>
+                        @foreach($attribute['attribute_values'] as $key => $value)
+                            <option value="{{ $key }}" @if(in_array($key, $attribute_value_id)) selected @endif>{{ $value }}</option>
                         @endforeach
-                    @endif
+                   
                 </select>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                @endif
             </div>
         </div>
     @endforeach
