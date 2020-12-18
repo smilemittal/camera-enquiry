@@ -32,14 +32,14 @@ Route::get('standards/export','StandardsController@export')->name('standards.exp
 Route::post('standards/getstandard','StandardsController@getStandard')->name('get.standards');
 Route::resource('standards', 'StandardsController');
 
-Route::resource('attribute', 'AttributeController');
+
 Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name('get.attribute');
-Route::post('attribute/export','AttributeController@export')->name('attribute.export');
+Route::get('attribute/export','AttributeController@export')->name('attribute.export');
+Route::get('attribute/import', 'AttributeController@importAttributeValues')->name('attribute.import');
+Route::post('attribute/post-import', 'AttributeController@postImport')->name('attribute.post-import');
+Route::resource('attribute', 'AttributeController');
 
-
-Route::get('attribute-values/import', 'AttributeValuesController@importAttributeValues')->name('attribute-values.import');
-Route::post('attribute-values/post-import', 'AttributeValuesController@postImport')->name('attribute-values.post-import');
-Route::get('attribute-values/export', 'AttributeValuesController@export')->name('attribute-values.export');
+//Route::get('attribute-values/export', 'AttributeValuesController@export')->name('attribute-values.export');
 Route::resource('attribute-values', 'AttributeValuesController');
 Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
 
