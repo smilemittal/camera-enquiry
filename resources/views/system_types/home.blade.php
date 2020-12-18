@@ -23,7 +23,7 @@
                                 @endforeach
                                 </div>
                             @endif
-                                        <form class="form" action="{{ route('system_types.store') }}" method="post">
+                                        <form class="form" action="{{ route('system-types.store') }}" method="post">
                                             @csrf  
                                             <div class="form-body">
                                                 <div class="form-group">
@@ -32,7 +32,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('system_types.index')}}" method="post" class="btn btn-primary"> View all</a>    
+                                                <a href="{{ route('system-types.index')}}" method="post" class="btn btn-primary"> View all</a>    
                                                 <button type="submit" name="submit" class="btn btn-success">Save
                                                 </button>
                                             </div>

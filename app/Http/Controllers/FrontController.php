@@ -72,66 +72,62 @@ class FrontController extends Controller
                         });
                           
             $products = $products->get();
-       
-            $attributes=[];
+                    
+            $attributes=$display_order = [];
             if(!empty($products) && count($products) > 0){
+
+
             foreach($products as $product){
-
+               
                 if(!empty($product->product_attributes)){
-
+                
                     foreach($product->product_attributes as $product_attribute){
 
                         if(!empty($product_attribute) && !empty($product_attribute->attribute)){
-
+                            $attribute_values = [];
                             foreach($product_attribute->attribute->attribute_values as $attribute_value){
                                
                                 if(!in_array_r($product_attribute->attribute->id, $attributes)){
+                                     
                                         $attribute_values[$attribute_value->id] = $attribute_value->value;
+                                       // dd('has', $attribute_values );
+                                       $attributes[$product_attribute->attribute_id] = ['attribute_name' => $product_attribute->attribute->name, 'attribute_values' => $attribute_values];
                                 }else{
+                                   // dd('hs not');
                                     if(!in_array_r($attribute_value->id,  $attributes[$product_attribute->attribute_id]['attribute_values'])){
                                         $attribute_values[$attribute_value->id] = $attribute_value->value;
+                                        $attributes[$product_attribute->attribute_id] = ['attribute_name' => $product_attribute->attribute->name, 'attribute_values' => $attribute_values];
                                     } 
                                 }
 
                             } 
+                           
+                            $attribute_values = [];
 
                         }
-
-                        $attributes[$product_attribute->attribute_id] = ['attribute_name' => $product_attribute->attribute->name, 'attribute_values' => $attribute_values];
-                        $attribute_values = [];
+                       
+                      
 
                     }
                 }
                 
             }   
+           //dd($attributes[189]);
         }else{
 
             $fetch_attributes = Attribute::with('attribute_values')->where('type', $product_type);
            
-            // if(is_array($attribute_value_id)){
-            //     foreach($attribute_value_id as $id){
-                  
-                    $fetch_attributes->whereHas('attribute_values', function($q) use($attribute_value_id){
-                        $q->whereIn('id', $attribute_value_id);
-                
-                    });
-                   
-           //     }
-                
-            // }else{
-            //     $fetch_attributes->whereHas('attribute_values', function($q) use($attribute_value_id){
-            //         $q->where('id', $attribute_value_id);
-            
-            //     });
-              
-            // }
-            
+            $fetch_attributes->whereHas('attribute_values', function($q) use($attribute_value_id){
+                $q->whereIn('id', $attribute_value_id);
+        
+            });
+
             $fetch_attributes = $fetch_attributes->orderBy('display_order', 'ASC')->get();
        
             foreach($fetch_attributes as $attribute){
            
                 foreach($attribute->attribute_values as $attribute_value){
-                   // dd($attribute_value->id); 
+                  
                     if(!in_array_r($attribute->id, $attributes)){
                             $attribute_values[$attribute_value->id] = $attribute_value->value;
                     }else{
@@ -150,14 +146,7 @@ class FrontController extends Controller
            
         }
          
-            //dd($attributes);
-            // foreach($attributes as $attribute){
-            //     foreach($attribute['attribute_values'] as $key => $value){
-            //         echo "<pre>";
-            //         print_r($value);
-            //     }
-                
-            // }
+    
             $html='';
           
             $html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'product_type', 'attribute_value_id'))->render();

@@ -72,7 +72,7 @@ class ProductController extends Controller
                 }                
             }
         }
-        return redirect()->route('product.index')->with('success', 'Product added successfully');
+        return redirect()->route('products.index')->with('success', 'Product added successfully');
      
     }
 
@@ -153,7 +153,7 @@ class ProductController extends Controller
                 
             }
         }
-       return redirect()->route('product.index')->with('success', 'Product updated successfully');
+       return redirect()->route('products.index')->with('success', 'Product updated successfully');
     }
 
     /**
@@ -166,7 +166,7 @@ class ProductController extends Controller
     {
         $deletes=Product::find($id);
         $deletes->delete();
-        return redirect()->route('product.index')->with('success', 'Product deleted successfully');
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully');
     }
     public function getproduct(Request $request) {
 
@@ -201,9 +201,9 @@ class ProductController extends Controller
             foreach ($products as $key => $product) {
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $product->name;
-                $index = route('product.index' ,  ($product->id));
-                $edit = route('product.edit' ,  ($product->id));
-                $destroy = route('product.destroy' ,  ($product->id));
+                $index = route('products.index' ,  ($product->id));
+                $edit = route('products.edit' ,  ($product->id));
+                $destroy = route('products.destroy' ,  ($product->id));
                 $exist = $product;
                 $comp = true;
                 $nestedData['action'] = view('products.partials.setting-action',compact('index','exist','comp','edit','destroy', 'product'))->render();
