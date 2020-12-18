@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,3 +55,13 @@ Route::post('get-product-attributes', 'ProductController@getProductAttributes')-
 Route::get('home', 'FrontController@home')->name('home');
 Route::post('get-enquiry-attributes', 'FrontController@getEnquiryProductAttributes')->name('get-enquiry-attributes');
 Route::post('update-attributes', 'FrontController@updateAttributes')->name('update-attributes');
+
+// Route::get('layouts.header{locale}', function ($locale) {
+//     if (! in_array($locale, ['en', 'es', 'fr'])) {
+//         abort(400);
+//     }
+
+//     App::setLocale($locale);
+
+//     //
+// });
