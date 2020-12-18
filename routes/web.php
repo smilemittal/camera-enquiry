@@ -40,8 +40,6 @@ Route::get('attribute-values/export', 'AttributeValuesController@export')->name(
 Route::resource('attribute-values', 'AttributeValuesController');
 Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
 
-
-
 Route::post('products/getproduct','ProductController@getproduct')->name('get.product');
 Route::resource('products', 'ProductController');
 

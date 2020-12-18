@@ -18,10 +18,11 @@ class SystemTypesImport implements ToCollection,WithHeadingRow
     {
         foreach ($rows as $row)
         {
+            //get systemtype, if exists, get id, otherwise create new systemtype and get its id
             $system_type= SystemType::where('name','LIKE', $row['name'])->first();
 
             if(!$system_type)
-            {
+            {  
             $system_types = SystemType::create(['name' => $row['name']]);
             $system_type_id =$system_types->id;
             }
