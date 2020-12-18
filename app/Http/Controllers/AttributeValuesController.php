@@ -35,7 +35,7 @@ class AttributeValuesController extends Controller
         $attributes=Attribute::all();
         $system_types=SystemType::all();
 
-        return view('attribute_values.home',compact('attributes','system_types'));
+        return view('attribute_values.create',compact('attributes','system_types'));
     }
 
     /**

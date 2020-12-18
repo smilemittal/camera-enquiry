@@ -12,7 +12,9 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.update_product')}}</h4>
+
+                                    <h4 class="card-title" id="basic-layout-form">Edit Attribute</h4>
+
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>

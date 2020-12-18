@@ -18,15 +18,14 @@ class StandardsImport implements ToCollection,WithHeadingRow
     {
         foreach ($rows as $row)
         {
+           //get standard, if exists, get id, otherwise create new standard and get its id
            $standard= Standard::where('name','LIKE', $row['name'])->first();
 
-            if(!$standard)
-            {
+            if(!$standard){
             $standards = Standard::create(['name' => $row['name']]);
             $standards_id =$standards->id;
             }
-            else
-            {
+            else{
             $standard_id =$standard->id;
             }
         } 

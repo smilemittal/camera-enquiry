@@ -29,7 +29,7 @@ class SystemTypesController extends Controller
      */
     public function create()
     {
-        return view('system_types.home');
+        return view('system_types.create');
     }
 
     /**
