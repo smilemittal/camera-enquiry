@@ -60,104 +60,11 @@
                     </div>
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
                         <div class="card card-body">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
+                            <input type="hidden" name="selected_camera_attributes">
+                            <div class="row" id="camera_attribute_div">
+                                @if(!empty($attribute_camera))
+                                {!! $attrribute_camera !!}
+                                @endif
                             </div>
 
                             <p class="earch">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
@@ -191,104 +98,11 @@
                     </div>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
                         <div class="card card-body">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        <label>Number of channels</label>
-                                        <select name="cars" id="cars" form="carform">
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                                    </div>
-                                </div>
+                            <input type="hidden" name="selected_recorder_attributes">
+                            <div class="row" id="recorder_attribute_div">
+                                @if(!empty($attribute_recorder))
+                                {!! $attribute_recorder !!}
+                                @endif
                             </div>
 
                             <p class="earch">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
@@ -343,14 +157,21 @@
 
         $.ajax({
             method:'post',
-            url: '{{ route('get_enquiry_product_attributes') }}',
+            url: '{{ route('get-enquiry-attributes') }}',
             data: {
                 '_token': '{{ csrf_token() }}',
                 'system_type': system_type,
                 'standard': standard,
             },
             success: function(data){
-
+                if(data.html_camera != ''){
+                    $('#camera_attribute_div').empty();
+                    $('#camera_attribute_div').append(data.html_camera);
+                }
+                if(data.html_recorder != ''){
+                    $('#recorder_attribute_div').empty();
+                    $('#recorder_attribute_div').append(data.html_recorder);
+                }
             },
             
         });
@@ -358,6 +179,66 @@
 
 
     });   
+
+    $(document).on('change', '.attribute',function(){
+        var attribute_value_arr = [];
+        var cam_attribute_value_arr  = [];
+        var rec_attribute_value_arr = [];
+        var ele = $(this);
+        //console.log($(this).data('product_type'));
+
+
+        $('.attribute').each(function(){
+            
+            if($(this).val() != ''){
+           
+                if($(ele).data('product_type') == 'camera'){
+                 
+                    cam_attribute_value_arr.push($(this).val());
+                }else{
+                    rec_attribute_value_arr.push($(this).val());
+                }
+            }
+            
+        
+        });
+        
+        if($(ele).data('product_type') == 'camera'){
+            var attribute_val = cam_attribute_value_arr.join(','); 
+             $('input[name="selected_camera_attributes"]').val(attribute_val);
+        }else if($(ele).data('product_type') == 'recorder'){
+            var attribute_val = rec_attribute_value_arr.join(',');
+            $('input[name="selected_recorder_attributes"]').val(attribute_val);
+        }
+        console.log(attribute_val);
+        
+
+        var system_type = $(this).data('system_type');
+        var product_type = $(this).data('product_type');
+    
+        $.ajax({
+            method: 'post',
+            url: '{{ route('update-attributes') }}',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'attribute_value' : attribute_val,
+                'system_type': system_type,
+                'product_type': product_type
+            },
+            success: function(data){
+                if(data.success == true && data.html != ''){
+                    if(data.product_type == 'camera'){
+                        $('#camera_attribute_div').empty();
+                        $('#camera_attribute_div').append(data.html);
+                    }else if(data.product_type == 'recorder'){
+                        $('#recorder_attribute_div').empty();
+                        $('#recorder_attribute_div').append(data.html);
+                    }
+                }
+            }
+        });
+
+    });
 
 
 

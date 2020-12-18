@@ -25,10 +25,10 @@
                     </a>
                     <ul class="menu-content">
                         <li class="">
-                            <a class="menu-item" href="{{ route('system_types.create') }}">Add</a>
+                            <a class="menu-item" href="{{ route('system-types.create') }}">Add</a>
                         </li>
                         <li>
-                            <a class="menu-item" href="{{ route('system_types.index') }}">List</a>
+                            <a class="menu-item" href="{{ route('system-types.index') }}">List</a>
                         </li>
                     </ul>
                 </li>
@@ -50,10 +50,10 @@
                         <span class="menu-title" data-i18n="">Products</span></a>
                     <ul class="menu-content">
                         <li>
-                            <a class="menu-item" href="{{ route('product.create') }}">Add New </a>
+                            <a class="menu-item" href="{{ route('products.create') }}">Add New </a>
                         </li>
                         <li>
-                            <a class="menu-item" href="{{ route('product.index') }}">List </a>
+                            <a class="menu-item" href="{{ route('products.index') }}">List </a>
                         </li>
                         <li><a class="menu-item" href="#">Product Attributes</a>
                             <ul class="menu-content">

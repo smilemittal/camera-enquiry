@@ -61,7 +61,7 @@
                                             @endif
                                                 <!--p>This is the most basic and default form having form section.</p-->
                                         </div>
-                                        <form method="post" action="{{ route('product.store') }}" class="form" >
+                                        <form method="post" action="{{ route('products.store') }}" class="form" >
                                         @csrf
                                             <div class="form-body">
                                                 <div class="form-group">

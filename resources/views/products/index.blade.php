@@ -87,7 +87,7 @@
                     "url": "{{ route('get.product') }}",
                     "dataType": "json",
                     "type": "POST",
-                    "data":{ _token: "{{csrf_token()}}",route:'{{route('product.index')}}'}
+                    "data":{ _token: "{{csrf_token()}}",route:'{{route('products.index')}}'}
                 },
                 "columns": [
                     { "data": "id" },
