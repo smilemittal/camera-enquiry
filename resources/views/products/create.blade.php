@@ -111,7 +111,7 @@
                                                 </div>
                                                
                                                 <div class="form-actions" style="text-align:center">
-                                                        <a  class=" btn btn-primary" href="{{ route('product.index') }}"> View All</a>           
+                                                        <a  class=" btn btn-primary" href="{{ route('products.index') }}"> View All</a>           
                                                         <button type="submit" name="submit" class="btn btn-success">
                                                             Save
                                                         </button>

@@ -56,3 +56,5 @@ Route::post('get-product-attributes', 'ProductController@getProductAttributes')-
 Route::get('home', 'FrontController@home')->name('home');
 Route::post('get-enquiry-attributes', 'FrontController@getEnquiryProductAttributes')->name('get-enquiry-attributes');
 Route::post('update-attributes', 'FrontController@updateAttributes')->name('update-attributes');
+
+Route::post('get-next-product', 'FrontController@getNextProduct')->name('get-next-product');
