@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Excel;
 use Illuminate\Http\Request;
 use App\Models\SystemType;
 use App\Models\Attribute;
+use App\Exports\AttributeExport;
+
 
 class AttributeController extends Controller
 {
@@ -174,4 +177,27 @@ class AttributeController extends Controller
         );
         return json_encode($json_data);
     }
+    public function importAttributeValues()
+    {
+        return view('imports.attribute-values');
+    }
+
+    public function postImport(Request $request)
+    {
+
+        if($request->hasFile('import-attribute-values')){
+          
+            Excel::import(new AttributeValuesImport, request()->file('import-attribute-values'));
+
+        }
+      
+        return redirect()->route('attribute-values.import')->with('success', 'Attributes Imported successfully');
+    }
+    
+    public function export() 
+    {
+        return Excel::download(new AttributeExport, 'AttributeData.xlsx');
+    }
+      
+
 }

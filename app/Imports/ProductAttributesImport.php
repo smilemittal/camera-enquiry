@@ -23,7 +23,7 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function collection(collection $rows)
+    public function collection(Collection $rows)
     {
 
         foreach($rows as $row){
