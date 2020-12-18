@@ -20,7 +20,7 @@ class ProductAttribute extends Model
 
 	public function attribute()
 	{
-	return $this->belongsTo('App\Models\Attribute');
+	return $this->belongsTo('App\Models\Attribute')->orderBy('display_order', 'ASC');
 	}
 
 	public function attribute_value()

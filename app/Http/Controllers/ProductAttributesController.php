@@ -205,8 +205,9 @@ class ProductAttributesController extends Controller
         return json_encode($json_data);
         }
 
-     public function importProductAttribute()
+        public function importProductAttribute()
         {
+           
             return view('imports.product-attributes');
         }
 

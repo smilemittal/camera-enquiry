@@ -8,7 +8,9 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> Update Product</h4>
+
+                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.edit_product')}}</h4>
+
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>
@@ -56,17 +58,17 @@
                                             @endif
                                                 <!--p>This is the most basic and default form having form section.</p-->
                                         </div>
-                                        <form method="post" action="{{ route('product.update', $product->id) }}" class="form" >
+                                        <form method="post" action="{{ route('products.update', $product->id) }}" class="form" >
                                         @csrf
                                         @method('PATCH')
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="Name">Product Name</label>
+                                                    <label for="Name">{{__('site.product_name')}}</label>
                                                     <input type="text" id="name" class="form-control" value="{{$product->name}}" name="name">
                                                 </div> 
 
                                                 <div class="form-group">
-                                                    <label for="standard_id">Standard</label>
+                                                    <label for="standard_id">{{ __('site.standard')}}</label>
                                                     <select name="standard_id" id="standard_id" class="form-control">
                                                         <option value="">Select</option>
                                                         @foreach($standards as $standard)
@@ -77,7 +79,7 @@
                                                 
                                                 
                                                 <div class="form-group">
-                                                    <label for="system_type_id">System Type</label>
+                                                    <label for="system_type_id">{{ __('site.system_type')}}</label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
                                                         <option value="">Select</option>
                                                         @foreach($system_types as $system_type)
@@ -86,7 +88,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="type">Type</label>
+                                                    <label for="type">{{ __('site.type')}}</label>
                                                     <select name="type" id="type" class="form-control">
                                                             <option value="">Select</option>  
                                                             <option value="camera" @if($product->type == 'camera') selected @endif>Camera</option>
@@ -95,13 +97,9 @@
                                                             <option value="switch" @if($product->type == 'switch') selected @endif>Switch</option>
                                                     </select>
                                                 </div>
-
-                                               
-
-
                                                 <hr>
                                                 <div>
-                                                   <h5>Add Product Attributes</h5>
+                                                   <h5> {{ __('site.add_product_attributes')}}</h5>
 
                                                    <div id="product_attribute_div">
                                                     @foreach($attributes as $attribute)
@@ -112,7 +110,6 @@
                                                                 
                                                                 </div>
                                                             </div>
-                                                         
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <select name="attribute_value[{{ $attribute->id }}]" id="" class="form-control">
@@ -125,16 +122,14 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            
                                                         </div>
                                                     @endforeach
                                                    </div>
                                                 </div>
-
                                                 <div class="form-actions" style="text-align:center">
-                                                    <a  class=" btn btn-primary" href="{{ route('product.index') }}"> View All</a>             
+                                                    <a  class=" btn btn-primary" href="{{ route('products.index') }}">{{ __('site.view_all')}}</a>             
                                                     <button type="submit" name="submit" class="btn btn-success">
-                                                        <i class=""></i> Save
+                                                        <i class=""></i>{{ __('site.save')}}
                                                     </button>
                                                 </div>
                                            </div>
@@ -149,7 +144,6 @@
             </div>
        
     <!-- END: Content-->
-
 @endsection
 @section('scripts')
     <script>
@@ -172,11 +166,9 @@
                 }
             });
         });
-
         $('#system_type_id').on('change', function(){
             var type = $("#type option:selected").val()
             var system_type_id = $(this).val();;
-
             $.ajax({
                 method: 'post',
                 url: '{{ route('get-product-attributes') }}',
@@ -193,6 +185,5 @@
             });
         });
     </script>
-
 @endsection
 

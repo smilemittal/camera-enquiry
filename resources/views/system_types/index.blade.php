@@ -19,7 +19,7 @@
                             <div class="card">
                                 <div class="card-header" style="height: 50px;">
                                     <div class="card-title layout_btns" id="basic-layout-form">
-                                        <h3>System Types</h3>
+                                        <h3>{{ __('site.system_types') }}</h3>
                                         <div class="btns-right-side">
                                         <a href="{{ route('system-types.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >Import </a> 
                                         <a href="{{ route('system-types.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" > Export</a>
@@ -38,9 +38,9 @@
                                         <table class="table table-striped table-bordered zero-configuration" id="system_types" style="width: 100%; display: table;">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Action</th>
+                                                    <th>{{ __('site.id') }}</th>
+                                                    <th>{{ __('site.name') }}</th>
+                                                    <th>{{ __('site.action') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -48,8 +48,8 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
+                                                    <th> {{ __('site.id') }}</th>
+                                                    <th> {{  __('site.name') }} </th>
                                                     <th>Action</th>
                                                 </tr>
                                             </tfoot>
@@ -84,7 +84,7 @@
                     "url": "{{ route('get.system_types') }}",
                     "dataType": "json",
                     "type": "POST",
-                    "data":{ _token: "{{csrf_token()}}",route:'{{route('system_types.index')}}'}
+                    "data":{ _token: "{{csrf_token()}}",route:'{{route('system-types.index')}}'}
                 },
                 "columns": [
                     { "data": "id" },

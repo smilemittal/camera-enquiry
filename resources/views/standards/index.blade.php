@@ -19,10 +19,10 @@
                 <div class="card">
                     <div class="card-header" style="height: 50px;">
                         <div class="card-title layout_btns" id="basic-layout-form">
-                            <h3>Standards</h3>
+                            <h3>{{ __('site.standards')}}</h3>
                                 <div class="btns-right-side">
-                                    <a href="{{ route('standards.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >Import </a> 
-                                    <a href="{{ route('standards.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" > Export</a>
+                                    <a href="{{ route('standards.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{ __('site.import')}} </a> 
+                                    <a href="{{ route('standards.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" > {{ __('site.export')}}</a>
                                 </div>
                         </div>
                     </div>
@@ -39,9 +39,9 @@
 	                            <table class="table table-striped table-bordered zero-configuration"style="width:100%" id="standard" >
 	                                <thead>
 	                                    <tr>
-	                                        <th>id</th>
-	                                        <th>Name</th>
-	                                        <th>Action</th>
+	                                        <th>{{ __('site.id') }}</th>
+	                                        <th>{{ __('site.name') }}</th>
+	                                        <th>{{ __('site.action') }}</th>
 	                                    </tr>
 	                                </thead>
 	                                <tbody>
@@ -50,8 +50,8 @@
 	                                <tfoot>
 	                                    <tr>
 	                                        <th>#</th>
-	                                        <th>Name</th>
-	                                        <th>Action</th>
+	                                        <th>{{ __('site.name') }}</th>
+	                                        <th>{{ __('site.action') }}</th>
 	                                    </tr>
 	                                </tfoot>
 	                            </table>

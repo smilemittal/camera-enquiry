@@ -29,7 +29,7 @@ class SystemTypesController extends Controller
      */
     public function create()
     {
-        return view('system_types.home');
+        return view('system_types.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class SystemTypesController extends Controller
 
         SystemType::create($request->all());
 
-        return redirect()->route('system_types.index')->with('success','System type added successfully');
+        return redirect()->route('system-types.index')->with('success','System type added successfully');
 
         }
 
@@ -92,7 +92,7 @@ class SystemTypesController extends Controller
         $system_types=SystemType::find($id);          
         $system_types->update($request->all()); 
 
-        return redirect()->route('system_types.index')->with('success','System type updated successfully');;
+        return redirect()->route('system-types.index')->with('success','System type updated successfully');;
     }
 
     /**
@@ -106,7 +106,7 @@ class SystemTypesController extends Controller
         $system_types=SystemType::find($id);  
         $system_types->delete();
         
-         return redirect()->route('system_types.index')->with('success','System type deleted successfully');
+         return redirect()->route('system-types.index')->with('success','System type deleted successfully');
     }
 
     public function getSystemTypes(Request $request) {
@@ -141,9 +141,9 @@ class SystemTypesController extends Controller
             foreach ($system_types as $key => $system_type) {
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $system_type->name;
-                $index = route('system_types.index' ,  encrypt($system_type->id));
-                $edit = route('system_types.update' ,  encrypt($system_type->id));
-                $delete = route('system_types.destroy' ,  encrypt($system_type->id));
+                $index = route('system-types.index' ,  encrypt($system_type->id));
+                $edit = route('system-types.update' ,  encrypt($system_type->id));
+                $delete = route('system-types.destroy' ,  encrypt($system_type->id));
                 $exist = $system_type;
                 $comp = true;
                 $nestedData['action'] = view('system_types.partials.setting-action',compact('index','exist','comp','edit','delete', 'system_type'))->render();
