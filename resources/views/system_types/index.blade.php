@@ -49,7 +49,7 @@
                                             <tfoot>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Name</th>
+                                                <th>{{  __('site.name') }}</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </tfoot>

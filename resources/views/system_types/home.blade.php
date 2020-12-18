@@ -8,26 +8,26 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">Add System Types </a></h4>
+                                <h4 class="card-title" id="basic-layout-form">{{ __('site.add_system_types') }}</a></h4>
                                     
                                 </div>
                             <!-- Card content body start -->    
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         @if($errors->all())
-                            <div class="alert alert-danger">
-                                @foreach($errors->all() as $error)
-                                
-                                   <p>{{$error}}</p> 
-                            
-                                @endforeach
-                                </div>
-                            @endif
+                                            <div class="alert alert-danger">
+                                                @foreach($errors->all() as $error)
+                                                
+                                                <p>{{$error}}</p> 
+                                            
+                                                @endforeach
+                                            </div>
+                                        @endif
                                         <form class="form" action="{{ route('system-types.store') }}" method="post">
                                             @csrf  
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="name">Name</label>
+                                                    <label for="name">{{ __('site.name') }}</label>
                                                     <input type="text" id="name" class="form-control" placeholder="Name" name="name">
                                                 </div>
                                             </div>
