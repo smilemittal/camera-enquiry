@@ -4,8 +4,9 @@ namespace App\Exports;
 
 use App\Models\Standard;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class StandardsExport implements FromCollection
+class StandardsExport implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -13,5 +14,14 @@ class StandardsExport implements FromCollection
     public function collection()
     {
         return Standard::all();
+    }
+
+     public function headings(): array
+    {
+    	return [
+    		"id",
+    		"name",
+    		"created_at", 
+    		"updated_at"];
     }
 }
