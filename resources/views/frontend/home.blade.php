@@ -1,5 +1,6 @@
 @extends('frontend.layouts.app')
 @section('content')
+<form method="post" action="" id="product-enquiry" enctype="multipart/form-data">
         <div class="form-sec">
             <div class="container">
                 <div class="row">
@@ -12,7 +13,7 @@
                                         <input type="hidden" id="selected_system_type" name="selected_system_type" value="">
                                         @foreach($system_types as $system_type) 
                                             <div class="col-xl-3 col-md-6">
-                                                <button class="system_type" data-id="{{ $system_type->id }}">{{ $system_type->name }}</button>
+                                                <button type="button" class="system_type" data-id="{{ $system_type->id }}">{{ $system_type->name }}</button>
                                             </div>
                                         @endforeach
                                      
@@ -30,7 +31,7 @@
                                     <input type="hidden" id="selected_standard" name="selected_standard" value="">
                                     @foreach($standards as $standard)
                                         <div class="col-xl-3 col-md-4">
-                                        <button class="standard" data-id="{{ $standard->id }}">{{ $standard->name }}</button>
+                                        <button type="button" class="standard" data-id="{{ $standard->id }}">{{ $standard->name }}</button>
                                         </div>
                                     @endforeach
                                 
@@ -41,8 +42,8 @@
                 </div>
             </div>
         </div>
-    <input type="hidden" name="camera_count" value="">
-    <input type="hidden" name="recorder_count" value="">
+        <input type="hidden" name="camera_count" value="">
+        <input type="hidden" name="recorder_count" value="">
         <div class="kemey-cameras-sec">
             <div class="container">
                 <div class="col-kemey camera_1">
@@ -52,7 +53,7 @@
                         </div>
                         <div class="col-xl-2 col-md-6">
                             <div class="kamaroty">
-                                <input type="text" name="" placeholder="Qty"/>
+                                <input type="text" name="quantity[camera][1]" placeholder="Qty"/>
                             </div>
                         </div>
                         <div class="col-md-12 col-xl-7 pl-lg-3">
@@ -94,7 +95,7 @@
                         </div>
                         <div class="col-xl-2 col-md-6">
                             <div class="kamaroty">
-                                <input type="text" name="" placeholder="Qty"/>
+                                <input type="text" name="quantity[recorder][1]" placeholder="Qty"/>
                             </div>
                         </div>
                         <div class="col-md-12 col-xl-7 pl-lg-3">
@@ -133,18 +134,19 @@
                 <div class="col-kemey">
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-3 col-md-4">
-                            <button>Kamey / Cameras</button>
+                        <button type="button" class="form-submit-btn save" data-url="{{ route('save-enquiry') }}">Save</button>
                         </div>
                         <div class="col-xl-3 col-md-4">
-                            <button>Kamey / Cameras</button>
+                            <button type="button" class="form-submit-btn summary" data-url="{{ route('get-summary') }}">Summary</button>
                         </div>
-                        <div class="col-xl-3 col-md-4">
+                        {{-- <div class="col-xl-3 col-md-4">
                             <button>Kamey / Cameras</button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
         </div>
+</form>
 @endsection
 
 @section('scripts')
@@ -244,7 +246,7 @@
             },
             success: function(data){
                 if(data.success == true && data.html != ''){
-                    console.log($('.'+product_type+'_div_'+count));
+                    console.log($('.'+product_type+'_div_'+count)); 
                     if(data.product_type == 'camera'){
 
                         $('.'+product_type+'_div_'+count).empty();
@@ -289,6 +291,23 @@
         });
 
 
+    });
+
+    $('.form-submit-btn').on('click', function(){
+        var url = $(this).data('url');
+        var formData = new FormData($('#product-enquiry')[0]);
+        console.log(formData);
+        $.ajax({
+            method: 'post',
+            url: url,
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'formData': formData,
+            },
+            success: function(data){
+
+            }
+        });
     });
 
 

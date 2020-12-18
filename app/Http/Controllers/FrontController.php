@@ -189,7 +189,11 @@ class FrontController extends Controller
                 
 
         }
-    }   
+    }
+    
+    public function saveEnquiry(Request $request){
+        dd($request->all());
+    }
 
 
 

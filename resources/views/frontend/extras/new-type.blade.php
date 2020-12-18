@@ -6,7 +6,7 @@
         </div>
         <div class="col-xl-2 col-md-6">
             <div class="kamaroty">
-                <input type="text" name="quantity[{{ $i }}]" />
+                <input type="text" name="quantity[{{ $product_type }}][{{ $i }}]" />
             </div>
         </div>
         <div class="col-md-12 col-xl-7 pl-lg-3">
@@ -53,7 +53,7 @@
         </div>
         <div class="col-xl-2 col-md-6">
             <div class="kamaroty">
-                <input type="text" name="" placeholder="Qty"/>
+                <input type="text" name="quantity[{{ $product_type }}][{{ $i }}]" placeholder="Qty"/>
             </div>
         </div>
         <div class="col-md-12 col-xl-7 pl-lg-3">

@@ -12,7 +12,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> Add Attribute</h4>
+                                    <h4 class="card-title" id="basic-layout-form"> {{ __('site.add_attribute')}}</h4>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>
@@ -65,15 +65,15 @@
                                          @csrf
                                             <div class="form-body">
                                                      <div class="form-group">
-                                                            <label for="Name">Attribute Name</label>
+                                                            <label for="Name">{{ __('site.attribute_name')}}</label>
                                                             <input type="text" id="name" class="form-control" placeholder="Name" name="name">
                                                      </div> 
                                                      <div class="form-group">
-                                                            <label for="Name"> Display Order</label>
+                                                            <label for="Name">{{ __('site.display_order')}}</label>
                                                             <input type="text" id="display_order" class="form-control" placeholder="display_order" name="display_order">
                                                      </div> 
                                                        <div class="form-group">
-                                                            <label for="system_type_id"> System Type</label>
+                                                            <label for="system_type_id">{{ __('site.system_type')}}</label>
                                                            
                                                            <select name="system_type_id" id="system_type_id" class="form-control">
                                                             @foreach($system_types as $system_type)
@@ -82,7 +82,7 @@
                                                            </select>
                                                      </div> 
                                                      <div class="form-group">
-                                                            <label for="type">Type</label>
+                                                            <label for="type">{{ __('site.type')}}</label>
                                                                 <select id="type" name="type" class="form-control">
                                                                         <option value="camera">Camera</option>
                                                                         <option value="nvr">Nvr</option>
@@ -90,19 +90,13 @@
                                                                         <option value="switch">Switch</option>
                                                                 </select>
                                                      </div>
-                                                   
-
-                                                     
-                                                    
-                                                     
 
                                                     <div class="form-actions" style="text-align:center">
-                                                            <a  class=" btn btn-primary" href="{{ route('attribute.index') }}"> View All</a>           
+                                                            <a  class=" btn btn-primary" href="{{ route('attribute.index') }}"> {{__('site.view_all')}}</a>           
                                                             <button type="submit" name="submit" class="btn btn-success">
-                                                                Save
-                                                            </button>
-                                                     <div>
-                                           </div>
+                                                                {{__('site.save')}}
+                                                            </button>   
+                                                   </div>
                                         </form>
                                     </div>
                                 </div>

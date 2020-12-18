@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 
@@ -40,8 +41,6 @@ Route::get('attribute-values/export', 'AttributeValuesController@export')->name(
 Route::resource('attribute-values', 'AttributeValuesController');
 Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
 
-
-
 Route::post('products/getproduct','ProductController@getproduct')->name('get.product');
 Route::resource('products', 'ProductController');
 
@@ -53,8 +52,22 @@ Route::resource('product-attributes','ProductAttributesController');
 
 //Front routes
 Route::post('get-product-attributes', 'ProductController@getProductAttributes')->name('get-product-attributes');
-Route::get('home', 'FrontController@home')->name('home');
+Route::get('/', 'FrontController@home')->name('home');
 Route::post('get-enquiry-attributes', 'FrontController@getEnquiryProductAttributes')->name('get-enquiry-attributes');
 Route::post('update-attributes', 'FrontController@updateAttributes')->name('update-attributes');
 
+// Route::get('layouts.header{locale}', function ($locale) {
+//     if (! in_array($locale, ['en', 'es', 'fr'])) {
+//         abort(400);
+//     }
+
+//     App::setLocale($locale);
+
+//     //
+// });
+
+
 Route::post('get-next-product', 'FrontController@getNextProduct')->name('get-next-product');
+
+Route::post('save-enquiry', 'FrontController@saveEnquiry')->name('save-enquiry');
+Route::post('get-summary', 'FrontController@getSummary')->name('get-summary');
