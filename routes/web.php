@@ -16,18 +16,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::get('system_types/create', 'SystemTypesController@create')->name('system_types.create');
-// Route::post('system_types/store', 'SystemTypesController@store')->name('system_types.store');
-// Route::get('system_types/index',  'SystemTypesController@index')->name('system_types.index');
-// Route::get('system_types/edit/{id}','SystemTypesController@edit')->name('system_types.edit');
-// Route::patch('system_types/update/{id}','SystemTypesController@update')->name('system_types.update');
-// Route::delete('system_types/destroy/{id}','SystemTypesController@destroy')->name('system_types.destroy');
-Route::get('system_types/import','SystemTypesController@importSystemTypes')->name('system-types.import');
-Route::post('system_types/post-import','SystemTypesController@postImport')->name('system-types.post-import');
-Route::get('system_types/export','SystemTypesController@export')->name('system-types.export');
-Route::resource('system_types', 'SystemTypesController');
-Route::post('system_types/fetchtypes','SystemTypesController@getSystemTypes')->name('get.system_types');
 
+
+
+Route::get('system-types/import','SystemTypesController@importSystemTypes')->name('system-types.import');
+Route::post('system-types/post-import','SystemTypesController@postImport')->name('system-types.post-import');
+Route::get('system-types/export','SystemTypesController@export')->name('system-types.export');
+Route::post('system-types/fetchtypes','SystemTypesController@getSystemTypes')->name('get.system_types');
+Route::resource('system-types', 'SystemTypesController');
+
+Route::get('standards/import', 'StandardsController@importStandards')->name('standards.import');
+Route::post('standards/post-import', 'StandardsController@postImport')->name('standards.post-import');
+Route::get('standards/export','StandardsController@export')->name('standards.export');
+Route::post('standards/getstandard','StandardsController@getStandard')->name('get.standards');
+Route::resource('standards', 'StandardsController');
+
+Route::resource('attribute', 'AttributeController');
+Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name('get.attribute');
 
 Route::get('attribute-values/import', 'AttributeValuesController@importAttributeValues')->name('attribute-values.import');
 Route::post('attribute-values/post-import', 'AttributeValuesController@postImport')->name('attribute-values.post-import');
@@ -35,39 +40,19 @@ Route::get('attribute-values/export', 'AttributeValuesController@export')->name(
 Route::resource('attribute-values', 'AttributeValuesController');
 Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
 
-Route::get('products/create','ProductController@create')->name('product.create');
-Route::post('products/store','ProductController@store')->name('product.store');
-Route::get('products/index','ProductController@index')->name('product.index');
-Route::delete('products/destroy/{id}','ProductController@destroy')->name('product.destroy');
-Route::get('products/edit/{id}','ProductController@edit')->name('product.edit');
-Route::patch('products/update/{id}','ProductController@update')->name('product.update');
+
+
 Route::post('products/getproduct','ProductController@getproduct')->name('get.product');
-
-
-Route::get('standards/import', 'StandardsController@importStandards')->name('standards.import');
-Route::post('standards/post-import', 'StandardsController@postImport')->name('standards.post-import');
-Route::get('standards/export','StandardsController@export')->name('standards.export');
-Route::get('standards/create','StandardsController@create')->name('standards.create');
-Route::post('standards/store','StandardsController@store')->name('standards.store');
-Route::get('standards/index','StandardsController@index')->name('standards.index');
-Route::get('standards/edit/{id}','StandardsController@edit')->name('standards.edit');
-Route::patch('standards/update/{id}','StandardsController@update')->name('standards.update');
-Route::delete('standards/destroy/{id}','StandardsController@destroy')->name('standards.destroy');
-Route::post('standards/getstandard','StandardsController@getStandard')->name('get.standards');
-
-Route::resource('attribute', 'AttributeController');
-Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name('get.attribute');
-
-
+Route::resource('products', 'ProductController');
 
 Route::get('product-attributes/import', 'ProductAttributesController@importProductAttribute')->name('product-attributes.import');
 Route::post('product-attributes/post-import', 'ProductAttributesController@postImport')->name('product-attributes.post-import');
 Route::get('product-attributes/export' , 'ProductAttributesController@export')->name('product-attributes.export');
-Route::resource('product-attributes','ProductAttributesController');
 Route::post('product-attributes/fetchtypes','ProductAttributesController@getProductAttribute')->name('get.ProductAttributes');
+Route::resource('product-attributes','ProductAttributesController');
 
+//Front routes
 Route::post('get-product-attributes', 'ProductController@getProductAttributes')->name('get-product-attributes');
-
 Route::get('home', 'FrontController@home')->name('home');
-
-Route::post('get-enquiry-product-attributes', 'FrontController@getEnquiryProductAttributes')->name('get_enquiry_product_attributes');
+Route::post('get-enquiry-attributes', 'FrontController@getEnquiryProductAttributes')->name('get-enquiry-attributes');
+Route::post('update-attributes', 'FrontController@updateAttributes')->name('update-attributes');

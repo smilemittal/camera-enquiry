@@ -49,7 +49,7 @@
                                             <tfoot>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Name</th>
+                                                <th>{{  __('site.name') }}</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </tfoot>
@@ -84,7 +84,7 @@
                     "url": "{{ route('get.system_types') }}",
                     "dataType": "json",
                     "type": "POST",
-                    "data":{ _token: "{{csrf_token()}}",route:'{{route('system_types.index')}}'}
+                    "data":{ _token: "{{csrf_token()}}",route:'{{route('system-types.index')}}'}
                 },
                 "columns": [
                     { "data": "id" },

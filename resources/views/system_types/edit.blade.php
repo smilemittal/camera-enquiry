@@ -50,7 +50,7 @@
                                                 @endforeach
                                             </div>
                                         @endif
-                                       <form method="Post" action="{{route('system_types.update',$system_types->id)}}">  
+                                       <form method="Post" action="{{route('system-types.update',$system_types->id)}}">  
                                         @method('PATCH')     
                                          @csrf
                                             <div class="form-body">
@@ -60,7 +60,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('system_types.index')}}" method="post" class="btn btn-primary" type="submit">Cancel</a>
+                                                <a href="{{ route('system-types.index')}}" method="post" class="btn btn-primary" type="submit">Cancel</a>
                                                 <button type="submit" class="btn btn-success">Save
                                                 </button>
                                             </div>

@@ -56,7 +56,7 @@
                                             @endif
                                                 <!--p>This is the most basic and default form having form section.</p-->
                                         </div>
-                                        <form method="post" action="{{ route('product.update', $product->id) }}" class="form" >
+                                        <form method="post" action="{{ route('products.update', $product->id) }}" class="form" >
                                         @csrf
                                         @method('PATCH')
                                             <div class="form-body">
