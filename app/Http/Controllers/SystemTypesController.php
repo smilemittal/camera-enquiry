@@ -47,7 +47,7 @@ class SystemTypesController extends Controller
 
         SystemType::create($request->all());
 
-        return redirect()->route('system-types.index')->with('success','System type added successfully');
+        return redirect()->route('system-types.index')->with('success',__('message.System type added successfully'));
 
         }
 
@@ -92,7 +92,7 @@ class SystemTypesController extends Controller
         $system_types=SystemType::find($id);          
         $system_types->update($request->all()); 
 
-        return redirect()->route('system-types.index')->with('success','System type updated successfully');;
+        return redirect()->route('system-types.index')->with('success', __('message.System type updated successfully'));
     }
 
     /**
@@ -106,7 +106,8 @@ class SystemTypesController extends Controller
         $system_types=SystemType::find($id);  
         $system_types->delete();
         
-         return redirect()->route('system-types.index')->with('success','System type deleted successfully');
+         return redirect()->route('system-types.index')->with('success', __('message.System type deleted successfully'));
+
     }
 
     public function getSystemTypes(Request $request) {
@@ -173,7 +174,7 @@ class SystemTypesController extends Controller
 
     }
       
-        return redirect()->route('system-types.import')->with('success', 'SystemTypes Imported successfully');
+        return redirect()->route('system-types.import')->with('success', __('message.SystemTypes Imported successfully'));
     }
 
     public function export()

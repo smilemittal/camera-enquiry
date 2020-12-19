@@ -39,12 +39,12 @@
                                             <table class="table table-striped table-bordered zero-configuration" style="width:100%" id="attribute">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th> Attribute Name</th>
-                                                        <th>Type</th>
-                                                        <th> Display Order</th>
-                                                        <th>System Type</th>
-                                                        <th>Action</th>
+                                                        <th>{{ __('site.id')}}</th>
+                                                        <th>{{ __('site.attribute_name')}}</th>
+                                                        <th>{{__('site.type')}}</th>
+                                                        <th>{{ __('site.display_order')}}</th>
+                                                        <th>{{ __('site.system_type')}}</th>
+                                                        <th>{{ __('site.action')}}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -53,13 +53,13 @@
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                        <th>ID</th>
-                                                        <th> Attribute Name</th>
-                                                        <th>Type</th>
-                                                        <th> Display Order</th>
-                                                        <th>System Type</th>
-                                                        <th>Action</th>
-                                                    </tr> 
+                                                        <th>{{ __('site.id')}}</th>
+                                                        <th>{{ __('site.attribute_name')}}</th>
+                                                        <th>{{__('site.type')}}</th>
+                                                        <th>{{ __('site.display_order')}}</th>
+                                                        <th>{{ __('site.system_type')}}</th>
+                                                        <th>{{ __('site.action')}}</th>
+                                                </tr> 
                                              </tfoot>
                                                
                                             </table>
