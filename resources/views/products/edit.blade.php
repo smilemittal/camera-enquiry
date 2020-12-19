@@ -27,7 +27,6 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-
                                     <h4 class="card-title" id="basic-layout-form">{{ __('site.Edit')}}</h4>
 
                                     <a class="heading-elements-toggle">

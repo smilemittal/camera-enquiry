@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Product-Attributes</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{__('site.product_attributes')}}</h4>
                         <a class="heading-elements-toggle">
                             <i class="la la-ellipsis-v font-medium-3"></i>
                         </a>
@@ -63,21 +63,21 @@
 	                            <table class="table table-striped table-bordered zero-configuration" id="productAttributes"style="width:100%"  >
 	                                <thead>
 	                                    <tr>
-	                                        <th>ID</th>
-	                                        <th>Product</th>
-                                             <th>Attribute</th>
-                                              <th>Attribute Value</th>
-                                              <th>Action</th>
+	                                        <th>{{ __('site.id')}}</th>
+	                                        <th>{{ __('site.product')}}</th>
+                                            <th>{{ __('site.attribute')}}</th>
+                                            <th>{{ __('site.attribute_value')}}</th>
+                                            <th>{{ __('site.action')}}</th>
 	                                    </tr>
 	                                </thead>
                                     <tfoot>
                                         <tr>
-                                             <th>ID</th>
-                                             <th>Product</th>
-                                             <th>Attribute</th>
-                                             <th>Attribute Value</th>
-                                             <th>Action</th>
-                                         </tr>   
+                                             <th>{{ __('site.id')}}</th>
+                                             <th>{{ __('site.product')}}</th>
+                                             <th>{{ __('site.attribute')}}</th>
+                                             <th>{{ __('site.attribute_value')}}</th>
+                                             <th>{{ __('site.action')}}</th>
+                                        </tr>   
                                     </tfoot> 
 	                            </table>
 	                        </div>

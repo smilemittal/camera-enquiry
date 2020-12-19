@@ -24,7 +24,7 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="attribute_id"> Attribute </label>
+                                                    <label for="attribute_id">{{__('site.attribute')}} </label>
                                                     <select name="attribute_id" id="attribute_id" class="form-control">
                                                         @foreach($attributes as $attribute)
                                                             <option value="{{ $attribute->id }}">{{ $attribute->name }}
@@ -33,20 +33,20 @@
                                                     </select>
                                                 </div> 
                                                 <div  class="form-group">
-                                                    <label for="values">Value</label>
+                                                    <label for="values">{{ __('site.value')}}</label>
                                                     <input type="text" class="form-control" placeholder="Value" name="value">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="displayorder">Display Order</label>
+                                                    <label for="displayorder">{{ __('site.display_order')}}</label>
                                                     <input type="text" class="form-control" placeholder="Display Order" name="display_order">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="system_type_id"> System Type</label>
+                                                    <label for="system_type_id">{{ __('site.system_type')}}</label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
 
                                                         @foreach($system_types as $system_type)
 
-                                                            <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
+                                                           <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
 
                                                         @endforeach
                                                         
@@ -54,8 +54,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('attribute-values.index')}}" method="post" class="btn btn-primary" type="submit"> View all</a>    
-                                                <button type="submit" class="btn btn-success">Save</button>
+                                                <a href="{{ route('attribute-values.index')}}" method="post" class="btn btn-primary" type="submit">{{ __('site.view_all')}}</a>    
+                                                <button type="submit" class="btn btn-success">{{ __('site.save')}}</button>
                                             </div>
                                         </form>
                                     </div>

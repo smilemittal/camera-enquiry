@@ -21,7 +21,34 @@
                         </li>
                         
                     </ul>
+                    <ul class="nav navbar-nav float-right">
+                        <li class="dropdown dropdown-user nav-item">
+                            <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"> <span
+                                    class="avatar avatar-online"><img
+                                        src="{{ url('assets/dashboard/app-assets/images/portrait/small/avatar-s-19.png')}}"
+                                        alt="avatar"></span></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+                                    <a class="dropdown-item" href="#">
+                                        {{-- <i class="ft-user"></i> --}}
+                                        Edit Profile
+                                    </a>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                    
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                                        onclick="event.preventDefault();
+                                                                    this.closest('form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                    </form>
+                    
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
+                
             </div>
         </div>
     </nav>
