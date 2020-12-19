@@ -72,7 +72,13 @@ Route::post('update-attributes', 'FrontController@updateAttributes')->name('upda
 Route::post('get-next-product', 'FrontController@getNextProduct')->name('get-next-product');
 
 Route::post('save-enquiry', 'FrontController@saveEnquiry')->name('save-enquiry');
-Route::post('get-summary', 'FrontController@getSummary')->name('get-summary');
+//Route::post('get-summary', 'FrontController@getSummary')->name('get-summary');
 
 
 Route::get('enquiries', 'EnquiryController@index')->name('enquiries.index');
+Route::get('enquiries/{id}/show', 'EnquiryController@show')->name('enquiries.show');
+
+Route::delete('enquiries/{id}/destroy', 'EnquiryController@destroy')->name('enquiries.destroy');
+
+Route::post('get-enquiries', 'EnquiryController@getEnquiries')->name('get.enquiries');
+Route::post('print-enquiries', 'FrontController@printEnquiry')->name('print.enquiries');

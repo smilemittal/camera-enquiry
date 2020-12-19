@@ -7,12 +7,12 @@
     <span aria-labelledby="btnSearchDrop12" class="dropdown-menu mt-1 dropdown-menu-right"
         x-placement="bottom-end"
         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(55px, 27px, 0px);">
-            <a class="dropdown-item" href="{{ route('enquiry.edit', $attribute ?? ''->id)}}"><i
+            <a class="dropdown-item" href="{{ route('enquiries.show', $enquiry ?? ''->id)}}"><i
               class="fa fa-edit"></i>Edit</a>
-                        <form action="{{ $destroy }}" method="post" id="{{ 'delete_form_'.$attribute->id}}">  
+                        <form action="{{ $destroy }}" method="post" id="{{ 'delete_form_'.$enquiry->id}}">  
                             @csrf  
                             @method('DELETE')  
                         </form> 
-            <a href="#"onclick="document.getElementById('{{ 'delete_form_'.$attribute->id }}').submit();" class="dropdown-item" >Delete</a>  
+            <a href="#"onclick="document.getElementById('{{ 'delete_form_'.$enquiry->id }}').submit();" class="dropdown-item" >Delete</a>  
     </span>
 </span>

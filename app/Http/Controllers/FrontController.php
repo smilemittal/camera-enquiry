@@ -10,6 +10,8 @@ use App\Models\SystemType;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
 use Illuminate\Support\Facades\Validator;
+use PDF;
+
 
 class FrontController extends Controller
 {
@@ -207,7 +209,9 @@ class FrontController extends Controller
         
         $quantities = $request->input('quantity');
         $products = $request->input('products');
-        $product_quantity = [];
+        $standard_id = $request->input('selected_standard');
+        $system_type_id = $request->input('selected_system_type');
+        $quantity_arr = [];
         $product_arr = [];
         foreach($products as $product_type => $product){
       
@@ -237,6 +241,8 @@ class FrontController extends Controller
         $enquiry = Enquiry::create([
             'products' => $product_arr,
             'quantity' => $quantity_arr,
+            'standard_id' => $standard_id,
+            'system_type_id' => $system_type_id,
         ]);
         if($enquiry){
             return response()->json(['success'=> true, 'message'  => 'Enquiry Sent Successfully']);
@@ -245,6 +251,51 @@ class FrontController extends Controller
         }
         
 
+    }
+
+    public function printEnquiry(Request $request){
+        $quantities = $request->input('quantity');
+        $products = $request->input('products');
+        $standard_id = $request->input('selected_standard');
+        $system_type_id = $request->input('selected_system_type');
+        $quantity_arr = [];
+        $product_arr = [];
+        foreach($products as $product_type => $product){
+      
+            foreach($product as $no => $attributes){
+
+                foreach($attributes as $key => $attribute){
+                   // dd($attribute);
+                    if($attribute != NULL){
+                       // dd($quantities[$product_type][$no]);
+                        $product_arr[$product_type][$no][] = $attribute;
+                      
+                        
+                    }
+                   
+                }
+                if(!empty($quantities[$product_type][$no])){
+                    $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
+                }
+               
+            }   
+
+        }
+
+        $product_arr = ($product_arr);
+        $quantity_arr = ($quantity_arr);
+
+
+
+            $data = [
+               'products' => $product_arr, 
+               'quantities' => $quantity_arr,
+            ];
+
+            $pdf = PDF::loadView('enquiries.partials.pdf', $data);
+
+            return $pdf->download('document.pdf');
+        
     }
 
 
