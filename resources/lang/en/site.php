@@ -38,17 +38,17 @@
 	         'product_attributes'	=>'Product_Attributes',
 	         'coming_soon'			=>'Coming_Soon',
 	         'dashboard'			=>'DashBoard',
-	         'add'					=>'add',
+	         'add'					=>'Add',
 	         'list'					=> 'List',
 	          'products'		    =>' Products',
                'add_news'			=>'Add_News',
-
+				'home'				=>'Home',
   					'attributes'	=>'Attributes',
   				'attributes_values' =>'Attributes Values',
-
   				'import_system_types'=>'Import System Types',
   				'import_standards'	 =>'Import Standards',
   		'import_product_atrribute'	 =>'Import Product Atrribute',
-  		'import_atrribute_values'	 =>'Import Atrribute Values',
+		  'import_atrribute_values'	 =>'Import Atrribute Values',
+		  'reset'					=>'Reset',
 
 				];

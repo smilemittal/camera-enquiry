@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Exports;
+
 use App\Models\Attribute;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithMapping;

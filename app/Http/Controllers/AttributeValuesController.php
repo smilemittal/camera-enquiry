@@ -103,7 +103,7 @@ class AttributeValuesController extends Controller
         $attribute_values=AttributeValue::find($id);          
         $attribute_values->update($request->all()); 
 
-        return redirect()->route('attribute-values.index')->with('updated_success', __('message.Attribute value updated successfully'));
+        return redirect()->route('attribute-values.index')->with('updated', __('message.Attribute value updated successfully'));
     }
 
     /**
@@ -117,7 +117,7 @@ class AttributeValuesController extends Controller
         $attribute_values=AttributeValue::find($id);  
         $attribute_values->delete();
         
-        return redirect()->route('attribute-values.index')->with('deleted_success', __('message.Attribute value deleted successfully'));
+        return redirect()->route('attribute-values.index')->with('delete', __('message.Attribute value deleted successfully'));
     }
 
     /**
