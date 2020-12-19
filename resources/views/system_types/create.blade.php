@@ -27,6 +27,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
+
                                  <h3 class="card-title" id="basic-layout-form">{{__('site.Add')}} </h3>
                                  <a class="heading-elements-toggle">
                                     <i class="la la-ellipsis-v font-medium-3"></i>
@@ -58,10 +59,11 @@
                                                     <label for="name">{{ __('site.Name') }}</label>
                                                     <input type="text" name="name" placeholder="Name" class="form-control" required>
                                                   </div>
-                                            </div>
+                                            
                                             <div class="form-actions" style="text-align: center;">
                                                 <button type="reset" name="submit" class="btn btn-danger">{{__('site.Reset')}}
                                                 </button>
+
                                                 <button type="submit" name="submit" class="btn btn-success">{{__('site.Save')}}
                                                 </button>
                                             </div>

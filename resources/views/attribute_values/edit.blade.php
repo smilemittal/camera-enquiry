@@ -54,7 +54,7 @@
                                         @csrf  
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="attribute_id">{{__('site.attribute')}} </label>
+                                                    <label for="attribute_id">{{__('site.Attribute')}} </label>
                                                     <select name="attribute_id" id="attribute_id" class="form-control">
                                                         @foreach($attributes as $attribute)
                                                             <option value="{{ $attribute->id }}" {{ $attribute->id == $attribute_value->attribute_id ? 'selected' : '' }}>{{ $attribute->name }}
@@ -63,15 +63,15 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="values">{{__('site.value')}}</label>
+                                                    <label for="values">{{__('site.Value')}}</label>
                                                     <input type="text" class="form-control" placeholder="Value" name="value" value="{{$attribute_value->value}}">
                                                 </div>
                                                 <div class="form-group">         
-                                                    <label for="displayorder">{{__('site.display_order')}}</label>
+                                                    <label for="displayorder">{{__('site.Display Order')}}</label>
                                                     <input type="text" class="form-control" placeholder="Display Order" name="display_order" value="{{$attribute_value->display_order}}">
                                                 </div>                
                                                 <div class="form-group">
-                                                    <label for="system_type_id">{{__('site.system_type')}}</label>
+                                                    <label for="system_type_id">{{__('site.System Type')}}</label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
 
                                                         @foreach($system_types as $system_type)

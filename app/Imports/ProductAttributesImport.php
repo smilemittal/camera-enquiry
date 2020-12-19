@@ -59,15 +59,17 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                 if(!$product){
                     $products = Product::create(['name' => $row['model'], 'type' => $type, 'system_type_id' => $system_type_id, 'standard_id' => $standard_id]);
                     $product_id =$products->id;
+                    $product_type = $products->type;
                 }else{
                     $product_id =$product->id;
+                    $product_type = $product->type;
                 }
             
                 foreach($row as $key => $value){
                     if($key != 'model' && $key != 'display_order' && $key != 'system_type' && $key != 'type' && $key != 'standards' && $value != null && $value != ''){
 
                     $attribute_display_order = 0;
-                    $latest_attribute = Attribute::where('system_type_id' , '=', $system_type_id)->orderBy('id', 'DESC')->first();
+                    $latest_attribute = Attribute::where('system_type_id' , '=', $system_type_id)->where('type', $product_type)->orderBy('id', 'DESC')->first();
 
                     if($latest_attribute){
                         $attribute_display_order = $latest_attribute->display_order + 1;
@@ -75,9 +77,9 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                         $attribute_display_order = $attribute_display_order + 1;
                     }
                     
-                    $attribute = Attribute::where('name', 'LIKE', $key)->where( 'system_type_id' , '=', $system_type_id)->first();
+                    $attribute = Attribute::where('name', 'LIKE', $key)->where( 'system_type_id' , '=', $system_type_id)->where('type', $product_type)->first();
                     if(!$attribute) {
-                        $attribute = Attribute::create(['name' => $key ,'display_order'=> $attribute_display_order , 'system_type_id' => $system_type_id]);
+                        $attribute = Attribute::create(['name' => $key ,'display_order'=> $attribute_display_order , 'system_type_id' => $system_type_id, 'type'=> $product_type]);
 
                         $attribute_id =$attribute->id;
                     }else{

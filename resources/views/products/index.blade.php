@@ -36,11 +36,13 @@
                             <div class="card">
                                 <div class="card-header"style="height:50px;">
                                     <div class="card-title layout_btns" id="basic-layout-form">
+
                                         <h3>{{ __('site.List')}}</h3>
                                             <div class="btns-right-side">
                                                 <a href="{{ route('products.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >ADD </a>
                                                 <a href="{{ route('product-attributes.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{ __('site.import')}} </a> 
                                                 <a href="{{ route('product-attributes.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{ __('site.export')}}</a>
+
                                             </div>
                                     </div>
                                 </div>
@@ -57,9 +59,9 @@
                                             <table class="table table-striped table-bordered zero-configuration" style="width:100%; display:table;"  id="product">
                                                 <thead>
                                                     <tr>
-                                                        <th>{{ __('site.id') }}</th>
-                                                        <th>{{ __('site.name') }}</th>
-                                                        <th>{{ __('site.action') }}</th>
+                                                        <th>{{ __('site.ID') }}</th>
+                                                        <th>{{ __('site.Name') }}</th>
+                                                        <th>{{ __('site.Action') }}</th>
                                               
                                                     </tr>
                                                 </thead>
@@ -69,9 +71,9 @@
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
-                                                        <th>{{ __('site.id') }}</th>
-                                                        <th>{{ __('site.name') }}</th>
-                                                        <th>{{ __('site.action') }}</th>
+                                                        <th>{{ __('site.ID') }}</th>
+                                                        <th>{{ __('site.Name') }}</th>
+                                                        <th>{{ __('site.Action') }}</th>
                                                   </tr>
                                              </tfoot>
                                             </table>

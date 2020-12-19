@@ -66,12 +66,12 @@
                                         @method('PATCH')
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="Name">{{__('site.product_name')}}</label>
+                                                    <label for="Name">{{__('site.Product Name')}}</label>
                                                     <input type="text" id="name" class="form-control" value="{{$product->name}}" name="name">
                                                 </div> 
 
                                                 <div class="form-group">
-                                                    <label for="standard_id">{{ __('site.standard')}}</label>
+                                                    <label for="standard_id">{{ __('site.Standard')}}</label>
                                                     <select name="standard_id" id="standard_id" class="form-control">
                                                         <option value="">Select</option>
                                                         @foreach($standards as $standard)
@@ -82,7 +82,7 @@
                                                 
                                                 
                                                 <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.system_type')}}</label>
+                                                    <label for="system_type_id">{{ __('site.System Type')}}</label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
                                                         <option value="">Select</option>
                                                         @foreach($system_types as $system_type)
@@ -91,7 +91,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="type">{{ __('site.type')}}</label>
+                                                    <label for="type">{{ __('site.Type')}}</label>
                                                     <select name="type" id="type" class="form-control">
                                                             <option value="">Select</option>  
                                                             <option value="camera" @if($product->type == 'camera') selected @endif>Camera</option>
@@ -102,7 +102,7 @@
                                                 </div>
                                                 <hr>
                                                 <div>
-                                                   <h5> {{ __('site.add_product_attributes')}}</h5>
+                                                   <h5> {{ __('site.Add Product Attributes')}}</h5>
 
                                                    <div id="product_attribute_div">
                                                     @foreach($attributes as $attribute)
@@ -130,9 +130,11 @@
                                                    </div>
                                                 </div>
                                                 <div class="form-actions" style="text-align:center">
+
                                                     <button type="reset"  class="btn btn-danger">
                                                         <i class=""></i>{{ __('site.Reset')}}
                                                     </button>            
+
                                                     <button type="submit" name="submit" class="btn btn-success">
                                                         <i class=""></i>{{ __('site.Save')}}
                                                     </button>

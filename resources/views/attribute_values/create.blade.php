@@ -27,7 +27,9 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header" style="height: 50px;">
+
                                     <h4 class="card-title" id="basic-layout-form">{{__('site.Add')}}</h4>
+
                                 </div>
                             <!-- Card content body start -->
                                 <div class="card-content collapse show">
@@ -44,7 +46,7 @@
                                             <div class="form-body">
                                                 
                                                     <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.system_type')}}</label>
+                                                    <label for="system_type_id">{{ __('site.System Types')}}</label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
 
                                                         @foreach($system_types as $system_type)
@@ -56,7 +58,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="attribute_id">{{__('site.attribute')}} </label>
+                                                    <label for="attribute_id">{{__('site.Attribute')}} </label>
                                                     <select name="attribute_id" id="attribute_id" class="form-control">
                                                         @foreach($attributes as $attribute)
                                                             <option value="{{ $attribute->id }}">{{ $attribute->name }}
@@ -69,7 +71,7 @@
                                                     <input type="text" class="form-control" placeholder="Value" name="value">
                                                 </div> --}}
                                                 <div class="form-group {{ $errors->get('value') ? 'has-error' : '' }}">
-                                                    <label for="name">{{ __('site.value') }}</label>
+                                                    <label for="name">{{ __('site.Value') }}</label>
                                                     <input type="text" name="value" placeholder="Value" class="form-control" required>
                                                   </div>
                                                 {{-- <div class="form-group">
@@ -77,14 +79,16 @@
                                                     <input type="text" class="form-control" placeholder="Display Order" name="display_order">
                                                 </div> --}}
                                                 <div class="form-group {{ $errors->get('display_order') ? 'has-error' : '' }}">
-                                                    <label for="name">{{ __('site.display_order') }}</label>
+                                                    <label for="name">{{ __('site.Display Order') }}</label>
                                                     <input type="text" name="display_order" placeholder="Display Order" class="form-control" required>
                                                   </div>
                                             </div>
-                                            <div class="form-actions" style="text-align: center;">
-                                                <button type="reset" class="btn btn-danger">{{ __('site.Reset')}}</button>
-                                                {{-- <a href="{{ route('attribute-values.index')}}" method="post" class="btn btn-primary" type="submit">{{ __('site.view_all')}}</a>     --}}
-                                                <button type="submit" class="btn btn-success">{{ __('site.Save')}}</button>
+                                                <div class="form-actions" style="text-align: center;">
+                                                    <button type="reset" class="btn btn-danger">{{ __('site.Reset')}}</button>
+                                                   
+
+                                                    <button type="submit" class="btn btn-success">{{ __('site.Save')}}</button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
