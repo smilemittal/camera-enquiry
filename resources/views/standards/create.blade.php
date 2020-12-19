@@ -31,7 +31,7 @@
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
                                                 <a href="{{ route('standards.index')}}" method="post" class="btn btn-primary" type="submit">{{__('site.view_all') }}</a>    
-                                                <button type="submit" class="btn btn-success">{{__('site.save')}}
+                                                <button type="submit" class="btn btn-success">{{ __('site.save')}}
                                                 </button>
                                             </div>
                                         </form>

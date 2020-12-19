@@ -8,7 +8,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">Add Product Attributes</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{__('site.add_product_attributes')}}</h4>
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
@@ -25,7 +25,7 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="product_id">Product </label>
+                                                    <label for="product_id"> {{__('site.product')}}</label>
                                                     <select name="product_id" id="product_id" class="form-control">
                                                     @foreach($products as $product)
                                                         <option value="{{ $product->id }}">{{ $product->name }}</option>
@@ -33,7 +33,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="attribute_id">Attribute </label>
+                                                    <label for="attribute_id">  {{__('site.attribute')}}</label>
                                                  <select name="attribute_id" id="attribute_id" class="form-control">
                                                     @foreach($attributes as $attribute)
                                                         <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
@@ -41,7 +41,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="attributes_value_id">Attribute Value </label>
+                                                    <label for="attributes_value_id">{{__('site.attribute_value')}}</label>
                                                    <select name="attribute_value_id" id="attribute_value_id" class="form-control">
                                                     @foreach($attributevalues as $attributevalue)
                                                         <option value="{{ $attributevalue->id }}">{{ $attributevalue->value }}</option>
@@ -50,8 +50,8 @@
                                                 </div>
                                                 </div>
                                                 <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('product-attributes.index')}}" method="post" class="btn btn-primary" type="submit">View all</a>    
-                                                <button type="submit" class="btn btn-success">Save
+                                                <a href="{{ route('product-attributes.index')}}" method="post" class="btn btn-primary" type="submit">{{__('site.view_all')}}</a>    
+                                                <button type="submit" class="btn btn-success">{{__('site.save')}}
                                                 </button>
                                             </div>
                                         </form>

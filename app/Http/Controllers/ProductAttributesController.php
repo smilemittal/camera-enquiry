@@ -57,7 +57,7 @@ class ProductAttributesController extends Controller
 
         ProductAttribute::create($request->all());
 
-        return redirect()->route('product-attributes.index')->with('success','ProductAttributes added successfully');         
+        return redirect()->route('product-attributes.index')->with('success', __('message.Product attributes added  successfully');         
     
 
     }
@@ -109,7 +109,7 @@ class ProductAttributesController extends Controller
          $product_attributes = ProductAttribute::find($id);
          $product_attributes->update($request->all());
          
-          return redirect()->route('product-attributes.index')->with('updated_success','ProductAttributes updated successfully');         
+          return redirect()->route('product-attributes.index')->with('updated_success', __('message.Product attributes updated successfully'));         
 
     }
 
@@ -125,7 +125,7 @@ class ProductAttributesController extends Controller
     $product_attributes = ProductAttribute::find($id);
     $product_attributes->delete();
 
-    return redirect()->route('product-attributes.index')->with('deleted_success','ProductAttributes deleted successfully');         
+    return redirect()->route('product-attributes.index')->with('deleted_success', __('message.Product attributes deleted successfully'));         
 
     }
     /**
@@ -221,7 +221,7 @@ class ProductAttributesController extends Controller
 
         }
           
-            return redirect()->route('product-attributes.import')->with('success', 'Products imported successfully');
+            return redirect()->route('product-attributes.import')->with('success', __('message.Products imported successfully'));
         }
 
         public function export()

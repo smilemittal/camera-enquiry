@@ -8,7 +8,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">Import Standards</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.import_standards')}}</h4>
                                         <a class="heading-elements-toggle">
                                             <i class="la la-ellipsis-v font-medium-3"></i>
                                         </a>
@@ -56,14 +56,14 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div  class="form-group">
-                                                    <label for="values">Value</label>
+                                                    <label for="values">{{__('site.value')}}</label>
                                                     <input type="file" class="form-control" placeholder="Value" name="import-standards">
                                                 </div>
                                                
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('standards.index')}}" method="post" class="btn btn-primary" type="submit"> View all</a>    
-                                                <button type="submit" class="btn btn-success">Save</button>
+                                                <a href="{{ route('standards.index')}}" method="post" class="btn btn-primary" type="submit">{{ __('site.view_all')}}</a>    
+                                                <button type="submit" class="btn btn-success">{{__('site.save')}}</button>
                                             </div>
                                         </form>
                                     </div>

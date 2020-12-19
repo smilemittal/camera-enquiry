@@ -55,7 +55,7 @@ class AttributeValuesController extends Controller
 
         AttributeValue::create($request->all());
 
-        return redirect()->route('attribute-values.index')->with('success','Attribute Value added successfully');
+        return redirect()->route('attribute-values.index')->with('success', __('message.Attribute value added successfully'));
     }
 
     /**
@@ -103,7 +103,7 @@ class AttributeValuesController extends Controller
         $attribute_values=AttributeValue::find($id);          
         $attribute_values->update($request->all()); 
 
-        return redirect()->route('attribute-values.index')->with('updated_success','Attribute Value updated successfully');;
+        return redirect()->route('attribute-values.index')->with('updated_success', __('message.Attribute value updated successfully'));
     }
 
     /**
@@ -117,7 +117,7 @@ class AttributeValuesController extends Controller
         $attribute_values=AttributeValue::find($id);  
         $attribute_values->delete();
         
-        return redirect()->route('attribute-values.index')->with('deleted_success','Attribute Value deleted successfully');
+        return redirect()->route('attribute-values.index')->with('deleted_success', __('message.Attribute value deleted successfully'));
     }
 
     /**
@@ -207,7 +207,7 @@ class AttributeValuesController extends Controller
 
     }
       
-        return redirect()->route('attribute-values.import')->with('success', 'Attributes Imported successfully');
+        return redirect()->route('attribute-values.import')->with('success', __('Attributes Imported successfully'));
     }
     
 }

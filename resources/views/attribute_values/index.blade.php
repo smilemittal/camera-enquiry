@@ -11,7 +11,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">Attribute Values List</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{__('site.attribute_values_list')}}</h4>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>
@@ -62,22 +62,22 @@
                                         <table class="table table-striped table-bordered zero-configuration" id="attribute-values" style="width: 100%; display: table;">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Attribute</th>
-                                                    <th>Value</th>
-                                                    <th>Display Order</th>
-                                                    <th>System Type</th>
-                                                    <th>Action</th>
+                                                    <th>{{ __('site.id')}}</th>
+                                                    <th>{{ __('site.attribute')}}</th>
+                                                    <th>{{__('site.value')}}</th>
+                                                    <th>{{ __('site.display_order')}}</th>
+                                                    <th>{{ __('site.system_type')}}</th>
+                                                    <th>{{ __('site.action')}}</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Attribute</th>
-                                                    <th>Value</th>
-                                                    <th>Display Order</th>
-                                                    <th>System Type</th>
-                                                    <th>Action</th>
+                                                    <th>{{ __('site.id')}}</th>
+                                                    <th>{{ __('site.attribute')}}</th>
+                                                    <th>{{__('site.value')}}</th>
+                                                    <th>{{ __('site.display_order')}}</th>
+                                                    <th>{{ __('site.system_type')}}</th>
+                                                    <th>{{ __('site.action')}}</th>
                                                 </tr>
             
                                             </tfoot>

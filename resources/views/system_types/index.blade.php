@@ -21,8 +21,8 @@
                                     <div class="card-title layout_btns" id="basic-layout-form">
                                         <h3>{{ __('site.system_types') }}</h3>
                                         <div class="btns-right-side">
-                                        <a href="{{ route('system-types.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >Import </a> 
-                                        <a href="{{ route('system-types.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" > Export</a>
+                                        <a href="{{ route('system-types.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{__('site.import')}} </a> 
+                                        <a href="{{ route('system-types.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{__('site.export')}}</a>
                                     </div>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                                 <tr>
                                                     <th> {{ __('site.id') }}</th>
                                                     <th> {{  __('site.name') }} </th>
-                                                    <th>Action</th>
+                                                    <th> {{  __('site.action') }}</th>
                                                 </tr>
                                             </tfoot>
                                         </table>

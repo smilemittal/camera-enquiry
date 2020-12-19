@@ -44,7 +44,7 @@ class StandardsController extends Controller
 
         Standard::create($request->all());
 
-        return redirect()->route('standards.index')->with('success','Standard added successfully');
+        return redirect()->route('standards.index')->with('success',__('message.Standard added successfully'));
         
     }
 
@@ -90,7 +90,7 @@ class StandardsController extends Controller
 
         $standard->update($request->all());
 
-    return redirect()->route('standards.index')->with('success','Standard updated successfully');
+    return redirect()->route('standards.index')->with('success',__('message.Standard updated successfully'));
 
     }
 
@@ -106,7 +106,7 @@ class StandardsController extends Controller
       $standard=Standard::find($id);
       $standard->delete();
 
-      return redirect()->route('standards.index')->with('success','Standard deleted successfully');
+      return redirect()->route('standards.index')->with('success',('message.Standard deleted successfully'));
     }
     
     public function getStandard(Request $request) {
@@ -174,7 +174,7 @@ class StandardsController extends Controller
 
     }
       
-        return redirect()->route('standards.import')->with('success', 'Standards Imported successfully');
+        return redirect()->route('standards.import')->with('success', __('message.Standards Imported successfully'));
     }
 
     public function export()

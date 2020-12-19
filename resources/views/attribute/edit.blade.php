@@ -13,7 +13,7 @@
                             <div class="card">
                                 <div class="card-header">
 
-                                    <h4 class="card-title" id="basic-layout-form">Edit Attribute</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.edit_attribute')}}</h4>
 
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
@@ -72,7 +72,7 @@
                                                             <input type="text" id="name" class="form-control" value="{{$attribute->name}}" name="name">
                                                      </div> 
                                                      <div class="form-group">
-                                                            <label for="type">Type{{ __('site.type')}}</label>
+                                                            <label for="type">{{ __('site.type')}}</label>
                                                                 <select id="type" name="type"  class="form-control">
                                                                         <option value="camera" @if($attribute->type == 'camera') selected  @endif>Camera</option>
                                                                         <option value="nvr" @if($attribute->type == 'nvr') selected  @endif>Nvr</option>
