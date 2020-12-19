@@ -26,8 +26,8 @@ class FrontController extends Controller
             $system_type = $request->input('system_type');
             $standard = $request->input('standard');
 
-            $attribute_camera = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type', 'camera')->get();
-            $attribute_recorder = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type', 'recorder')->get();
+            $attribute_camera = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type', 'camera')->orderBy('display_order', 'ASC')->get();
+            $attribute_recorder = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type', 'recorder')->orderBy('display_order', 'ASC')->get();
 
             $html_camera = $html_recorder = '';
 
