@@ -21,7 +21,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
                 </li>
-                <li class="breadcrumb-item"><a href="#">{{__('site.List')}}</a>
+                <li class="breadcrumb-item active">{{__('site.List')}}
                 </li>
             </ol>
         </div>
@@ -37,7 +37,7 @@
                                 <div class="card-header" style="height: 50px;">
                                     <div class="card-title layout_btns" id="basic-layout-form">
                                         {{-- <h3>{{ __('site.system_types') }}</h3> --}}
-                                        <h3>{{__('site.List')}}</h3>
+                                        <h3 class="card-title" id="basic-layout-form">{{__('site.List')}}</h3>
                                         <div class="btns-right-side">
                                         <a href="{{ route('system-types.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{__('site.Add')}} </a>    
                                         <a href="{{ route('system-types.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{__('site.Import')}} </a> 

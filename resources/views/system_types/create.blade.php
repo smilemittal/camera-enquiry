@@ -57,7 +57,7 @@
                                                 <div class="form-group {{ $errors->get('name') ? 'has-error' : '' }}">
                                                     <label for="name">{{ __('site.Name') }}</label>
                                                     <input type="text" name="name" placeholder="Name" class="form-control" required>
-                                                  </div> 
+                                                  </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
                                                 <button type="reset" name="submit" class="btn btn-danger">{{__('site.Reset')}}

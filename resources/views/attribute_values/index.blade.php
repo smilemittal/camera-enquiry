@@ -6,15 +6,15 @@
 <!--BEGIN content-->
 <div class="row">
     <div class="content-header-left col-md-4 col-12 mb-2">
-        <h3 class="content-header-title">Attribute Values</h3>
+        <h3 class="content-header-title">{{__('site.Attribute Value')}}</h3>
     </div>
     <div class="content-header-right col-md-8 col-12">
         <div class="breadcrumbs-top float-md-right">
             <div class="breadcrumb-wrapper mr-1">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a>
+                    <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#">List</a>
+                    <li class="breadcrumb-item active">{{__('site.List')}}
                     </li>
                 </ol>
             </div>
@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{__('site.attribute_values_list')}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{__('site.List')}}</h4>
 
                                 </div>
                                 <!--Card Content body start-->

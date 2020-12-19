@@ -11,7 +11,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
                 </li>
-                <li class="breadcrumb-item"><a href="#">{{__('site.Add')}}</a>
+                <li class="breadcrumb-item"><a href="{{ route('attribute-values.index') }}">{{__('site.List')}}</a>
+                </li>
+                <li class="breadcrumb-item active">{{__('site.Add')}}</a>
                 </li>
             </ol>
         </div>
@@ -62,15 +64,22 @@
                                                         @endforeach
                                                     </select>
                                                 </div> 
-                                                <div  class="form-group">
+                                                {{-- <div  class="form-group">
                                                     <label for="values">{{ __('site.value')}}</label>
                                                     <input type="text" class="form-control" placeholder="Value" name="value">
-                                                </div>
-                                                <div class="form-group">
+                                                </div> --}}
+                                                <div class="form-group {{ $errors->get('value') ? 'has-error' : '' }}">
+                                                    <label for="name">{{ __('site.value') }}</label>
+                                                    <input type="text" name="value" placeholder="Value" class="form-control" required>
+                                                  </div>
+                                                {{-- <div class="form-group">
                                                     <label for="displayorder">{{ __('site.display_order')}}</label>
                                                     <input type="text" class="form-control" placeholder="Display Order" name="display_order">
-                                                </div>
-                                                
+                                                </div> --}}
+                                                <div class="form-group {{ $errors->get('display_order') ? 'has-error' : '' }}">
+                                                    <label for="name">{{ __('site.display_order') }}</label>
+                                                    <input type="text" name="display_order" placeholder="Display Order" class="form-control" required>
+                                                  </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
                                                 <button type="reset" class="btn btn-danger">{{ __('site.Reset')}}</button>
