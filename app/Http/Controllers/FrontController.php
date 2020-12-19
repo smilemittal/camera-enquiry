@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Enquiry;
 use App\Models\Product;
 use App\Models\Standard;
 use App\Models\Attribute;
-use App\Models\AttributeValue;
 use App\Models\SystemType;
 use Illuminate\Http\Request;
+use App\Models\AttributeValue;
+use Illuminate\Support\Facades\Validator;
 
 class FrontController extends Controller
 {
@@ -192,7 +194,57 @@ class FrontController extends Controller
     }
     
     public function saveEnquiry(Request $request){
-        dd($request->all());
+        //dd($request->all());
+        // $validator = Validator::make($request->all(), [
+        //     'quantity.*.*' => 'required',
+        //     'products.*.*' => 'required',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return response()->json(['success'=> false, 'errors' => $validator->errors()]);
+        // }
+
+        
+        $quantities = $request->input('quantity');
+        $products = $request->input('products');
+        $product_quantity = [];
+        $product_arr = [];
+        foreach($products as $product_type => $product){
+      
+            foreach($product as $no => $attributes){
+
+                foreach($attributes as $key => $attribute){
+                   // dd($attribute);
+                    if($attribute != NULL){
+                       // dd($quantities[$product_type][$no]);
+                        $product_arr[$product_type][$no][] = $attribute;
+                      
+                        
+                    }
+                   
+                }
+                if(!empty($quantities[$product_type][$no])){
+                    $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
+                }
+               
+            }   
+
+        }
+
+        $product_arr = json_encode($product_arr);
+        $quantity_arr = json_encode($quantity_arr);
+
+        $enquiry = Enquiry::create([
+            'products' => $product_arr,
+            'quantity' => $quantity_arr,
+        ]);
+        if($enquiry){
+            return response()->json(['success'=> true, 'message'  => 'Enquiry Sent Successfully']);
+        }else{
+            return response()->json(['success'=> false, 'message'  => 'Failed Sending enquiry! Try again']);
+        }
+        
+
     }
 
 

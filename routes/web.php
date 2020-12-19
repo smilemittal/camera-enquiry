@@ -73,3 +73,6 @@ Route::post('get-next-product', 'FrontController@getNextProduct')->name('get-nex
 
 Route::post('save-enquiry', 'FrontController@saveEnquiry')->name('save-enquiry');
 Route::post('get-summary', 'FrontController@getSummary')->name('get-summary');
+
+
+Route::get('enquiries', 'EnquiryController@index')->name('enquiries.index');

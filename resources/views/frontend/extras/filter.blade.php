@@ -6,7 +6,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="form-group">
                 <label>{{ $attribute->name }}</label>
-                <select name="product[{{$i}}][]" id="camera_attributes" class="attribute" data-count="{{ $i }}" data-product_type="camera" data-system_type="{{ $system_type }}">
+                <select name="products[camera][{{$i}}][]" id="camera_attributes" class="attribute" data-count="{{ $i }}" data-product_type="camera" data-system_type="{{ $system_type }}">
                     <option value="">Select</option>
                         @if(!empty($attribute->attribute_values))
                             @foreach($attribute->attribute_values as $attribute_value)
@@ -30,7 +30,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="form-group">
                 <label>{{ $attribute->name }}</label>
-                    <select name="products[{{$i}}][]" id="recorder_attributes" class="attribute" data-count="{{ $i }}" data-product_type="recorder" data-system_type="{{ $system_type }}"> 
+                    <select name="products[recorder][{{$i}}][]" id="recorder_attributes" class="attribute" data-count="{{ $i }}" data-product_type="recorder" data-system_type="{{ $system_type }}"> 
                         <option value="">Select</option>
                         @if(!empty($attribute->attribute_values))
                             @foreach($attribute->attribute_values as $attribute_value)
@@ -58,7 +58,7 @@
                     @if(!empty($attribute['attribute_values']))
                     
                 <label>{{ $attribute['attribute_name'] }}</label>
-                <select name="products[{{$i}}][]" id="{{ $product_type.'_attributes' }}" class="attribute"  data-count="{{ $i }}" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}"> 
+                <select name="products[{{ $product_type }}][{{$i}}][]" id="{{ $product_type.'_attributes' }}" class="attribute"  data-count="{{ $i }}" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}"> 
                         <option value="">Select</option>
                             @foreach($attribute['attribute_values'] as $key => $value)
                                 <option value="{{ $key }}" @if(in_array($key, $attribute_value_id)) selected @endif>{{ $value }}</option>

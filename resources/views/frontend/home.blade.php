@@ -150,6 +150,7 @@
 @endsection
 
 @section('scripts')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $('.system_type').on('click', function(){
         var system_type = $(this).data('id');
@@ -297,15 +298,38 @@
         var url = $(this).data('url');
         var formData = new FormData($('#product-enquiry')[0]);
         console.log(formData);
+        jQuery.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                });
+
+
         $.ajax({
             method: 'post',
             url: url,
-            data: {
-                '_token': '{{ csrf_token() }}',
-                'formData': formData,
-            },
+            data:  formData,
+            contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+            processData: false,
             success: function(data){
-
+                if(data.success){
+                    swal({
+                        title: "Success",
+                        text: data.message,
+                        icon: "success",
+                        button: "OK",
+                    }).then((value) => {
+                        location.reload();
+                    });
+                    
+                }else{
+                    swal({
+                        title: "Error",
+                        text: data.message,
+                        icon: "error",
+                        button: "OK",
+                    });
+                }
             }
         });
     });

@@ -89,6 +89,10 @@
                         </li>
                     </ul>
                 </li>
+                <li class=" nav-item">
+                <a href="{{ route('enquiries.index') }}"><i class="ft-mail"></i>
+                    <span class="menu-title" data-i18n="">Enquiries</span></a>
+                </li>   
             </ul>
         </div>
     </div>
