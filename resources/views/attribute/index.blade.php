@@ -51,6 +51,16 @@
                                             {{\Session::get('success')}}
                                         </div>
                                     @endif
+                                    @if(\Session::has('updated'))
+                                        <div class="alert alert-warning">
+                                            {{\Session::get('success')}}
+                                        </div>
+                                    @endif
+                                    @if(\Session::has('deleted'))
+                                        <div class="alert alert-danger">
+                                            {{\Session::get('success')}}
+                                        </div>
+                                    @endif
                                    
                                         <div class="table-responsive">
                                             <table class="table table-striped table-bordered zero-configuration" style="width:100%" id="attribute">
