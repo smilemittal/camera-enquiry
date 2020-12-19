@@ -91,7 +91,7 @@
                 <div class="col-kemey recorder_1">
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-3 col-md-6">
-                            <a class="btn" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">kamery / Cameras</a>
+                            <a class="btn" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">kamery / Recorder</a>
                         </div>
                         <div class="col-xl-2 col-md-6">
                             <div class="kamaroty">
