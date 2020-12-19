@@ -39,7 +39,6 @@ Route::get('attribute/import', 'AttributeController@importAttributeValues')->nam
 Route::post('attribute/post-import', 'AttributeController@postImport')->name('attribute.post-import');
 Route::resource('attribute', 'AttributeController');
 
-//Route::get('attribute-values/export', 'AttributeValuesController@export')->name('attribute-values.export');
 Route::resource('attribute-values', 'AttributeValuesController');
 Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
 
@@ -52,28 +51,22 @@ Route::get('product-attributes/export' , 'ProductAttributesController@export')->
 Route::post('product-attributes/fetchtypes','ProductAttributesController@getProductAttribute')->name('get.ProductAttributes');
 Route::resource('product-attributes','ProductAttributesController');
 
-//Front routes
-Route::post('get-product-attributes', 'ProductController@getProductAttributes')->name('get-product-attributes');
-Route::get('/', 'FrontController@home')->name('home');
-Route::post('get-enquiry-attributes', 'FrontController@getEnquiryProductAttributes')->name('get-enquiry-attributes');
-Route::post('update-attributes', 'FrontController@updateAttributes')->name('update-attributes');
 
-// Route::get('layouts.header{locale}', function ($locale) {
-//     if (! in_array($locale, ['en', 'es', 'fr'])) {
-//         abort(400);
-//     }
 
-//     App::setLocale($locale);
 
-//     //
-// });
 
-Route::get('/logout' , function (){
-    \Illuminate\Support\Facades\Auth::logout();
-    return redirect()->route('login');
-})->name('logout');
+    Route::get('/logout' , function (){
+        \Illuminate\Support\Facades\Auth::logout();
+        return redirect()->route('login');
+    })->name('logout');
 });
 
+//Front routes
+Route::post('get-product-attributes', 'ProductController@getProductAttributes')->name('get-product-attributes');
+
+Route::post('get-enquiry-attributes', 'FrontController@getEnquiryProductAttributes')->name('get-enquiry-attributes');
+Route::post('update-attributes', 'FrontController@updateAttributes')->name('update-attributes');
+Route::get('/', 'FrontController@home')->name('home');
 Route::post('get-next-product', 'FrontController@getNextProduct')->name('get-next-product');
 
 Route::post('save-enquiry', 'FrontController@saveEnquiry')->name('save-enquiry');
@@ -90,3 +83,14 @@ Route::post('print-enquiries', 'FrontController@printEnquiry')->name('print.enqu
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
+// Route::get('layouts.header{locale}', function ($locale) {
+//     if (! in_array($locale, ['en', 'es', 'fr'])) {
+//         abort(400);
+//     }
+
+//     App::setLocale($locale);
+
+//     //
+// });
