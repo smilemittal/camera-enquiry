@@ -287,14 +287,16 @@ class FrontController extends Controller
 
 
 
-            $data = [
-               'products' => $product_arr, 
-               'quantities' => $quantity_arr,
-            ];
+            // $data = [
+            //    'products' => $product_arr, 
+            //    'quantities' => $quantity_arr,
+            // ];
 
-            $pdf = PDF::loadView('enquiries.partials.pdf', $data);
+            $products = $product_arr;
+            $quantities = $quantity_arr;
 
-            return $pdf->download('document.pdf');
+            $html = view('enquiries.partials.pdf', compact('products', 'quantities'))->render();
+            return response()->json(['success' => true, 'html' => $html]);
         
     }
 
