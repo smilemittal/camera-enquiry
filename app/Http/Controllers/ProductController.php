@@ -152,7 +152,7 @@ class ProductController extends Controller
                 
             }
         }
-       return redirect()->route('products.index')->with('success', __('message.Product updated successfully'));
+       return redirect()->route('products.index')->with('updated', __('message.Product updated successfully'));
     }
 
     /**
@@ -165,7 +165,7 @@ class ProductController extends Controller
     {
         $deletes=Product::find($id);
         $deletes->delete();
-        return redirect()->route('products.index')->with('success', __('message.Product deleted successfully'));
+        return redirect()->route('products.index')->with('deleted', __('message.Product deleted successfully'));
     }
     public function getproduct(Request $request) {
 

@@ -100,7 +100,7 @@ class AttributeController extends Controller
 
         $attribute=Attribute::find($id);
         $attribute->update($request->all());
-       return redirect()->route('attribute.index')->with('success', __('message.Attribute updated successfully'));
+       return redirect()->route('attribute.index')->with('updated', __('message.Attribute updated successfully'));
     }
 
     /**
@@ -113,7 +113,7 @@ class AttributeController extends Controller
     {
         $deletes=Attribute::find($id);
         $deletes->delete();
-        return redirect()->route('attribute.index')->with('success', __('message.Product deleted successfully'));
+        return redirect()->route('attribute.index')->with('deleted', __('message.Product deleted successfully'));
     }
     public function getattribute(Request $request) 
     {

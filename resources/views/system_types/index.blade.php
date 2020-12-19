@@ -11,6 +11,23 @@
     margin-bottom: 10px;
 }
 </style>
+<div class="row">
+<div class="content-header-left col-md-4 col-12 mb-2">
+    <h3 class="content-header-title">System Types</h3>
+</div>
+<div class="content-header-right col-md-8 col-12">
+    <div class="breadcrumbs-top float-md-right">
+        <div class="breadcrumb-wrapper mr-1">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a>
+                </li>
+                <li class="breadcrumb-item"><a href="#">List</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+</div>
 <div class="content-body">
                 <!--Form layout section start -->
                 <section id="basic-form-layouts">
@@ -19,8 +36,10 @@
                             <div class="card">
                                 <div class="card-header" style="height: 50px;">
                                     <div class="card-title layout_btns" id="basic-layout-form">
-                                        <h3>{{ __('site.system_types') }}</h3>
+                                        {{-- <h3>{{ __('site.system_types') }}</h3> --}}
+                                        <h3>List</h3>
                                         <div class="btns-right-side">
+                                        <a href="{{ route('system-types.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{__('site.add')}} </a>    
                                         <a href="{{ route('system-types.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{__('site.import')}} </a> 
                                         <a href="{{ route('system-types.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{__('site.export')}}</a>
                                     </div>
@@ -32,6 +51,16 @@
                                     @if(\Session::has('success'))
                                     <div class="alert alert-success">
                                         {{\Session::get('success')}}
+                                    </div>
+                                @endif
+                                @if(\Session::has('updated'))
+                                    <div class="alert alert-warning">
+                                        {{\Session::get('updated')}}
+                                    </div>
+                                @endif
+                                @if(\Session::has('deleted'))
+                                    <div class="alert alert-danger">
+                                        {{\Session::get('deleted')}}
                                     </div>
                                 @endif
                                     <div class="table-responsive">

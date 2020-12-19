@@ -41,9 +41,9 @@ class SystemTypesController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([  
-            'name'=>'required',  
-        ]);  
+        $this->validate($request, [
+            'name'=>'required|max:50|unique:system_types,name',
+        ]);
 
         SystemType::create($request->all());
 
@@ -92,7 +92,7 @@ class SystemTypesController extends Controller
         $system_types=SystemType::find($id);          
         $system_types->update($request->all()); 
 
-        return redirect()->route('system-types.index')->with('success', __('message.System type updated successfully'));
+        return redirect()->route('system-types.index')->with('updated', __('message.System type updated successfully'));
     }
 
     /**
@@ -106,7 +106,7 @@ class SystemTypesController extends Controller
         $system_types=SystemType::find($id);  
         $system_types->delete();
         
-         return redirect()->route('system-types.index')->with('success', __('message.System type deleted successfully'));
+         return redirect()->route('system-types.index')->with('deleted', __('message.System type deleted successfully'));
 
     }
 
