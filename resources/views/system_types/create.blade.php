@@ -11,7 +11,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
                 </li>
-                <li class="breadcrumb-item"><a href="#">{{__('site.Add')}}</a>
+                <li class="breadcrumb-item"><a href="{{ route('system-types.index') }}">{{__('site.List')}}</a>
+                </li>
+                <li class="breadcrumb-item active">{{__('site.Add')}}
                 </li>
             </ol>
         </div>
@@ -25,9 +27,19 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                 <h3>{{__('site.Add')}} </h3>
-                                {{-- <h4 class="card-title" id="basic-layout-form">{{ __('site.add_system_types') }}</a></h4> --}}
-                                    
+                                 <h3 class="card-title" id="basic-layout-form">{{__('site.Add')}} </h3>
+                                 <a class="heading-elements-toggle">
+                                    <i class="la la-ellipsis-v font-medium-3"></i>
+                                </a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li>
+                                            <a data-action="expand">
+                                                <i class="ft-maximize"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                                 </div>
                             <!-- Card content body start -->    
                                 <div class="card-content collapse show">
