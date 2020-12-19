@@ -15,4 +15,11 @@ class Product extends Model
     public function product_attributes(){
         return $this->hasMany('App\Models\ProductAttribute', 'product_id', 'id');
     }
+    public function standards(){
+        return $this-> belongsTo('App\Models\Standards');
+    }
+    public function system_types(){
+        return $this-> belongsTo('App\Models\SystemType');
+    }
+   
 }

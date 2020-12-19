@@ -1,7 +1,23 @@
  @extends('layouts.app')  
 @section('content')  
-
-<!--BEGIN content-->             
+<!--BEGIN content--> 
+<div class="row">
+    <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">{{__('site.System Types')}}</h3>
+    </div>
+    <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+            <div class="breadcrumb-wrapper mr-1">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
+                    </li>
+                    <li class="breadcrumb-item"><a href="#">{{__('site.Edit')}}</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    </div>            
 <div class="content-body">
                 <!-- Form layout section start -->
                 <section id="basic-form-layouts">
@@ -15,26 +31,13 @@
                                     </a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
-                                            <li>
-                                                <a data-action="collapse">
-                                                    <i class="ft-minus"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-action="reload">
-                                                    <i class="ft-rotate-cw"></i>
-                                                </a>
-                                            </li>
+                                            
                                             <li>
                                                 <a data-action="expand">
                                                     <i class="ft-maximize"></i>
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a data-action="close">
-                                                    <i class="ft-x"></i>
-                                                </a>
-                                            </li>
+                                           
                                         </ul>
                                     </div>
                                 </div>
@@ -60,8 +63,10 @@
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('system-types.index')}}" method="post" class="btn btn-primary" type="submit">{{ __('site.Cancel') }}</a>
-                                                <button type="submit" class="btn btn-success">{{ __('site.Save')}}
+                                                <button type="reset" class="btn btn-primary">{{__('site.reset')}}</button>
+                                                
+                                                <button type="submit" class="btn btn-success">{{ __('site.save')}}
+
                                                 </button>
                                             </div>
                                         </form>

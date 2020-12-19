@@ -91,7 +91,7 @@ class StandardsController extends Controller
 
         $standard->update($request->all());
 
-    return redirect()->route('standards.index')->with('success',__('message.Standard updated successfully'));
+    return redirect()->route('standards.index')->with('updated',__('message.Standard updated successfully'));
 
     }
 
@@ -107,7 +107,8 @@ class StandardsController extends Controller
       $standard=Standard::find($id);
       $standard->delete();
 
-      return redirect()->route('standards.index')->with('success',__('message.Standard deleted successfully'));
+      return redirect()->route('standards.index')->with('deleted',('message.Standard deleted successfully'));
+
     }
     
     public function getStandard(Request $request) {

@@ -3,7 +3,24 @@
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
 @endsection  
 @section('content') 
-<!--BEGIN content--> 
+<!--BEGIN content-->
+<div class="row">
+    <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">Attribute Values</h3>
+    </div>
+    <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+            <div class="breadcrumb-wrapper mr-1">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a>
+                    </li>
+                    <li class="breadcrumb-item"><a href="#">List</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    </div>
 <div class="content-body">
                 <!--Form layout section start -->
                 <section id="basic-form-layouts">
@@ -11,6 +28,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
+
                                     <h4 class="card-title" id="basic-layout-form">{{__('site.Attribute Values List')}}</h4>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
@@ -39,6 +57,7 @@
                                             </li>
                                         </ul>
                                     </div>
+
                                 </div>
                                 <!--Card Content body start-->
                                 <div class="card-content collapse show">
@@ -48,14 +67,14 @@
                                         {{\Session::get('success')}}
                                     </div>
                                 @endif
-                                @if(\Session::has('updated_success'))
+                                @if(\Session::has('updated'))
                                     <div class="alert alert-warning">
-                                        {{\Session::get('updated_success')}}
+                                        {{\Session::get('updated')}}
                                     </div>
                                 @endif
-                                @if(\Session::has('delete_success'))
+                                @if(\Session::has('delete'))
                                     <div class="alert alert-danger">
-                                        {{\Session::get('delete_success')}}
+                                        {{\Session::get('delete')}}
                                     </div>
                                 @endif
                                     <div class="table-responsive">
