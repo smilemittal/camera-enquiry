@@ -7,7 +7,7 @@
     <span aria-labelledby="btnSearchDrop12" class="dropdown-menu mt-1 dropdown-menu-right"
         x-placement="bottom-end"
         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(55px, 27px, 0px);">
-            <a class="dropdown-item" href="{{ route('enquiry.edit', $attribute ?? ''->id)}}"><i
+            <a class="dropdown-item" href="{{ route('attribute.edit', $attribute ?? ''->id)}}"><i
               class="fa fa-edit"></i>Edit</a>
                         <form action="{{ $destroy }}" method="post" id="{{ 'delete_form_'.$attribute->id}}">  
                             @csrf  
