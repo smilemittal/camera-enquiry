@@ -9,17 +9,36 @@
     justify-content: space-between;
     margin-bottom: 10px;
 }
-</style>        
+</style>   
+            <div class="content-header row">
+                <div class="content-header-left col-md-4 col-12 mb-2">
+                    <h3 class="content-header-title">{{ __('site.Products')}}</h3>
+                </div>
+                <div class="content-header-right col-md-8 col-12">
+                    <div class="breadcrumbs-top float-md-right">
+                        <div class="breadcrumb-wrapper mr-1">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="#">List</a>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="content-body">
                     <!-- Basic form layout section start -->
                 <section id="basic-form-layouts">
                     <div class="row match-height justify-content-center">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header"style="height:50px;">
                                     <div class="card-title layout_btns" id="basic-layout-form">
-                                        <h3>{{ __('site.all_products')}}</h3>
+                                        <h3>{{ __('site.List')}}</h3>
                                             <div class="btns-right-side">
+                                                <a href="{{ route('products.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >ADD </a>
                                                 <a href="{{ route('product-attributes.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{ __('site.import')}} </a> 
                                                 <a href="{{ route('product-attributes.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{ __('site.export')}}</a>
                                             </div>

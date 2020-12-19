@@ -45,7 +45,6 @@
 				'home'				=>'Home',
   					'attributes'	=>'Attributes',
   				'attributes_values' =>'Attributes Values',
-
   				'import_system_types'=>'Import System Types',
   				'import_standards'	 =>'Import Standards',
   		'import_product_atrribute'	 =>'Import Product Atrribute',

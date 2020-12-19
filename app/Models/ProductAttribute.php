@@ -26,5 +26,6 @@ class ProductAttribute extends Model
 	public function attribute_value()
 	{
 	return $this->belongsTo('App\Models\AttributeValue');
+	
 	}
 }

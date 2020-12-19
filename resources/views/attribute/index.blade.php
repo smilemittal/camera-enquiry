@@ -3,24 +3,41 @@
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
 @endsection
 @section('content')
-<style>
-    .layout_btns {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-</style>
-        
-            <div class="content-body">
+        <style>
+            .layout_btns {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            }
+        </style>
+          <div class="content-header row">
+                <div class="content-header-left col-md-4 col-12 mb-2">
+                    <h3 class="content-header-title">{{ __('site.Attributes')}}</h3>
+                </div>
+                <div class="content-header-right col-md-8 col-12">
+                    <div class="breadcrumbs-top float-md-right">
+                        <div class="breadcrumb-wrapper mr-1">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="#">List</a>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+             </div>
+             <div class="content-body">
                     <!-- Basic form layout section start -->
                 <section id="basic-form-layouts">
                     <div class="row match-height justify-content-center">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header" style="height:50px;">
                                     <div class="card-title layout_btns" id="basic-layout-form">
-                                        <h4>{{__('site.attribute')}}</h4>
+                                        <h4>{{ __('site.List')}}</h4>
                                         <div class="btns-right-side">
+                                            <a href="{{ route('attribute.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >ADD </a>
                                             <a href="{{ route('attribute.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{ __('site.import')}} </a> 
                                             <a href="{{ route('attribute.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{ __('site.export')}}</a>
                                         </div>
