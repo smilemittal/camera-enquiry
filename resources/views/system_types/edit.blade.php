@@ -1,9 +1,23 @@
  @extends('layouts.app')  
 @section('content')  
 <!--BEGIN content--> 
-<div class="content-header-left col-md-4 col-12 mb-2">
-    <h3 class="content-header-title">System Types</h3>
-</div>            
+<div class="row">
+    <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">{{__('site.system_types')}}</h3>
+    </div>
+    <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+            <div class="breadcrumb-wrapper mr-1">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">{{__('site.home')}}</a>
+                    </li>
+                    <li class="breadcrumb-item"><a href="#">{{__('site.edit')}}</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    </div>            
 <div class="content-body">
                 <!-- Form layout section start -->
                 <section id="basic-form-layouts">

@@ -51,5 +51,5 @@
   		'import_product_atrribute'	 =>'Import Product Atrribute',
 		  'import_atrribute_values'	 =>'Import Atrribute Values',
 		  'reset'					=>'Reset',
-
+				'edit'				=>'Edit',
 				];
