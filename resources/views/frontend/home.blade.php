@@ -137,7 +137,7 @@
                         <button type="button" class="form-submit-btn save" data-url="{{ route('save-enquiry') }}">Save</button>
                         </div>
                         <div class="col-xl-3 col-md-4">
-                            <button type="button" class="form-submit-btn summary" data-url="{{ route('get-summary') }}">Summary</button>
+                            <button type="button" class="summary" data-url="{{ route('print.enquiries') }}">Summary</button>
                         </div>
                         {{-- <div class="col-xl-3 col-md-4">
                             <button>Kamey / Cameras</button>
@@ -329,6 +329,38 @@
                         icon: "error",
                         button: "OK",
                     });
+                }
+            }
+        });
+    });
+
+
+
+    $('.summary').on('click', function(){
+        var url = $(this).data('url');
+        var formData = new FormData($('#product-enquiry')[0]);
+        console.log(formData);
+        jQuery.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                });
+
+
+        $.ajax({
+            method: 'post',
+            url: url,
+            data:  formData,
+            contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+            processData: false,
+            success: function(data){
+                if(data.success){
+                   if(data.html != ''){
+                       
+                   }
+                    
+                }else{
+                  
                 }
             }
         });
