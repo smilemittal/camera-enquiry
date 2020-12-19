@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Product;
 use App\Models\Attribute;
+use App\Models\Standard;
 use App\Models\AttributeValue;
 use App\Models\ProductAttribute;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -25,6 +26,7 @@ class ProductAttributesExport implements FromArray
         //dd($data);
          $products= Product::with('product_attributes.attribute_value')->get();
          $i=1;
+         $j=1;
          foreach($products as $product)
          {  
             $data[$i] =[
@@ -38,10 +40,17 @@ class ProductAttributesExport implements FromArray
                 $value[] ='';
                }  
             }
-             $result[$i] = array_merge($data[$i],$value);
+            $standards= Standard::all();
+             foreach($standards as $standard){
+                 $data[$j] =[
+                     'name' => $standard->name,
+                 ];
+             }
+             $result[$i] = array_merge($data[$i],$value,$data[$j]);
              $i++;
+             
         }
-           
+      // dd($result);
                return($result);
      }
 }
