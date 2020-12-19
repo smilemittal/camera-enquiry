@@ -9,7 +9,6 @@ use App\Models\SystemType;
 use Illuminate\Http\Request;
 use App\Models\ProductAttribute;
 
-
 class ProductController extends Controller
 {
     /**
@@ -166,7 +165,7 @@ class ProductController extends Controller
     {
         $deletes=Product::find($id);
         $deletes->delete();
-        return redirect()->route('products.index')->with('success', __('message.Product deleted uccessfully'));
+        return redirect()->route('products.index')->with('success', __('message.Product deleted successfully'));
     }
     public function getproduct(Request $request) {
 

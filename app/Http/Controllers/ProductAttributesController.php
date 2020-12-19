@@ -12,7 +12,6 @@ use App\Imports\ProductAttributesImport;
 use App\Exports\ProductAttributesExport;
 
 class ProductAttributesController extends Controller
-
 {
     /**
      * Display a listing of the resource.
@@ -57,7 +56,7 @@ class ProductAttributesController extends Controller
 
         ProductAttribute::create($request->all());
 
-        return redirect()->route('product-attributes.index')->with('success', __('message.Product attributes added  successfully');         
+        return redirect()->route('product-attributes.index')->with('success', __('message.Product attributes added  successfully'));         
     
 
     }

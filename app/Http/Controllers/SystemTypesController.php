@@ -174,7 +174,7 @@ class SystemTypesController extends Controller
 
     }
       
-        return redirect()->route('system-types.import')->with('success', __('message.SystemTypes Imported successfully'));
+        return redirect()->route('system-types.import')->with('success', __('message.System types Imported successfully'));
     }
 
     public function export()
