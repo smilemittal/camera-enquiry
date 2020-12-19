@@ -28,5 +28,6 @@ return [
 	'display_order' =>'Display Order',
 	'attribute'	=>'Attribute',
 	'update_product'=>'Update Product',
+	
 
 ];

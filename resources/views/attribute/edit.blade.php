@@ -3,7 +3,25 @@
 @section('content')
 
     <!-- BEGIN: Content-->
-
+            <div class="content-header row">
+                <div class="content-header-left col-md-4 col-12 mb-2">
+                    <h4 class="content-header-title" id="basic-layout-form"> {{ __('site.Attributes')}}</h4>
+                </div>
+                <div class="content-header-right col-md-8 col-12">
+                    <div class="breadcrumbs-top float-md-right">
+                        <div class="breadcrumb-wrapper mr-1">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">{{ __('site.Home')}}</a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="{{ route('attribute.index') }}">{{ __('site.List')}}</a>
+                                </li>
+                                <li class="breadcrumb-item active">{{ __('site.Edit')}}
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <div class="content-body">
                 <!-- Basic form layout section start -->
@@ -12,7 +30,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">Edit Attribute</h4>
+                                    <h4>{{ __('site.Edit')}}</h4>
 
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
@@ -20,23 +38,8 @@
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li>
-                                                <a data-action="collapse">
-                                                    <i class="ft-minus"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-action="reload">
-                                                    <i class="ft-rotate-cw"></i>
-                                                </a>
-                                            </li>
-                                            <li>
                                                 <a data-action="expand">
                                                     <i class="ft-maximize"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-action="close">
-                                                    <i class="ft-x"></i>
                                                 </a>
                                             </li>
                                         </ul>
@@ -66,11 +69,7 @@
                                          @csrf
                                          @method('PATCH')
                                             <div class="form-body">
-                                                     <div class="form-group">
-                                                            <label for="Name">{{ __('site.attribute_name')}}</label>
-                                                            <input type="text" id="name" class="form-control" value="{{$attribute->name}}" name="name">
-                                                     </div> 
-                                                     <div class="form-group">
+                                                        <div class="form-group">
                                                             <label for="type">Type{{ __('site.type')}}</label>
                                                                 <select id="type" name="type"  class="form-control">
                                                                         <option value="camera" @if($attribute->type == 'camera') selected  @endif>Camera</option>
@@ -78,23 +77,31 @@
                                                                         <option value="recorder" @if($attribute->type == 'camera') selected  @endif>Recorder</option>
                                                                         <option value="switch" @if($attribute->type == 'switch') selected  @endif>Switch</option>
                                                                 </select>
-                                                     </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="system_type_id">{{ __('site.system_type')}}</label>
+                                                           
+                                                           <select name="system_type_id" id="system_type_id" class="form-control">
+                                                            @foreach($system_types ?? '' as $system_type)
+                                                                <option value="{{ $system_type->id }}" {{ $attribute->system_type_id == $system_type->id ? 'selected' : '' }}>{{ $system_type->name }}</option>
+                                                            @endforeach 
+                                                           </select>
+                                                        </div>
+                                                     <div class="form-group">
+                                                            <label for="Name">{{ __('site.attribute_name')}}</label>
+                                                            <input type="text" id="name" class="form-control" value="{{$attribute->name}}" name="name">
+                                                     </div> 
+                                                     
                                                      <div class="form-group">
                                                             <label for="Name">{{ __('site.display_order')}}</label>
                                                             <input type="text" id="display_order" class="form-control" value="{{$attribute->display_order}}" name="display_order">
                                                      </div> 
-                                                     <div class="form-group">
-                                                        <label for="system_type_id">{{ __('site.system_type')}}</label>
-                                                       
-                                                       <select name="system_type_id" id="system_type_id" class="form-control">
-                                                        @foreach($system_types ?? '' as $system_type)
-                                                            <option value="{{ $system_type->id }}" {{ $attribute->system_type_id == $system_type->id ? 'selected' : '' }}>{{ $system_type->name }}</option>
-                                                        @endforeach 
-                                                       </select>
-                                                    </div> 
+                                                     
 
                                                     <div class="form-actions" style="text-align:center">
-                                                            <a  class=" btn btn-primary" href="{{ route('attribute.index') }}">{{__('site.view_all')}}</a>           
+                                                        <button type="reset"  class="btn btn-danger">
+                                                            {{ __('site.Reset')}}
+                                                        </button>           
                                                             <button type="submit" name="submit" class="btn btn-success">
                                                                 {{ __('site.save')}}
                                                             </button>
