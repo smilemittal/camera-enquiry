@@ -30,13 +30,19 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="arrow_box_right">
                                     <a class="dropdown-item" href="#">
-                                        <i class="ft-user"></i>
+                                        {{-- <i class="ft-user"></i> --}}
                                         Edit Profile
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}">
-                                        <i class="ft-power"></i>
-                                        Logout
-                                    </a>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                    
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                                        onclick="event.preventDefault();
+                                                                    this.closest('form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                    </form>
+                    
                                 </div>
                             </div>
                         </li>
