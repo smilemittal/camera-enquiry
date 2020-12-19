@@ -340,11 +340,12 @@
         var url = $(this).data('url');
         var formData = new FormData($('#product-enquiry')[0]);
         console.log(formData);
+
         jQuery.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                });
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        });
 
 
         $.ajax({
@@ -356,7 +357,17 @@
             success: function(data){
                 if(data.success){
                    if(data.html != ''){
-                       
+                    var mywindow = window.open('', 'my div', 'height=400,width=600');
+                    mywindow.document.write('<html><head><title>my div</title>');
+                    /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+                    mywindow.document.write('</head><body >');
+                    mywindow.document.write(data.html);
+                    mywindow.document.write('</body></html>');
+
+                    mywindow.print();
+                   // mywindow.close();
+
+                    return true;
                    }
                     
                 }else{
