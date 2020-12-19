@@ -1,4 +1,5 @@
-<table class="table table-responsive table-bordered table-striped" style="display:table;">
+<link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/bootstrap.css')}}">
+<table class="table table-responsive table-bordered table-striped" style="display:table; width: 80%; margin-left: auto; margin-right: auto">
     <thead>
         <tr>
             
