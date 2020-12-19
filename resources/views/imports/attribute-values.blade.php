@@ -52,7 +52,7 @@
                                         {{\Session::get('success')}}
                                             </div>
                                         @endif
-                                        <form class="form" action="{{ route('attribute-values.post-import') }}" method="post" enctype="multipart/form-data">
+                                        <form class="form" action="{{ route('attribute.post-import') }}" method="post" enctype="multipart/form-data">
                                             @csrf  
                                             <div class="form-body">
                                                 <div  class="form-group">

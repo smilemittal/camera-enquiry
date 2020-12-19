@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\App;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 
@@ -32,12 +32,14 @@ Route::get('standards/export','StandardsController@export')->name('standards.exp
 Route::post('standards/getstandard','StandardsController@getStandard')->name('get.standards');
 Route::resource('standards', 'StandardsController');
 
-Route::resource('attribute', 'AttributeController');
-Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name('get.attribute');
 
-Route::get('attribute-values/import', 'AttributeValuesController@importAttributeValues')->name('attribute-values.import');
-Route::post('attribute-values/post-import', 'AttributeValuesController@postImport')->name('attribute-values.post-import');
-Route::get('attribute-values/export', 'AttributeValuesController@export')->name('attribute-values.export');
+Route::post('attribute/get-attribute', 'AttributeController@getAttribute')->name('get.attribute');
+Route::get('attribute/export','AttributeController@export')->name('attribute.export');
+Route::get('attribute/import', 'AttributeController@importAttributeValues')->name('attribute.import');
+Route::post('attribute/post-import', 'AttributeController@postImport')->name('attribute.post-import');
+Route::resource('attribute', 'AttributeController');
+
+//Route::get('attribute-values/export', 'AttributeValuesController@export')->name('attribute-values.export');
 Route::resource('attribute-values', 'AttributeValuesController');
 Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
 
@@ -52,7 +54,7 @@ Route::resource('product-attributes','ProductAttributesController');
 
 //Front routes
 Route::post('get-product-attributes', 'ProductController@getProductAttributes')->name('get-product-attributes');
-Route::get('home', 'FrontController@home')->name('home');
+Route::get('/', 'FrontController@home')->name('home');
 Route::post('get-enquiry-attributes', 'FrontController@getEnquiryProductAttributes')->name('get-enquiry-attributes');
 Route::post('update-attributes', 'FrontController@updateAttributes')->name('update-attributes');
 
@@ -65,3 +67,12 @@ Route::post('update-attributes', 'FrontController@updateAttributes')->name('upda
 
 //     //
 // });
+
+
+Route::post('get-next-product', 'FrontController@getNextProduct')->name('get-next-product');
+
+Route::post('save-enquiry', 'FrontController@saveEnquiry')->name('save-enquiry');
+Route::post('get-summary', 'FrontController@getSummary')->name('get-summary');
+
+
+Route::get('enquiries', 'EnquiryController@index')->name('enquiries.index');

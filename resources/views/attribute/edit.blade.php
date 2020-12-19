@@ -13,6 +13,7 @@
                             <div class="card">
                                 <div class="card-header">
 
+
                                     <h4 class="card-title" id="basic-layout-form">{{ __('site.edit_attribute')}}</h4>
 
                                     <a class="heading-elements-toggle">
