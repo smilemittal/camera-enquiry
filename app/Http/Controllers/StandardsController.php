@@ -40,8 +40,9 @@ class StandardsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name'=>'required']);
-
+       $this->validate($request, [
+            'name'=>'required|max:50|unique:Standards,name',
+        ]);
         Standard::create($request->all());
 
         return redirect()->route('standards.index')->with('success',__('message.Standard added successfully'));
@@ -106,7 +107,7 @@ class StandardsController extends Controller
       $standard=Standard::find($id);
       $standard->delete();
 
-      return redirect()->route('standards.index')->with('success',('message.Standard deleted successfully'));
+      return redirect()->route('standards.index')->with('success',__('message.Standard deleted successfully'));
     }
     
     public function getStandard(Request $request) {

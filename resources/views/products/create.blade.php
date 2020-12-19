@@ -12,7 +12,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.add_product')}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.Add Product')}}</h4>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>
@@ -65,12 +65,12 @@
                                         @csrf
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="Name">{{ __('site.product_name')}}</label>
+                                                    <label for="Name">{{ __('site.Product Name')}}</label>
                                                     <input type="text" id="name" class="form-control" placeholder="name" name="name">
                                                 </div>   
 
                                                 <div class="form-group">
-                                                    <label for="standard_id">{{ __('site.standard')}}</label>
+                                                    <label for="standard_id">{{ __('site.Standard')}}</label>
                                                     <select name="standard_id" id="standard_id" class="form-control">
                                                         <option value="">Select</option>
                                                         @foreach($standards as $standard)
@@ -79,7 +79,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.system_type')}}
+                                                    <label for="system_type_id">{{ __('site.System Type')}}
                                                     </label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
                                                         <option value="">Select</option>
@@ -90,7 +90,7 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="type">{{ __('site.type')}}</label>
+                                                    <label for="type">{{ __('site.Type')}}</label>
                                                     <select name="type" id="type" class="form-control">
                                                             <option value="">Select</option>  
                                                             <option value="camera">Camera</option>
@@ -102,7 +102,7 @@
                                                
                                                 <hr>
                                                 <div id="add-attributes-div" style="display: none;">
-                                                   <h5>Add Product Attributes</h5>
+                                                   <h5>{{__('site.Add Product Attributes')}}</h5>
 
                                                    <div id="product_attribute_div">
 
@@ -110,9 +110,9 @@
                                                 </div>
                                                
                                                 <div class="form-actions" style="text-align:center">
-                                                        <a  class=" btn btn-primary" href="{{ route('products.index') }}">{{__('site.view_all')}}</a>           
+                                                        <a  class=" btn btn-primary" href="{{ route('products.index') }}">{{__('site.View all')}}</a>           
                                                         <button type="submit" name="submit" class="btn btn-success">
-                                                            {{ __('site.save')}}
+                                                            {{ __('site.Save')}}
                                                         </button>
                                                 <div>
                                            </div>

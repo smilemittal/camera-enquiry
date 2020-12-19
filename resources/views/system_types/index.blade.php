@@ -19,10 +19,10 @@
                             <div class="card">
                                 <div class="card-header" style="height: 50px;">
                                     <div class="card-title layout_btns" id="basic-layout-form">
-                                        <h3>{{ __('site.system_types') }}</h3>
+                                        <h3>{{ __('site.System Types') }}</h3>
                                         <div class="btns-right-side">
-                                        <a href="{{ route('system-types.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{__('site.import')}} </a> 
-                                        <a href="{{ route('system-types.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{__('site.export')}}</a>
+                                        <a href="{{ route('system-types.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{__('site.Import')}} </a> 
+                                        <a href="{{ route('system-types.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{__('site.Export')}}</a>
                                     </div>
                                     </div>
                                 </div>
@@ -33,14 +33,14 @@
                                     <div class="alert alert-success">
                                         {{\Session::get('success')}}
                                     </div>
-                                @endif
+                                @endif 
                                     <div class="table-responsive">
                                         <table class="table table-striped table-bordered zero-configuration" id="system_types" style="width: 100%; display: table;">
                                             <thead>
                                                 <tr>
-                                                    <th>{{ __('site.id') }}</th>
-                                                    <th>{{ __('site.name') }}</th>
-                                                    <th>{{ __('site.action') }}</th>
+                                                    <th>{{ __('site.ID') }}</th>
+                                                    <th>{{ __('site.Name') }}</th>
+                                                    <th>{{ __('site.Action') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -48,9 +48,9 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th> {{ __('site.id') }}</th>
-                                                    <th> {{  __('site.name') }} </th>
-                                                    <th> {{  __('site.action') }}</th>
+                                                    <th> {{ __('site.ID') }}</th>
+                                                    <th> {{  __('site.Name') }} </th>
+                                                    <th> {{  __('site.Action') }}</th>
                                                 </tr>
                                             </tfoot>
                                         </table>

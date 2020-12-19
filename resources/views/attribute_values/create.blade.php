@@ -8,7 +8,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header" style="height: 50px;">
-                                    <h4 class="card-title" id="basic-layout-form"> {{__('site.add_attributes_values')}} <a href="{{ route('attribute-values.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" style="float: right;">{{ __('site.import')}}</a></h4>
+                                    <h4 class="card-title" id="basic-layout-form"> {{__('site.Add Attributes Values')}} <a href="{{ route('attribute-values.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" style="float: right;">{{ __('site.Import')}}</a></h4>
                                 </div>
                             <!-- Card content body start -->
                                 <div class="card-content collapse show">
@@ -24,7 +24,7 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="attribute_id">{{__('site.attribute')}} </label>
+                                                    <label for="attribute_id">{{__('site.Attribute')}} </label>
                                                     <select name="attribute_id" id="attribute_id" class="form-control">
                                                         @foreach($attributes as $attribute)
                                                             <option value="{{ $attribute->id }}">{{ $attribute->name }}
@@ -33,15 +33,15 @@
                                                     </select>
                                                 </div> 
                                                 <div  class="form-group">
-                                                    <label for="values">{{ __('site.value')}}</label>
+                                                    <label for="values">{{ __('site.Value')}}</label>
                                                     <input type="text" class="form-control" placeholder="Value" name="value">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="displayorder">{{ __('site.display_order')}}</label>
+                                                    <label for="displayorder">{{ __('site.Display Order')}}</label>
                                                     <input type="text" class="form-control" placeholder="Display Order" name="display_order">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.system_type')}}</label>
+                                                    <label for="system_type_id">{{ __('site.System Type')}}</label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
 
                                                         @foreach($system_types as $system_type)
@@ -54,8 +54,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('attribute-values.index')}}" method="post" class="btn btn-primary" type="submit">{{ __('site.view_all')}}</a>    
-                                                <button type="submit" class="btn btn-success">{{ __('site.save')}}</button>
+                                                <a href="{{ route('attribute-values.index')}}" method="post" class="btn btn-primary" type="submit">{{ __('site.View all')}}</a>    
+                                                <button type="submit" class="btn btn-success">{{ __('site.Save')}}</button>
                                             </div>
                                         </form>
                                     </div>

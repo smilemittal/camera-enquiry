@@ -57,7 +57,7 @@ class ProductAttributesController extends Controller
 
         ProductAttribute::create($request->all());
 
-        return redirect()->route('product-attributes.index')->with('success', __('message.Product attributes added  successfully');         
+        return redirect()->route('product-attributes.index')->with('success', __('message.Product attributes added  successfully'));         
     
 
     }

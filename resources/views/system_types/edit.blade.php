@@ -9,7 +9,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.edit_system_type') }} </h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.Edit System Type') }} </h4>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>
@@ -55,13 +55,13 @@
                                          @csrf
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="name">{{ __('site.name') }}</label>
+                                                    <label for="name">{{ __('site.Name') }}</label>
                                                     <input type="text" id="name" class="form-control" placeholder="Name" name="name" value="{{$system_types->name}}">
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('system-types.index')}}" method="post" class="btn btn-primary" type="submit">{{ __('site.cancel') }}</a>
-                                                <button type="submit" class="btn btn-success">{{ __('site.save')}}
+                                                <a href="{{ route('system-types.index')}}" method="post" class="btn btn-primary" type="submit">{{ __('site.Cancel') }}</a>
+                                                <button type="submit" class="btn btn-success">{{ __('site.Save')}}
                                                 </button>
                                             </div>
                                         </form>

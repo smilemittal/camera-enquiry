@@ -8,7 +8,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                <h4 class="card-title" id="basic-layout-form">{{ __('site.add_system_types') }}</a></h4>
+                                <h4 class="card-title" id="basic-layout-form">{{ __('site.Add System Types') }}</a></h4>
                                     
                                 </div>
                             <!-- Card content body start -->    
@@ -27,13 +27,13 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="name">{{ __('site.name') }}</label>
+                                                    <label for="name">{{ __('site.Name') }}</label>
                                                     <input type="text" id="name" class="form-control" placeholder="Name" name="name">
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('system-types.index')}}" method="post" class="btn btn-primary"> {{ __('site.view_all')}}</a>    
-                                                <button type="submit" name="submit" class="btn btn-success">{{__('site.save')}}
+                                                <a href="{{ route('system-types.index')}}" method="post" class="btn btn-primary"> {{ __('site.View all')}}</a>    
+                                                <button type="submit" name="submit" class="btn btn-success">{{__('site.Save')}}
                                                 </button>
                                             </div>
                                         </form>

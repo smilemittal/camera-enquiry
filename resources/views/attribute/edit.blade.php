@@ -14,7 +14,7 @@
                                 <div class="card-header">
 
 
-                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.edit_attribute')}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.Edit Attribute')}}</h4>
 
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
@@ -69,11 +69,11 @@
                                          @method('PATCH')
                                             <div class="form-body">
                                                      <div class="form-group">
-                                                            <label for="Name">{{ __('site.attribute_name')}}</label>
+                                                            <label for="Name">{{ __('site.Attribute Name')}}</label>
                                                             <input type="text" id="name" class="form-control" value="{{$attribute->name}}" name="name">
                                                      </div> 
                                                      <div class="form-group">
-                                                            <label for="type">{{ __('site.type')}}</label>
+                                                            <label for="type">{{ __('site.Type')}}</label>
                                                                 <select id="type" name="type"  class="form-control">
                                                                         <option value="camera" @if($attribute->type == 'camera') selected  @endif>Camera</option>
                                                                         <option value="nvr" @if($attribute->type == 'nvr') selected  @endif>Nvr</option>
@@ -82,11 +82,11 @@
                                                                 </select>
                                                      </div>
                                                      <div class="form-group">
-                                                            <label for="Name">{{ __('site.display_order')}}</label>
+                                                            <label for="Name">{{ __('site.Display Order')}}</label>
                                                             <input type="text" id="display_order" class="form-control" value="{{$attribute->display_order}}" name="display_order">
                                                      </div> 
                                                      <div class="form-group">
-                                                        <label for="system_type_id">{{ __('site.system_type')}}</label>
+                                                        <label for="system_type_id">{{ __('site.System Type')}}</label>
                                                        
                                                        <select name="system_type_id" id="system_type_id" class="form-control">
                                                         @foreach($system_types ?? '' as $system_type)
@@ -96,9 +96,9 @@
                                                     </div> 
 
                                                     <div class="form-actions" style="text-align:center">
-                                                            <a  class=" btn btn-primary" href="{{ route('attribute.index') }}">{{__('site.view_all')}}</a>           
+                                                            <a  class=" btn btn-primary" href="{{ route('attribute.index') }}">{{__('site.View all')}}</a>           
                                                             <button type="submit" name="submit" class="btn btn-success">
-                                                                {{ __('site.save')}}
+                                                                {{ __('site.Save')}}
                                                             </button>
                                                      <div>
                                            </div>
