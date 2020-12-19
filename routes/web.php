@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\App;
 // });
 
 
-
+Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::get('system-types/import','SystemTypesController@importSystemTypes')->name('system-types.import');
 Route::post('system-types/post-import','SystemTypesController@postImport')->name('system-types.post-import');
 Route::get('system-types/export','SystemTypesController@export')->name('system-types.export');
@@ -68,6 +68,11 @@ Route::post('update-attributes', 'FrontController@updateAttributes')->name('upda
 //     //
 // });
 
+Route::get('/logout' , function (){
+    \Illuminate\Support\Facades\Auth::logout();
+    return redirect()->route('login');
+})->name('logout');
+});
 
 Route::post('get-next-product', 'FrontController@getNextProduct')->name('get-next-product');
 
@@ -82,3 +87,6 @@ Route::delete('enquiries/{id}/destroy', 'EnquiryController@destroy')->name('enqu
 
 Route::post('get-enquiries', 'EnquiryController@getEnquiries')->name('get.enquiries');
 Route::post('print-enquiries', 'FrontController@printEnquiry')->name('print.enquiries');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
