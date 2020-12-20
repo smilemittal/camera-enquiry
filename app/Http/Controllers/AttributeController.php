@@ -47,7 +47,7 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $this->validate($request, [
             'name'=>'required|max:50|unique:attributes,name',
             'type'=>'required',
             'display_order'=>'required',
@@ -91,7 +91,7 @@ class AttributeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $this->validate($request, [
             'name'=>'required|max:50|unique:attributes,name,'.$id,
             'type'=>'required',
             'display_order'=>'required',

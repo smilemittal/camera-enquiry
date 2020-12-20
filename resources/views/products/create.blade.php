@@ -67,10 +67,14 @@
                                         <form method="post" action="{{ route('products.store') }}" class="form" >
                                         @csrf
                                             <div class="form-body">
-                                                <div class="form-group">
+                                                {{-- <div class="form-group">
                                                     <label for="Name">{{ __('site.product_name')}}</label>
                                                     <input type="text" id="name" class="form-control" placeholder="name" name="name">
-                                                </div>   
+                                                </div> --}}
+                                                <div class="form-group {{ $errors->get('name') ? 'has-error' : '' }}">
+                                                    <label for="name">{{ __('site.Name') }}</label>
+                                                    <input type="text" name="name" placeholder="Name" class="form-control" required>
+                                                  </div>    
 
                                                 <div class="form-group">
                                                     <label for="standard_id">{{ __('site.standard')}}</label>

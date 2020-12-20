@@ -50,7 +50,7 @@
                         <span class="menu-title" data-i18n="">{{__('site.products')}}</span></a>
                     <ul class="menu-content">
                         <li>
-                            <a class="menu-item" href="{{ route('products.create') }}">{{__('site.add_news')}} </a>
+                            <a class="menu-item" href="{{ route('products.create') }}">{{__('site.Add')}} </a>
                         </li>
                         <li>
                             <a class="menu-item" href="{{ route('products.index') }}"> {{__('site.list')}}</a>

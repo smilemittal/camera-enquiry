@@ -47,11 +47,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'=>'required',
-            'type' => 'required',
-            'system_type_id' => 'required',
-            'standard_id' => 'required',
+       
+        $this->validate($request, [
+            'name'=>'required|unique:products,name|max:50',
+            'type'=>'required',
+            'system_type_id'=>'required',
+            'standard_id'=>'required',
         ]);
         $product = Product::create([
                         'name' => $request->input('name'),
@@ -115,8 +116,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'=>'required',
+        $this->validate($request, [
+            'name'=>'required|max:50|unique:products,name,'.$id,
             'type' => 'required',
             'system_type_id' => 'required',
             'standard_id' => 'required',

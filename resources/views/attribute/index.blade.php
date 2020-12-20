@@ -53,12 +53,12 @@
                                     @endif
                                     @if(\Session::has('updated'))
                                         <div class="alert alert-warning">
-                                            {{\Session::get('success')}}
+                                            {{\Session::get('updated')}}
                                         </div>
                                     @endif
                                     @if(\Session::has('deleted'))
                                         <div class="alert alert-danger">
-                                            {{\Session::get('success')}}
+                                            {{\Session::get('deleted')}}
                                         </div>
                                     @endif
                                    
