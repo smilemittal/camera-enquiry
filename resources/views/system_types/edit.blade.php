@@ -25,7 +25,21 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.edit_system_type') }} </h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.Edit System Type') }} </h4>
+                                    <a class="heading-elements-toggle">
+                                        <i class="la la-ellipsis-v font-medium-3"></i>
+                                    </a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            
+                                            <li>
+                                                <a data-action="expand">
+                                                    <i class="ft-maximize"></i>
+                                                </a>
+                                            </li>
+                                           
+                                        </ul>
+                                    </div>
                                 </div>
                                 <!--Card Content-->
                                 <div class="card-content collapse show">
@@ -44,14 +58,15 @@
                                          @csrf
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="name">{{ __('site.name') }}</label>
+                                                    <label for="name">{{ __('site.Name') }}</label>
                                                     <input type="text" id="name" class="form-control" placeholder="Name" name="name" value="{{$system_types->name}}">
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
                                                 <button type="reset" class="btn btn-primary">{{__('site.reset')}}</button>
-                                                {{-- <a href="{{ route('system-types.index')}}" method="post" class="btn btn-primary" type="submit">{{ __('site.cancel') }}</a> --}}
+                                                
                                                 <button type="submit" class="btn btn-success">{{ __('site.save')}}
+
                                                 </button>
                                             </div>
                                         </form>

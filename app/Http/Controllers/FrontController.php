@@ -27,17 +27,17 @@ class FrontController extends Controller
         if($request->ajax() && $request->isMethod('post')){
             $system_type = $request->input('system_type');
             $standard = $request->input('standard');
-
+          //  dd($standard);
             $attribute_camera = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type', 'camera')->orderBy('display_order', 'ASC')->get();
             $attribute_recorder = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type', 'recorder')->orderBy('display_order', 'ASC')->get();
-
+            //dd($attribute_recorder);
             $html_camera = $html_recorder = '';
 
             $i = 1;
             $html_camera .= view('frontend.extras.filter', compact('attribute_camera', 'system_type', 'i'))->render();
             $html_recorder .= view('frontend.extras.filter', compact('attribute_recorder', 'system_type', 'i'))->render();
 
-           // dd($html_recorder);
+         
 
             return response()->json(['success'=> true, 'html_camera' => $html_camera, 'html_recorder' => $html_recorder, 'count'=> $i]);
             
@@ -185,7 +185,7 @@ class FrontController extends Controller
            
             $attribute_html .= view('frontend.extras.filter', compact('attributes_new_product', 'system_type', 'i', 'product_type'))->render();
        
-            $html .= view('frontend.extras.new-type', compact('attribute_html', 'system_type', 'i', 'product_type'))->render();
+            $html .= view('frattribute_recorderontend.extras.new-type', compact('attribute_html', 'system_type', 'i', 'product_type'))->render();
        
            // dd($html_recorder);
 

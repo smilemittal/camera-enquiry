@@ -35,11 +35,13 @@
                             <div class="card">
                                 <div class="card-header" style="height:50px;">
                                     <div class="card-title layout_btns" id="basic-layout-form">
+
                                         <h4>{{ __('site.List')}}</h4>
                                         <div class="btns-right-side">
                                             <a href="{{ route('attribute.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >ADD </a>
                                             <a href="{{ route('attribute.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{ __('site.import')}} </a> 
                                             <a href="{{ route('attribute.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{ __('site.export')}}</a>
+
                                         </div>
                                     </div>
                                 </div>
@@ -66,12 +68,12 @@
                                             <table class="table table-striped table-bordered zero-configuration" style="width:100%" id="attribute">
                                                 <thead>
                                                     <tr>
-                                                        <th>{{ __('site.id')}}</th>
-                                                        <th>{{ __('site.attribute_name')}}</th>
-                                                        <th>{{__('site.type')}}</th>
-                                                        <th>{{ __('site.display_order')}}</th>
-                                                        <th>{{ __('site.system_type')}}</th>
-                                                        <th>{{ __('site.action')}}</th>
+                                                        <th>{{ __('site.ID')}}</th>
+                                                        <th>{{ __('site.Attribute Name')}}</th>
+                                                        <th>{{__('site.Type')}}</th>
+                                                        <th>{{ __('site.Display Order')}}</th>
+                                                        <th>{{ __('site.System Type')}}</th>
+                                                        <th>{{ __('site.Action')}}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -80,12 +82,12 @@
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                        <th>{{ __('site.id')}}</th>
-                                                        <th>{{ __('site.attribute_name')}}</th>
-                                                        <th>{{__('site.type')}}</th>
-                                                        <th>{{ __('site.display_order')}}</th>
-                                                        <th>{{ __('site.system_type')}}</th>
-                                                        <th>{{ __('site.action')}}</th>
+                                                        <th>{{ __('site.ID')}}</th>
+                                                        <th>{{ __('site.Attribute Name')}}</th>
+                                                        <th>{{__('site.Type')}}</th>
+                                                        <th>{{ __('site.Display Order')}}</th>
+                                                        <th>{{ __('site.System Type')}}</th>
+                                                        <th>{{ __('site.Action')}}</th>
                                                 </tr> 
                                              </tfoot>
                                                

@@ -8,7 +8,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">Add Attributes Values</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{__('site.Add Attributes Values')}}</h4>
                                         <a class="heading-elements-toggle">
                                             <i class="la la-ellipsis-v font-medium-3"></i>
                                         </a>
@@ -52,7 +52,7 @@
                                                         <form action="" method="POST" enctype="multipart/form-data">
                                                             {{ csrf_field() }}
 
-                                                            <a class="btn btn-warning" href="{{ route('export') }}">Export Attribute Value</a>
+                                                            <a class="btn btn-warning" href="{{ route('export') }}">{{__('site.Export Attribute Value')}}</a>
                                                         </form>
                                                     </div> 
                                              </div>
