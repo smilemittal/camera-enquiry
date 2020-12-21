@@ -28,7 +28,7 @@ class AlterAttributeValuesAddNewTypeCol extends Migration
     {
         Schema::table('attribute_values', function (Blueprint $table) {
             
-            $table->enum('type');
+            $table->dropColumn('type');
         });
     }
 }
