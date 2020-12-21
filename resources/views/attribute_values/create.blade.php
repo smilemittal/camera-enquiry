@@ -44,13 +44,23 @@
                                         <form class="form" action="{{ route('attribute-values.store') }}" method="post">
                                             @csrf  
                                             <div class="form-body">
-                                                
+
+                                                <div class="form-group">
+                                                    <label for="type">{{ __('site.type')}}</label>
+                                                    <select name="type" id="type" class="form-control">
+                                                            <option value="">Select</option>  
+                                                            <option value="camera">Camera</option>
+                                                            <option value="nvr">Nvr</option>
+                                                            <option value="recorder">Recorder</option>
+                                                            <option value="switch">Switch</option>
+                                                    </select>
+                                                </div>
                                                     <div class="form-group">
                                                     <label for="system_type_id">{{ __('site.System Types')}}</label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
-
+                                                        <option value="">Select</option>
                                                         @foreach($system_types as $system_type)
-
+                                                        
                                                            <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
 
                                                         @endforeach
@@ -66,22 +76,20 @@
                                                         @endforeach
                                                     </select>
                                                 </div> 
-                                                {{-- <div  class="form-group">
-                                                    <label for="values">{{ __('site.value')}}</label>
-                                                    <input type="text" class="form-control" placeholder="Value" name="value">
-                                                </div> --}}
+                                               
                                                 <div class="form-group {{ $errors->get('value') ? 'has-error' : '' }}">
                                                     <label for="name">{{ __('site.Value') }}</label>
                                                     <input type="text" name="value" placeholder="Value" class="form-control" required>
                                                   </div>
-                                                {{-- <div class="form-group">
-                                                    <label for="displayorder">{{ __('site.display_order')}}</label>
-                                                    <input type="text" class="form-control" placeholder="Display Order" name="display_order">
-                                                </div> --}}
+        
                                                 <div class="form-group {{ $errors->get('display_order') ? 'has-error' : '' }}">
                                                     <label for="name">{{ __('site.Display Order') }}</label>
                                                     <input type="text" name="display_order" placeholder="Display Order" class="form-control" required>
                                                   </div>
+                                            </div>
+
+                                            <div id="product_attribute_div">
+
                                             </div>
                                                 <div class="form-actions" style="text-align: center;">
                                                     <button type="reset" class="btn btn-danger">{{ __('site.Reset')}}</button>
@@ -98,4 +106,55 @@
                     </div>
                 </section>
 </div>
+@section('scripts')
+    <script>
+        $('#type').on('change', function(){
+            var type = $(this).val();
+            var system_type_id = $("#system_type_id option:selected").val();
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('get-product-attributes') }}',
+                data: {
+                    'type': type,
+                    'system_type_id': system_type_id,
+                    '_token': '{{ csrf_token() }}',
+                },
+                success: function(data){
+                   
+                    if(data.html != ''){
+                        $('#product_attribute_div').empty();
+                        $('#product_attribute_div').append(data.html);
+                        $('#add-attributes-div').show();   
+                    }else{
+                        $('#add-attributes-div').hide();
+                    }
+                }
+            });
+        });
+
+        $('#system_type_id').on('change', function(){
+            var type = $("#type option:selected").val()
+            var system_type_id = $(this).val();;
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('get-attributes') }}',
+                data: {
+                    'type': type,
+                    'system_type_id': system_type_id,
+                    '_token': '{{ csrf_token() }}',
+                },
+                success: function(data){
+                    if(data.html != ''){
+                        $('#product_attribute_div').empty();
+                        $('#product_attribute_div').append(data.html);
+                        $('#add-attributes-div').show();   
+                    }else{
+                        $('#add-attributes-div').hide();
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

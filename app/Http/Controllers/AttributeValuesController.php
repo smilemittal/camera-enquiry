@@ -194,5 +194,30 @@ class AttributeValuesController extends Controller
         return json_encode($json_data);
     }
 
+    public function getAttributes(Request $request){
+        if($request->ajax()){
+            $type = $request->type;
+            $system_type = $request->system_type_id;
+            
+            $attribute= Attribute::with('attribute_values')->where('created_at', '!=', Null);
+         
+            if(!empty($type)){
+                
+                $attribute->where('type','=' ,$type);
+            }
+           
+            if(!empty($system_type)){
+                $attribute->where('system_type_id','=', $system_type);
+            }
+           
+            $attributes = $attribute->get();
+    
+            $html = '';
+            $html .= view('attribute_values.partials.select-attributes', compact('attributes'))->render();
+            
+            return response()->json(['html' => $html, 'success' => true]);
+        }
+    }
+
 
 }
