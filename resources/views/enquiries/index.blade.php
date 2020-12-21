@@ -9,7 +9,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="card-title layout_btns" id="basic-layout-form">
-                                        <h4>{{__('site.Attribute')}}</h4>
+                                        <h4>{{__('site.Enquiries')}}</h4>
                                    
                                     </div>
                                 </div>
@@ -23,19 +23,19 @@
                                     @endif
                                    
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered zero-configuration" style="width:100%" id="attribute">
+                                            <table class="table table-striped table-bordered zero-configuration" style="width:100%" id="enquiries">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>Customer Name</th>
-                                                        <th>Email</th>
-                                                        <th>Mobile</th>
-                                                        <th>Company</th>
-                                                        <th>Product</th>
-                                                        <th>System ID</th>
-                                                        <th>Standard</th>
-                                                        <th>Date</th>
-                                                        <th>Action</th>
+                                                        <th>{{ __('site.ID')}}</th>
+                                                        <th>{{ __('site.Name')}}</th>
+                                                        <th>{{ __('site.Email')}}</th>
+                                                        <th>{{ __('site.Mobile No.')}}</th>
+                                                        {{-- <th>{{ __('site.Company')}}</th>
+                                                        <th>{{ __('site.Product')}}</th>
+                                                        <th>{{ __('site.System Type')}}</th>
+                                                        <th>{{ __('site.Standard')}}</th> --}}
+                                                        <th>{{ __('site.Date')}}</th>
+                                                        <th>{{ __('site.Action')}}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -44,16 +44,16 @@
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>Customer Name</th>
-                                                        <th>Email</th>
-                                                        <th>Mobile</th>
-                                                        <th>Company</th>
-                                                        <th>Product</th>
-                                                        <th>System ID</th>
-                                                        <th>Standard</th>
-                                                        <th>Date</th>
-                                                        <th>Action</th>
+                                                        <th>{{ __('site.ID')}}</th>
+                                                        <th>{{ __('site.Name')}}</th>
+                                                        <th>{{ __('site.Email')}}</th>
+                                                        <th>{{ __('site.Mobile No.')}}</th>
+                                                        {{-- <th>{{ __('site.Company')}}</th>
+                                                        <th>{{ __('site.Product')}}</th>
+                                                        <th>{{ __('site.System Type')}}</th>
+                                                        <th>{{ __('site.Standard')}}</th> --}}
+                                                        <th>{{ __('site.Date')}}</th>
+                                                        <th>{{ __('site.Action')}}</th>
                                                     </tr> 
                                                 </tfoot>
                                                
@@ -80,7 +80,7 @@
     <script>
         $(document).ready(function(){
             // Data table for serverside
-            $('#attribute').DataTable({
+            $('#enquiries').DataTable({
                 "pageLength": 25,
                 "order": [[ 0, 'desc' ]],
                 "processing": true,
@@ -98,10 +98,10 @@
                     { "data": "mobile_no" },
                     { "data": "company" },
 
-                    { "data": "name" },
+                    // { "data": "name" },
                   
-                    { "data": "system_type_id" },
-                    { "data": "standard_id" },
+                    // { "data": "system_type_id" },
+                    // { "data": "standard_id" },
                     { "data": "date" },
                     { "data": "action" }
                 ],
