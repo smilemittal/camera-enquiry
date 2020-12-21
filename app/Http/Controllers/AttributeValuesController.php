@@ -211,9 +211,9 @@ class AttributeValuesController extends Controller
             }
            
             $attributes = $attribute->get();
-    
+            
             $html = '';
-            $html .= view('attribute_values.partials.select-attributes', compact('attributes'))->render();
+            $html .= view('attribute_values.partials.select-attribute', compact('attributes'))->render();
             
             return response()->json(['html' => $html, 'success' => true]);
         }

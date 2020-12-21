@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <!-- BEGIN: Content-->
-<div class="row">
+<div class="content-header row">
 <div class="content-header-left col-md-4 col-12 mb-2">
     <h3 class="content-header-title">{{__('site.Attribute Value')}}</h3>
 </div>
@@ -26,27 +26,36 @@
                     <div class="row match-height justify-content-center">
                         <div class="col-md-8">
                             <div class="card">
-                                <div class="card-header" style="height: 50px;">
-
-                                    <h4 class="card-title" id="basic-layout-form">{{__('site.Add')}}</h4>
-
+                                <div class="card-header">
+                                    <h4 class="card-title" id="basic-layout-form"> {{ __('site.Add')}}</h4>
+                                    <a class="heading-elements-toggle">
+                                        <i class="la la-ellipsis-v font-medium-3"></i>
+                                    </a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li>
+                                                <a data-action="expand">
+                                                    <i class="ft-maximize"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             <!-- Card content body start -->
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         @if($errors->all())
-                                    <div class="alert alert-danger">
-                                        @foreach($errors->all() as $error)
-                                           <p>{{$error}}</p> 
-                                        @endforeach
-                                    </div>
+                                        <div class="alert alert-danger">
+                                            @foreach($errors->all() as $error)
+                                            <p>{{$error}}</p> 
+                                            @endforeach
+                                        </div>
                                         @endif
                                         <form class="form" action="{{ route('attribute-values.store') }}" method="post">
                                             @csrf  
                                             <div class="form-body">
-
                                                 <div class="form-group">
-                                                    <label for="type">{{ __('site.type')}}</label>
+                                                    <label for="type">{{ __('site.Type')}}</label>
                                                     <select name="type" id="type" class="form-control">
                                                             <option value="">Select</option>  
                                                             <option value="camera">Camera</option>
@@ -55,46 +64,34 @@
                                                             <option value="switch">Switch</option>
                                                     </select>
                                                 </div>
-                                                    <div class="form-group">
+                                                <div class="form-group">
                                                     <label for="system_type_id">{{ __('site.System Types')}}</label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
                                                         <option value="">Select</option>
                                                         @foreach($system_types as $system_type)
-                                                        
                                                            <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
-
                                                         @endforeach
-                                                        
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="attribute_id">{{__('site.Attribute')}} </label>
                                                     <select name="attribute_id" id="attribute_id" class="form-control">
                                                         @foreach($attributes as $attribute)
-                                                            <option value="{{ $attribute->id }}">{{ $attribute->name }}
-                                                                </option>
+                                                        <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
                                                         @endforeach
                                                     </select>
-                                                </div> 
-                                               
+                                                </div>
                                                 <div class="form-group {{ $errors->get('value') ? 'has-error' : '' }}">
                                                     <label for="name">{{ __('site.Value') }}</label>
                                                     <input type="text" name="value" placeholder="Value" class="form-control" required>
                                                   </div>
         
                                                 <div class="form-group {{ $errors->get('display_order') ? 'has-error' : '' }}">
-                                                    <label for="name">{{ __('site.Display Order') }}</label>
-                                                    <input type="text" name="display_order" placeholder="Display Order" class="form-control" required>
-                                                  </div>
-                                            </div>
-
-                                            <div id="product_attribute_div">
-
-                                            </div>
+                                                <label for="name">{{ __('site.Display Order') }}</label>
+                                                <input type="text" name="display_order" placeholder="Display Order" class="form-control" required>
+                                                </div>
                                                 <div class="form-actions" style="text-align: center;">
                                                     <button type="reset" class="btn btn-danger">{{ __('site.Reset')}}</button>
-                                                   
-
                                                     <button type="submit" class="btn btn-success">{{ __('site.Save')}}</button>
                                                 </div>
                                             </div>
@@ -106,6 +103,7 @@
                     </div>
                 </section>
 </div>
+@endsection
 @section('scripts')
     <script>
         $('#type').on('change', function(){
@@ -114,21 +112,17 @@
 
             $.ajax({
                 method: 'post',
-                url: '{{ route('get-product-attributes') }}',
+                url: '{{ route('get-attributes') }}',
                 data: {
                     'type': type,
                     'system_type_id': system_type_id,
                     '_token': '{{ csrf_token() }}',
                 },
                 success: function(data){
-                   
-                    if(data.html != ''){
-                        $('#product_attribute_div').empty();
-                        $('#product_attribute_div').append(data.html);
-                        $('#add-attributes-div').show();   
-                    }else{
-                        $('#add-attributes-div').hide();
-                    }
+                        $('#attribute_id').empty();
+                        $('#attribute_id').append(data.html);
+                     
+                    
                 }
             });
         });
@@ -146,13 +140,10 @@
                     '_token': '{{ csrf_token() }}',
                 },
                 success: function(data){
-                    if(data.html != ''){
-                        $('#product_attribute_div').empty();
-                        $('#product_attribute_div').append(data.html);
-                        $('#add-attributes-div').show();   
-                    }else{
-                        $('#add-attributes-div').hide();
-                    }
+                   
+                        $('#attribute_id').empty();
+                        $('#attribute_id').append(data.html); 
+                    
                 }
             });
         });

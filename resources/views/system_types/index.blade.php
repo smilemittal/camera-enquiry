@@ -52,14 +52,14 @@
                                             {{\Session::get('success')}}
                                         </div>
                                     @endif
-                                    @if(\Session::has('updated'))
-                                        <div class="alert alert-warning">
-                                            {{\Session::get('updated')}}
+                                    @if(\Session::has('updated_success'))
+                                        <div class="alert alert-success">
+                                            {{\Session::get('updated_success')}}
                                         </div>
                                     @endif
-                                    @if(\Session::has('deleted'))
-                                        <div class="alert alert-danger">
-                                            {{\Session::get('deleted')}}
+                                    @if(\Session::has('deleted_success'))
+                                        <div class="alert alert-success">
+                                            {{\Session::get('deleted_success')}}
                                         </div>
                                     @endif
 
