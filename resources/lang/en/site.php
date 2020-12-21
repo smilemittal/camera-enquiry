@@ -2,7 +2,6 @@
 
 			return [
 				'Add System Types' 	=> 'Add System Types',
-
 				'Name' 				=> 'Name',
 				'ID' 				=>'ID',
 				'Action'            =>'Action',
@@ -50,7 +49,10 @@
   		'Import Atrribute Values'	 =>'Import Atrribute Values',
   		'Enquiries'					=>'Enquiries',
   		'Export Attribute Value'	=>'Export Attribute Value',
-  		'Home'						=>'Home',
+		  'Home'						=>'Home',
+		  'Reset'					=>'Reset',
+		  'Edit'					=>'Edit',
+		  
   		
 
 ];

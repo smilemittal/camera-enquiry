@@ -77,7 +77,7 @@
                                                   </div>    
 
                                                 <div class="form-group">
-                                                    <label for="standard_id">{{ __('site.standard')}}</label>
+                                                    <label for="standard_id">{{ __('site.Standard')}}</label>
                                                     <select name="standard_id" id="standard_id" class="form-control">
                                                         <option value="">Select</option>
                                                         @foreach($standards as $standard)
@@ -86,7 +86,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="type">{{ __('site.type')}}</label>
+                                                    <label for="type">{{ __('site.Type')}}</label>
                                                     <select name="type" id="type" class="form-control">
                                                             <option value="">Select</option>  
                                                             <option value="camera">Camera</option>
@@ -96,7 +96,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.system_type')}}
+                                                    <label for="system_type_id">{{ __('site.System Type')}}
                                                     </label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
                                                         <option value="">Select</option>
@@ -122,7 +122,7 @@
                                                         {{__('site.Reset')}}
                                                     </button>            
                                                         <button type="submit" name="submit" class="btn btn-success">
-                                                            {{ __('site.save')}}
+                                                            {{ __('site.Save')}}
                                                         </button>
                                                 <div>
                                            </div>

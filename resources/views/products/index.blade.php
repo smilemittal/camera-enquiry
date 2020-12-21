@@ -40,8 +40,8 @@
                                         <h3>{{ __('site.List')}}</h3>
                                             <div class="btns-right-side">
                                                 <a href="{{ route('products.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >ADD </a>
-                                                <a href="{{ route('product-attributes.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{ __('site.import')}} </a> 
-                                                <a href="{{ route('product-attributes.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{ __('site.export')}}</a>
+                                                <a href="{{ route('product-attributes.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{ __('site.Import')}} </a> 
+                                                <a href="{{ route('product-attributes.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{ __('site.Export')}}</a>
 
                                             </div>
                                     </div>
