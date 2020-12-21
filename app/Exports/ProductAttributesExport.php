@@ -26,7 +26,7 @@ class ProductAttributesExport implements FromArray
             $data[0][$attribute->id] = $attribute->name; 
         }
         //dd($data);
-         $products= Product::with('product_attributes.attribute_value.standards.system_types')->get();
+         $products= Product::with('product_attributes.attribute_value')->get();
          $i=1;
          $j=1;
          foreach($products as $product)
@@ -41,7 +41,7 @@ class ProductAttributesExport implements FromArray
         }
        
        
-      dd($data);
+     // dd($data);
                return($data);
      }
 }
