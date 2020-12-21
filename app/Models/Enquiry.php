@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Enquiry extends Model
 {
     use HasFactory;
-    protected $fillable = ['products', 'quantity', 'system_type_id', 'standard_id'];
+    protected $fillable = ['products', 'quantity', 'system_type_id', 'standard_id', 'first_name', 'last_name', 'email', 'company', 'mobile_no'];
 
     public function system_type(){
         return $this->belongsTo('App\Models\SystemType', 'system_type_id', 'id');

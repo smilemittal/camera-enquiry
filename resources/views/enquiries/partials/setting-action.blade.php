@@ -8,7 +8,7 @@
         x-placement="bottom-end"
         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(55px, 27px, 0px);">
             <a class="dropdown-item" href="{{ route('enquiries.show', $enquiry ?? ''->id)}}"><i
-              class="fa fa-edit"></i>Edit</a>
+              class="fa fa-edit"></i>Details</a>
                         <form action="{{ $destroy }}" method="post" id="{{ 'delete_form_'.$enquiry->id}}">  
                             @csrf  
                             @method('DELETE')  
