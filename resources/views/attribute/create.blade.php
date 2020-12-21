@@ -12,9 +12,9 @@
                     <div class="breadcrumbs-top float-md-right">
                         <div class="breadcrumb-wrapper mr-1">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">{{ __('site.Home')}}
+                                <li class="breadcrumb-item active"><a href="#">{{ __('site.Home')}}</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{ route('attribute.index') }}">{{ __('site.List')}}</a>
+                                <li class="breadcrumb-item active"><a href="{{route('attribute.index')}}">{{ __('site.List')}}</a>
                                 </li>
                                 <li class="breadcrumb-item active">{{ __('site.Add')}}
                                 </li>

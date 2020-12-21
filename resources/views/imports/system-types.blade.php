@@ -11,7 +11,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
                     </li>
-                    <li class="breadcrumb-item"><a href="{{ route('attribute-values.index') }}">{{__('site.List')}}</a>
+                    <li class="breadcrumb-item"><a href="{{ route('system-types.index') }}">{{__('site.List')}}</a>
                     </li>
                     <li class="breadcrumb-item active">{{__('site.Import')}}</a>
                     </li>
