@@ -76,7 +76,7 @@
                                                      </div> 
                                                   
                                                         <div class="form-group">
-                                                            <label for="type">Type{{ __('site.type')}}</label>
+                                                            <label for="type">{{ __('site.Type')}}</label>
 
                                                                 <select id="type" name="type"  class="form-control">
                                                                         <option value="camera" @if($attribute->type == 'camera') selected  @endif>Camera</option>
@@ -86,7 +86,7 @@
                                                                 </select>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="system_type_id">{{ __('site.system_type')}}</label>
+                                                            <label for="system_type_id">{{ __('site.System Type')}}</label>
                                                            
                                                            <select name="system_type_id" id="system_type_id" class="form-control">
                                                             @foreach($system_types ?? '' as $system_type)
@@ -95,7 +95,7 @@
                                                            </select>
                                                         </div>
                                                      <div class="form-group">
-                                                            <label for="Name">{{ __('site.attribute_name')}}</label>
+                                                            <label for="Name">{{ __('site.Attribute Name')}}</label>
                                                             <input type="text" id="name" class="form-control" value="{{$attribute->name}}" name="name">
                                                      </div> 
                                                      
