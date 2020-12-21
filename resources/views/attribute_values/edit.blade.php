@@ -1,6 +1,23 @@
 @extends('layouts.app')
 @section('content')
 <!-- BEGIN: Content-->
+<div class="row">
+    <div class="content-header-left col-md-4 col-12 mb-2">
+        <h3 class="content-header-title">{{__('site.Attribute Value')}}</h3>
+    </div>
+    <div class="content-header-right col-md-8 col-12">
+        <div class="breadcrumbs-top float-md-right">
+            <div class="breadcrumb-wrapper mr-1">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
+                    </li>
+                    <li class="breadcrumb-item active">{{__('site.List')}}
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    </div>
 <div class="content-body">
                 <!--Form layout section start -->
                 <section id="basic-form-layouts">
@@ -8,30 +25,15 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.Edit Attributes Values')}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.Edit')}}</h4>
                                         <a class="heading-elements-toggle">
                                             <i class="la la-ellipsis-v font-medium-3"></i>
                                         </a>
                                         <div class="heading-elements">
                                                 <ul class="list-inline mb-0">
                                                     <li>
-                                                        <a data-action="collapse">
-                                                            <i class="ft-minus"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a data-action="reload">
-                                                            <i class="ft-rotate-cw"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
                                                         <a data-action="expand">
                                                             <i class="ft-maximize"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a data-action="close">
-                                                            <i class="ft-x"></i>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -52,7 +54,7 @@
                                         @csrf  
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="attribute_id">{{__('site.Attributes')}} </label>
+                                                    <label for="attribute_id">{{__('site.Attribute')}} </label>
                                                     <select name="attribute_id" id="attribute_id" class="form-control">
                                                         @foreach($attributes as $attribute)
                                                             <option value="{{ $attribute->id }}" {{ $attribute->id == $attribute_value->attribute_id ? 'selected' : '' }}>{{ $attribute->name }}
@@ -82,7 +84,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('attribute-values.index')}}" method="post" class="btn btn-primary" type="submit">{{__('site.View all')}}</a>    
+                                                <button type="reset" class="btn btn-danger">{{__('site.Reset')}}</button>
+                                                {{-- <a href="{{ route('attribute-values.index')}}" method="post" class="btn btn-primary" type="submit">{{__('site.view_all')}}</a>     --}}
                                                 <button type="submit" class="btn btn-success">{{__('site.Save')}}</button>
                                             </div>
                                         </form>
