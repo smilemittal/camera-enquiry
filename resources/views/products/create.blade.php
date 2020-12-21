@@ -21,7 +21,6 @@
                     </div>
                 </div>
             </div>
-            
             <div class="content-body">
                 <!-- Basic form layout section start -->
                 <section id="basic-form-layouts">
@@ -39,11 +38,9 @@
                                                     <i class="ft-maximize"></i>
                                                 </a>
                                             </li>
-                                            
                                         </ul>
                                     </div>
                                 </div>
-                          
                                 <div class="card-content collapse show">
                                     <div class="card-body " >
                                         <div class="card-text">
@@ -61,7 +58,6 @@
                                                     @endforeach
                                                 </div>
                                             @endif
-                                                <!--p>This is the most basic and default form having form section.</p-->
                                         </div>
                                         <form method="post" action="{{ route('products.store') }}" class="form" >
                                         @csrf
