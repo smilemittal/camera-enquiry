@@ -83,7 +83,7 @@ class EnquiryController extends Controller
                 $nestedData['last_name'] = $enquiry->last_name;
                 $nestedData['email'] = $enquiry->email;
                 $nestedData['mobile_no'] = $enquiry->mobile_no;
-                $nestedData['company'] = $enquiry->company;
+                // $nestedData['company'] = $enquiry->company;
                 // $nestedData['name'] = $product_name;
                 // $nestedData['system_type_id'] = !empty($enquiry->system_type) ? $enquiry->system_type->name : '';
                 // $nestedData['standard_id'] = !empty($enquiry->standard) ? $enquiry->standard->name : '';
@@ -114,5 +114,11 @@ class EnquiryController extends Controller
     public function show($id){
         $enquiry = Enquiry::where('id', $id)->first();
         return view('enquiries.show', compact('enquiry'));
+    }
+
+    public function destroy($id){
+        $enquiry = Enquiry::find($id);
+        $enquiry->delete();
+        return redirect()->route('enquiries.index')->with('success  ', __('message.Enquiry deleted successfully'));         
     }
 }

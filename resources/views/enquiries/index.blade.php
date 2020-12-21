@@ -1,7 +1,33 @@
 @extends('layouts.app')
-
+@section('styles')
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
+@endsection
 @section('content')
-     <div class="content-body">
+        <style>
+            .layout_btns {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            }
+        </style>
+          <div class="content-header row">
+                <div class="content-header-left col-md-4 col-12 mb-2">
+                    <h3 class="content-header-title">{{ __('site.Attributes')}}</h3>
+                </div>
+                <div class="content-header-right col-md-8 col-12">
+                    <div class="breadcrumbs-top float-md-right">
+                        <div class="breadcrumb-wrapper mr-1">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="#">List</a>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+             </div>
+             <div class="content-body">
                     <!-- Basic form layout section start -->
                 <section id="basic-form-layouts">
                     <div class="row match-height justify-content-center">
@@ -23,7 +49,7 @@
                                     @endif
                                    
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered zero-configuration" style="width:100%" id="enquiries">
+                                            <table class="table table-striped table-bordered zero-configuration" id="enquiries">
                                                 <thead>
                                                     <tr>
                                                         <th>{{ __('site.ID')}}</th>
@@ -66,6 +92,7 @@
                     </div>
                 </div>
             </section>
+            
         </div>
     </div>
 </div>
@@ -96,7 +123,7 @@
                     { "data": "customer_name" },
                     { "data": "email" },
                     { "data": "mobile_no" },
-                    { "data": "company" },
+                    // { "data": "company" },
 
                     // { "data": "name" },
                   
