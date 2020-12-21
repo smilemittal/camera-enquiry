@@ -210,7 +210,7 @@ class AttributeValuesController extends Controller
                 $attribute->where('system_type_id','=', $system_type);
             }
            
-            $attributes = $attribute->get();
+            $attributes = $attribute ->orderBy('display_order', 'ASC')->get();
             
             $html = '';
             $html .= view('attribute_values.partials.select-attribute', compact('attributes'))->render();
