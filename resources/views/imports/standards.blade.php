@@ -27,7 +27,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.Import Standards')}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.Import')}}</h4>
                                         <a class="heading-elements-toggle">
                                             <i class="la la-ellipsis-v font-medium-3"></i>
                                         </a>
@@ -60,10 +60,11 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div  class="form-group">
-                                                    <label for="values">{{__('site.Value')}}</label>
+                                                    <label for="values">{{__('site.File')}}</label>
                                                     <input type="file" class="form-control" placeholder="Value" name="import-standards">
+                                                    <label for="Example">{{__('site.Example')}}</label>
+                                                    <a href={{asset('assets/frontend/example/standard.xlsx')}} style="color:#464855;"download><i > </i>{{__('site.Download')}}</a>
                                                 </div>
-                                               
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
                                                 <button type="Reset" class="btn btn-danger">{{__('site.Reset')}}</button>

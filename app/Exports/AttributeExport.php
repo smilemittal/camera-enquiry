@@ -7,8 +7,9 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class AttributeExport implements FromArray
+class AttributeExport implements FromArray ,WithTitle
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -40,5 +41,10 @@ class AttributeExport implements FromArray
             }
         }
         return($data);
+    }
+
+    public function title(): string
+    {
+        return 'Attributes and Attribute Values';
     }
 }

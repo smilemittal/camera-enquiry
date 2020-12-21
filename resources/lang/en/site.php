@@ -67,6 +67,9 @@
 					'Last Name'					=>'Last Name',
 					'Mobile'					=>'Mobile',
 					'Close'						=>'Close',
+					'Example'					=>'Example',
+					'File'						=>'File',
+					'Download'					=>'Download',
 
 					
 

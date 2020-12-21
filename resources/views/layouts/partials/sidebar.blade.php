@@ -4,8 +4,8 @@
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto">
                     <a class="navbar-brand" href="index.html">
-                        <!-- <img class="brand-logo" alt="Chameleon admin logo" src="{{asset('app-assets\images\logo\logo.png')}}" /> -->
-                        <h3 class="brand-text"> {{__('site.Coming Soon')}}</h3>
+                         <img class="brand-logo" alt="camera admin logo" src="{{asset("assets/frontend/img/logo.png")}}" />
+                        <!--h3 class="brand-text"> {{__('site.Coming Soon')}}</h3-->
                     </a>
                 </li>
                 <li class="nav-item d-md-none"><a class="nav-link close-navbar">
