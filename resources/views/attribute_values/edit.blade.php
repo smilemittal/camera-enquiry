@@ -56,6 +56,28 @@
                                         @csrf  
                                             <div class="form-body">
                                                 <div class="form-group">
+                                                    <label for="type">{{ __('site.Type')}}</label>
+                                                    <select name="type" id="type" class="form-control">
+                                                            <option value="">Select</option>  
+                                                            <option value="camera">Camera</option>
+                                                            <option value="nvr">Nvr</option>
+                                                            <option value="recorder">Recorder</option>
+                                                            <option value="switch">Switch</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="system_type_id">{{__('site.System Type')}}</label>
+                                                    <select name="system_type_id" id="system_type_id" class="form-control">
+
+                                                        @foreach($system_types as $system_type)
+                                                            
+                                                            <option value="{{ $system_type->id }}" {{ $system_type->id == $attribute_value->system_type_id ? 'selected' : '' }}>{{ $system_type->name }}</option>
+                                                        
+                                                        @endforeach
+                                                        
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="attribute_id">{{__('site.Attribute')}} </label>
                                                     <select name="attribute_id" id="attribute_id" class="form-control">
                                                         @foreach($attributes as $attribute)
@@ -72,18 +94,7 @@
                                                     <label for="displayorder">{{__('site.Display Order')}}</label>
                                                     <input type="text" class="form-control" placeholder="Display Order" name="display_order" value="{{$attribute_value->display_order}}">
                                                 </div>                
-                                                <div class="form-group">
-                                                    <label for="system_type_id">{{__('site.System Type')}}</label>
-                                                    <select name="system_type_id" id="system_type_id" class="form-control">
-
-                                                        @foreach($system_types as $system_type)
-                                                            
-                                                            <option value="{{ $system_type->id }}" {{ $system_type->id == $attribute_value->system_type_id ? 'selected' : '' }}>{{ $system_type->name }}</option>
-                                                        
-                                                        @endforeach
-                                                        
-                                                    </select>
-                                                </div>
+                                                
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
                                                 <button type="reset" class="btn btn-danger">{{__('site.Reset')}}</button>
