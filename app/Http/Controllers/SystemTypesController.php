@@ -92,7 +92,7 @@ class SystemTypesController extends Controller
         $system_types=SystemType::find($id);          
         $system_types->update($request->all()); 
 
-        return redirect()->route('system-types.index')->with('updated', __('message.System type updated successfully'));
+        return redirect()->route('system-types.index')->with('updated_success', __('message.System type updated successfully'));
     }
 
     /**
@@ -106,7 +106,7 @@ class SystemTypesController extends Controller
         $system_types=SystemType::find($id);  
         $system_types->delete();
         
-         return redirect()->route('system-types.index')->with('deleted', __('message.System type deleted successfully'));
+         return redirect()->route('system-types.index')->with('deleted_success', __('message.System type deleted successfully'));
 
     }
 

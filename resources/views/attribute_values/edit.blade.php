@@ -11,7 +11,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
                     </li>
-                    <li class="breadcrumb-item active">{{__('site.List')}}
+                    <li class="breadcrumb-item active">{{__('site.Edit')}}
                     </li>
                 </ol>
             </div>
