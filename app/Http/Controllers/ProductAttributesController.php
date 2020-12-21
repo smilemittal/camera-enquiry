@@ -108,7 +108,7 @@ class ProductAttributesController extends Controller
          $product_attributes = ProductAttribute::find($id);
          $product_attributes->update($request->all());
          
-          return redirect()->route('product-attributes.index')->with('updated', __('message.Product attributes updated successfully'));         
+          return redirect()->route('product-attributes.index')->with('success', __('message.Product attributes updated successfully'));         
 
     }
 
@@ -124,7 +124,7 @@ class ProductAttributesController extends Controller
     $product_attributes = ProductAttribute::find($id);
     $product_attributes->delete();
 
-    return redirect()->route('product-attributes.index')->with('deleted  ', __('message.Product attributes deleted successfully'));         
+    return redirect()->route('product-attributes.index')->with('success  ', __('message.Product attributes deleted successfully'));         
 
     }
     /**

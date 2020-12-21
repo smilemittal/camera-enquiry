@@ -60,18 +60,19 @@
                                                     <input type="text" name="name" placeholder="Name" class="form-control" required>
                                                   </div>
                                             
-                                            <div class="form-actions" style="text-align: center;">
+                                                <div class="form-actions" style="text-align: center;">
                                                 <button type="reset" name="submit" class="btn btn-danger">{{__('site.Reset')}}
                                                 </button>
 
                                                 <button type="submit" name="submit" class="btn btn-success">{{__('site.Save')}}
                                                 </button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                            </div>
                         </div>
+                    </div>
                     </div>
                 </section>
 </div>

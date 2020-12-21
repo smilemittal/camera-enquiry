@@ -47,12 +47,13 @@
   				'Import Standards'	 =>'Import Standards',
   		'Import Product Atrribute'	 =>'Import Product Atrribute',
   		'Import Atrribute Values'	 =>'Import Atrribute Values',
-  		'Enquiries'					=>'Enquiries',
-  		'Export Attribute Value'	=>'Export Attribute Value',
-		  'Home'						=>'Home',
-		  'Reset'					=>'Reset',
-		  'Edit'					=>'Edit',
+	  		'Enquiries'					=>'Enquiries',
+	  		'Export Attribute Value'	=>'Export Attribute Value',
+			  'Home'					=>'Home',
+			  'Reset'					=>'Reset',
+			  'Edit'					=>'Edit',
 		  
+
   		
 
 ];
