@@ -227,8 +227,8 @@ class ProductAttributesController extends Controller
         {
             return Excel::download(new ProductAttributesExport , 'productattributes.xlsx');
         }
-
-    }
+       
+ }
 
 
 

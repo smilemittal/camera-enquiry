@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
 
+
     // Route::get('/logout' , function (){
     //     \Illuminate\Support\Facades\Auth::logout();
     //     return redirect()->route('login');

@@ -14,7 +14,7 @@
                                                     </li>
                                                     <li class="breadcrumb-item"><a href="{{ route('standards.index') }}">{{__('site.List')}}</a>
                                                     </li>
-                                                    <li class="breadcrumb-item active"><a href="">{{__('site.Edit')}}</a>
+                                                    <li class="breadcrumb-item active">{{__('site.Edit')}}
                                                     </li>
                                                 </ol>
                                             </div>

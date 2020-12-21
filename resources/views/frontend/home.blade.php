@@ -12,13 +12,16 @@
                                     <div class="row d-flex align-items-center">
                                         <input type="hidden" id="selected_system_type" name="selected_system_type" value="">
                                         @foreach($system_types as $system_type) 
-                                            <div class="col-xl-3 col-md-6">
-                                                <button type="button" class="system_type" data-id="{{ $system_type->id }}">{{ $system_type->name }}</button>
+                                            <div class="col-xl-6 col-md-6">
+                                                <button type="button" class="system_type" data-name="{{ $system_type->name }}" data-id="{{ $system_type->id }}">{{ $system_type->name }}</button>
                                             </div>
                                         @endforeach
                                      
                                         <div class="col-xl-6 col-md-12 pl-xl-3">
-                                            <p class="ml-xl-5 pl-xl-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+                                            <p class="ml-xl-5 pl-xl-5">
+                                                {{-- Lorem Ipsum is simply dummy text of the printing and typesetting industry.  --}}
+                                                {{-- Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, --}}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -31,7 +34,7 @@
                                     <input type="hidden" id="selected_standard" name="selected_standard" value="">
                                     @foreach($standards as $standard)
                                         <div class="col-xl-3 col-md-4">
-                                        <button type="button" class="standard" data-id="{{ $standard->id }}">{{ $standard->name }}</button>
+                                        <button type="button" class="standard {{ $standard->name }}" data-name="{{ $standard->name }}" data-id="{{ $standard->id }}">{{ $standard->name }}</button>
                                         </div>
                                     @endforeach
                                 
@@ -53,7 +56,7 @@
                         </div>
                         <div class="col-xl-2 col-md-6">
                             <div class="kamaroty">
-                                <input type="text" name="quantity[camera][1]" placeholder="Qty"/>
+                                <input type="text" name="quantity[camera][1]" class="quantity camera_quantity" placeholder="Qty"/>
                             </div>
                         </div>
                         <div class="col-md-12 col-xl-7 pl-lg-3">
@@ -86,7 +89,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-kemey recorder_1">
+                <div class="col-kemey recorder_1 recorder_btn" style="display:none;">
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-3 col-md-6">
                             <a class="btn" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">kamery / Recorder</a>
@@ -199,8 +202,25 @@
 <script>
     $('.system_type').on('click', function(){
         var system_type = $(this).data('id');
+        var system_type_name= $(this).data('name');
         $('#selected_system_type').val(system_type);
+        if(system_type_name == 'HD Analogue system'){
+           $(".Professional").hide(); 
+        }else{
+            $(".Professional").show(); 
+        }
+
     });  
+
+    $('.camera_quantity').on('change', function(){
+        var camera_quantity = $(this).val();
+
+        if(camera_quantity > 0){
+            $('.recorder_btn').show();
+        }else{
+            $('.recorder_btn').hide();
+        }
+    });
 
     $('.standard').on('click', function(){
         var standard = $(this).data('id');

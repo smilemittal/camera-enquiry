@@ -1,6 +1,25 @@
 @extends('layouts.app')
 @section('content')
 <!-- BEGIN: Content-->
+                <div class="content-header row">
+                        <div class="content-header-left col-md-4 col-12 mb-2">
+                            <h3 class="content-header-title">{{__('site.Standards')}}</h3>
+                        </div>
+                        <div class="content-header-right col-md-8 col-12">
+                            <div class="breadcrumbs-top float-md-right">
+                                <div class="breadcrumb-wrapper mr-1">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active">{{__('site.Home')}}
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="{{ route('standards.index') }}">{{__('site.List')}}</a>
+                                        </li>
+                                        <li class="breadcrumb-item active">{{__('site.Import')}}
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 <div class="content-body">
                 <!--Form layout section start -->
                 <section id="basic-form-layouts">
@@ -15,23 +34,8 @@
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li>
-                                                <a data-action="collapse">
-                                                    <i class="ft-minus"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-action="reload">
-                                                    <i class="ft-rotate-cw"></i>
-                                                </a>
-                                            </li>
-                                            <li>
                                                 <a data-action="expand">
                                                     <i class="ft-maximize"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-action="close">
-                                                    <i class="ft-x"></i>
                                                 </a>
                                             </li>
                                         </ul>
@@ -58,11 +62,12 @@
                                                 <div  class="form-group">
                                                     <label for="values">{{__('site.Value')}}</label>
                                                     <input type="file" class="form-control" placeholder="Value" name="import-standards">
+                                                    <label for="Example">{{__('site.Example')}}</label>
+                                                    <a href={{asset('assets/frontend/example/standard.xlsx')}} style="color:#464855;"download><i > </i>{{__('site.Download')}}</a>
                                                 </div>
-                                               
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('standards.index')}}" method="post" class="btn btn-primary" type="submit">{{ __('site.View all')}}</a>    
+                                                <button type="Reset" class="btn btn-danger">{{__('site.Reset')}}</button>
                                                 <button type="submit" class="btn btn-success">{{__('site.Save')}}</button>
                                             </div>
                                         </form>

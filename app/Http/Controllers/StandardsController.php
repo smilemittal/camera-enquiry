@@ -117,8 +117,7 @@ class StandardsController extends Controller
         $columns = array(
             0=>'id',
             1 =>'name',
-            2 =>'action',
-           
+            2 =>'action',   
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -171,7 +170,10 @@ class StandardsController extends Controller
     {
 
         if($request->hasFile('import-standards')){
-          
+              
+               $this->validate($request, [
+            'import-standards'=>'required|mimes:csv,xlsx,xls',
+        ]);
             Excel::import(new StandardsImport, request()->file('import-standards'));
 
     }

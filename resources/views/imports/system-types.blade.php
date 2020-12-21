@@ -60,10 +60,11 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div  class="form-group">
-                                                    <label for="values">{{__('site.Select File')}}</label>
+                                                    <label for="File">{{__('site.File')}}</label>
                                                     <input type="file" class="form-control" placeholder="Value" name="import-system-types">
+                                                    <label for="Example">{{__('site.Example')}}</label>
+                                                    <a href={{asset('assets/frontend/example/system.xlsx')}} style="color:#464855;" download><i > </i> {{__('site.Download')}}  </a>
                                                 </div>
-                                               
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
                                                 <button type="reset" name="submit" class="btn btn-danger">{{__('site.Reset')}}

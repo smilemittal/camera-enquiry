@@ -21,6 +21,7 @@
 	'Attributes Imported successfully'  	=> 	'Attributes Imported successfully',
 	'Attribute added successfully'			=>	'Attribute added successfully',
 	'Attribute updated successfully'		=>	'Attribute updated successfully',
+	'Attribute deleted successfully'        => 'Attribute deleted successfully',
 	'Product deleted successfully'			=>	'Product deleted successfully',
   ];
 ?>
