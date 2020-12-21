@@ -80,9 +80,7 @@
                                     <div class="col-xl-3 col-md-6">
                                         <button type="button" class="next_type" data-product_type="camera">Kamey / Next Type of Cameras</button>
                                     </div>
-                                    {{-- <div class="col-xl-3 col-md-6">
-                                        <button>Kamey / Cameras</button>
-                                    </div> --}}
+                            
                                 </div>
                             </div>
                         </div>
@@ -134,7 +132,7 @@
                 <div class="col-kemey">
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-3 col-md-4">
-                        <button type="button" class="form-submit-btn save" data-url="{{ route('save-enquiry') }}">Save</button>
+                        <button type="button" class="form-submit-btn save" data-url="{{ route('save-enquiry') }}" data-toggle="modal" data-target="#exampleModal">Save</button>
                         </div>
                         <div class="col-xl-3 col-md-4">
                             <button type="button" class="summary" data-url="{{ route('print.enquiries') }}">Summary</button>
@@ -146,7 +144,35 @@
                 </div>
             </div>
         </div>
+        
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  ...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        
 </form>
+
+
+
+  {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button> --}}
 @endsection
 
 @section('scripts')
@@ -207,7 +233,7 @@
         //console.log($(this).data('product_type'));
 
 
-        $('.attribute', '.camera_div_'+ count).each(function(){
+        $('.attribute', '.'+product_type+'_div_'+ count).each(function(){
             
             if($(this).val() != ''){
            
@@ -229,6 +255,8 @@
             var attribute_val = rec_attribute_value_arr.join(',');
             $('input[name="selected_'+ product_type +'_attributes_'+ count +'"]').val(attribute_val);
         }
+
+        //console.log(attribute_val);
       
         //console.log( $('input[name="selected_'+ product_type +'_attributes_'+ count +'"]').val());
         

@@ -49,7 +49,7 @@ class FrontController extends Controller
             $system_type = $request->input('system_type');
             $product_type = $request->input('product_type');
             $count = $request->input('count');
-
+            //dd($product_type);
             
             $attribute_value_id = $request->input('attribute_value');
             $attribute_value_id = explode(',', $attribute_value_id);
@@ -59,7 +59,7 @@ class FrontController extends Controller
                             ->whereHas('product_attributes.attribute', function($q)use($product_type){
                                 $q->where('type', $product_type);
                             });
-
+                           
 
                             if(is_array($attribute_value_id)){
                                 foreach($attribute_value_id as $id){
@@ -81,10 +81,11 @@ class FrontController extends Controller
                         });
                           
             $products = $products->get();
+            //dd($products);
                     
             $attributes=$display_order = [];
-            if(!empty($products) && count($products) > 0){
 
+            if(!empty($products) && count($products) > 0){
 
                 foreach($products as $product){
                 
@@ -108,18 +109,12 @@ class FrontController extends Controller
                                             $attributes[$product_attribute->attribute_id] = ['attribute_name' => $product_attribute->attribute->name, 'attribute_values' => $attribute_values];
                                         } 
                                     }
-
                                 } 
-                            
                                 $attribute_values = [];
 
                             }
-                        
-                        
-
                         }
-                    }
-                    
+                    } 
                 }   
            //dd($attributes[189]);
             }else{
@@ -144,27 +139,20 @@ class FrontController extends Controller
                                 $attribute_values[$attribute_value->id] = $attribute_value->value;
                             } 
                         }
-        
                     } 
                     $attributes[$attribute->id] = ['attribute_name' => $attribute->name, 'attribute_values' => $attribute_values];
                     $attribute_values = [];
-                }
-
-    
-
-            
+                }            
             }
-          //  dd($attributes);
+           // dd($attributes);
     
             $html='';
+            
             $i = $count;
             
             $html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'product_type', 'attribute_value_id', 'i'))->render();
 
             return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type]);
-        
-
-            
         }
     }
 
