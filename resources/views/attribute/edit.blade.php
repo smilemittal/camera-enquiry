@@ -69,12 +69,6 @@
                                          @csrf
                                          @method('PATCH')
                                             <div class="form-body">
-
-                                                     <div class="form-group">
-                                                            <label for="Name">{{ __('site.Attribute Name')}}</label>
-                                                            <input type="text" id="name" class="form-control" value="{{$attribute->name}}" name="name">
-                                                     </div> 
-                                                  
                                                         <div class="form-group">
                                                             <label for="type">{{ __('site.Type')}}</label>
 
@@ -103,20 +97,6 @@
                                                             <label for="Name">{{ __('site.Display Order')}}</label>
                                                             <input type="text" id="display_order" class="form-control" value="{{$attribute->display_order}}" name="display_order">
                                                      </div> 
-
-                                                     <div class="form-group">
-                                                        <label for="system_type_id">{{ __('site.System Type')}}</label>
-                                                       
-                                                       <select name="system_type_id" id="system_type_id" class="form-control">
-                                                        @foreach($system_types ?? '' as $system_type)
-                                                            <option value="{{ $system_type->id }}" {{ $attribute->system_type_id == $system_type->id ? 'selected' : '' }}>{{ $system_type->name }}</option>
-                                                        @endforeach 
-                                                       </select>
-                                                    </div> 
-
-                
-                                                     
-
                                                     <div class="form-actions" style="text-align:center">
                                                         <button type="reset"  class="btn btn-danger">
                                                             {{ __('site.Reset')}}
