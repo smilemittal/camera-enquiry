@@ -17,8 +17,8 @@ class FrontController extends Controller
 {
     
     public function home(){
-        $system_types = SystemType::all();
-        $standards = Standard::all();
+        $system_types = SystemType::orderBy('id', 'ASC')->get();
+        $standards = Standard::orderBy('id', 'ASC')->get();
     
         return view('frontend.home', compact('standards', 'system_types'));
     }
