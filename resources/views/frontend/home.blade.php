@@ -7,7 +7,7 @@
                     <div class="col-md-12">
                         <div class="col-radius-box">
                             <div class="heading-btns">
-                                <h3>Wybierz rodzaj systemu</h3>
+                            <h3>{{ __('site.System Type') }}</h3>
                                 <div class="col-kemey col-kemey-two">
                                     <div class="row d-flex align-items-center">
                                         <input type="hidden" id="selected_system_type" name="selected_system_type" value="">
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="heading-btns three-btn-under">
-                            <h3>LOREM IPSUM</h3>
+                        <h3>{{ __('site.Standard') }}</h3>
                             <div class="col-kemey col-kemey-two">
                                 <div class="row d-flex align-items-center">
                                     <input type="hidden" id="selected_standard" name="selected_standard" value="">
@@ -52,7 +52,7 @@
                 <div class="col-kemey camera_1">
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-3 col-md-6">
-                            <a class="btn" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">kamery / Cameras</a>
+                            <a class="btn" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">{{ __('site.Cameras') }}</a>
                         </div>
                         <div class="col-xl-2 col-md-6">
                             <div class="kamaroty">
@@ -81,7 +81,7 @@
                             <div class="col-kemey kemey-boxbtn">
                                 <div class="row d-flex align-items-center">
                                     <div class="col-xl-3 col-md-6">
-                                        <button type="button" class="next_type" data-product_type="camera">Kamey / Next Type of Cameras</button>
+                                    <button type="button" class="next_type" data-product_type="camera">{{ __('site.Next Type of Cameras') }}</button>
                                     </div>
                             
                                 </div>
@@ -92,7 +92,7 @@
                 <div class="col-kemey recorder_1 recorder_btn" style="display:none;">
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-3 col-md-6">
-                            <a class="btn" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">kamery / Recorder</a>
+                        <a class="btn" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">{{ __('site.Recorder') }}</a>
                         </div>
                         <div class="col-xl-2 col-md-6">
                             <div class="kamaroty">
@@ -117,7 +117,7 @@
                             <div class="col-kemey kemey-boxbtn">
                                 <div class="row d-flex align-items-center">
                                     <div class="col-xl-3 col-md-6">
-                                        <button type="button" class="next_type" data-product_type="recorder">Kamey / Next Type of Recorder</button>
+                                    <button type="button" class="next_type" data-product_type="recorder">{{ __('site.Next Type of Recorder') }}</button>
                                     </div>
                                     {{-- <div class="col-xl-3 col-md-6">
                                         <button>Kamey / Cameras</button>
@@ -135,10 +135,10 @@
                 <div class="col-kemey">
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-3 col-md-4">
-                        <button type="button" class="save" data-url="{{ route('save-enquiry') }}" data-toggle="modal" data-target="#exampleModal">Send Enquiry</button>
+                        <button type="button" class="save" data-url="{{ route('save-enquiry') }}" data-toggle="modal" data-target="#exampleModal">{{ __('site.Send Enquiry') }}</button>
                         </div>
                         <div class="col-xl-3 col-md-4">
-                            <button type="button" class="summary" data-url="{{ route('print.enquiries') }}">Summary</button>
+                            <button type="button" class="summary" data-url="{{ route('print.enquiries') }}">{{__('site.Summary')}}</button>
                         </div>
                         {{-- <div class="col-xl-3 col-md-4">
                             <button>Kamey / Cameras</button>
@@ -152,36 +152,36 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Customer Details</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">{{__('site.Customer Details')}}</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
                  <div class="form-group">
-                    <label for="first-name">First Name</label>
+                 <label for="first-name">{{ __('site.First Name') }}</label>
                     <input type="text" name="first_name" class="first-name form-control" id="first-name">
                  </div>
                  <div class="form-group">
-                    <label for="last-name">Last Name</label>
+                    <label for="last-name">{{ __('site.last Name') }}</label>
                     <input type="text" name="last_name" class="last-name form-control" id="last-name">
                  </div>
                  <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">{{ __('site.Email') }}</label>
                     <input type="text" name="email" class="email form-control" id="email">
                  </div>
                  <div class="form-group">
-                    <label for="company">Company</label>
+                    <label for="company">{{ __('site.Company') }}</label>
                     <input type="text" name="company" class="company form-control" id="company">
                  </div>
                  <div class="form-group">
-                    <label for="mobile-no">Mobile</label>
+                    <label for="mobile-no">{{ __('site.Mobile') }}</label>
                     <input type="text" name="mobile_no" class="mobile-no form-control" id="mobile-no">
                  </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="form-submit-btn btn btn-primary"  data-url="{{ route('save-enquiry') }}">Send Enquiry</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('site.Close') }}</button>
+                  <button type="button" class="form-submit-btn btn btn-primary"  data-url="{{ route('save-enquiry') }}">{{ __('site.Send Enquiry') }}</button>
                 </div>
               </div>
             </div>
@@ -201,6 +201,8 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $('.system_type').on('click', function(){
+        $('.system_type').removeClass('active');
+        $(this).addClass('active');
         var system_type = $(this).data('id');
         var system_type_name= $(this).data('name');
         $('#selected_system_type').val(system_type);
@@ -211,6 +213,8 @@
         }
 
     });  
+
+
 
     $('.camera_quantity').on('change', function(){
         var camera_quantity = $(this).val();
@@ -223,6 +227,8 @@
     });
 
     $('.standard').on('click', function(){
+        $('.standard').removeClass('active');
+        $(this).addClass('active');
         var standard = $(this).data('id');
          var system_type = $('#selected_system_type').val();
         $('#selected_standard').val(standard);
