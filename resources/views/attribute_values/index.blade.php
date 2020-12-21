@@ -4,6 +4,13 @@
 @endsection  
 @section('content') 
 <!--BEGIN content-->
+<style>
+    .layout_btns {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+</style>
 <div class="row">
     <div class="content-header-left col-md-4 col-12 mb-2">
         <h3 class="content-header-title">{{__('site.Attribute Value')}}</h3>
@@ -27,9 +34,13 @@
                     <div class="row match-height justify-content-center">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{__('site.List')}}</h4>
-
+                                <div class="card-header" style="height: 50px;">
+                                    <div class="card-title layout_btns" id="basic-layout-form">
+                                    <h4>{{__('site.List')}}</h4>
+                                    <div class="btns-right-side">
+                                        <a href="{{ route('attribute-values.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{__('site.Add')}} </a>
+                                    </div>
+                                    </div>
                                 </div>
                                 <!--Card Content body start-->
                                 <div class="card-content collapse show">
@@ -39,14 +50,14 @@
                                         {{\Session::get('success')}}
                                     </div>
                                 @endif
-                                @if(\Session::has('updated'))
-                                    <div class="alert alert-warning">
-                                        {{\Session::get('updated')}}
+                                @if(\Session::has('updated_success'))
+                                    <div class="alert alert-success">
+                                        {{\Session::get('updated_success')}}
                                     </div>
                                 @endif
-                                @if(\Session::has('delete'))
-                                    <div class="alert alert-danger">
-                                        {{\Session::get('delete')}}
+                                @if(\Session::has('delete_success'))
+                                    <div class="alert alert-success">
+                                        {{\Session::get('delete_success')}}
                                     </div>
                                 @endif
                                     <div class="table-responsive">
