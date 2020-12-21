@@ -113,7 +113,7 @@ class AttributeController extends Controller
     {
         $deletes=Attribute::find($id);
         $deletes->delete();
-        return redirect()->route('attribute.index')->with('deleted', __('message.Product deleted successfully'));
+        return redirect()->route('attribute.index')->with('deleted', __('message.Attribute deleted successfully'));
     }
     public function getattribute(Request $request) 
     {
