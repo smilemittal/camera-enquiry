@@ -12,7 +12,7 @@ class AttributeValue extends Model
     use SoftDeletes;
     
     protected $table='attribute_values';
-    protected $fillable=['attribute_id','value','display_order','system_type_id'];
+    protected $fillable=['attribute_id','value','display_order','system_type_id', 'type'];
 
     public function system_type()
     {

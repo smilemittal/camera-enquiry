@@ -87,7 +87,7 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                     }
 
                     $attribute_value_display_order = 0;
-                    $latest_attribute_value = AttributeValue::where('system_type_id' , '=', $system_type_id)->orderBy('id', 'DESC')->first();
+                    $latest_attribute_value = AttributeValue::where('system_type_id' , '=', $system_type_id)->where('type', $product_type)->orderBy('id', 'DESC')->first();
 
                     if($latest_attribute_value){
                         $attribute_value_display_order = $latest_attribute_value->display_order + 1;
@@ -95,10 +95,10 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                         $attribute_value_display_order = $attribute_value_display_order + 1;
                     }
 
-                    $attribute_values= AttributeValue::where('attribute_id', $attribute_id)->where('value', 'LIKE', $value)->first();
+                    $attribute_values= AttributeValue::where('attribute_id', $attribute_id)->where('value', 'LIKE', $value)->where('type', $product_type)->first();
 
                     if(!$attribute_values){
-                        $attribute_value = AttributeValue::create(['attribute_id' => $attribute_id, 'value' => $value ,'display_order'=>$attribute_value_display_order , 'system_type_id' => $system_type_id]);
+                        $attribute_value = AttributeValue::create(['attribute_id' => $attribute_id, 'value' => $value ,'display_order'=>$attribute_value_display_order , 'system_type_id' => $system_type_id ,'type'=> $product_type]);
 
                         $attribute_value_id =$attribute_value->id;
                     }else{
