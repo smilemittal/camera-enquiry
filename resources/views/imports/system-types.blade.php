@@ -67,7 +67,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('system-types.index')}}" method="post" class="btn btn-primary" type="submit">{{__('site.View all')}}</a>    
+                                                <button type="reset" name="submit" class="btn btn-danger">{{__('site.Reset')}}
+                                                </button>   
                                                 <button type="submit" class="btn btn-success">{{__('site.Save')}}</button>
                                             </div>
                                         </form>

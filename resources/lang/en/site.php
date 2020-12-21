@@ -55,10 +55,4 @@
 			  'Example'					=>'Example',
 			  'File'					=>'File',
 			  'Download'				=>'Download',
-			  
-			  
-		  
-
-  		
-
 ];
