@@ -5,7 +5,7 @@
     <!-- BEGIN: Content-->
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
-                    <h4 class="content-header-title" id="basic-layout-form"> {{ __('site.Products')}}</h4>
+                    <h4 class="content-header-title" id="basic-layout-form">{{ __('site.Products')}}</h4>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
                     <div class="breadcrumbs-top float-md-right">
