@@ -170,7 +170,10 @@ class StandardsController extends Controller
     {
 
         if($request->hasFile('import-standards')){
-          
+              
+               $this->validate($request, [
+            'import-standards'=>'required|mimes:csv,xlsx,xls',
+        ]);
             Excel::import(new StandardsImport, request()->file('import-standards'));
 
     }
