@@ -173,7 +173,7 @@ class FrontController extends Controller
            
             $attribute_html .= view('frontend.extras.filter', compact('attributes_new_product', 'system_type', 'i', 'product_type'))->render();
        
-            $html .= view('frattribute_recorderontend.extras.new-type', compact('attribute_html', 'system_type', 'i', 'product_type'))->render();
+            $html .= view('frontend.extras.new-type', compact('attribute_html', 'system_type', 'i', 'product_type'))->render();
        
            // dd($html_recorder);
 
@@ -184,7 +184,7 @@ class FrontController extends Controller
     }
     
     public function saveEnquiry(Request $request){
-        //dd($request->all());
+       // dd($request->quantity['camera']);
         // $validator = Validator::make($request->all(), [
         //     'quantity.*.*' => 'required',
         //     'products.*.*' => 'required',
@@ -231,6 +231,12 @@ class FrontController extends Controller
             'quantity' => $quantity_arr,
             'standard_id' => $standard_id,
             'system_type_id' => $system_type_id,
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'email' => $request->input('email'),
+            'company' => $request->input('company'),
+            'mobile_no' => $request->input('mobile_no'),
+
         ]);
         if($enquiry){
             return response()->json(['success'=> true, 'message'  => 'Enquiry Sent Successfully']);
@@ -272,18 +278,11 @@ class FrontController extends Controller
 
         $product_arr = ($product_arr);
         $quantity_arr = ($quantity_arr);
-
-
-
-            // $data = [
-            //    'products' => $product_arr, 
-            //    'quantities' => $quantity_arr,
-            // ];
-
             $products = $product_arr;
             $quantities = $quantity_arr;
 
             $html = view('enquiries.partials.pdf', compact('products', 'quantities'))->render();
+           // dd($html);
             return response()->json(['success' => true, 'html' => $html]);
         
     }

@@ -132,7 +132,7 @@
                 <div class="col-kemey">
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-3 col-md-4">
-                        <button type="button" class="form-submit-btn save" data-url="{{ route('save-enquiry') }}" data-toggle="modal" data-target="#exampleModal">Save</button>
+                        <button type="button" class="save" data-url="{{ route('save-enquiry') }}" data-toggle="modal" data-target="#exampleModal">Send Enquiry</button>
                         </div>
                         <div class="col-xl-3 col-md-4">
                             <button type="button" class="summary" data-url="{{ route('print.enquiries') }}">Summary</button>
@@ -149,17 +149,36 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Customer Details</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  ...
+                 <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" name="first_name" class="first-name form-control" id="first-name">
+                 </div>
+                 <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" name="last_name" class="last-name form-control" id="last-name">
+                 </div>
+                 <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" class="email form-control" id="email">
+                 </div>
+                 <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" name="company" class="company form-control" id="company">
+                 </div>
+                 <div class="form-group">
+                    <label for="mobile-no">Mobile</label>
+                    <input type="text" name="mobile_no" class="mobile-no form-control" id="mobile-no">
+                 </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="form-submit-btn btn btn-primary"  data-url="{{ route('save-enquiry') }}">Send Enquiry</button>
                 </div>
               </div>
             </div>
@@ -276,7 +295,7 @@
             },
             success: function(data){
                 if(data.success == true && data.html != ''){
-                    console.log($('.'+product_type+'_div_'+count)); 
+                    
                     if(data.product_type == 'camera'){
 
                         $('.'+product_type+'_div_'+count).empty();

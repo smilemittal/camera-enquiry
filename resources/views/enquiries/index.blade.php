@@ -27,6 +27,10 @@
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
+                                                        <th>Customer Name</th>
+                                                        <th>Email</th>
+                                                        <th>Mobile</th>
+                                                        <th>Company</th>
                                                         <th>Product</th>
                                                         <th>System ID</th>
                                                         <th>Standard</th>
@@ -41,6 +45,10 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th>ID</th>
+                                                        <th>Customer Name</th>
+                                                        <th>Email</th>
+                                                        <th>Mobile</th>
+                                                        <th>Company</th>
                                                         <th>Product</th>
                                                         <th>System ID</th>
                                                         <th>Standard</th>
@@ -85,6 +93,11 @@
                 },
                 "columns": [
                     { "data": "id" },
+                    { "data": "customer_name" },
+                    { "data": "email" },
+                    { "data": "mobile_no" },
+                    { "data": "company" },
+
                     { "data": "name" },
                   
                     { "data": "system_type_id" },
