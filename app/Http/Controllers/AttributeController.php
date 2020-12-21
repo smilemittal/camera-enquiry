@@ -184,7 +184,11 @@ class AttributeController extends Controller
 
     public function postImport(Request $request)
     {
-
+        $this->validate($request, [
+          
+            'import-attribute-values' => 'required|mimes:csv,xlsx,xls',
+            
+        ]);
         if($request->hasFile('import-attribute-values')){
           
             Excel::import(new AttributeValuesImport, request()->file('import-attribute-values'));
