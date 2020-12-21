@@ -3,7 +3,7 @@
 <!-- BEGIN: Content-->
                     <div class="content-header row">
                         <div class="content-header-left col-md-4 col-12 mb-2">
-                            <h3 class="content-header-title">{{__('site.Standard')}}</h3>
+                            <h3 class="content-header-title">{{__('site.Standards')}}</h3>
                         </div>
                         <div class="content-header-right col-md-8 col-12">
                             <div class="breadcrumbs-top float-md-right">
@@ -13,7 +13,7 @@
                                         </li>
                                         <li class="breadcrumb-item"><a href="{{ route('standards.index') }}">{{__('site.List')}}</a>
                                         </li>
-                                        <li class="breadcrumb-item active"><a href="">{{__('site.Add')}}</a>
+                                        <li class="breadcrumb-item active">{{__('site.Add')}}
                                         </li>
                                     </ol>
                                 </div>
@@ -70,11 +70,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <button type="Reset" class="btn btn-danger">{{ __('site.Reset')}}
-                                                </button>
-                                               
-                                                <button type="submit" class="btn btn-success">{{ __('site.Save')}}
-                                                </button>
+                                                <button type="Reset" class="btn btn-danger">{{ __('site.Reset')}}</button>
+                                                <button type="submit" class="btn btn-success">{{ __('site.Save')}}</button>
                                             </div>
                                         </form>
                                     </div>

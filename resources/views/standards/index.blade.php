@@ -19,10 +19,9 @@
                             <div class="breadcrumbs-top float-md-right">
                                 <div class="breadcrumb-wrapper mr-1">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
+                                        <li class="breadcrumb-item active">{{__('site.Home')}}
                                         </li>
-                                        <li class="breadcrumb-item"><a href="{{ route('standards.index') }}">{{__('site.List')}}</a>
-                                    
+                                        <li class="breadcrumb-item active">{{__('site.List')}}
                                     </ol>
                                 </div>
                             </div>
@@ -59,7 +58,7 @@
                                         </div>
                                     @endif
                                     @if(\Session::has('deleted'))
-                                        <div class="alert alert-sucess">
+                                        <div class="alert alert-success">
                                             {{\Session::get('deleted')}}
                                         </div>
                                     @endif
