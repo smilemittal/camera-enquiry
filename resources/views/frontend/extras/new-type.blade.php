@@ -46,7 +46,7 @@
 
 
 @if($product_type == 'recorder')
-<div class="col-kemey {{ 'recorder_'.$i }}">
+<div class="col-kemey {{ 'recorder_'.$i }} {{ $product_type.'_btn' }}" style="display:none;" >
     <div class="row d-flex align-items-center">
         <div class="col-xl-3 col-md-6">
             <a class="btn" data-toggle="collapse" href="#{{ 'multiCollapseExample'.$product_type.$i }}" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">kamery / Recorders</a>
