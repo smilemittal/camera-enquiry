@@ -41,7 +41,7 @@ class StandardsController extends Controller
     public function store(Request $request)
     {
        $this->validate($request, [
-            'name'=>'required|max:50|unique:Standards,name',
+            'name'=>'required|max:50|unique:standards,name',
         ]);
         Standard::create($request->all());
 
@@ -83,8 +83,8 @@ class StandardsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([  
-            'name'=>'required',
+            $this->validate($request, [
+            'name'=>'required|max:50|unique:standards,name,'.$id,
         ]);
   
         $standard=Standard::find($id);     

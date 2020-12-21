@@ -27,7 +27,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.Import Standards')}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.Import')}}</h4>
                                         <a class="heading-elements-toggle">
                                             <i class="la la-ellipsis-v font-medium-3"></i>
                                         </a>
@@ -60,7 +60,7 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div  class="form-group">
-                                                    <label for="values">{{__('site.Value')}}</label>
+                                                    <label for="values">{{__('site.File')}}</label>
                                                     <input type="file" class="form-control" placeholder="Value" name="import-standards">
                                                 </div>
                                                
