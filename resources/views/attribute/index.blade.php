@@ -18,9 +18,9 @@
                     <div class="breadcrumbs-top float-md-right">
                         <div class="breadcrumb-wrapper mr-1">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a>
+                                <li class="breadcrumb-item"><a href="#">{{ __('site.Home')}}</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">List</a>
+                                <li class="breadcrumb-item">{{ __('site.List')}}
                                 </li>
                             </ol>
                         </div>

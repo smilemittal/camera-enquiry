@@ -3,7 +3,7 @@
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="#">
                          <img class="brand-logo" alt="camera admin logo" src="{{asset("assets/frontend/img/logo.png")}}" />
                         <!--h3 class="brand-text"> {{__('site.Coming Soon')}}</h3-->
                     </a>
