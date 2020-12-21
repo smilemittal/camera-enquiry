@@ -1,22 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<div class="content-header row">
-    <div class="content-header-left col-md-4 col-12 mb-2">
-        <h3 class="content-header-title">{{ __('site.Import Atrribute Values')}}</h3>
-    </div>
-    <div class="content-header-right col-md-8 col-12">
-        <div class="breadcrumbs-top float-md-right">
-            <div class="breadcrumb-wrapper mr-1">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a>
-                    </li>
-                    <li class="breadcrumb-item"><a href="#">Import</a>
-                    </li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- BEGIN: Content-->
 <div class="content-header row">
     <div class="content-header-left col-md-4 col-12 mb-2">
@@ -77,7 +60,7 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div  class="form-group">
-                                                    <label for="values">{{__('site.Select File')}}</label>
+                                                    <label for="values">{{__('site.File')}}</label>
                                                     <input type="file" class="form-control" placeholder="Value" name="import-attribute-values">
                                                     <label for="Example">{{__('site.Example')}}</label>
                                                     <a href={{asset('assets/frontend/example/attribute.xlsx')}} style="color:#464855;" download><i > </i>{{__('site.Download')}}</a>

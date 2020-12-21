@@ -212,12 +212,13 @@ class ProductAttributesController extends Controller
 
         public function postImport(Request $request)
         {
-
+            $this->validate($request, [
+          
+                'import-product-attributes' => 'required|mimes:csv,xlsx,xls',
+                
+            ]);
             if($request->hasFile('import-product-attributes')){
-              
-              
                 Excel::import(new ProductAttributesImport, request()->file('import-product-attributes'));
-
         }
           
             return redirect()->route('product-attributes.import')->with('success', __('message.Products imported successfully'));
