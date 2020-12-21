@@ -63,22 +63,27 @@ class FrontController extends Controller
 
                             if(is_array($attribute_value_id)){
                                 foreach($attribute_value_id as $id){
-                                    $products->whereHas('product_attributes', function($q) use($id){
-                                        $q->where('attribute_value_id', $id);
+                                    if($id != 'unimportant'){
+                                        $products->whereHas('product_attributes', function($q) use($id){
+                                            $q->where('attribute_value_id', $id);
+                                    
+                                        });
+                                    }
+                                  
+                                }
+                            }else{
+                                if($attribute_value_id != 'unimportant'){
+                                    $products->whereHas('product_attributes', function($q) use($attribute_value_id){
+                                        $q->where('attribute_value_id', $attribute_value_id);
                                 
                                     });
                                 }
-                            }else{
-                                $products->whereHas('product_attributes', function($q) use($attribute_value_id){
-                                    $q->where('attribute_value_id', $attribute_value_id);
-                            
-                                });
                             
                             }
 
             $products->whereHas('product_attributes.attribute', function($q){
                             $q->orderBy('display_order', 'ASC');
-                        });
+                        })->where('system_type_id', $system_type)->where('type', $product_type);
                           
             $products = $products->get();
             //dd($products);
@@ -184,7 +189,7 @@ class FrontController extends Controller
     }
     
     public function saveEnquiry(Request $request){
-       // dd($request->quantity['camera']);
+        //dd($request->products['camera'][1]);
         // $validator = Validator::make($request->all(), [
         //     'quantity.*.*' => 'required',
         //     'products.*.*' => 'required',
@@ -193,6 +198,7 @@ class FrontController extends Controller
         // if ($validator->fails()) {
         //     return response()->json(['success'=> false, 'errors' => $validator->errors()]);
         // }
+        
 
         
         $quantities = $request->input('quantity');
@@ -209,7 +215,7 @@ class FrontController extends Controller
                    // dd($attribute);
                     if($attribute != NULL){
                        // dd($quantities[$product_type][$no]);
-                        $product_arr[$product_type][$no][] = $attribute;
+                        $product_arr[$product_type][$no][$key] = $attribute;
                       
                         
                     }
@@ -225,7 +231,7 @@ class FrontController extends Controller
 
         $product_arr = json_encode($product_arr);
         $quantity_arr = json_encode($quantity_arr);
-
+        //dd($product_arr);
         $enquiry = Enquiry::create([
             'products' => $product_arr,
             'quantity' => $quantity_arr,
@@ -262,7 +268,7 @@ class FrontController extends Controller
                    // dd($attribute);
                     if($attribute != NULL){
                        // dd($quantities[$product_type][$no]);
-                        $product_arr[$product_type][$no][] = $attribute;
+                        $product_arr[$product_type][$no][$key] = $attribute;
                       
                         
                     }

@@ -113,12 +113,17 @@
                                                             @php    
                                                                 $attributes = $attribute_values_arr = [];
 
-                                                                foreach($attribute_values as $attribute_value){
-                                                            
-                                                                    $attr_value = \App\Models\AttributeValue::with('attribute')->where('id', $attribute_value)->orderBy('display_order', 'ASC')->first();
+                                                                foreach($attribute_values as $attribute_id => $attribute_value){
+                                                                    if($attribute_value != 'unimportant'){
+                                                                        $attr_value = \App\Models\AttributeValue::with('attribute')->where('id', $attribute_value)->orderBy('display_order', 'ASC')->first();
                                                                     
-                                                                    $attr_name = $attr_value->attribute->name;
-                                                                    $attr_val= $attr_value->value;
+                                                                        $attr_name = $attr_value->attribute->name;
+                                                                        $attr_val= $attr_value->value;
+                                                                    }else{
+                                                                        $attr_value = \App\Models\Attribute::with('attribute_values')->where('id', $attribute_id)->first();
+                                                                        $attr_name = $attr_value->name;
+                                                                        $attr_val= 'Unimportant';
+                                                                    }
 
                                                                     $attributes[] = '<strong>'.$attr_name.'</strong>: '.$attr_val; 
                                                                 }
