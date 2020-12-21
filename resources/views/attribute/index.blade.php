@@ -59,7 +59,7 @@
                                         </div>
                                     @endif
                                     @if(\Session::has('deleted'))
-                                        <div class="alert alert-danger">
+                                        <div class="alert alert-success">
                                             {{\Session::get('deleted')}}
                                         </div>
                                     @endif

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <!-- BEGIN: Content-->
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
