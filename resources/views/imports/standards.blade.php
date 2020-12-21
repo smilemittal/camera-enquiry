@@ -58,8 +58,9 @@
                                                 <div  class="form-group">
                                                     <label for="values">{{__('site.Value')}}</label>
                                                     <input type="file" class="form-control" placeholder="Value" name="import-standards">
+                                                    <label for="Example">{{__('site.Example')}}</label>
+                                                    <a href={{asset('assets/frontend/example/standard.xlsx')}} style="color:#464855;"download><i > </i>{{__('site.Download')}}</a>
                                                 </div>
-                                               
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
                                                 <a href="{{ route('standards.index')}}" method="post" class="btn btn-primary" type="submit">{{ __('site.View all')}}</a>    

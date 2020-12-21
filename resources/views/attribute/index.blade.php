@@ -38,7 +38,7 @@
 
                                         <h4>{{ __('site.List')}}</h4>
                                         <div class="btns-right-side">
-                                            <a href="{{ route('attribute.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >ADD </a>
+                                            <a href="{{ route('attribute.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >Add </a>
                                             <a href="{{ route('attribute.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{ __('site.Import')}} </a> 
                                             <a href="{{ route('attribute.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{ __('site.Export')}}</a>
 

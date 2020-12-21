@@ -25,7 +25,7 @@
                         <li class="dropdown dropdown-user nav-item">
                             <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"> <span
                                     class="avatar avatar-online"><img
-                                        src="{{ url('assets/dashboard/app-assets/images/portrait/small/avatar-s-19.png')}}"
+                                        src="{{ url('assets/frontend/img/avatar.jpg')}}"
                                         alt="avatar"></span></a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="arrow_box_right">

@@ -45,13 +45,18 @@
   				'Attributes Values' =>'Attributes Values',
   				'Import System Types'=>'Import System Types',
   				'Import Standards'	 =>'Import Standards',
-  		'Import Product Atrribute'	 =>'Import Product Atrribute',
+  		'Import Product Attribute'	 =>'Import Product Attribute',
   		'Import Atrribute Values'	 =>'Import Atrribute Values',
 	  		'Enquiries'					=>'Enquiries',
 	  		'Export Attribute Value'	=>'Export Attribute Value',
 			  'Home'					=>'Home',
 			  'Reset'					=>'Reset',
 			  'Edit'					=>'Edit',
+			  'Example'					=>'Example',
+			  'File'					=>'File',
+			  'Download'				=>'Download',
+			  
+			  
 		  
 
   		
