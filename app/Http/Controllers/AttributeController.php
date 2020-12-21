@@ -100,7 +100,7 @@ class AttributeController extends Controller
 
         $attribute=Attribute::find($id);
         $attribute->update($request->all());
-       return redirect()->route('attribute.index')->with('updated', __('message.Attribute updated successfully'));
+       return redirect()->route('attribute.index')->with('updated',__('message.Attribute updated successfully'));
     }
 
     /**
@@ -191,7 +191,7 @@ class AttributeController extends Controller
 
         }
       
-        return redirect()->route('attribute-values.import')->with('success', 'Attributes Imported successfully');
+        return redirect()->route('attribute-values.import')->with('success',__('Message.Attributes Imported successfully'));
     }
     
     public function export() 

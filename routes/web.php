@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('attribute/import', 'AttributeController@importAttributeValues')->name('attribute.import');
     Route::post('attribute/post-import', 'AttributeController@postImport')->name('attribute.post-import');
     Route::resource('attribute', 'AttributeController');
-
+    Route::post('get-attributes', 'AttributeValuesController@getAttributes')->name('get-attributes');
     Route::resource('attribute-values', 'AttributeValuesController');
     Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
 
@@ -83,14 +83,3 @@ Route::post('print-enquiries', 'FrontController@printEnquiry')->name('print.enqu
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
-
-
-// Route::get('layouts.header{locale}', function ($locale) {
-//     if (! in_array($locale, ['en', 'es', 'fr'])) {
-//         abort(400);
-//     }
-
-//     App::setLocale($locale);
-
-//     //
-// });
