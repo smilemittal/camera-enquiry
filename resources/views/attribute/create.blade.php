@@ -71,7 +71,7 @@
                                          @csrf
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="type">{{ __('site.type')}}</label>
+                                                    <label for="type">{{ __('site.Type')}}</label>
                                                         <select id="type" name="type" class="form-control">
                                                                 <option value="camera">Camera</option>
                                                                 <option value="nvr">Nvr</option>
@@ -80,7 +80,7 @@
                                                         </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.system_type')}}</label>
+                                                    <label for="system_type_id">{{ __('site.System Type')}}</label>
                                                    
                                                    <select name="system_type_id" id="system_type_id" class="form-control">
                                                     @foreach($system_types as $system_type)
@@ -97,24 +97,8 @@
                                                             <input type="text" id="display_order" class="form-control" placeholder="display_order" name="display_order">
                                                      </div> 
 
-                                                       <div class="form-group">
-                                                            <label for="system_type_id">{{ __('site.System Type')}}</label>
-                                                           
-                                                           <select name="system_type_id" id="system_type_id" class="form-control">
-                                                            @foreach($system_types as $system_type)
-                                                                <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
-                                                            @endforeach
-                                                           </select>
-                                                     </div> 
-                                                     <div class="form-group">
-                                                            <label for="type">{{ __('site.Type')}}</label>
-                                                                <select id="type" name="type" class="form-control">
-                                                                        <option value="camera">Camera</option>
-                                                                        <option value="nvr">Nvr</option>
-                                                                        <option value="recorder">Recorder</option>
-                                                                        <option value="switch">Switch</option>
-                                                                </select>
-                                                     </div>
+                                                       
+                                                     
 
                                                     <div class="form-actions" style="text-align:center">
                                                         <button type="reset"  class="btn btn-danger">
