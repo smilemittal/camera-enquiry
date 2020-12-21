@@ -85,8 +85,8 @@ class SystemTypesController extends Controller
     {
      
 
-        $request->validate([  
-            'name'=>'required',
+        $this->validate($request, [
+            'name'=>'required|max:50|unique:system_types,name,'.$id,
         ]);
   
         $system_types=SystemType::find($id);          
@@ -169,8 +169,13 @@ class SystemTypesController extends Controller
     {
 
         if($request->hasFile('import-system-types')){
+
+        $this->validate($request, [
           
-            Excel::import(new SystemTypesImport, request()->file('import-system-types'));
+            'import-system-types' => 'required|mimes:csv,xlsx,xls',
+            
+        ]); 
+        Excel::import(new SystemTypesImport, request()->file('import-system-types'));
 
     }
       
