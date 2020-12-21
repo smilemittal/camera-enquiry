@@ -55,20 +55,11 @@
                                         <form class="form" action="{{ route('system-types.store') }}" method="post">
                                             @csrf  
                                             <div class="form-body">
-
-                                                <div class="form-group">
-                                                    <label for="name">{{ __('site.Name') }}</label>
-                                                    <input type="text" id="name" class="form-control" placeholder="Name" name="name">
-                                                </div>
-                                            </div>
-                                            <div class="form-actions" style="text-align: center;">
-                                                <a href="{{ route('system-types.index')}}" method="post" class="btn btn-primary"> {{ __('site.View all')}}</a>    
-
                                                 <div class="form-group {{ $errors->get('name') ? 'has-error' : '' }}">
                                                     <label for="name">{{ __('site.Name') }}</label>
                                                     <input type="text" name="name" placeholder="Name" class="form-control" required>
-                                                  </div> 
-                                            </div>
+                                                  </div>
+                                            
                                             <div class="form-actions" style="text-align: center;">
                                                 <button type="reset" name="submit" class="btn btn-danger">{{__('site.Reset')}}
                                                 </button>

@@ -46,12 +46,13 @@ class AttributeValuesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([  
+
+        $this->validate($request, [
             'attribute_id'=>'required',
-            'value'=>'required',
-            'display_order'=>'required',
-            'system_type_id'=>'required',  
-        ]);  
+            'value'=>'required|max:50|unique:attribute_values,value',
+            'display_order'=>'required|max:50|unique:attribute_values,display_order',
+            'system_type_id'=>'required',
+        ]);
 
         AttributeValue::create($request->all());
 

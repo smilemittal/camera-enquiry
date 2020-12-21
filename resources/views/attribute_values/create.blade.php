@@ -11,7 +11,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
                 </li>
-                <li class="breadcrumb-item"><a href="#">{{__('site.Add')}}</a>
+                <li class="breadcrumb-item"><a href="{{ route('attribute-values.index') }}">{{__('site.List')}}</a>
+                </li>
+                <li class="breadcrumb-item active">{{__('site.Add')}}</a>
                 </li>
             </ol>
         </div>
@@ -44,7 +46,7 @@
                                             <div class="form-body">
                                                 
                                                     <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.system_type')}}</label>
+                                                    <label for="system_type_id">{{ __('site.System Types')}}</label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
 
                                                         @foreach($system_types as $system_type)
@@ -64,32 +66,23 @@
                                                         @endforeach
                                                     </select>
                                                 </div> 
-                                                <div  class="form-group">
-                                                    <label for="values">{{ __('site.Value')}}</label>
+                                                {{-- <div  class="form-group">
+                                                    <label for="values">{{ __('site.value')}}</label>
                                                     <input type="text" class="form-control" placeholder="Value" name="value">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="displayorder">{{ __('site.Display Order')}}</label>
+                                                </div> --}}
+                                                <div class="form-group {{ $errors->get('value') ? 'has-error' : '' }}">
+                                                    <label for="name">{{ __('site.Value') }}</label>
+                                                    <input type="text" name="value" placeholder="Value" class="form-control" required>
+                                                  </div>
+                                                {{-- <div class="form-group">
+                                                    <label for="displayorder">{{ __('site.display_order')}}</label>
                                                     <input type="text" class="form-control" placeholder="Display Order" name="display_order">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.System Type')}}</label>
-                                                    <select name="system_type_id" id="system_type_id" class="form-control">
-
-                                                        @foreach($system_types as $system_type)
-
-                                                           <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
-
-                                                        @endforeach
-                                                        
-                                                    </select>
-                                                </div>
-                                          
-                                        
-
-                                                
-                                            
+                                                </div> --}}
+                                                <div class="form-group {{ $errors->get('display_order') ? 'has-error' : '' }}">
+                                                    <label for="name">{{ __('site.Display Order') }}</label>
+                                                    <input type="text" name="display_order" placeholder="Display Order" class="form-control" required>
+                                                  </div>
+                                            </div>
                                                 <div class="form-actions" style="text-align: center;">
                                                     <button type="reset" class="btn btn-danger">{{ __('site.Reset')}}</button>
                                                    
