@@ -13,7 +13,7 @@
 </style>
  <div class="content-header row">
                         <div class="content-header-left col-md-4 col-12 mb-2">
-                            <h3 class="content-header-title">Standard</h3>
+                            <h3 class="content-header-title">{{__('site.Standards')}}</h3>
                         </div>
                         <div class="content-header-right col-md-8 col-12">
                             <div class="breadcrumbs-top float-md-right">
@@ -53,6 +53,16 @@
                                     {{\Session::get('success')}}
                                 </div>
                             @endif
+                             @if(\Session::has('updated'))
+                                        <div class="alert alert-success">
+                                            {{\Session::get('updated')}}
+                                        </div>
+                                    @endif
+                                    @if(\Session::has('deleted'))
+                                        <div class="alert alert-sucess">
+                                            {{\Session::get('deleted')}}
+                                        </div>
+                                    @endif
 	                        <div class="table-responsive">
 	                            <table class="table table-striped table-bordered zero-configuration"style="width:100%" id="standard" >
 	                                <thead>

@@ -48,10 +48,19 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                    
-                                    @if(\Session::has('success'))
+                                        @if(\Session::has('success'))
                                         <div class="alert alert-success">
                                             {{\Session::get('success')}}
+                                        </div>
+                                    @endif
+                                    @if(\Session::has('updated'))
+                                        <div class="alert alert-success">
+                                            {{\Session::get('updated')}}
+                                        </div>
+                                    @endif
+                                    @if(\Session::has('deleted'))
+                                        <div class="alert alert-danger">
+                                            {{\Session::get('deleted')}}
                                         </div>
                                     @endif
                                    

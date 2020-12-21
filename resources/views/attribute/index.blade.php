@@ -54,7 +54,7 @@
                                         </div>
                                     @endif
                                     @if(\Session::has('updated'))
-                                        <div class="alert alert-warning">
+                                        <div class="alert alert-success">
                                             {{\Session::get('updated')}}
                                         </div>
                                     @endif

@@ -107,7 +107,7 @@ class StandardsController extends Controller
       $standard=Standard::find($id);
       $standard->delete();
 
-      return redirect()->route('standards.index')->with('deleted',('message.Standard deleted successfully'));
+      return redirect()->route('standards.index')->with('deleted',__('message.Standard deleted successfully'));
 
     }
     

@@ -67,11 +67,19 @@ class EnquiryController extends Controller
                             }
                            
                     }
-                    $product_name .= ucfirst($product_type).': '.$quantity_total;
+                    $product_name .= 'Product Type: '.ucfirst($product_type).', Qty: '.$quantity_total."<br>";
                 }
+             
+                    $first_name =  !empty( $enquiry->first_name)? $enquiry->first_name:'';
+                    $last_name = !empty( $enquiry->last_name)? $enquiry->last_name: '';
+                
                 $nestedData['id'] = ($start * $limit) + $key + 1;
+                $nestedData['customer_name'] = $first_name.' '.$last_name;
+                $nestedData['last_name'] = $enquiry->last_name;
+                $nestedData['email'] = $enquiry->email;
+                $nestedData['mobile_no'] = $enquiry->mobile_no;
+                $nestedData['company'] = $enquiry->company;
                 $nestedData['name'] = $product_name;
-               
                 $nestedData['system_type_id'] = !empty($enquiry->system_type) ? $enquiry->system_type->name : '';
                 $nestedData['standard_id'] = !empty($enquiry->standard) ? $enquiry->standard->name : '';
                 $nestedData['date'] = \Carbon\Carbon::parse($enquiry->created_at)->diffForHumans();
