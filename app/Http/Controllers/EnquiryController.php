@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Enquiry;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EnquiryController extends Controller
 {
@@ -44,6 +45,10 @@ class EnquiryController extends Controller
             ->orWhereHas('standard', function($q)use($search){
                 $q->where('name','LIKE',"%{$search}%");
             })
+            ->orWhere(DB::raw('concat(first_name," ",last_name)'), 'like', "%{$search}%")
+            ->orWhere('email', 'LIKE', "%{$search}%")
+            ->orWhere('company', 'LIKE', "%{$search}%")
+            ->orWhere('mobile_no', 'LIKE', "%{$search}%")
             ->orderBy($order, $dir)                
             ->paginate($limit, ['*'], 'page', $start + 1);
 
@@ -78,10 +83,10 @@ class EnquiryController extends Controller
                 $nestedData['last_name'] = $enquiry->last_name;
                 $nestedData['email'] = $enquiry->email;
                 $nestedData['mobile_no'] = $enquiry->mobile_no;
-                $nestedData['company'] = $enquiry->company;
-                $nestedData['name'] = $product_name;
-                $nestedData['system_type_id'] = !empty($enquiry->system_type) ? $enquiry->system_type->name : '';
-                $nestedData['standard_id'] = !empty($enquiry->standard) ? $enquiry->standard->name : '';
+                // $nestedData['company'] = $enquiry->company;
+                // $nestedData['name'] = $product_name;
+                // $nestedData['system_type_id'] = !empty($enquiry->system_type) ? $enquiry->system_type->name : '';
+                // $nestedData['standard_id'] = !empty($enquiry->standard) ? $enquiry->standard->name : '';
                 $nestedData['date'] = \Carbon\Carbon::parse($enquiry->created_at)->diffForHumans();
                 
 
@@ -109,5 +114,11 @@ class EnquiryController extends Controller
     public function show($id){
         $enquiry = Enquiry::where('id', $id)->first();
         return view('enquiries.show', compact('enquiry'));
+    }
+
+    public function destroy($id){
+        $enquiry = Enquiry::find($id);
+        $enquiry->delete();
+        return redirect()->route('enquiries.index')->with('success  ', __('message.Enquiry deleted successfully'));         
     }
 }

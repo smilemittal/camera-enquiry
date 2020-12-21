@@ -23,5 +23,8 @@
 	'Attribute updated successfully'		=>	'Attribute updated successfully',
 	'Attribute deleted successfully'        => 'Attribute deleted successfully',
 	'Product deleted successfully'			=>	'Product deleted successfully',
+	'Enquiry deleted successfully'			=>  'Enquiry deleted successfully',
+	'Enquiry Sent Successfully'				=> 'Enquiry Sent Successfully,',
+	'Failed Sending enquiry! Try again'		=> 'Failed Sending enquiry! Try again',
   ];
 ?>

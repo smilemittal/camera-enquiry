@@ -17,8 +17,8 @@ class FrontController extends Controller
 {
     
     public function home(){
-        $system_types = SystemType::all();
-        $standards = Standard::all();
+        $system_types = SystemType::orderBy('id', 'ASC')->get();
+        $standards = Standard::orderBy('id', 'ASC')->get();
     
         return view('frontend.home', compact('standards', 'system_types'));
     }
@@ -245,9 +245,9 @@ class FrontController extends Controller
 
         ]);
         if($enquiry){
-            return response()->json(['success'=> true, 'message'  => 'Enquiry Sent Successfully']);
+            return response()->json(['success'=> true, 'message'  => __('message.Enquiry Sent Successfully')]);
         }else{
-            return response()->json(['success'=> false, 'message'  => 'Failed Sending enquiry! Try again']);
+            return response()->json(['success'=> false, 'message'  => __('message.Failed Sending enquiry! Try again')]);
         }
         
 
