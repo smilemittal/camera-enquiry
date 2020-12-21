@@ -52,7 +52,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('product-attributes','ProductAttributesController');
 
 
+    Route::get('enquiries', 'EnquiryController@index')->name('enquiries.index');
+    Route::get('enquiries/{id}/show', 'EnquiryController@show')->name('enquiries.show');
 
+    Route::delete('enquiries/{id}/destroy', 'EnquiryController@destroy')->name('enquiries.destroy');
 
 
 
@@ -74,10 +77,7 @@ Route::post('save-enquiry', 'FrontController@saveEnquiry')->name('save-enquiry')
 //Route::post('get-summary', 'FrontController@getSummary')->name('get-summary');
 
 
-Route::get('enquiries', 'EnquiryController@index')->name('enquiries.index');
-Route::get('enquiries/{id}/show', 'EnquiryController@show')->name('enquiries.show');
 
-Route::delete('enquiries/{id}/destroy', 'EnquiryController@destroy')->name('enquiries.destroy');
 
 Route::post('get-enquiries', 'EnquiryController@getEnquiries')->name('get.enquiries');
 Route::post('print-enquiries', 'FrontController@printEnquiry')->name('print.enquiries');

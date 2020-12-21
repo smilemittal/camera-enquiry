@@ -163,7 +163,7 @@
                     <input type="text" name="first_name" class="first-name form-control" id="first-name">
                  </div>
                  <div class="form-group">
-                    <label for="last-name">{{ __('site.last Name') }}</label>
+                    <label for="last-name">{{ __('site.Last Name') }}</label>
                     <input type="text" name="last_name" class="last-name form-control" id="last-name">
                  </div>
                  <div class="form-group">

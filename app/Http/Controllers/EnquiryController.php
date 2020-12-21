@@ -117,8 +117,9 @@ class EnquiryController extends Controller
     }
 
     public function destroy($id){
+       
         $enquiry = Enquiry::find($id);
         $enquiry->delete();
-        return redirect()->route('enquiries.index')->with('success  ', __('message.Enquiry deleted successfully'));         
+        return redirect()->route('enquiries.index')->with('success', __('message.Enquiry deleted successfully'));         
     }
 }

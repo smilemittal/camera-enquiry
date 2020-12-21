@@ -13,6 +13,6 @@
                             @csrf  
                             @method('DELETE')  
                         </form> 
-            <a href="#"onclick="document.getElementById('{{ 'delete_form_'.$enquiry->id }}').submit();" class="dropdown-item" > <i class="ft-trash-2"></i>Delete</a>  
+            <a href="#"  data-form_id="{{ 'delete_form_'.$enquiry->id }}" class="dropdown-item delete" > <i class="ft-trash-2"></i>Delete</a>  
     </span>
 </span>

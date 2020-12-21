@@ -36,11 +36,11 @@ class AttributeValuesImport implements ToCollection, WithHeadingRow
               }
               $display_order =$row['display_order'];
               $system_type_id = $row['system_type_id'];
-                  $attribute_values= AttributeValue::where('attribute_id', $attribute_id)->where('value', 'LIKE', $row['value'])->where('system_type_id','LIKE', $row['system_type_id'])->first();
+                  $attribute_values= AttributeValue::where('attribute_id', $attribute_id)->where('value', 'LIKE', $row['value'])->where('system_type_id','LIKE', $row['system_type_id'])->where('type','LIKE',$row['type'])->first();
 
                   if(!$attribute_values){
 
-                      $attribute_value = AttributeValue::create(['attribute_id' => $attribute_id, 'value' => $row['value'],'display_order'=>$row['display_order'] , 'system_type_id' => $row['system_type_id']]);
+                      $attribute_value = AttributeValue::create(['attribute_id' => $attribute_id, 'type' => $row['type'] ,'value' => $row['value'],'display_order'=>$row['display_order'] , 'system_type_id' => $row['system_type_id']]);
 
                       $attribute_value_id =$attribute_value->id;
                   }
