@@ -59,10 +59,10 @@
                                                     <label for="type">{{ __('site.Type')}}</label>
                                                     <select name="type" id="type" class="form-control">
                                                             <option value="">Select</option>  
-                                                            <option value="camera">Camera</option>
-                                                            <option value="nvr">Nvr</option>
-                                                            <option value="recorder">Recorder</option>
-                                                            <option value="switch">Switch</option>
+                                                            <option value="camera" @if($attribute_value->type=='camera') selected @endif>Camera</option>
+                                                            <option value="nvr" @if($attribute_value->type=='nvr') selected @endif>Nvr</option>
+                                                            <option value="recorder" @if($attribute_value->type=='recorder') selected @endif>Recorder</option>
+                                                            <option value="switch" @if($attribute_value->type=='switch') selected @endif>Switch</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -109,4 +109,50 @@
                     </div>
                 </section>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#type').on('change', function(){
+            var type = $(this).val();
+            var system_type_id = $("#system_type_id option:selected").val();
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('get-attributes') }}',
+                data: {
+                    'type': type,
+                    'system_type_id': system_type_id,
+                    '_token': '{{ csrf_token() }}',
+                },
+                success: function(data){
+                        $('#attribute_id').empty();
+                        $('#attribute_id').append(data.html);
+                     
+                    
+                }
+            });
+        });
+
+        $('#system_type_id').on('change', function(){
+            var type = $("#type option:selected").val()
+            var system_type_id = $(this).val();;
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('get-attributes') }}',
+                data: {
+                    'type': type,
+                    'system_type_id': system_type_id,
+                    '_token': '{{ csrf_token() }}',
+                },
+                success: function(data){
+                   
+                        $('#attribute_id').empty();
+                        $('#attribute_id').append(data.html); 
+                    
+                }
+            });
+        });
+    </script>
 @endsection
