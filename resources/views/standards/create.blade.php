@@ -45,6 +45,13 @@
                                 </div>    
                                 <div class="card-content collapse show">
                                     <div class="card-body">
+                                         <div class="card-text">
+                                            @if(\Session::has('success'))
+                                                <div class="alert alert-success">
+                                                        {{\Session::get('success')}}
+                                                </div>
+                                            @endif
+
                                         @if($errors->all())
                                         <div class="alert alert-danger">
                                             @foreach($errors->all() as $error)
@@ -53,6 +60,7 @@
                                             @endforeach
                                             </div>
                                         @endif 
+                                    </div>
                                         <form class="form" action="{{ route('standards.store') }}" method="post">
                                             @csrf  
                                             <div class="form-body">
@@ -74,6 +82,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </section>
 </div>
 @endsection
