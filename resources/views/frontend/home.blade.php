@@ -1,4 +1,12 @@
 @extends('frontend.layouts.app')
+@section('styles')
+    <style>
+        #product-enquiry .active {
+            background: #007ecb !important;
+        }
+    </style>
+@endsection
+
 @section('content')
 <form method="post" action="" id="product-enquiry" enctype="multipart/form-data">
         <div class="form-sec">
