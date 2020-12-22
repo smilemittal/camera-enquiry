@@ -379,14 +379,3 @@ p:not(.has-background):last-of-type {
 }
 
 }
-
-.text-center.mb-1 img {
-    background: #007ecb;
-    padding: 20px;
-    display: inline-block;
-    }
-    .navbar-header .brand-logo {
-    background: #007ecb;
-    padding: 5px;
-    }
-    
