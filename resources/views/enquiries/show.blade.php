@@ -94,6 +94,7 @@
                                                     $quantity_total = 0;
                                                     $products = json_decode($enquiry->products, true);
                                                     $quantities  = json_decode($enquiry->quantity, true);
+                                                  
                                                 @endphp
                                                
                                                                                 
@@ -142,9 +143,11 @@
                                                                 }
                                                                 $i++;
                                                             @endphp
+                                                            @if(!empty($quantities[$product_type][$no]))
                                                             <div>
-                                                               <strong>Quantity: </strong> {{ (int)$quantities[$product_type][$no] }}
+                                                               <strong>Quantity: </strong>  {{ (int)$quantities[$product_type][$no] }}
                                                             </div>
+                                                            @endif
                                                             </td>   
                                                         </tr>
                                                        
