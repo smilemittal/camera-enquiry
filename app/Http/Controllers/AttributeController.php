@@ -53,6 +53,7 @@ class AttributeController extends Controller
             'display_order'=>'required',
             'system_type_id'=>'required',
             'description' =>'required'
+            
         ]);
         Attribute::create($request->all());
             // 

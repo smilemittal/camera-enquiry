@@ -49,7 +49,7 @@ class ProductController extends Controller
     {
        
         $this->validate($request, [
-            'name'=>'required|unique:products,name|max:50',
+            'name'=>'required|max:50',
             'type'=>'required',
             'system_type_id'=>'required',
             'standard_id'=>'required',
