@@ -98,7 +98,7 @@
                                                             <input type="text" id="display_order" class="form-control" value="{{$attribute->display_order}}" name="display_order">
                                                      </div> 
                                                      <div class="form-group">
-                                                        <label for="Description">Description </label>
+                                                        <label for="Description">{{ __('site.Description')}}</label>
                                                         <textarea rows="5" class="form-control"  name="description"><?php echo htmlspecialchars($attribute->description);?></textarea>
                                                     </div>
                                                     <div class="form-actions" style="text-align:center">
