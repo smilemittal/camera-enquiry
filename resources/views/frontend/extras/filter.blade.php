@@ -14,7 +14,7 @@
                             @endforeach
                         @endif
                     </select>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                    <p><?php echo htmlspecialchars($attribute->description);?></p>
                 </div>
             </div>
         @endforeach
@@ -38,7 +38,7 @@
                             @endforeach
                         @endif
                     </select>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                    <p><?php echo htmlspecialchars($attribute->description);?></p>
                 </div>
             </div>
         @endforeach
@@ -50,22 +50,22 @@
 
     @if(!empty($attributes))
     <div class="row {{ $product_type.'_div_'.$i }} update">
-    {{-- @dd($attributes[170]) --}}
-        @foreach($attributes as $attribute)
-        
+ 
+        @foreach($attributes as $attribute_id => $attribute)
+    
             <div class="col-lg-3 col-md-6">
                 <div class="form-group">
                     @if(!empty($attribute['attribute_values']))
                     
                 <label>{{ $attribute['attribute_name'] }}</label>
-                <select name="products[{{ $product_type }}][{{$i}}][{{ $attribute->id }}]" id="{{ $product_type.'_attributes' }}" class="attribute"  data-count="{{ $i }}" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}"> 
+                <select name="products[{{ $product_type }}][{{$i}}][{{ $attribute_id }}]" id="{{ $product_type.'_attributes' }}" class="attribute"  data-count="{{ $i }}" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}"> 
                         <option value="unimportant">Unimportant</option>
                             @foreach($attribute['attribute_values'] as $key => $value)
                                 <option value="{{ $key }}" @if(in_array($key, $attribute_value_id)) selected @endif>{{ $value }}</option>
                             @endforeach
                     
                     </select>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                    <p><?php echo htmlspecialchars($attribute->description);?></p>
                     @endif
                 </div>
             </div>
@@ -90,7 +90,7 @@
                         @endforeach
                     @endif
                 </select>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                <p><?php echo htmlspecialchars($attribute->description);?></p>
             </div>
         </div>
     @endforeach

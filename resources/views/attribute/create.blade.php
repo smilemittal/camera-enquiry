@@ -95,7 +95,10 @@
                                                             <label for="Name">{{ __('site.Display Order')}}</label>
                                                             <input type="text" id="display_order" class="form-control" placeholder="display_order" name="display_order">
                                                      </div> 
-
+                                                     <div class=" form-group">
+                                                        <label for="Description">{{ __('site.Description ')}}</label>
+                                                        <textarea class="form-control" type="text" name="description" placeholder="Attribute Description"></textarea>
+                                                    </div>
                                                        
                                                      
 

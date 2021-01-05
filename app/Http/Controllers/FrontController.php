@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Models\Enquiry;
 use App\Models\Product;
 use App\Models\Standard;
+use App\Mail\EnquiryMail;
 use App\Models\Attribute;
 use App\Models\SystemType;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use PDF;
 
 
 class FrontController extends Controller
@@ -156,7 +158,7 @@ class FrontController extends Controller
             $i = $count;
             
             $html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'product_type', 'attribute_value_id', 'i'))->render();
-
+            //dd($html);
             return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type]);
         }
     }
@@ -244,7 +246,15 @@ class FrontController extends Controller
             'mobile_no' => $request->input('mobile_no'),
 
         ]);
+
+        
+
         if($enquiry){
+            $products = json_decode($product_arr, true);
+            $quantities = json_decode($quantity_arr, true);
+
+            Mail::to('navjot.technaitra@gmail.com')->send(new EnquiryMail($products, $quantities));
+
             return response()->json(['success'=> true, 'message'  => __('message.Enquiry Sent Successfully')]);
         }else{
             return response()->json(['success'=> false, 'message'  => __('message.Failed Sending enquiry! Try again')]);
@@ -282,8 +292,6 @@ class FrontController extends Controller
 
         }
 
-        $product_arr = ($product_arr);
-        $quantity_arr = ($quantity_arr);
             $products = $product_arr;
             $quantities = $quantity_arr;
 

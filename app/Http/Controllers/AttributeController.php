@@ -48,10 +48,11 @@ class AttributeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'=>'required|max:50|unique:attributes,name',
+            'name'=>'required|max:50',
             'type'=>'required',
             'display_order'=>'required',
             'system_type_id'=>'required',
+            'description' =>'required'
         ]);
         Attribute::create($request->all());
             // 
@@ -92,10 +93,11 @@ class AttributeController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name'=>'required|max:50|unique:attributes,name,'.$id,
+            'name'=>'required|max:50',
             'type'=>'required',
             'display_order'=>'required',
             'system_type_id'=>'required',
+            'description' =>'required'
             ]);
 
         $attribute=Attribute::find($id);
@@ -126,7 +128,8 @@ class AttributeController extends Controller
             2 =>'type',
             3 =>'display_order',
             4 =>'system_type_id',
-            5 =>'action',
+            5 =>'description',
+            6 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -158,7 +161,7 @@ class AttributeController extends Controller
                 $nestedData['type'] =ucfirst($attribute->type);
                 $nestedData['display_order'] = $attribute->display_order;
                 $nestedData['system_type_id'] = !empty($attribute->system_type) ? $attribute->system_type->name : '';
-                
+                $nestedData['description'] = $attribute->description;
 
                 $index = route('attribute.index' ,  ($attribute->id));
                 $edit = route('attribute.edit' ,  ($attribute->id));

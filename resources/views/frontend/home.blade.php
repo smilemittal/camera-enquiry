@@ -1,11 +1,10 @@
 @extends('frontend.layouts.app')
 @section('styles')
-<style>
-#product-enquiry .active {
-background: #007ecb !important;
-}
-</style>
-
+    <style>
+        #product-enquiry .active {
+            background: #007ecb !important;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -98,7 +97,7 @@ background: #007ecb !important;
                         </div>
                     </div>
                 </div>
-                <div class="col-kemey recorder_1 recorder_btn" style="display:none;">
+                <div class="col-kemey recorder_1 recorder_btn">
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-3 col-md-6">
                         <a class="btn" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">{{ __('site.Recorder') }}</a>
@@ -225,15 +224,15 @@ background: #007ecb !important;
 
 
 
-    $('.camera_quantity').on('change', function(){
-        var camera_quantity = $(this).val();
+    // $('.camera_quantity').on('change', function(){
+    //     var camera_quantity = $(this).val();
 
-        if(camera_quantity > 0){
-            $('.recorder_btn').show();
-        }else{
-            $('.recorder_btn').hide();
-        }
-    });
+    //     if(camera_quantity > 0){
+    //         $('.recorder_btn').show();
+    //     }else{
+    //         $('.recorder_btn').hide();
+    //     }
+    // });
 
     $('.standard').on('click', function(){
         $('.standard').removeClass('active');

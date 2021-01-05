@@ -73,6 +73,7 @@
                                                         <th>{{__('site.Type')}}</th>
                                                         <th>{{ __('site.Display Order')}}</th>
                                                         <th>{{ __('site.System Type')}}</th>
+                                                        <th>{{ __('site.Description')}}</th>
                                                         <th>{{ __('site.Action')}}</th>
                                                     </tr>
                                                 </thead>
@@ -87,6 +88,7 @@
                                                         <th>{{__('site.Type')}}</th>
                                                         <th>{{ __('site.Display Order')}}</th>
                                                         <th>{{ __('site.System Type')}}</th>
+                                                        <th>{{ __('site.Description')}}</th>
                                                         <th>{{ __('site.Action')}}</th>
                                                 </tr> 
                                              </tfoot>
@@ -130,6 +132,7 @@
                     { "data": "type" },
                     { "data": "display_order" },
                     { "data": "system_type_id" },
+                    { "data": "description" },
                     { "data": "action" }
                 ],
                 aoColumnDefs: [

@@ -68,6 +68,7 @@
 					'Example'					=>'Example',
 					'File'						=>'File',
 					'Download'					=>'Download',
+					'Description'				=>'Description',
 
 					
 

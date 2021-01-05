@@ -97,6 +97,10 @@
                                                             <label for="Name">{{ __('site.Display Order')}}</label>
                                                             <input type="text" id="display_order" class="form-control" value="{{$attribute->display_order}}" name="display_order">
                                                      </div> 
+                                                     <div class="form-group">
+                                                        <label for="Description">Description </label>
+                                                        <textarea rows="5" class="form-control"  name="description"><?php echo htmlspecialchars($attribute->description);?></textarea>
+                                                    </div>
                                                     <div class="form-actions" style="text-align:center">
                                                         <button type="reset"  class="btn btn-danger">
                                                             {{ __('site.Reset')}}

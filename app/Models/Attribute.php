@@ -10,7 +10,7 @@ class Attribute extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    public $fillable=['name','type','display_order','system_type_id'];
+    public $fillable=['name','type','display_order','system_type_id','description'];
 
     public function attribute_values(){
         return $this->hasMany('App\Models\AttributeValue', 'attribute_id', 'id')->orderBy('display_order', 'ASC');

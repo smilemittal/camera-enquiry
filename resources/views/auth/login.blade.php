@@ -54,10 +54,10 @@
                             <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
                                 <div class="card-header border-0">
                                     <div class="text-center mb-1">
-                                        <img src="app-assets/images/logo/logo.png" alt="branding logo">
+                                        <img src="{{asset('assets/frontend/img/logo.png')}}" alt="branding logo">
                                     </div>
                                     <div class="font-large-1  text-center">
-                                        Member Login
+                                        Admin Login
                                     </div>
                                 </div>
                                 <div class="card-content">
@@ -99,14 +99,14 @@
 
                                         </form>
                                     </div>
-                                    <p class="card-subtitle line-on-side text-muted text-center font-small-3 mx-2 my-2 "><span>OR Sign Up Using</span></p>
+                                    {{-- <p class="card-subtitle line-on-side text-muted text-center font-small-3 mx-2 my-2 "><span>OR Sign Up Using</span></p>
                                     <div class="text-center">
                                         <a href="#" class="btn btn-social-icon round mr-1 mb-1 btn-facebook"><span class="ft-facebook"></span></a>
                                         <a href="#" class="btn btn-social-icon round mr-1 mb-1 btn-twitter"><span class="ft-twitter"></span></a>
                                         <a href="#" class="btn btn-social-icon round mr-1 mb-1 btn-instagram"><span class="ft-instagram"></span></a>
-                                    </div>
+                                    </div> --}}
 
-                                    <p class="card-subtitle text-muted text-right font-small-3 mx-2 my-1"><span>Don't have an account ? <a href="register.html" class="card-link">Sign Up</a></span></p>
+                                    {{-- <p class="card-subtitle text-muted text-right font-small-3 mx-2 my-1"><span>Don't have an account ? <a href="register.html" class="card-link">Sign Up</a></span></p> --}}
                                 </div>
                             </div>
                         </div>
