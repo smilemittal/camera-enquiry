@@ -62,7 +62,7 @@ class FrontController extends Controller
                                 $q->where('type', $product_type);
                             });
                            
-
+ 
                             if(is_array($attribute_value_id)){
                                 foreach($attribute_value_id as $id){
                                     if($id != 'unimportant'){
@@ -89,8 +89,58 @@ class FrontController extends Controller
                           
             $products = $products->get();
             //dd($products);
+            
+            $selected_attributes = Attribute::with('attribute_values')->where('type', $product_type);
+            $all_attributes = $selected_attributes;
+            $selected_attributes->whereHas('attribute_values', function($q) use($attribute_value_id){
+                $q->whereIn('id', $attribute_value_id);
+        
+            });
+            $selected_attributes = $selected_attributes->orderBy('display_order', 'ASC')->get();
+
+            $selected_attr = $attributes= $display_order = [];
+
+            foreach($selected_attributes as $attribute){
+                $selected_attr[] = $attribute->id;
+            }
+
+            //dd($selected_attr);
+    
+         
+           
+            // foreach($all_attributes->orderBy('display_order', 'ASC')->get() as $attr){
+              
+            //     $attribute_values = [];
+            //     if(in_array($attr->id, $selected_attr)){
+
+            //         foreach($attr->attribute_values as $attribute_value){
                     
-            $attributes=$display_order = [];
+            //             if(!in_array_r($attr->id, $attributes)){
+                            
+            //                 $attribute_values[$attribute_value->id] = $attribute_value->value;
+                    
+            //                 $attributes[$attr->id] = ['attribute_name' => $attr->name, 'attribute_values' => $attribute_values, 'attribute_description' => $attr->description];
+            //             }else{
+                
+            //                 if(!in_array_r($attribute_value->id,  $attributes[$attr->id]['attribute_values'])){
+            //                     $attribute_values[$attribute_value->id] = $attribute_value->value;
+            //                     $attributes[$attr->id] = ['attribute_name' => $attr->name, 'attribute_values' => $attribute_values, 'attribute_description' => $attr->description];
+            //                 } 
+            //             }
+            //         } 
+            //         $attribute_values = [];
+            //     }else{
+                
+            //             if(!in_array_r($attr->id, $attributes)){
+            //                 $attributes[$attr->id] = ['attribute_name' => $attr->name, 'attribute_values' => [], 'attribute_description' => $attr->description];
+            //             }
+                    
+                   
+            //     }
+
+            // }
+            //dd($attributes);
+
 
             if(!empty($products) && count($products) > 0){
 
@@ -107,13 +157,13 @@ class FrontController extends Controller
                                     if(!in_array_r($product_attribute->attribute->id, $attributes)){
                                         
                                             $attribute_values[$attribute_value->id] = $attribute_value->value;
-                                        // dd('has', $attribute_values );
-                                        $attributes[$product_attribute->attribute_id] = ['attribute_name' => $product_attribute->attribute->name, 'attribute_values' => $attribute_values];
+                                  
+                                        $attributes[$product_attribute->attribute_id] = ['attribute_name' => $product_attribute->attribute->name, 'attribute_values' => $attribute_values, 'attribute_description' => $product_attribute->attribute->description];
                                     }else{
-                                    // dd('hs not');
+                               
                                         if(!in_array_r($attribute_value->id,  $attributes[$product_attribute->attribute_id]['attribute_values'])){
                                             $attribute_values[$attribute_value->id] = $attribute_value->value;
-                                            $attributes[$product_attribute->attribute_id] = ['attribute_name' => $product_attribute->attribute->name, 'attribute_values' => $attribute_values];
+                                            $attributes[$product_attribute->attribute_id] = ['attribute_name' => $product_attribute->attribute->name, 'attribute_values' => $attribute_values, 'attribute_description' => $product_attribute->attribute->description];
                                         } 
                                     }
                                 } 
@@ -147,7 +197,7 @@ class FrontController extends Controller
                             } 
                         }
                     } 
-                    $attributes[$attribute->id] = ['attribute_name' => $attribute->name, 'attribute_values' => $attribute_values];
+                    $attributes[$attribute->id] = ['attribute_name' => $attribute->name, 'attribute_values' => $attribute_values,  'attribute_description' => $attribute->description];
                     $attribute_values = [];
                 }            
             }
@@ -257,8 +307,7 @@ class FrontController extends Controller
         if($enquiry){
             $products = json_decode($product_arr, true);
             $quantities = json_decode($quantity_arr, true);
-
-            Mail::to('navjot.technaitra@gmail.com')->send(new EnquiryMail($products, $quantities));
+            Mail::to(config('app.admin_email'))->send(new EnquiryMail($products, $quantities));
 
             return response()->json(['success'=> true, 'message'  => __('message.Enquiry Sent Successfully')]);
         }else{

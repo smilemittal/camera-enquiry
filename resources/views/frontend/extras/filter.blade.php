@@ -49,7 +49,7 @@
 
 
     @if(!empty($attributes))
-    <div class="row {{ $product_type.'_div_'.$i }} update">
+    {{-- <div class="row {{ $product_type.'_div_'.$i }} update"> --}}
  
         @foreach($attributes as $attribute_id => $attribute)
     
@@ -65,12 +65,12 @@
                             @endforeach
                     
                     </select>
-                    <p><?php echo htmlspecialchars($attribute->description);?></p>
+                    <p><?php echo htmlspecialchars($attribute['attribute_description']);?></p>
                     @endif
                 </div>
             </div>
         @endforeach
-    </div>
+    {{-- </div> --}}
     @endif
 
 

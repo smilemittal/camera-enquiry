@@ -452,8 +452,6 @@
                     return true;
                    }
                     
-                }else{
-                  
                 }
             }
         });

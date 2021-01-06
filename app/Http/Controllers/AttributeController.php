@@ -57,7 +57,7 @@ class AttributeController extends Controller
         ]);
         Attribute::create($request->all());
             // 
-        return redirect()->route('attribute.create')->with('success', __('message.Attribute added successfully'));
+        return redirect()->route('attribute.index')->with('success', __('message.Attribute added successfully'));
     }
 
     /**
