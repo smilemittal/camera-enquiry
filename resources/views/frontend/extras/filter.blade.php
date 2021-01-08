@@ -14,7 +14,7 @@
                             @endforeach
                         @endif
                     </select>
-                    <p><?php echo htmlspecialchars($attribute->description);?></p>
+                    <p>{!! htmlspecialchars($attribute->description) !!}</p>
                 </div>
             </div>
         @endforeach
@@ -30,7 +30,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="form-group">
                 <label>{{ $attribute->name }}</label>
-                    <select name="products[recorder][{{$i}}][{{ $attribute->id }}]" id="recorder_attributes" class="attribute" data-count="{{ $i }}" data-product_type="recorder" data-system_type="{{ $system_type }}"> 
+                    <select name="products[recorder][{{$i}}][{{ $attribute->id }}]" id="recorder_attributes" class="attribute" data-count="{{ $i }}" data-product_type="recorder" data-system_type="{{ $system_type }}">
                         <option value="unimportant">Unimportant</option>
                         @if(!empty($attribute->attribute_values))
                             @foreach($attribute->attribute_values as $attribute_value)
@@ -38,7 +38,7 @@
                             @endforeach
                         @endif
                     </select>
-                    <p><?php echo htmlspecialchars($attribute->description);?></p>
+                    <p>{!! htmlspecialchars($attribute->description) !!}</p>
                 </div>
             </div>
         @endforeach
@@ -48,30 +48,31 @@
 
 
 
-    @if(!empty($attributes))
-    {{-- <div class="row {{ $product_type.'_div_'.$i }} update"> --}}
- 
-        @foreach($attributes as $attribute_id => $attribute)
-    
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group">
-                    @if(!empty($attribute['attribute_values']))
-                    
-                <label>{{ $attribute['attribute_name'] }}</label>
-                <select name="products[{{ $product_type }}][{{$i}}][{{ $attribute_id }}]" id="{{ $product_type.'_attributes' }}" class="attribute"  data-count="{{ $i }}" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}"> 
-                        <option value="unimportant">Unimportant</option>
-                            @foreach($attribute['attribute_values'] as $key => $value)
-                                <option value="{{ $key }}" @if(in_array($key, $attribute_value_id)) selected @endif>{{ $value }}</option>
-                            @endforeach
-                    
-                    </select>
-                    <p><?php echo htmlspecialchars($attribute['attribute_description']);?></p>
+@if(!empty($all_attributes))
+{{-- <div class="row {{ $product_type.'_div_'.$i }} update"> --}}
+
+    @foreach($all_attributes as $attribute)
+
+        <div class="col-lg-3 col-md-6">
+            <div class="form-group">
+                <label>{{ $attribute->name }}</label>
+                <select name="products[{{ $product_type }}][{{$i}}][{{ $attribute->id }}]" id="{{ $product_type.'_attributes' }}" class="attribute"  data-count="{{ $i }}" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}">
+                    <option value="unimportant">Unimportant</option>
+                    @if(!empty($attribute->attribute_values) && !empty($attributes[$attribute->id]))
+                        @foreach($attribute->attribute_values as $attribute_value)
+                            @if(in_array($attribute_value->id, $attributes[$attribute->id]))
+                                <option value="{{ $attribute_value->id }}" {{ in_array($attribute_value->id, $attribute_value_id) ? 'selected' : '' }}>{{ $attribute_value->value }}</option>
+                            @endif
+                        @endforeach
                     @endif
-                </div>
+
+                </select>
+                <p>{!! htmlspecialchars($attribute->description) !!}</p>
             </div>
-        @endforeach
-    {{-- </div> --}}
-    @endif
+        </div>
+    @endforeach
+{{-- </div> --}}
+@endif
 
 
 
@@ -90,7 +91,7 @@
                         @endforeach
                     @endif
                 </select>
-                <p><?php echo htmlspecialchars($attribute->description);?></p>
+                <p>{!! htmlspecialchars($attribute->description) !!}</p>
             </div>
         </div>
     @endforeach
