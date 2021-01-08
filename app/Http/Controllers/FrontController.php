@@ -90,7 +90,7 @@ class FrontController extends Controller
 
             $i = $count;
 
-            $html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'product_type', 'attribute_value_id','all_attributes', 'i'))->render();
+            $html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'product_type', 'selected_attributes','all_attributes', 'i'))->render();
             //dd($html);
             return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type]);
         }

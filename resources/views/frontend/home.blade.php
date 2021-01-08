@@ -282,14 +282,12 @@
         var system_type = $(this).data('system_type');
         var product_type = $(this).data('product_type');
         var count = $('input[name="'+ product_type +'_count"]').val();
-
-        //console.log($(this).data('product_type'));
-
+        var selected_attributes = [];
 
         $('.attribute', '.'+product_type+'_div_'+ count).each(function(){
 
             if($(this).val() != ''){
-
+                selected_attributes[$(this).data('attribute')] = $(this).val();
                 if($(ele).data('product_type') == 'camera'){
 
                     cam_attribute_value_arr.push($(this).val());
@@ -318,6 +316,7 @@
                 'system_type': system_type,
                 'product_type': product_type,
                 'count': count,
+                'selected_attributes': selected_attributes
             },
             success: function(data){
                 if(data.success == true && data.html != ''){

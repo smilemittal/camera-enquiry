@@ -6,7 +6,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="form-group">
                 <label>{{ $attribute->name }}</label>
-                <select name="products[camera][{{$i}}][{{ $attribute->id }}]" id="camera_attributes" class="attribute" data-count="{{ $i }}" data-product_type="camera" data-system_type="{{ $system_type }}">
+                <select name="products[camera][{{$i}}][{{ $attribute->id }}]" id="camera_attributes" class="attribute" data-count="{{ $i }}" data-product_type="camera" data-system_type="{{ $system_type }}" data-attribute="{{$attribute->id}}">
                     <option value="unimportant">Unimportant</option>
                         @if(!empty($attribute->attribute_values))
                             @foreach($attribute->attribute_values as $attribute_value)
@@ -30,7 +30,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="form-group">
                 <label>{{ $attribute->name }}</label>
-                    <select name="products[recorder][{{$i}}][{{ $attribute->id }}]" id="recorder_attributes" class="attribute" data-count="{{ $i }}" data-product_type="recorder" data-system_type="{{ $system_type }}">
+                    <select name="products[recorder][{{$i}}][{{ $attribute->id }}]" id="recorder_attributes" class="attribute" data-count="{{ $i }}" data-product_type="recorder" data-system_type="{{ $system_type }}" data-attribute="{{$attribute->id}}">
                         <option value="unimportant">Unimportant</option>
                         @if(!empty($attribute->attribute_values))
                             @foreach($attribute->attribute_values as $attribute_value)
@@ -56,11 +56,11 @@
         <div class="col-lg-3 col-md-6">
             <div class="form-group">
                 <label>{{ $attribute->name }}</label>
-                <select name="products[{{ $product_type }}][{{$i}}][{{ $attribute->id }}]" id="{{ $product_type.'_attributes' }}" class="attribute"  data-count="{{ $i }}" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}">
+                <select name="products[{{ $product_type }}][{{$i}}][{{ $attribute->id }}]" id="{{ $product_type.'_attributes' }}" class="attribute"  data-count="{{ $i }}" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}" data-attribute="{{$attribute->id}}">
                     <option value="unimportant">Unimportant</option>
                     @if(!empty($attribute->attribute_values))
                         @foreach($attribute->attribute_values as $attribute_value)
-                            @if(in_array($attribute_value->id, $attribute_value_id) || (!empty($attributes[$attribute->id]) && in_array($attribute_value->id, $attributes[$attribute->id])))
+                            @if($selected_attributes[$attribute->id] == 'unimportant' || $attribute_value->id == $selected_attributes[$attribute->id] || (!empty($attributes[$attribute->id]) && in_array($attribute_value->id, $attributes[$attribute->id])))
                                 <option value="{{ $attribute_value->id }}" {{ in_array($attribute_value->id, $attribute_value_id) ? 'selected' : '' }}>{{ $attribute_value->value }}</option>
                             @endif
                         @endforeach
@@ -83,7 +83,7 @@
         <div class="col-lg-3 col-md-6">
             <div class="form-group">
             <label>{{ $attribute->name }}</label>
-            <select name="products[{{ $product_type }}][{{$i}}][{{ $attribute->id }}]" id="{{ $product_type.'_attributes' }}" class="attribute" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}">
+            <select name="products[{{ $product_type }}][{{$i}}][{{ $attribute->id }}]" id="{{ $product_type.'_attributes' }}" class="attribute" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}" data-attribute="{{$attribute->id}}">
                 <option value="unimportant">Unimportant</option>
                     @if(!empty($attribute->attribute_values))
                         @foreach($attribute->attribute_values as $attribute_value)
