@@ -58,9 +58,9 @@
                 <label>{{ $attribute->name }}</label>
                 <select name="products[{{ $product_type }}][{{$i}}][{{ $attribute->id }}]" id="{{ $product_type.'_attributes' }}" class="attribute"  data-count="{{ $i }}" data-product_type="{{ $product_type }}" data-system_type="{{ $system_type }}">
                     <option value="unimportant">Unimportant</option>
-                    @if(!empty($attribute->attribute_values) && !empty($attributes[$attribute->id]))
+                    @if(!empty($attribute->attribute_values))
                         @foreach($attribute->attribute_values as $attribute_value)
-                            @if(in_array($attribute_value->id, $attributes[$attribute->id]) ||  in_array($attribute_value->id, $attribute_value_id))
+                            @if(in_array($attribute_value->id, $attribute_value_id) || (!empty($attributes[$attribute->id]) && in_array($attribute_value->id, $attributes[$attribute->id])))
                                 <option value="{{ $attribute_value->id }}" {{ in_array($attribute_value->id, $attribute_value_id) ? 'selected' : '' }}>{{ $attribute_value->value }}</option>
                             @endif
                         @endforeach
