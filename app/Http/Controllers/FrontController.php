@@ -53,7 +53,7 @@ class FrontController extends Controller
             $count = $request->input('count');
             $attribute_value_id = $request->input('attribute_value');
             $attribute_value_id = explode(',', $attribute_value_id);
-
+            $selected_attributes = $request->input('selected_attributes');
 
             $products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
                         ->whereHas('product_attributes.attribute', function($q)use($product_type){
