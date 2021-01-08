@@ -70,7 +70,7 @@ class FrontController extends Controller
 
             }
 
-            $products->where('system_type_id', $system_type)->where('type', $product_type)->get();
+            $products = $products->where('system_type_id', $system_type)->where('type', $product_type)->get();
 
             $all_attributes = Attribute::with('attribute_values')->where('type', $product_type)->orderBy('display_order', 'ASC')->get();
             $attributes = array();
