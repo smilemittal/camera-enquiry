@@ -60,7 +60,7 @@
                     <option value="unimportant">Unimportant</option>
                     @if(!empty($attribute->attribute_values))
                         @foreach($attribute->attribute_values as $attribute_value)
-                            @if($selected_attributes[$attribute->id] == 'unimportant' || $attribute_value->id == $selected_attributes[$attribute->id] || (!empty($attributes[$attribute->id]) && in_array($attribute_value->id, $attributes[$attribute->id])))
+                            @if($attribute_value->id == $selected_attributes[$attribute->id] || (!empty($attributes[$attribute->id]) && in_array($attribute_value->id, $attributes[$attribute->id])))
                                 <option value="{{ $attribute_value->id }}" {{ $attribute_value->id == $selected_attributes[$attribute->id] ? 'selected' : '' }}>{{ $attribute_value->value }}</option>
                             @endif
                         @endforeach
