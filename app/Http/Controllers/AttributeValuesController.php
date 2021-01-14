@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
 use Excel;
 use App\Models\Attribute;
 use App\Models\SystemType;
@@ -49,7 +50,7 @@ class AttributeValuesController extends Controller
 
         $this->validate($request, [
             'attribute_id'=>'required',
-            'value'=>'required|max:50|unique:attribute_values,value,NULL,deleted_at',
+            'value'=>'required|max:50|'.Rule::unique('attribute_values')->whereNull('deleted_at'),
             'display_order'=>'required',
             'system_type_id'=>'required',
         ]);
