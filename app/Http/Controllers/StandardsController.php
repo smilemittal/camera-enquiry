@@ -18,7 +18,7 @@ class StandardsController extends Controller
     public function index()
     {
         $standard = Standard::all();
-        return view('standards.index',compact('standard')); 
+        return view('standards.index',compact('standard'));
     }
 
     /**
@@ -41,12 +41,12 @@ class StandardsController extends Controller
     public function store(Request $request)
     {
        $this->validate($request, [
-            'name'=>'required|max:50|unique:standards,name',
+            'name'=>'required|max:50|unique:standards,name,deleted_at,NULL',
         ]);
         Standard::create($request->all());
 
         return redirect()->route('standards.index')->with('success',__('message.Standard added successfully'));
-        
+
     }
 
     /**
@@ -70,7 +70,7 @@ class StandardsController extends Controller
     {
       $standard= Standard::find($id);
       return view('standards.edit',compact('standard'));
-       
+
 
     }
 
@@ -84,10 +84,10 @@ class StandardsController extends Controller
     public function update(Request $request, $id)
     {
             $this->validate($request, [
-            'name'=>'required|max:50|unique:standards,name,'.$id,
+            'name'=>'required|max:50|unique:standards,name,'.$id.',id,deleted_at,NULL',
         ]);
-  
-        $standard=Standard::find($id);     
+
+        $standard=Standard::find($id);
 
         $standard->update($request->all());
 
@@ -110,14 +110,14 @@ class StandardsController extends Controller
       return redirect()->route('standards.index')->with('deleted',__('message.Standard deleted successfully'));
 
     }
-    
+
     public function getStandard(Request $request) {
         $totalData = Standard::count();
         $totalFiltered = $totalData;
         $columns = array(
             0=>'id',
             1 =>'name',
-            2 =>'action',   
+            2 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -170,14 +170,14 @@ class StandardsController extends Controller
     {
 
         if($request->hasFile('import-standards')){
-              
+
                $this->validate($request, [
             'import-standards'=>'required|mimes:csv,xlsx,xls',
         ]);
             Excel::import(new StandardsImport, request()->file('import-standards'));
 
     }
-      
+
         return redirect()->route('standards.import')->with('success', __('message.Standards Imported successfully'));
     }
 

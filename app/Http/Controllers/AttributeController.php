@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\SystemType;
 use App\Models\Attribute;
 use App\Exports\AttributeExport;
-
+use App\Imports\AttributeValuesImport;
 
 class AttributeController extends Controller
 {
@@ -53,10 +53,10 @@ class AttributeController extends Controller
             'display_order'=>'required',
             'system_type_id'=>'required',
             'description' =>'required'
-            
+
         ]);
         Attribute::create($request->all());
-            // 
+            //
         return redirect()->route('attribute.index')->with('success', __('message.Attribute added successfully'));
     }
 
@@ -118,7 +118,7 @@ class AttributeController extends Controller
         $deletes->delete();
         return redirect()->route('attribute.index')->with('deleted', __('message.Attribute deleted successfully'));
     }
-    public function getattribute(Request $request) 
+    public function getattribute(Request $request)
     {
 
         $totalData = Attribute::count();
@@ -189,28 +189,21 @@ class AttributeController extends Controller
     public function postImport(Request $request)
     {
         $this->validate($request, [
-          
+
             'import-attribute-values' => 'required|mimes:csv,xlsx,xls',
-            
+
         ]);
         if($request->hasFile('import-attribute-values')){
-            
-            $this->validate($request, [
-          
-                'import-attribute-values' => 'required|mimes:csv,xlsx,xls',
-                
-            ]);
             Excel::import(new AttributeValuesImport, request()->file('import-attribute-values'));
-
         }
-      
+
         return redirect()->route('attribute-values.import')->with('success',__('Message.Attributes Imported successfully'));
     }
-    
-    public function export() 
+
+    public function export()
     {
         return Excel::download(new AttributeExport, 'AttributeData.xlsx');
     }
-      
+
 
 }

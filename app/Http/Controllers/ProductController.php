@@ -24,9 +24,9 @@ class ProductController extends Controller
         }catch (Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
         }
-      
+
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -47,7 +47,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $this->validate($request, [
             'name'=>'required|max:50',
             'type'=>'required',
@@ -60,7 +60,7 @@ class ProductController extends Controller
                         'system_type_id' => $request->input('system_type_id'),
                         'standard_id' => $request->input('standard_id'),
                     ]);
-       
+
         if(!empty($request->input('attribute_value'))){
             foreach($request->attribute_value as $attribute_id => $attribute_value_id){
                 if(!empty($attribute_value_id)){
@@ -69,11 +69,11 @@ class ProductController extends Controller
                         'attribute_id' => $attribute_id,
                         'attribute_value_id' => $attribute_value_id,
                     ]);
-                }                
+                }
             }
         }
         return redirect()->route('products.index')->with('success', __('message.Product added successfully'));
-     
+
     }
 
     /**
@@ -117,13 +117,13 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name'=>'required|max:50|unique:products,name,'.$id,
+            'name'=>'required|max:50|unique:products,name,'.$id.',id,deleted_at,NULL',
             'type' => 'required',
             'system_type_id' => 'required',
             'standard_id' => 'required',
         ]);
-      
-       
+
+
         $product=Product::find($id);
         $product->update([
             'name' => $request->input('name'),
@@ -148,9 +148,9 @@ class ProductController extends Controller
                             'attribute_value_id' => $attribute_value_id,
                         ]);
                     }
-                    
+
                 }
-                
+
             }
         }
        return redirect()->route('products.index')->with('updated',__('message.Product updated successfully'));
@@ -223,23 +223,23 @@ class ProductController extends Controller
         if($request->ajax()){
             $type = $request->type;
             $system_type = $request->system_type_id;
-            
+
             $attribute= Attribute::with('attribute_values')->where('created_at', '!=', Null);
-         
+
             if(!empty($type)){
-                
+
                 $attribute->where('type','=' ,$type);
             }
-           
+
             if(!empty($system_type)){
                 $attribute->where('system_type_id','=', $system_type);
             }
-           
+
             $attributes = $attribute->get();
-    
+
             $html = '';
             $html .= view('products.partials.select-attributes', compact('attributes'))->render();
-            
+
             return response()->json(['html' => $html, 'success' => true]);
         }
     }
