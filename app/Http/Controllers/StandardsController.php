@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Imports\StandardsImport;
 use App\Exports\StandardsExport;
 use App\Models\Standard;
+use Illuminate\Validation\Rule;
 
 class StandardsController extends Controller
 {
@@ -41,7 +42,7 @@ class StandardsController extends Controller
     public function store(Request $request)
     {
        $this->validate($request, [
-            'name'=>'required|max:50|unique:standards,name,NULL,deleted_at',
+            'name'=>'required|max:50|'.Rule::unique('standards')->whereNull('deleted_at'),
         ]);
         Standard::create($request->all());
 
@@ -84,7 +85,7 @@ class StandardsController extends Controller
     public function update(Request $request, $id)
     {
             $this->validate($request, [
-            'name'=>'required|max:50|unique:standards,name,'.$id.',id,NULL,deleted_at',
+            'name'=>'required|max:50|'.Rule::unique('standards')->ignore($id)->whereNull('deleted_at'),
         ]);
 
         $standard=Standard::find($id);

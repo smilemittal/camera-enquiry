@@ -7,6 +7,7 @@ use App\Imports\SystemTypesImport;
 use App\Exports\SystemTypesExport;
 use Illuminate\Http\Request;
 use App\Models\SystemType;
+use Illuminate\Validation\Rule;
 
 class SystemTypesController extends Controller
 {
@@ -42,7 +43,7 @@ class SystemTypesController extends Controller
     {
 
         $this->validate($request, [
-            'name'=>'required|max:50|unique:system_types,name,NULL,deleted_at',
+            'name'=>'required|max:50|'.Rule::unique('system_types')->whereNull('deleted_at'),
         ]);
 
         SystemType::create($request->all());
@@ -83,10 +84,8 @@ class SystemTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
         $this->validate($request, [
-            'name'=>'required|max:50|unique:system_types,name,'.$id.',id,NULL,deleted_at',
+            'name'=>'required|max:50|'.Rule::unique('system_types')->ignore($id)->whereNull('deleted_at'),
         ]);
 
         $system_types=SystemType::find($id);

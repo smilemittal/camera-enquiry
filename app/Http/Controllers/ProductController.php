@@ -8,6 +8,7 @@ use App\Models\Attribute;
 use App\Models\SystemType;
 use Illuminate\Http\Request;
 use App\Models\ProductAttribute;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -117,7 +118,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name'=>'required|max:50|unique:products,name,'.$id.',id,NULL,deleted_at',
+            'name'=>'required|max:50|'.Rule::unique('products')->ignore($id)->whereNull('deleted_at'),
             'type' => 'required',
             'system_type_id' => 'required',
             'standard_id' => 'required',
