@@ -49,7 +49,7 @@ class AttributeValuesController extends Controller
 
         $this->validate($request, [
             'attribute_id'=>'required',
-            'value'=>'required|max:50|unique:attribute_values,value,deleted_at,NULL',
+            'value'=>'required|max:50|unique:attribute_values,value,NULL,deleted_at',
             'display_order'=>'required',
             'system_type_id'=>'required',
         ]);

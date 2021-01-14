@@ -42,7 +42,7 @@ class SystemTypesController extends Controller
     {
 
         $this->validate($request, [
-            'name'=>'required|max:50|unique:system_types,name,deleted_at,NULL',
+            'name'=>'required|max:50|unique:system_types,name,NULL,deleted_at',
         ]);
 
         SystemType::create($request->all());
@@ -86,7 +86,7 @@ class SystemTypesController extends Controller
 
 
         $this->validate($request, [
-            'name'=>'required|max:50|unique:system_types,name,'.$id.',id,deleted_at,NULL',
+            'name'=>'required|max:50|unique:system_types,name,'.$id.',id,NULL,deleted_at',
         ]);
 
         $system_types=SystemType::find($id);
