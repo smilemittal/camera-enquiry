@@ -123,6 +123,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'admin_email' => env('MAIL_FROM_ADDRESS', 'rockstartester02@gmail.com'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

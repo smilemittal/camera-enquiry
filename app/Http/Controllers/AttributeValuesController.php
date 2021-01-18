@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
 use Excel;
 use App\Models\Attribute;
 use App\Models\SystemType;
@@ -21,7 +22,7 @@ class AttributeValuesController extends Controller
     public function index()
     {
         $attribute_values=AttributeValue::with('system_type', 'attribute')->get();
-        
+
         return view('attribute_values.index',compact('attribute_values'));
     }
 
@@ -49,7 +50,7 @@ class AttributeValuesController extends Controller
 
         $this->validate($request, [
             'attribute_id'=>'required',
-            'value'=>'required|max:50|unique:attribute_values,value',
+            'value'=>'required|max:50|'.Rule::unique('attribute_values')->whereNull('deleted_at'),
             'display_order'=>'required',
             'system_type_id'=>'required',
         ]);
@@ -94,15 +95,15 @@ class AttributeValuesController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $request->validate([  
+         $request->validate([
             'attribute_id'=>'required',
             'value'=>'required|max:50|',
             'display_order'=>'required',
             'system_type_id'=>'required',
         ]);
-  
-        $attribute_values=AttributeValue::find($id);          
-        $attribute_values->update($request->all()); 
+
+        $attribute_values=AttributeValue::find($id);
+        $attribute_values->update($request->all());
 
         return redirect()->route('attribute-values.index')->with('updated_success', __('message.Attribute value updated successfully'));
     }
@@ -115,19 +116,19 @@ class AttributeValuesController extends Controller
      */
     public function destroy($id)
     {
-        $attribute_values=AttributeValue::find($id);  
+        $attribute_values=AttributeValue::find($id);
         $attribute_values->delete();
-        
+
         return redirect()->route('attribute-values.index')->with('delete_success', __('message.Attribute value deleted successfully'));
     }
 
     /**
-     * Fetching, Sorting attribute values and Pagination.  
-     * 
+     * Fetching, Sorting attribute values and Pagination.
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getAttributeValues(Request $request) 
+    public function getAttributeValues(Request $request)
     {
         $totalData = AttributeValue::count();
         $totalFiltered = $totalData;
@@ -157,7 +158,7 @@ class AttributeValuesController extends Controller
                 })->orWhereHas('attribute', function($q)use($search)
                 {
                     $q->where('name','LIKE',"%{$search}%");
-                })   
+                })
                 ->orWhere('attribute_id', 'LIKE',"%{$search}%")
                 ->orWhere('value', 'LIKE',"%{$search}%")
                 ->orWhere('display_order', 'LIKE',"%{$search}%")
@@ -198,23 +199,23 @@ class AttributeValuesController extends Controller
         if($request->ajax()){
             $type = $request->type;
             $system_type = $request->system_type_id;
-            
+
             $attribute= Attribute::with('attribute_values')->where('created_at', '!=', Null);
-         
+
             if(!empty($type)){
-                
+
                 $attribute->where('type','=' ,$type);
             }
-           
+
             if(!empty($system_type)){
                 $attribute->where('system_type_id','=', $system_type);
             }
-           
+
             $attributes = $attribute ->orderBy('display_order', 'ASC')->get();
-            
+
             $html = '';
             $html .= view('attribute_values.partials.select-attribute', compact('attributes'))->render();
-            
+
             return response()->json(['html' => $html, 'success' => true]);
         }
     }

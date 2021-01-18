@@ -19,12 +19,12 @@
                                 <div class="col-kemey col-kemey-two">
                                     <div class="row d-flex align-items-center">
                                         <input type="hidden" id="selected_system_type" name="selected_system_type" value="">
-                                        @foreach($system_types as $system_type) 
+                                        @foreach($system_types as $system_type)
                                             <div class="col-xl-6 col-md-6">
                                                 <button type="button" class="system_type" data-name="{{ $system_type->name }}" data-id="{{ $system_type->id }}">{{ $system_type->name }}</button>
                                             </div>
                                         @endforeach
-                                     
+
                                         <div class="col-xl-6 col-md-12 pl-xl-3">
                                             <p class="ml-xl-5 pl-xl-5">
                                                 {{-- Lorem Ipsum is simply dummy text of the printing and typesetting industry.  --}}
@@ -45,7 +45,7 @@
                                         <button type="button" class="standard {{ $standard->name }}" data-name="{{ $standard->name }}" data-id="{{ $standard->id }}">{{ $standard->name }}</button>
                                         </div>
                                     @endforeach
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -74,13 +74,13 @@
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
                         <div class="card card-body">
                             <input type="hidden" name="selected_camera_attributes_1">
-                        
+
                             <div id="camera_attribute_div">
-                               
+
                                     @if(!empty($attribute_camera))
                                     {!! $attrribute_camera !!}
                                     @endif
-                               
+
 
                             </div>
 
@@ -91,7 +91,7 @@
                                     <div class="col-xl-3 col-md-6">
                                     <button type="button" class="next_type" data-product_type="camera">{{ __('site.Next Type of Cameras') }}</button>
                                     </div>
-                            
+
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -194,8 +194,8 @@
               </div>
             </div>
           </div>
-        
-        
+
+
 </form>
 
 
@@ -215,12 +215,12 @@
         var system_type_name= $(this).data('name');
         $('#selected_system_type').val(system_type);
         if(system_type_name == 'HD Analogue system'){
-           $(".Professional").hide(); 
+           $(".Professional").hide();
         }else{
-            $(".Professional").show(); 
+            $(".Professional").show();
         }
 
-    });  
+    });
 
 
 
@@ -265,57 +265,47 @@
                 $('input[name="recorder_count"]').val(data.count);
 
             },
-            
+
         });
 
 
 
-    });   
+    });
 
     $(document).on('change', '.attribute',function(){
         var attribute_value_arr = [];
         var cam_attribute_value_arr  = [];
         var rec_attribute_value_arr = [];
         var ele = $(this);
-        
-        
+
+
         var system_type = $(this).data('system_type');
         var product_type = $(this).data('product_type');
         var count = $('input[name="'+ product_type +'_count"]').val();
-      
-        //console.log($(this).data('product_type'));
-
+        var selected_attributes = [];
 
         $('.attribute', '.'+product_type+'_div_'+ count).each(function(){
-            
+
             if($(this).val() != ''){
-           
+                selected_attributes[$(this).data('attribute')] = $(this).val();
                 if($(ele).data('product_type') == 'camera'){
-                 
+
                     cam_attribute_value_arr.push($(this).val());
                 }else{
                     rec_attribute_value_arr.push($(this).val());
                 }
             }
-            
-        
+
+
         });
-        
+
         if($(ele).data('product_type') == 'camera'){
-            var attribute_val = cam_attribute_value_arr.join(','); 
+            var attribute_val = cam_attribute_value_arr.join(',');
              $('input[name="selected_'+ product_type +'_attributes_'+ count +'"]').val(attribute_val);
         }else if($(ele).data('product_type') == 'recorder'){
             var attribute_val = rec_attribute_value_arr.join(',');
             $('input[name="selected_'+ product_type +'_attributes_'+ count +'"]').val(attribute_val);
         }
-
-        //console.log(attribute_val);
-      
-        //console.log( $('input[name="selected_'+ product_type +'_attributes_'+ count +'"]').val());
-        
-
-        
-        
 
         $.ajax({
             method: 'post',
@@ -326,10 +316,11 @@
                 'system_type': system_type,
                 'product_type': product_type,
                 'count': count,
+                'selected_attributes': selected_attributes
             },
             success: function(data){
                 if(data.success == true && data.html != ''){
-                    
+
                     if(data.product_type == 'camera'){
 
                         $('.'+product_type+'_div_'+count).empty();
@@ -403,7 +394,7 @@
                     }).then((value) => {
                         location.reload();
                     });
-                    
+
                 }else{
                     swal({
                         title: "Error",
@@ -451,9 +442,7 @@
 
                     return true;
                    }
-                    
-                }else{
-                  
+
                 }
             }
         });

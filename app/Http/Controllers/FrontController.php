@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Validator;
 
 class FrontController extends Controller
 {
-    
+
     public function home(){
         $system_types = SystemType::orderBy('id', 'ASC')->get();
         $standards = Standard::orderBy('id', 'ASC')->get();
-    
+
         return view('frontend.home', compact('standards', 'system_types'));
     }
 
@@ -39,10 +39,10 @@ class FrontController extends Controller
             $html_camera .= view('frontend.extras.filter', compact('attribute_camera', 'system_type', 'i'))->render();
             $html_recorder .= view('frontend.extras.filter', compact('attribute_recorder', 'system_type', 'i'))->render();
 
-         
+
 
             return response()->json(['success'=> true, 'html_camera' => $html_camera, 'html_recorder' => $html_recorder, 'count'=> $i]);
-            
+
         }
     }
 
@@ -51,113 +51,46 @@ class FrontController extends Controller
             $system_type = $request->input('system_type');
             $product_type = $request->input('product_type');
             $count = $request->input('count');
-            //dd($product_type);
-            
             $attribute_value_id = $request->input('attribute_value');
             $attribute_value_id = explode(',', $attribute_value_id);
-        
+            $selected_attributes = $request->input('selected_attributes');
 
             $products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
-                            ->whereHas('product_attributes.attribute', function($q)use($product_type){
-                                $q->where('type', $product_type);
-                            });
-                           
+                        ->whereHas('product_attributes.attribute', function($q)use($product_type){
+                            $q->where('type', $product_type);
+                        });
 
-                            if(is_array($attribute_value_id)){
-                                foreach($attribute_value_id as $id){
-                                    if($id != 'unimportant'){
-                                        $products->whereHas('product_attributes', function($q) use($id){
-                                            $q->where('attribute_value_id', $id);
-                                    
-                                        });
-                                    }
-                                  
-                                }
-                            }else{
-                                if($attribute_value_id != 'unimportant'){
-                                    $products->whereHas('product_attributes', function($q) use($attribute_value_id){
-                                        $q->where('attribute_value_id', $attribute_value_id);
-                                
-                                    });
-                                }
-                            
-                            }
 
-            $products->whereHas('product_attributes.attribute', function($q){
-                            $q->orderBy('display_order', 'ASC');
-                        })->where('system_type_id', $system_type)->where('type', $product_type);
-                          
-            $products = $products->get();
-            //dd($products);
-                    
-            $attributes=$display_order = [];
+            foreach($attribute_value_id as $id){
+                if($id != 'unimportant'){
+                    $products->whereHas('product_attributes', function($q) use($id){
+                        $q->where('attribute_value_id', $id);
+                    });
+                }
 
+            }
+
+            $products = $products->where('system_type_id', $system_type)->where('type', $product_type)->get();
+
+            $all_attributes = Attribute::with('attribute_values')->where('type', $product_type)->orderBy('display_order', 'ASC')->get();
+            $attributes = array();
             if(!empty($products) && count($products) > 0){
-
                 foreach($products as $product){
-                
+
                     if(!empty($product->product_attributes)){
-                    
+
                         foreach($product->product_attributes as $product_attribute){
 
-                            if(!empty($product_attribute) && !empty($product_attribute->attribute)){
-                                $attribute_values = [];
-                                foreach($product_attribute->attribute->attribute_values as $attribute_value){
-                                
-                                    if(!in_array_r($product_attribute->attribute->id, $attributes)){
-                                        
-                                            $attribute_values[$attribute_value->id] = $attribute_value->value;
-                                        // dd('has', $attribute_values );
-                                        $attributes[$product_attribute->attribute_id] = ['attribute_name' => $product_attribute->attribute->name, 'attribute_values' => $attribute_values];
-                                    }else{
-                                    // dd('hs not');
-                                        if(!in_array_r($attribute_value->id,  $attributes[$product_attribute->attribute_id]['attribute_values'])){
-                                            $attribute_values[$attribute_value->id] = $attribute_value->value;
-                                            $attributes[$product_attribute->attribute_id] = ['attribute_name' => $product_attribute->attribute->name, 'attribute_values' => $attribute_values];
-                                        } 
-                                    }
-                                } 
-                                $attribute_values = [];
-
-                            }
+                            $attributes[$product_attribute->attribute_id][] = $product_attribute->attribute_value_id;
                         }
-                    } 
-                }   
-           //dd($attributes[189]);
-            }else{
-
-                $fetch_attributes = Attribute::with('attribute_values')->where('type', $product_type);
-            
-                $fetch_attributes->whereHas('attribute_values', function($q) use($attribute_value_id){
-                    $q->whereIn('id', $attribute_value_id);
-            
-                });
-
-                $fetch_attributes = $fetch_attributes->orderBy('display_order', 'ASC')->get();
-        
-                foreach($fetch_attributes as $attribute){
-            
-                    foreach($attribute->attribute_values as $attribute_value){
-                    
-                        if(!in_array_r($attribute->id, $attributes)){
-                                $attribute_values[$attribute_value->id] = $attribute_value->value;
-                        }else{
-                            if(!in_array_r($attribute_value->id,  $attributes[$attribute->id]['attribute_values'])){
-                                $attribute_values[$attribute_value->id] = $attribute_value->value;
-                            } 
-                        }
-                    } 
-                    $attributes[$attribute->id] = ['attribute_name' => $attribute->name, 'attribute_values' => $attribute_values];
-                    $attribute_values = [];
-                }            
+                    }
+                }
             }
-           // dd($attributes);
-    
             $html='';
-            
+
             $i = $count;
-            
-            $html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'product_type', 'attribute_value_id', 'i'))->render();
+
+            $html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'product_type', 'selected_attributes','all_attributes', 'i'))->render();
             //dd($html);
             return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type]);
         }
@@ -174,22 +107,22 @@ class FrontController extends Controller
 
 
             $attributes_new_product = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type', $product_type)->get();
-          
+
             $html = $attribute_html = '';
 
-           
+
             $attribute_html .= view('frontend.extras.filter', compact('attributes_new_product', 'system_type', 'i', 'product_type'))->render();
-       
+
             $html .= view('frontend.extras.new-type', compact('attribute_html', 'system_type', 'i', 'product_type'))->render();
-       
+
            // dd($html_recorder);
 
             return response()->json(['success'=> true, 'html' => $html, 'count'=> $i]);
-                
+
 
         }
     }
-    
+
     public function saveEnquiry(Request $request)
     {
         //dd($request->products['camera'][1]);
@@ -201,9 +134,9 @@ class FrontController extends Controller
         // if ($validator->fails()) {
         //     return response()->json(['success'=> false, 'errors' => $validator->errors()]);
         // }
-        
 
-        
+
+
         $quantities = $request->input('quantity');
         $products = $request->input('products');
         $standard_id = $request->input('selected_standard');
@@ -213,7 +146,7 @@ class FrontController extends Controller
         if(!empty($products))
         {
             foreach($products as $product_type => $product){
-        
+
                 foreach($product as $no => $attributes){
 
                     foreach($attributes as $key => $attribute){
@@ -221,20 +154,20 @@ class FrontController extends Controller
                         if($attribute != NULL){
                         // dd($quantities[$product_type][$no]);
                             $product_arr[$product_type][$no][$key] = $attribute;
-                        
-                            
+
+
                         }
-                    
+
                     }
                     if(!empty($quantities[$product_type][$no])){
                         $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
                     }
-                
-                }   
+
+                }
 
             }
         }
-    
+
 
         $product_arr = json_encode($product_arr);
         $quantity_arr = json_encode($quantity_arr);
@@ -253,19 +186,18 @@ class FrontController extends Controller
         ]);
        
 
-        
+
 
         if($enquiry){
             $products = json_decode($product_arr, true);
             $quantities = json_decode($quantity_arr, true);
-
-            Mail::to('navjot.technaitra@gmail.com')->send(new EnquiryMail($products, $quantities));
+            Mail::to(config('app.admin_email'))->send(new EnquiryMail($products, $quantities));
 
             return response()->json(['success'=> true, 'message'  => __('message.Enquiry Sent Successfully')]);
         }else{
             return response()->json(['success'=> false, 'message'  => __('message.Failed Sending enquiry! Try again')]);
         }
-        
+
 
     }
 
@@ -277,7 +209,7 @@ class FrontController extends Controller
         $quantity_arr = [];
         $product_arr = [];
         foreach($products as $product_type => $product){
-      
+
             foreach($product as $no => $attributes){
 
                 foreach($attributes as $key => $attribute){
@@ -285,16 +217,16 @@ class FrontController extends Controller
                     if($attribute != NULL){
                        // dd($quantities[$product_type][$no]);
                         $product_arr[$product_type][$no][$key] = $attribute;
-                      
-                        
+
+
                     }
-                   
+
                 }
                 if(!empty($quantities[$product_type][$no])){
                     $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
                 }
-               
-            }   
+
+            }
 
         }
 
@@ -304,7 +236,7 @@ class FrontController extends Controller
             $html = view('enquiries.partials.pdf', compact('products', 'quantities'))->render();
            // dd($html);
             return response()->json(['success' => true, 'html' => $html]);
-        
+
     }
 
 
