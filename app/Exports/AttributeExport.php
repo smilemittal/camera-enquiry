@@ -16,7 +16,9 @@ class AttributeExport implements FromArray ,WithTitle
     */
     public function array(): array
     {
+        
         $data = [];
+        
         $data[] = [
             'attribute' =>'Attribute',
             'attribute_value' => 'Attribute_value',
@@ -41,8 +43,19 @@ class AttributeExport implements FromArray ,WithTitle
                     'description'=>$attribute->description,
                  ];
              } 
+            }else {
+                $data[] = [
+                    'attribute' => $attribute->name,
+                    'attribute_value' =>'',
+                    'display_order'=> $attribute->display_order,
+                    'system_type'=>$attribute->system_type->name,
+                    'type'=>$attribute->type,
+                    'description'=>$attribute->description,
+                 ];
+
             }
         }
+      //  dd($data); 
         return($data);
     }
 
