@@ -197,7 +197,7 @@ class AttributeController extends Controller
             Excel::import(new AttributeValuesImport, request()->file('import-attribute-values'));
         }
 
-        return redirect()->route('attribute-values.import')->with('success',__('Message.Attributes Imported successfully'));
+        return redirect()->route('attribute.import')->with('success',__('message.Attributes Imported successfully'));
     }
 
     public function export()

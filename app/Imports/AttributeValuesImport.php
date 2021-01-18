@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\Product;
 use App\Models\AttributeValue;
 use App\Models\Attribute;
+use App\Models\SystemType;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -18,16 +19,28 @@ class AttributeValuesImport implements ToCollection, WithHeadingRow
     */
     public function collection(Collection $rows)
     {
+     
         
       foreach($rows as $row){
 
-          if(!empty($row['name']) && $row['name'] != null){
-
-             $attribute= Attribute::where('name','LIKE', $row['name'])->where('system_type_id','LIKE', $row['system_type_id'])->first();
-
+          if(!empty($row['attribute']) && $row['attribute'] != null){
+          
+              //get system type, if exists, get id, otherwise create new system type and get its id
+              $system_type = SystemType::where('name', 'LIKE', $row['system_type'])->first();
+              if($system_type){
+                  $system_type_id = $system_type->id;
+              }else{
+                  $system_types = SystemType::create([
+                      'name' => $row['system_type'],
+                  ]);
+                  $system_type_id = $system_types->id;
+              }
+            $description = $row['description'];
+             $attribute= Attribute::where('name','LIKE', $row['attribute'])->where('system_type_id','LIKE',   $system_type_id )->first();
+            
               if(!$attribute)
               {
-                $attributes = Attribute::create(['name' => $row['name'], 'type' => $row['type'] ,'display_order'=>$row['display_order'] , 'system_type_id' => $row['system_type_id']]);
+                $attributes = Attribute::create(['name' => $row['attribute'], 'type' => $row['type'] ,'display_order'=>$row['display_order'] , 'system_type_id' => $system_type_id , 'description' => $row['description']]);
                 $attribute_id =$attributes->id;
               }
               else
@@ -35,14 +48,16 @@ class AttributeValuesImport implements ToCollection, WithHeadingRow
                 $attribute_id =$attribute->id;
               }
               $display_order =$row['display_order'];
-              $system_type_id = $row['system_type_id'];
-                  $attribute_values= AttributeValue::where('attribute_id', $attribute_id)->where('value', 'LIKE', $row['value'])->where('system_type_id','LIKE', $row['system_type_id'])->where('type','LIKE',$row['type'])->first();
+              $system_type = $row['system_type'];
+            
+                  $attribute_values= AttributeValue::where('attribute_id', $attribute_id)->where('value', 'LIKE', $row['attribute_value'])->where('system_type_id','LIKE', $system_type_id)->where('type','LIKE',$row['type'])->first();
 
                   if(!$attribute_values){
 
-                      $attribute_value = AttributeValue::create(['attribute_id' => $attribute_id, 'type' => $row['type'] ,'value' => $row['value'],'display_order'=>$row['display_order'] , 'system_type_id' => $row['system_type_id']]);
+                      $attribute_value = AttributeValue::create(['attribute_id' => $attribute_id, 'type' => $row['type'] ,'value' => $row['attribute_value'],'display_order'=>$row['display_order'] , 'system_type_id' => $system_type_id]);
 
                       $attribute_value_id =$attribute_value->id;
+                     
                   }
                   else
                   {
