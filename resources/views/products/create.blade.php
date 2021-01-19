@@ -82,12 +82,11 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="type">{{ __('site.Type')}}</label>
-                                                    <select name="type" id="type" class="form-control">
-                                                            <option value="">Select</option>  
-                                                            <option value="camera">Camera</option>
-                                                            <option value="nvr">Nvr</option>
-                                                            <option value="recorder">Recorder</option>
-                                                            <option value="switch">Switch</option>
+                                                    <select name="type_id" id="type_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($types as $type)
+                                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -137,30 +136,30 @@
 
 @section('scripts')
     <script>
-        $('#type').on('change', function(){
-            var type = $(this).val();
-            var system_type_id = $("#system_type_id option:selected").val();
+        // $('#type').on('change', function(){
+        //     var type = $(this).val();
+        //     var system_type_id = $("#system_type_id option:selected").val();
 
-            $.ajax({
-                method: 'post',
-                url: '{{ route('get-product-attributes') }}',
-                data: {
-                    'type': type,
-                    'system_type_id': system_type_id,
-                    '_token': '{{ csrf_token() }}',
-                },
-                success: function(data){
+        //     $.ajax({
+        //         method: 'post',
+        //         url: '{{ route('get-product-attributes') }}',
+        //         data: {
+        //             'type': type,
+        //             'system_type_id': system_type_id,
+        //             '_token': '{{ csrf_token() }}',
+        //         },
+        //         success: function(data){
                    
-                    if(data.html != ''){
-                        $('#product_attribute_div').empty();
-                        $('#product_attribute_div').append(data.html);
-                        $('#add-attributes-div').show();   
-                    }else{
-                        $('#add-attributes-div').hide();
-                    }
-                }
-            });
-        });
+        //             if(data.html != ''){
+        //                 $('#product_attribute_div').empty();
+        //                 $('#product_attribute_div').append(data.html);
+        //                 $('#add-attributes-div').show();   
+        //             }else{
+        //                 $('#add-attributes-div').hide();
+        //             }
+        //         }
+        //     });
+        // });
 
         $('#system_type_id').on('change', function(){
             var type = $("#type option:selected").val()
@@ -172,6 +171,29 @@
                 data: {
                     'type': type,
                     'system_type_id': system_type_id,
+                    '_token': '{{ csrf_token() }}',
+                },
+                success: function(data){
+                    if(data.html != ''){
+                        $('#product_attribute_div').empty();
+                        $('#product_attribute_div').append(data.html);
+                        $('#add-attributes-div').show();   
+                    }else{
+                        $('#add-attributes-div').hide();
+                    }
+                }
+            });
+        });
+        $('#type_id').on('change', function(){
+            var type = $("#type_id option:selected").val()
+            var type_id = $(this).val();;
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('get-product-attributes') }}',
+                data: {
+                    'type': type,
+                    'type_id': type_id,
                     '_token': '{{ csrf_token() }}',
                 },
                 success: function(data){

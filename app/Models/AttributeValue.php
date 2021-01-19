@@ -12,7 +12,7 @@ class AttributeValue extends Model
     use SoftDeletes;
     
     protected $table='attribute_values';
-    protected $fillable=['attribute_id','value','display_order','system_type_id', 'type'];
+    protected $fillable=['attribute_id','value','display_order','system_type_id', 'type_id'];
 
     public function system_type()
     {
@@ -22,6 +22,10 @@ class AttributeValue extends Model
     public function attribute()
     {
         return $this->belongsTo('App\Models\Attribute');
+    }
+    public function type()
+    {
+        return $this->belongsTo('App\Models\Type');
     }
 
 }

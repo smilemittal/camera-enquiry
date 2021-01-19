@@ -70,7 +70,7 @@
                                                     <tr>
                                                         <th>{{ __('site.ID')}}</th>
                                                         <th>{{ __('site.Attribute Name')}}</th>
-                                                        <th>{{__('site.Type')}}</th>
+                                                        <th>{{__('site.Type ID')}}</th>
                                                         <th>{{ __('site.Display Order')}}</th>
                                                         <th>{{ __('site.System Type')}}</th>
                                                         <th>{{ __('site.Description')}}</th>
@@ -85,7 +85,7 @@
                                                 <tr>
                                                         <th>{{ __('site.ID')}}</th>
                                                         <th>{{ __('site.Attribute Name')}}</th>
-                                                        <th>{{__('site.Type')}}</th>
+                                                        <th>{{__('site.Type ID')}}</th>
                                                         <th>{{ __('site.Display Order')}}</th>
                                                         <th>{{ __('site.System Type')}}</th>
                                                         <th>{{ __('site.Description')}}</th>
@@ -129,7 +129,7 @@
                 "columns": [
                     { "data": "id" },
                     { "data": "name" },
-                    { "data": "type" },
+                    { "data": "type_id" },
                     { "data": "display_order" },
                     { "data": "system_type_id" },
                     { "data": "description" },

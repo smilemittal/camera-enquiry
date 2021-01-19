@@ -71,13 +71,11 @@
                                             <div class="form-body">
                                                         <div class="form-group">
                                                             <label for="type">{{ __('site.Type')}}</label>
-
-                                                                <select id="type" name="type"  class="form-control">
-                                                                        <option value="camera" @if($attribute->type == 'camera') selected  @endif>Camera</option>
-                                                                        <option value="nvr" @if($attribute->type == 'nvr') selected  @endif>Nvr</option>
-                                                                        <option value="recorder" @if($attribute->type == 'camera') selected  @endif>Recorder</option>
-                                                                        <option value="switch" @if($attribute->type == 'switch') selected  @endif>Switch</option>
-                                                                </select>
+                                                            <select name="type_id" id="type_id" class="form-control">
+                                                                @foreach($types ?? '' as $type)
+                                                                    <option value="{{ $type->id }}" {{ $attribute->type_id == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
+                                                                @endforeach 
+                                                               </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="system_type_id">{{ __('site.System Type')}}</label>

@@ -69,7 +69,9 @@
 					'File'						=>'File',
 					'Download'					=>'Download',
 					'Description'				=>'Description',
-					
+					'Types'						=>'Types',
+					'Type'						=>'Type',
+					'Type ID'					=>'Type ID'
 
 					
 

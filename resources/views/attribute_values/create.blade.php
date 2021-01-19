@@ -56,12 +56,11 @@
                                             <div class="form-body">
                                                 <div class="form-group">
                                                     <label for="type">{{ __('site.Type')}}</label>
-                                                    <select name="type" id="type" class="form-control">
-                                                            <option value="">Select</option>  
-                                                            <option value="camera">Camera</option>
-                                                            <option value="nvr">Nvr</option>
-                                                            <option value="recorder">Recorder</option>
-                                                            <option value="switch">Switch</option>
+                                                    <select name="type_id" id="type_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($types as $type)
+                                                           <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="form-group">

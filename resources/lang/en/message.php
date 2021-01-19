@@ -26,5 +26,9 @@
 	'Enquiry deleted successfully'			=>  'Enquiry deleted successfully',
 	'Enquiry Sent Successfully'				=> 'Enquiry Sent Successfully,',
 	'Failed Sending enquiry! Try again'		=> 'Failed Sending enquiry! Try again',
+	'Type added successfully'				=>'Type added successfully',
+	'Type deleted successfully'				=>'Type deleted successfully',
+	'Type updated successfully'				=>'Type updated successfully',
+	'Types Imported successfully'			=>'Types Imported successfully'
   ];
 ?>
