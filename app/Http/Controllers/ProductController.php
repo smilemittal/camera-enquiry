@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Standard;
 use App\Models\Attribute;
 use App\Models\SystemType;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Models\ProductAttribute;
 use Illuminate\Validation\Rule;
@@ -36,8 +37,9 @@ class ProductController extends Controller
     public function create()
     {
         $system_types = SystemType::all();
+        $types = Type::all();
         $standards = Standard::all();
-        return view('products.create', compact('system_types', 'standards'));
+        return view('products.create', compact('system_types', 'standards','types'));
     }
 
     /**
@@ -51,13 +53,13 @@ class ProductController extends Controller
 
         $this->validate($request, [
             'name'=>'required|max:50',
-            'type'=>'required',
+            'type_id'=>'required',
             'system_type_id'=>'required',
             'standard_id'=>'required',
         ]);
         $product = Product::create([
                         'name' => $request->input('name'),
-                        'type' => $request->input('type'),
+                        'type_id' => $request->input('type_id'),
                         'system_type_id' => $request->input('system_type_id'),
                         'standard_id' => $request->input('standard_id'),
                     ]);
@@ -103,9 +105,10 @@ class ProductController extends Controller
             $attribute_ids[] = $product_attribute->attribute_id;
         }
         $standards = Standard::all();
-        $attributes= Attribute::with('attribute_values')->where('created_at', '!=', Null)->where('type', $product->type)->where('system_type_id', $product->system_type_id)->get();
+        $attributes= Attribute::with('attribute_values')->where('created_at', '!=', Null)->where('type_id', $product->type_id)->where('system_type_id', $product->system_type_id)->get();
         $system_types = SystemType::all();
-        return view('products.edit', compact('product', 'system_types', 'attribute_ids', 'attribute_value_ids', 'attributes', 'standards'));
+        $types = Type::all();
+        return view('products.edit', compact('product', 'system_types','types', 'attribute_ids', 'attribute_value_ids', 'attributes', 'standards'));
     }
 
     /**
@@ -119,7 +122,7 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'name'=>'required|max:50|'.Rule::unique('products')->ignore($id)->whereNull('deleted_at'),
-            'type' => 'required',
+            'type_id' => 'required',
             'system_type_id' => 'required',
             'standard_id' => 'required',
         ]);
@@ -128,7 +131,7 @@ class ProductController extends Controller
         $product=Product::find($id);
         $product->update([
             'name' => $request->input('name'),
-            'type' => $request->input('type'),
+            'type_id' => $request->input('type_id'),
             'system_type_id' => $request->input('system_type_id'),
             'standard_id' => $request->input('standard_id'),
         ]);
@@ -222,14 +225,14 @@ class ProductController extends Controller
 
     public function getProductAttributes(Request $request){
         if($request->ajax()){
-            $type = $request->type;
+            $type = $request->type_id;
             $system_type = $request->system_type_id;
 
             $attribute= Attribute::with('attribute_values')->where('created_at', '!=', Null);
 
             if(!empty($type)){
 
-                $attribute->where('type','=' ,$type);
+                $attribute->where('type_id','=' ,$type);
             }
 
             if(!empty($system_type)){

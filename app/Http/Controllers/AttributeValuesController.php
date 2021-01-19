@@ -6,6 +6,7 @@ use Illuminate\Validation\Rule;
 use Excel;
 use App\Models\Attribute;
 use App\Models\SystemType;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
 use App\Imports\AttributeValuesImport;
@@ -35,8 +36,9 @@ class AttributeValuesController extends Controller
     {
         $attributes=Attribute::all();
         $system_types=SystemType::all();
+        $types=Type::all();
 
-        return view('attribute_values.create',compact('attributes','system_types'));
+        return view('attribute_values.create',compact('attributes','system_types','types'));
     }
 
     /**
@@ -82,8 +84,9 @@ class AttributeValuesController extends Controller
         $attribute_value=AttributeValue::find($id);
         $attributes=Attribute::all();
         $system_types=SystemType::all();
+        $types=Type::all();
 
-        return view('attribute_values.edit',compact('attributes','attribute_value','system_types'));
+        return view('attribute_values.edit',compact('attributes','attribute_value','system_types','types'));
     }
 
     /**

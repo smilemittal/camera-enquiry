@@ -33,6 +33,19 @@
                     </ul>
                 </li>
                 <li class=" nav-item">
+                    <a href="#"><i class="ft-edit"></i>
+                        <span class="menu-title" data-i18n="">{{__('site.Types')}}</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="">
+                            <a class="menu-item" href="{{ route('types.create') }}">{{__('site.Add')}}</a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="{{ route('types.index') }}">{{__('site.List')}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item">
                     <a href="#"><i class="ft-layers"></i>
                         <span class="menu-title" data-i18n="">{{__('site.Standards')}}</span>
                     </a>

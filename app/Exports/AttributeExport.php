@@ -28,7 +28,7 @@ class AttributeExport implements FromArray ,WithTitle
             'description'=>'Description',
 
          ];
-        $attributes= Attribute::with('attribute_values','system_type')->get();
+        $attributes= Attribute::with('attribute_values','system_type','type')->get();
         foreach($attributes as $attribute){
             if(!empty($attribute->attribute_values) && count($attribute->attribute_values) > 0){
              foreach($attribute->attribute_values as $attribute_value)
@@ -39,7 +39,7 @@ class AttributeExport implements FromArray ,WithTitle
                     'attribute_value' => $attribute_value->value,
                     'display_order'=> $attribute->display_order,
                     'system_type'=>$attribute->system_type->name,
-                    'type'=>$attribute->type,
+                    'type'=>!empty($attribute->type) ?$attribute->type->name: '',
                     'description'=>$attribute->description,
                  ];
              } 
@@ -49,7 +49,7 @@ class AttributeExport implements FromArray ,WithTitle
                     'attribute_value' =>'',
                     'display_order'=> $attribute->display_order,
                     'system_type'=>$attribute->system_type->name,
-                    'type'=>$attribute->type,
+                    'type'=>$attribute->type->name,
                     'description'=>$attribute->description,
                  ];
 

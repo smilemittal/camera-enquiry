@@ -92,12 +92,11 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="type">{{ __('site.Type')}}</label>
-                                                    <select name="type" id="type" class="form-control">
-                                                            <option value="">Select</option>  
-                                                            <option value="camera" @if($product->type == 'camera') selected @endif>Camera</option>
-                                                            <option value="nvr" @if($product->type == 'nvr') selected @endif>Nvr</option>
-                                                            <option value="recorder" @if($product->type == 'recorder') selected @endif>Recorder</option>
-                                                            <option value="switch" @if($product->type == 'switch') selected @endif>Switch</option>
+                                                    <select name="type_id" id="type_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($types as $type)
+                                                            <option value="{{ $type->id }}"  @if($product->type_id == $type->id) selected @endif>{{ $type->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <hr>

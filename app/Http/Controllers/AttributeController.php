@@ -6,6 +6,7 @@ use Excel;
 use Illuminate\Http\Request;
 use App\Models\SystemType;
 use App\Models\Attribute;
+use App\Models\Type;
 use App\Exports\AttributeExport;
 use App\Imports\AttributeValuesImport;
 
@@ -36,7 +37,8 @@ class AttributeController extends Controller
     public function create()
     {
         $system_types = SystemType::all();
-        return view('attribute.create', compact('system_types'));
+        $types = Type::all();
+        return view('attribute.create', compact('system_types','types'));
     }
 
     /**
@@ -49,7 +51,7 @@ class AttributeController extends Controller
     {
         $this->validate($request, [
             'name'=>'required|max:50',
-            'type'=>'required',
+            'type_id'=>'required',
             'display_order'=>'required',
             'system_type_id'=>'required',
             'description' =>'required'
@@ -81,7 +83,8 @@ class AttributeController extends Controller
     {
         $attribute=Attribute::find($id);
         $system_types = SystemType::all();
-        return view('attribute.edit', compact('attribute','system_types'));
+        $types = Type::all();
+        return view('attribute.edit', compact('attribute','system_types','types'));
     }
 
     /**
@@ -95,7 +98,7 @@ class AttributeController extends Controller
     {
         $this->validate($request, [
             'name'=>'required|max:50',
-            'type'=>'required',
+            'type_id'=>'required',
             'display_order'=>'required',
             'system_type_id'=>'required',
             'description' =>'required'
@@ -126,7 +129,7 @@ class AttributeController extends Controller
         $columns = array(
             0=>'id',
             1 =>'name',
-            2 =>'type',
+            2 =>'type_id',
             3 =>'display_order',
             4 =>'system_type_id',
             5 =>'description',
@@ -159,7 +162,7 @@ class AttributeController extends Controller
             foreach ($attributes as $key => $attribute) {
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = ucfirst($attribute->name);
-                $nestedData['type'] =ucfirst($attribute->type);
+                $nestedData['type_id'] =!empty($attribute->type) ? $attribute->type->name : '';
                 $nestedData['display_order'] = $attribute->display_order;
                 $nestedData['system_type_id'] = !empty($attribute->system_type) ? $attribute->system_type->name : '';
                 $nestedData['description'] = $attribute->description;

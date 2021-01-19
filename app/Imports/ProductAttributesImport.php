@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Product;
 use App\Models\Standard;
+use App\Models\Type;
 use App\Models\Attribute;
 use App\Models\SystemType;
 use App\Models\AttributeValue;
@@ -31,7 +32,16 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
             if(!empty($row['model']) && $row['model'] != null){
 
                 $display_order =$row['display_order'];
-                $type = $row['type'];
+                // $type = $row['type'];
+                $type = Type::where('name', 'LIKE', $row['type'])->first();
+                if($type){
+                    $type_id = $type->id;
+                }else{
+                    $types = Type::create([
+                        'name' => $row['type'],
+                    ]);
+                    $type_id = $types->id;
+                }
         
                 //get standard, if exists, get id, otherwise create new standard and get its id 
                 $standard = Standard::where('name', 'LIKE', $row['standards'])->first();
@@ -54,22 +64,22 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                     $system_type_id = $system_types->id;
                 }
                 //get product, if exists, get id, otherwise create new product and get its id
-                $product= Product::where('name','LIKE', $row['model'])->where('type', 'LIKE', $type)->where('system_type_id', $system_type_id)->where('standard_id', $standard_id)->first();
+                $product= Product::where('name','LIKE', $row['model'])->where('type_id', 'LIKE', $type_id)->where('system_type_id', $system_type_id)->where('standard_id', $standard_id)->first();
 
                 if(!$product){
-                    $products = Product::create(['name' => $row['model'], 'type' => $type, 'system_type_id' => $system_type_id, 'standard_id' => $standard_id]);
+                    $products = Product::create(['name' => $row['model'], 'type_id' => $type_id, 'system_type_id' => $system_type_id, 'standard_id' => $standard_id]);
                     $product_id =$products->id;
-                    $product_type = $products->type;
+                    $product_type = $products->type_id;
                 }else{
                     $product_id =$product->id;
-                    $product_type = $product->type;
+                    $product_type = $product->type_id;
                 }
             
                 foreach($row as $key => $value){
                     if($key != 'model' && $key != 'display_order' && $key != 'system_type' && $key != 'type' && $key != 'standards' && $value != null && $value != ''){
 
                     $attribute_display_order = 0;
-                    $latest_attribute = Attribute::where('system_type_id' , '=', $system_type_id)->where('type', $product_type)->orderBy('id', 'DESC')->first();
+                    $latest_attribute = Attribute::where('system_type_id' , '=', $system_type_id)->where('type_id', $product_type)->orderBy('id', 'DESC')->first();
 
                     if($latest_attribute){
                         $attribute_display_order = $latest_attribute->display_order + 1;
@@ -77,9 +87,9 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                         $attribute_display_order = $attribute_display_order + 1;
                     }
                     
-                    $attribute = Attribute::where('name', 'LIKE', $key)->where( 'system_type_id' , '=', $system_type_id)->where('type', $product_type)->first();
+                    $attribute = Attribute::where('name', 'LIKE', $key)->where( 'system_type_id' , '=', $system_type_id)->where('type_id', $product_type)->first();
                     if(!$attribute) {
-                        $attribute = Attribute::create(['name' => $key ,'display_order'=> $attribute_display_order , 'system_type_id' => $system_type_id, 'type'=> $product_type]);
+                        $attribute = Attribute::create(['name' => $key ,'display_order'=> $attribute_display_order , 'system_type_id' => $system_type_id, 'type_id'=> $product_type]);
 
                         $attribute_id =$attribute->id;
                     }else{
@@ -87,7 +97,7 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                     }
 
                     $attribute_value_display_order = 0;
-                    $latest_attribute_value = AttributeValue::where('system_type_id' , '=', $system_type_id)->where('type', $product_type)->orderBy('id', 'DESC')->first();
+                    $latest_attribute_value = AttributeValue::where('system_type_id' , '=', $system_type_id)->where('type_id', $product_type)->orderBy('id', 'DESC')->first();
 
                     if($latest_attribute_value){
                         $attribute_value_display_order = $latest_attribute_value->display_order + 1;
@@ -95,10 +105,10 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                         $attribute_value_display_order = $attribute_value_display_order + 1;
                     }
 
-                    $attribute_values= AttributeValue::where('attribute_id', $attribute_id)->where('value', 'LIKE', $value)->where('type', $product_type)->first();
+                    $attribute_values= AttributeValue::where('attribute_id', $attribute_id)->where('value', 'LIKE', $value)->where('type_id', $product_type)->first();
 
                     if(!$attribute_values){
-                        $attribute_value = AttributeValue::create(['attribute_id' => $attribute_id, 'value' => $value ,'display_order'=>$attribute_value_display_order , 'system_type_id' => $system_type_id ,'type'=> $product_type]);
+                        $attribute_value = AttributeValue::create(['attribute_id' => $attribute_id, 'value' => $value ,'display_order'=>$attribute_value_display_order , 'system_type_id' => $system_type_id ,'type_id'=> $product_type]);
 
                         $attribute_value_id =$attribute_value->id;
                     }else{

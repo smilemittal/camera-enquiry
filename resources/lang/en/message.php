@@ -14,7 +14,7 @@
 	'Product attributes added successfully'	=>	'Product attributes added  successfully',
 	'Product attributes updated successfully'=>	'Product attributes updated successfully',
 	'Product attributes deleted successfully'=>	'Product attributes deleted successfully',
-	'Products imported  successfully'		=>	'Products imported successfully',
+	'Products imported successfully'		=>	'Products imported successfully',
 	'Attribute value added successfully'	=>	'Attribute value added successfully',
 	'Attribute value updated successfully'  =>	'Attribute value updated successfully',
 	'Attribute value deleted successfully' 	=>	'Attribute value deleted successfully',
@@ -26,5 +26,9 @@
 	'Enquiry deleted successfully'			=>  'Enquiry deleted successfully',
 	'Enquiry Sent Successfully'				=> 'Enquiry Sent Successfully,',
 	'Failed Sending enquiry! Try again'		=> 'Failed Sending enquiry! Try again',
+	'Type added successfully'				=>'Type added successfully',
+	'Type deleted successfully'				=>'Type deleted successfully',
+	'Type updated successfully'				=>'Type updated successfully',
+	'Types Imported successfully'			=>'Types Imported successfully'
   ];
 ?>

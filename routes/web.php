@@ -26,6 +26,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('system-types/fetchtypes','SystemTypesController@getSystemTypes')->name('get.system_types');
     Route::resource('system-types', 'SystemTypesController');
 
+    
+    Route::get('types/import','TypesController@importTypes')->name('types.import');
+    Route::get('types/export','TypesController@export')->name('types.export');
+    Route::resource('types', 'TypesController');
+    Route::post('types/fetchtypes','TypesController@getTypes')->name('get.types');
+    Route::post('types/post-import','TypesController@postImport')->name('types.post-import');
+    
+
+
     Route::get('standards/import', 'StandardsController@importStandards')->name('standards.import');
     Route::post('standards/post-import', 'StandardsController@postImport')->name('standards.post-import');
     Route::get('standards/export','StandardsController@export')->name('standards.export');
