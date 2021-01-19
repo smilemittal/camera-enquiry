@@ -38,7 +38,7 @@ class AttributeExport implements FromArray ,WithTitle
                     'attribute' => $attribute->name,
                     'attribute_value' => $attribute_value->value,
                     'display_order'=> $attribute->display_order,
-                    'system_type'=>$attribute->system_type->name,
+                    'system_type'=>!empty($attribute->system_type)?$attribute->system_type->name: '',
                     'type'=>!empty($attribute->type) ?$attribute->type->name: '',
                     'description'=>$attribute->description,
                  ];
@@ -48,8 +48,8 @@ class AttributeExport implements FromArray ,WithTitle
                     'attribute' => $attribute->name,
                     'attribute_value' =>'',
                     'display_order'=> $attribute->display_order,
-                    'system_type'=>$attribute->system_type->name,
-                    'type'=>$attribute->type->name,
+                    'system_type'=>!empty($attribute->system_type)?$attribute->system_type->name: '',
+                    'type'=>!empty($attribute->type) ?$attribute->type->name: '',
                     'description'=>$attribute->description,
                  ];
 
