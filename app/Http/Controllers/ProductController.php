@@ -108,6 +108,7 @@ class ProductController extends Controller
         $attributes= Attribute::with('attribute_values')->where('created_at', '!=', Null)->where('type_id', $product->type_id)->where('system_type_id', $product->system_type_id)->get();
         $system_types = SystemType::all();
         $types = Type::all();
+        
         return view('products.edit', compact('product', 'system_types','types', 'attribute_ids', 'attribute_value_ids', 'attributes', 'standards'));
     }
 

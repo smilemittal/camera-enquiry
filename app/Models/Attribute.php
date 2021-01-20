@@ -18,10 +18,10 @@ class Attribute extends Model
 
     public function system_type()
     {
-        return $this->belongsTo('App\Models\SystemType');
+        return $this->belongsTo('App\Models\SystemType','system_type_id', 'id');
     }
     public function type()
     {
-        return $this->belongsTo('App\Models\Type');
+        return $this->belongsTo('App\Models\Type','type_id', 'id');
     }
 }

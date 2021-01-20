@@ -16,16 +16,16 @@ class AttributeValue extends Model
 
     public function system_type()
     {
-        return $this->belongsTo('App\Models\SystemType');
+        return $this->belongsTo('App\Models\SystemType','syatem_type_id', 'id');
     }
 
     public function attribute()
     {
-        return $this->belongsTo('App\Models\Attribute');
+        return $this->belongsTo('App\Models\Attribute','attribute_id', 'id');
     }
     public function type()
     {
-        return $this->belongsTo('App\Models\Type');
+        return $this->belongsTo('App\Models\Type','type_id', 'id');
     }
 
 }
