@@ -173,7 +173,7 @@
             });
         });
         $('#system_type_id').on('change', function(){
-            var type = $("#type option:selected").val()
+            var type = $("#type_id option:selected").val()
             var system_type_id = $(this).val();;
             $.ajax({
                 method: 'post',
