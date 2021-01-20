@@ -153,7 +153,7 @@
 @endsection
 @section('scripts')
     <script>
-        $('#type').on('change', function(){
+        $('#type_id').on('change', function(){
             var type = $(this).val();
             var system_type_id = $("#system_type_id option:selected").val();
 
