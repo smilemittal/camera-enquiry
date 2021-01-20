@@ -15,17 +15,17 @@ class ProductAttribute extends Model
 
 	public function product()
 	{
-	return $this->belongsTo('App\Models\Product');
+	return $this->belongsTo('App\Models\Product','product_id', 'id');
 	}
 
 	public function attribute()
 	{
-	return $this->belongsTo('App\Models\Attribute')->orderBy('display_order', 'ASC');
+	return $this->belongsTo('App\Models\Attribute','attribute_id', 'id')->orderBy('display_order', 'ASC');
 	}
 
 	public function attribute_value()
 	{
-	return $this->belongsTo('App\Models\AttributeValue');
+	return $this->belongsTo('App\Models\AttributeValue','attribute_value_id', 'id');
 	
 	}
 }

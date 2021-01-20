@@ -16,13 +16,13 @@ class Product extends Model
         return $this->hasMany('App\Models\ProductAttribute', 'product_id', 'id');
     }
     public function standards(){
-        return $this->belongsTo('App\Models\Standards');
+        return $this->belongsTo('App\Models\Standard', 'standard_id', 'id');
     }
     public function system_types(){
-        return $this->belongsTo('App\Models\SystemType');
+        return $this->belongsTo('App\Models\SystemType', 'system_type_id', 'id');
     }
     public function types(){
-        return $this->belongsTo('App\Models\Type');
+        return $this->belongsTo('App\Models\Type','type_id', 'id');
     }
    
 }
