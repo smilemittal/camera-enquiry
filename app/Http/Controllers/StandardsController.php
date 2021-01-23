@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Imports\StandardsImport;
 use App\Exports\StandardsExport;
 use App\Models\Standard;
+use App\Models\SystemType;
 use Illuminate\Validation\Rule;
 
 class StandardsController extends Controller
@@ -29,8 +30,8 @@ class StandardsController extends Controller
      */
     public function create()
     {
-
-    return view('standards.create');
+        $system_types = SystemType::all();
+        return view('standards.create', compact('system_types'));
     }
 
     /**
@@ -43,6 +44,7 @@ class StandardsController extends Controller
     {
        $this->validate($request, [
             'name'=>'required|max:50|'.Rule::unique('standards')->whereNull('deleted_at'),
+            'system_type_id'=>'required',
         ]);
         Standard::create($request->all());
 
@@ -70,7 +72,8 @@ class StandardsController extends Controller
     public function edit($id)
     {
       $standard= Standard::find($id);
-      return view('standards.edit',compact('standard'));
+      $system_types = SystemType::all();
+      return view('standards.edit',compact('standard','system_types'));
 
 
     }
@@ -86,6 +89,7 @@ class StandardsController extends Controller
     {
             $this->validate($request, [
             'name'=>'required|max:50|'.Rule::unique('standards')->ignore($id)->whereNull('deleted_at'),
+            'system_type_id' => 'required',
         ]);
 
         $standard=Standard::find($id);
@@ -111,6 +115,14 @@ class StandardsController extends Controller
       return redirect()->route('standards.index')->with('deleted',__('message.Standard deleted successfully'));
 
     }
+    public function multipleDelete(Request $request)
+	{
+        $id = $request->bulk_delete;
+        
+        Standard::whereIn('id', $id)->delete();
+	
+		return redirect()->back();
+	}
 
     public function getStandard(Request $request) {
         $totalData = Standard::count();
@@ -142,6 +154,7 @@ class StandardsController extends Controller
         $data = array();
         if (!empty($standards)) {
             foreach ($standards as $key => $standard) {
+                $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$standard->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $standard->name;
                 $view = route('standards.index' ,  encrypt($standard->id));

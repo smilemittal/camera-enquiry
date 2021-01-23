@@ -124,6 +124,14 @@ class AttributeValuesController extends Controller
 
         return redirect()->route('attribute-values.index')->with('delete_success', __('message.Attribute value deleted successfully'));
     }
+    public function multipleDelete(Request $request)
+	{
+        $id = $request->bulk_delete;
+        
+        AttributeValue::whereIn('id', $id)->delete();
+	
+		return redirect()->back();
+	}
 
     /**
      * Fetching, Sorting attribute values and Pagination.
@@ -174,6 +182,7 @@ class AttributeValuesController extends Controller
         $data = array();
         if (!empty($attribute_values)) {
             foreach ($attribute_values as $key => $attribute_value) {
+                $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$attribute_value->id.'" />';
 
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['attribute_id'] = !empty($attribute_value->attribute) ?$attribute_value->attribute->name : '';

@@ -109,6 +109,14 @@ class TypesController extends Controller
 
    
     }
+    public function multipleDelete(Request $request)
+	{
+        $id = $request->bulk_delete;
+        
+        Type::whereIn('id', $id)->delete();
+	
+		return redirect()->back();
+	}
     public function getTypes(Request $request) {
         $totalData = Type::count();
         $totalFiltered = $totalData;
@@ -139,6 +147,7 @@ class TypesController extends Controller
         $data = array();
         if (!empty($types)) {
             foreach ($types as $key => $type) {
+                $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$type->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $type->name;
                 $index = route('types.index' ,  encrypt($type->id));

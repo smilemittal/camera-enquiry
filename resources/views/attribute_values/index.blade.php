@@ -5,6 +5,9 @@
 @section('content') 
 <!--BEGIN content-->
 <style>
+         #checkAll {
+    width: auto  !important;
+}
     .layout_btns {
     display: flex;
     justify-content: space-between;
@@ -39,6 +42,7 @@
                                     <h4>{{__('site.List')}}</h4>
                                     <div class="btns-right-side">
                                         <a href="{{ route('attribute-values.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{__('site.Add')}} </a>
+                                        <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button>
                                     </div>
                                     </div>
                                 </div>
@@ -61,9 +65,12 @@
                                     </div>
                                 @endif
                                     <div class="table-responsive">
+                                        <form class="form" action="{{ route('attribute_value.multipledelete') }}" method="post" id="{{ 'delete_all' }}">
+                                            @csrf
                                         <table class="table table-striped table-bordered zero-configuration" id="attribute-values" style="width: 100%; display: table;">
                                             <thead>
                                                 <tr>
+                                                    <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
                                                     <th>{{ __('site.ID')}}</th>
                                                     <th>{{ __('site.Attribute')}}</th>
                                                     <th>{{__('site.Value')}}</th>
@@ -74,6 +81,7 @@
                                             </thead>
                                             <tfoot>
                                                 <tr>
+                                                    <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
                                                     <th>{{ __('site.ID')}}</th>
                                                     <th>{{ __('site.Attribute')}}</th>
                                                     <th>{{__('site.Value')}}</th>
@@ -117,6 +125,7 @@
                     "data":{ _token: "{{csrf_token()}}",route:'{{route('attribute-values.index')}}'}
                 },
                 "columns": [
+                    { "data": "#" },
                     { "data": "id" },
                     { "data": "attribute_id" },
                     { "data": "value" },
@@ -127,11 +136,25 @@
                 aoColumnDefs: [
                     {
                         bSortable: false,
-                        aTargets: [ -1 ]
+                        aTargets: [ -1,0 ]
                     }
                 ]
             });
         });
     </script>
     <script src="{{asset('assets/js/scripts.js')}}" type="text/javascript"></script>
+    <script>
+        $('.checkboxes').click(function () {    
+     $('input:checkbox').prop('checked', this.checked);    
+ });
+ $(document).on('click','.page-link',function () {    
+
+     $('.checkboxes').removeAttr('checked');    
+ });
+ $('#deleteTrigger').on('click',function () {    
+     $('#delete_all').submit();    
+ });
+ 
+
+        </script>
 @endsection

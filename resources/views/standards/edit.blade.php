@@ -59,6 +59,15 @@
                                          @csrf 
                                             <div class="form-body">
                                                 <div class="form-group">
+                                                    <label for="system_type_id">{{ __('site.System Type')}}</label>
+                                                    <select name="system_type_id" id="system_type_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($system_types as $system_type)
+                                                            <option value="{{ $system_type->id }}"  @if($standard->system_type_id == $system_type->id) selected @endif>{{ $system_type->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="name">{{__('site.Name')}}</label>
                                                     <input type="text" id="name" class="form-control" placeholder="Name" name="name" value="{{$standard->name}}">
                                                 </div>
