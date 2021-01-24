@@ -27,13 +27,13 @@ class ProductAttributesExport implements FromArray
                  'system_types' => 'System_types',
                  'types' => 'Types',
                 ];
-        
-        foreach($attributes as $attribute){
-         if(!in_array($attribute->name,$data[0])){
-            $data[0][$attribute->name] = $attribute->name; 
-           }
+        foreach($attributes as $attribute)
+        {
+            if(!in_array($attribute->name,$data[0]))
+            {
+                $data[0][$attribute->name] = $attribute->name; 
+            }
         }
-        
          $products= Product::with('product_attributes.attribute_value.attribute','product_attributes.attribute', 'standards','system_types','types')->get();
          $i=1;
          foreach($products as $product)
@@ -44,30 +44,20 @@ class ProductAttributesExport implements FromArray
                 'system_types'=>!empty($product->system_types)?$product->system_types->name: '',
                 'types'=>!empty($product->types)?$product->types->name: '',
             ];
-            foreach($attributes as $attribute){
-                if(!in_array_r($attribute->name,$data[$i])){
-                   $data[$i][$attribute->name] ='';
-                  }
-               }
+            foreach($attributes as $attribute)
+                {
+                    if(!in_array_r($attribute->name,$data[$i]))
+                    {
+                    $data[$i][$attribute->name] ='';
+                    }
+                }
             foreach($product->product_attributes as $product_attributes)
             {   
-                // foreach($product_attributes as $product_attribute)
-                // {        
-                   
-                    // foreach($product_attributes->attribute_value as $attribute_value)
-                    // {
-                       
-             
-                        $data[$i][$product_attributes->attribute_value->attribute->name]=$product_attributes->attribute_value->value;
-
-                    // }
-                // }  
-                //dd($product);
+             $data[$i][$product_attributes->attribute_value->attribute->name]=$product_attributes->attribute_value->value;
+               
             }
-    
             $i++;
         }
-       // dd($data);
-               return($data);
+         return($data);
      }
 }

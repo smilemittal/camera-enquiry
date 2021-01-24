@@ -108,6 +108,14 @@ class SystemTypesController extends Controller
          return redirect()->route('system-types.index')->with('deleted_success', __('message.System type deleted successfully'));
 
     }
+    public function multipleDelete(Request $request)
+	{
+        $id = $request->bulk_delete;
+        
+			SystemType::whereIn('id', $id)->delete();
+	
+		return redirect()->back();
+	}
 
     public function getSystemTypes(Request $request) {
         $totalData = SystemType::count();
@@ -139,6 +147,7 @@ class SystemTypesController extends Controller
         $data = array();
         if (!empty($system_types)) {
             foreach ($system_types as $key => $system_type) {
+                $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$system_type->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $system_type->name;
                 $index = route('system-types.index' ,  encrypt($system_type->id));

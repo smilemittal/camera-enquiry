@@ -9,6 +9,9 @@
             justify-content: space-between;
             margin-bottom: 10px;
             }
+            #checkAll {
+    width: auto  !important;
+}
         </style>
 
         <div class="content-header row">
@@ -37,6 +40,7 @@
                                 <div class="card-header">
                                     <div class="card-title layout_btns" id="basic-layout-form">
                                         <h4>{{__('site.Enquiries')}}</h4>
+                                        <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button>
                                    
                                     </div>
                                 </div>
@@ -50,9 +54,12 @@
                                     @endif
                                    
                                         <div class="table-responsive">
+                                            <form class="form" action="{{ route('enquiries.multipledelete') }}" method="post" id="{{ 'delete_all' }}">
+                                                @csrf
                                             <table class="table table-striped table-bordered zero-configuration" id="enquiries">
                                                 <thead>
                                                     <tr>
+                                                        <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
                                                         <th>{{ __('site.ID')}}</th>
                                                         <th>{{ __('site.Name')}}</th>
                                                         <th>{{ __('site.Email')}}</th>
@@ -71,6 +78,7 @@
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
+                                                        <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
                                                         <th>{{ __('site.ID')}}</th>
                                                         <th>{{ __('site.Name')}}</th>
                                                         <th>{{ __('site.Email')}}</th>
@@ -120,6 +128,7 @@
                     "data":{ _token: "{{csrf_token()}}",route:'{{route('attribute.index')}}'}
                 },
                 "columns": [
+                    { "data": "#" },
                     { "data": "id" },
                     { "data": "customer_name" },
                     { "data": "email" },
@@ -136,11 +145,25 @@
                 aoColumnDefs: [
                     {
                         bSortable: false,
-                        aTargets: [ -1 ]
+                        aTargets: [ -1,0 ]
                     }
                 ]
             });
         });
     </script>
     <script src="{{asset('assets/js/scripts.js')}}" type="text/javascript"></script>
+    <script>
+        $('.checkboxes').click(function () {    
+     $('input:checkbox').prop('checked', this.checked);    
+ });
+ $(document).on('click','.page-link',function () {    
+
+     $('.checkboxes').removeAttr('checked');    
+ });
+ $('#deleteTrigger').on('click',function () {    
+     $('#delete_all').submit();    
+ });
+ 
+
+        </script>
 @endsection

@@ -71,22 +71,21 @@
                                                 </div> 
 
                                                 <div class="form-group">
-                                                    <label for="standard_id">{{ __('site.Standard')}}</label>
-                                                    <select name="standard_id" id="standard_id" class="form-control">
-                                                        <option value="">Select</option>
-                                                        @foreach($standards as $standard)
-                                                            <option value="{{ $standard->id }}" @if($product->standard_id == $standard->id) selected @endif>{{ $standard->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                
-                                                
-                                                <div class="form-group">
                                                     <label for="system_type_id">{{ __('site.System Type')}}</label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
                                                         <option value="">Select</option>
                                                         @foreach($system_types as $system_type)
                                                             <option value="{{ $system_type->id }}"  @if($product->system_type_id == $system_type->id) selected @endif>{{ $system_type->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="standard_id">{{ __('site.Standard')}}</label>
+                                                    <select name="standard_id" id="standard_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($standards as $standard)
+                                                            <option value="{{ $standard->id }}" @if($product->standard_id == $standard->id) selected @endif>{{ $standard->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -98,6 +97,11 @@
                                                             <option value="{{ $type->id }}"  @if($product->type_id == $type->id) selected @endif>{{ $type->name }}</option>
                                                         @endforeach
                                                     </select>
+                                                </div>
+                                                <div class=" form-group">
+                                                    <label for="priority">{{ __('site.Priority')}}</label>
+                                                    <input type="priority" id="priority" class="form-control" value="{{$product->priority}}" name="priority">
+                                                   
                                                 </div>
                                                 <hr>
                                                 <div>
@@ -173,23 +177,47 @@
             });
         });
         $('#system_type_id').on('change', function(){
-            var type = $("#type_id option:selected").val()
-            var system_type_id = $(this).val();;
-            $.ajax({
-                method: 'post',
-                url: '{{ route('get-product-attributes') }}',
-                data: {
-                    'type': type,
-                    'system_type_id': system_type_id,
-                    '_token': '{{ csrf_token() }}',
-                },
-                success: function(data){
-                    console.log(data);
-                    $('#product_attribute_div').empty();
-                    $('#product_attribute_div').append(data.html);
-                }
-            });
-        });
+          
+          var system_type_id = $(this).val();;
+
+          $.ajax({
+              method: 'post',
+              url: '{{ route('get-standard-attributes') }}',
+              data: {
+                 
+                  'system_type_id': system_type_id,
+                  '_token': '{{ csrf_token() }}',
+              },
+              success: function(data){
+                  if(data.html != ''){
+                      $('#standard_id option:gt(0)').remove();
+                      $('#standard_id').append(data.html);
+                      //$('#add-attributes-div').show();   
+                  }
+                  // else{
+                  //     $('#add-attributes-div').hide();
+                  // }
+              }
+          });
+      });
+        // $('#system_type_id').on('change', function(){
+        //     var type = $("#type_id option:selected").val()
+        //     var system_type_id = $(this).val();;
+        //     $.ajax({
+        //         method: 'post',
+        //         url: '{{ route('get-product-attributes') }}',
+        //         data: {
+        //             'type': type,
+        //             'system_type_id': system_type_id,
+        //             '_token': '{{ csrf_token() }}',
+        //         },
+        //         success: function(data){
+        //             console.log(data);
+        //             $('#product_attribute_div').empty();
+        //             $('#product_attribute_div').append(data.html);
+        //         }
+        //     });
+        // });
     </script>
 @endsection
 

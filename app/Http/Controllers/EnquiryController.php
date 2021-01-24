@@ -77,7 +77,7 @@ class EnquiryController extends Controller
              
                     $first_name =  !empty( $enquiry->first_name)? $enquiry->first_name:'';
                     $last_name = !empty( $enquiry->last_name)? $enquiry->last_name: '';
-                
+                    $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$enquiry->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['customer_name'] = $first_name.' '.$last_name;
                 $nestedData['last_name'] = $enquiry->last_name;
@@ -122,4 +122,12 @@ class EnquiryController extends Controller
         $enquiry->delete();
         return redirect()->route('enquiries.index')->with('success', __('message.Enquiry deleted successfully'));         
     }
+    public function multipleDelete(Request $request)
+	{
+        $id = $request->bulk_delete;
+        
+        Enquiry::whereIn('id', $id)->delete();
+	
+		return redirect()->back();
+	}
 }

@@ -10,6 +10,9 @@
     justify-content: space-between;
     margin-bottom: 10px;
 }
+#checkAll {
+    width: auto;
+}
 </style>
 <div class="row">
     <div class="content-header-left col-md-4 col-12 mb-2">
@@ -37,11 +40,14 @@
                                 <div class="card-header" style="height: 50px;">
                                     <div class="card-title layout_btns" id="basic-layout-form">
                                             <h3>{{__('site.List')}}</h3>
+                                             
                                             <div class="btns-right-side">
                                                 <a href="{{ route('system-types.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{__('site.Add')}} </a>    
                                                 <a href="{{ route('system-types.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{__('site.Import')}} </a> 
                                                 <a href="{{ route('system-types.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{__('site.Export')}}</a>
+                                                <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button>
                                             </div>
+                                            
                                         </div>
                                 </div>
                                 <!--Card Content start-->
@@ -64,9 +70,12 @@
                                     @endif
 
                                     <div class="table-responsive">
+                                        <form class="form" action="{{ route('system-types.multipledelete') }}" method="post" id="{{ 'delete_all' }}">
+                                            @csrf  
                                         <table class="table table-striped table-bordered zero-configuration" id="system_types" style="width: 100%; display: table;">
                                             <thead>
                                                 <tr>
+                                                    <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
                                                     <th>{{ __('site.ID') }}</th>
                                                     <th>{{ __('site.Name') }}</th>
                                                     <th>{{ __('site.Action') }}</th>
@@ -77,12 +86,14 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
+                                                    <th><input type="checkbox" name="" class="checkboxes" id="checkAll"  /></th>
                                                     <th> {{ __('site.ID') }}</th>
                                                     <th> {{  __('site.Name') }} </th>
                                                     <th> {{  __('site.Action') }}</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
+                                    </form> 
                                     </div>
                                 </div>
                                 </div>
@@ -106,7 +117,8 @@
             // Data table for serverside
             $('#system_types').DataTable({
                 "pageLength": 25,
-                "order": [[ 0, 'desc' ]],
+                "aaSorting": [[ 2, "desc" ]],
+                "order": [[ 1, 'desc' ]],
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
@@ -116,6 +128,7 @@
                     "data":{ _token: "{{csrf_token()}}",route:'{{route('system-types.index')}}'}
                 },
                 "columns": [
+                    { "data": "#" },
                     { "data": "id" },
                     { "data": "name" },
                     { "data": "action" }
@@ -123,11 +136,25 @@
                 aoColumnDefs: [
                     {
                         bSortable: false,
-                        aTargets: [ -1 ]
+                        aTargets: [-1, 0]
                     }
                 ]
             });
         });
     </script>
     <script src="{{asset('assets/js/scripts.js')}}" type="text/javascript"></script>
+    <script>
+        $('.checkboxes').click(function () {    
+     $('input:checkbox').prop('checked', this.checked);    
+ });
+ $(document).on('click','.page-link',function () {    
+
+     $('.checkboxes').removeAttr('checked');    
+ });
+ $('#deleteTrigger').on('click',function () {    
+     $('#delete_all').submit();    
+ });
+ 
+
+        </script>
 @endsection

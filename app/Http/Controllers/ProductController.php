@@ -55,12 +55,14 @@ class ProductController extends Controller
             'name'=>'required|max:50',
             'type_id'=>'required',
             'system_type_id'=>'required',
+            'priority'=>'required',
             'standard_id'=>'required',
         ]);
         $product = Product::create([
                         'name' => $request->input('name'),
                         'type_id' => $request->input('type_id'),
                         'system_type_id' => $request->input('system_type_id'),
+                        'priority' => $request->input('priority'),
                         'standard_id' => $request->input('standard_id'),
                     ]);
 
@@ -104,7 +106,7 @@ class ProductController extends Controller
             $attribute_value_ids[] = $product_attribute->attribute_value_id;
             $attribute_ids[] = $product_attribute->attribute_id;
         }
-        $standards = Standard::all();
+        $standards = Standard::where('system_type_id', $product->system_type_id)->get();
         $attributes= Attribute::with('attribute_values')->where('created_at', '!=', Null)->where('type_id', $product->type_id)->where('system_type_id', $product->system_type_id)->get();
         $system_types = SystemType::all();
         $types = Type::all();
@@ -125,6 +127,7 @@ class ProductController extends Controller
             'name'=>'required|max:50|'.Rule::unique('products')->ignore($id)->whereNull('deleted_at'),
             'type_id' => 'required',
             'system_type_id' => 'required',
+            'priority'=>'required',
             'standard_id' => 'required',
         ]);
 
@@ -134,6 +137,7 @@ class ProductController extends Controller
             'name' => $request->input('name'),
             'type_id' => $request->input('type_id'),
             'system_type_id' => $request->input('system_type_id'),
+            'priority' => $request->input('priority'),
             'standard_id' => $request->input('standard_id'),
         ]);
         if(!empty($request->input('attribute_value'))){
@@ -173,6 +177,14 @@ class ProductController extends Controller
         $deletes->delete();
         return redirect()->route('products.index')->with('deleted',__('message.Product deleted successfully'));
     }
+    public function multipleDelete(Request $request)
+	{
+        $id = $request->bulk_delete;
+        
+        Product::whereIn('id', $id)->delete();
+	
+		return redirect()->back();
+	}
     public function getproduct(Request $request) {
 
         $totalData = Product::count();
@@ -180,7 +192,8 @@ class ProductController extends Controller
         $columns = array(
             0=>'id',
             1 =>'name',
-            2 =>'action',
+            2 =>'priority',
+            3 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -204,8 +217,10 @@ class ProductController extends Controller
         $data = array();
         if (!empty($products)) {
             foreach ($products as $key => $product) {
+                $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$product->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $product->name;
+                $nestedData['priority'] = $product->priority;
                 $index = route('products.index' ,  ($product->id));
                 $edit = route('products.edit' ,  ($product->id));
                 $destroy = route('products.destroy' ,  ($product->id));
@@ -244,6 +259,20 @@ class ProductController extends Controller
 
             $html = '';
             $html .= view('products.partials.select-attributes', compact('attributes'))->render();
+
+            return response()->json(['html' => $html, 'success' => true]);
+        }
+    }
+    public function getStandard(Request $request){
+        if($request->ajax()){
+            $system_type = $request->system_type_id;
+            
+
+            $standards= Standard:: where('created_at', '!=', Null)->where('system_type_id','=', $system_type)->get();
+
+
+            $html = '';
+            $html .= view('products.partials.standard-attribute', compact('standards'))->render();
 
             return response()->json(['html' => $html, 'success' => true]);
         }

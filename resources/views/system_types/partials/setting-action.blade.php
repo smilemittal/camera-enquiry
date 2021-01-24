@@ -10,5 +10,5 @@
 		           @csrf 
 		           @method('DELETE')
 				</form>
-		</span>
+		</span>	
 </span>

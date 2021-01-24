@@ -69,15 +69,25 @@
                                                 <div class="form-group {{ $errors->get('name') ? 'has-error' : '' }}">
                                                     <label for="name">{{ __('site.Name') }}</label>
                                                     <input type="text" name="name" placeholder="Name" class="form-control" required>
-                                                  </div>    
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label for="system_type_id">{{ __('site.System Type')}}
+                                                    </label>
+                                                    <select name="system_type_id" id="system_type_id" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach($system_types as $system_type)
+                                                            <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>    
 
                                                 <div class="form-group">
                                                     <label for="standard_id">{{ __('site.Standard')}}</label>
                                                     <select name="standard_id" id="standard_id" class="form-control">
                                                         <option value="">Select</option>
-                                                        @foreach($standards as $standard)
+                                                        {{-- @foreach($standards as $standard)
                                                             <option value="{{ $standard->id }}">{{ $standard->name }}</option>
-                                                        @endforeach
+                                                        @endforeach --}}
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -89,25 +99,16 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.System Type')}}
-                                                    </label>
-                                                    <select name="system_type_id" id="system_type_id" class="form-control">
-                                                        <option value="">Select</option>
-                                                        @foreach($system_types as $system_type)
-                                                            <option value="{{ $system_type->id }}">{{ $system_type->name }}</option>
-                                                        @endforeach
-                                                    </select>
+                                                
+                                                <div class=" form-group">
+                                                    <label for="priority">{{ __('site.Priority')}}</label>
+                                                    <input type="text" class="form-control"  name="priority" placeholder="Priority">
                                                 </div>
-
-                                               
-                                               
                                                 <hr>
                                                 <div id="add-attributes-div" style="display: none;">
                                                    <h5>Add Product Attributes</h5>
 
                                                    <div id="product_attribute_div">
-
                                                    </div>
                                                 </div>
                                                
@@ -160,30 +161,53 @@
         //         }
         //     });
         // });
-
         $('#system_type_id').on('change', function(){
-            var type = $("#type option:selected").val()
+          
             var system_type_id = $(this).val();;
 
             $.ajax({
                 method: 'post',
-                url: '{{ route('get-product-attributes') }}',
+                url: '{{ route('get-standard-attributes') }}',
                 data: {
-                    'type': type,
+                   
                     'system_type_id': system_type_id,
                     '_token': '{{ csrf_token() }}',
                 },
                 success: function(data){
                     if(data.html != ''){
-                        $('#product_attribute_div').empty();
-                        $('#product_attribute_div').append(data.html);
-                        $('#add-attributes-div').show();   
-                    }else{
-                        $('#add-attributes-div').hide();
+                        $('#standard_id option:gt(0)').remove();
+                        $('#standard_id').append(data.html);
+                        //$('#add-attributes-div').show();   
                     }
+                    // else{
+                    //     $('#add-attributes-div').hide();
+                    // }
                 }
             });
         });
+        // $('#system_type_id').on('change', function(){
+        //     var type = $("#type option:selected").val()
+        //     var system_type_id = $(this).val();;
+
+        //     $.ajax({
+        //         method: 'post',
+        //         url: '{{ route('get-product-attributes') }}',
+        //         data: {
+        //             'type': type,
+        //             'system_type_id': system_type_id,
+        //             '_token': '{{ csrf_token() }}',
+        //         },
+        //         success: function(data){
+        //             if(data.html != ''){
+        //                 $('#product_attribute_div').empty();
+        //                 $('#product_attribute_div').append(data.html);
+        //                 $('#add-attributes-div').show();   
+        //             }else{
+        //                 $('#add-attributes-div').hide();
+        //             }
+        //         }
+        //     });
+        // });
         $('#type_id').on('change', function(){
             var type = $("#type_id option:selected").val()
             var type_id = $(this).val();;
