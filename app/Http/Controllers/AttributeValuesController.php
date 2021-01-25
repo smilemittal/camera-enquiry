@@ -144,12 +144,12 @@ class AttributeValuesController extends Controller
         $totalData = AttributeValue::count();
         $totalFiltered = $totalData;
         $columns = array(
-            0=>'id',
-            1 =>'attribute_id',
-            2 =>'value',
-            3 =>'display_order',
-            4 =>'system_type_id',
-            5 =>'action'
+            1=>'id',
+            2 =>'attribute_id',
+            3 =>'value',
+            4 =>'display_order',
+            5 =>'system_type_id',
+            6 =>'action'
         );
         $limit = $request->input('length');
         $start = $request->input('start');

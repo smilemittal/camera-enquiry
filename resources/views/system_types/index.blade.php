@@ -117,7 +117,7 @@
             // Data table for serverside
             $('#system_types').DataTable({
                 "pageLength": 40,
-                "aaSorting": [[ 2, "desc" ]],
+                "aaSorting": [[ 1, "desc" ]],
                 "order": [[ 1, 'desc' ]],
                 "processing": true,
                 "serverSide": true,

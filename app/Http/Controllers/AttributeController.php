@@ -135,13 +135,13 @@ class AttributeController extends Controller
         $totalData = Attribute::count();
         $totalFiltered = $totalData;
         $columns = array(
-            0=>'id',
-            1 =>'name',
-            2 =>'type_id',
-            3 =>'display_order',
-            4 =>'system_type_id',
-            5 =>'description',
-            6 =>'action',
+            1=>'id',
+            2 =>'name',
+            3 =>'type_id',
+            4 =>'display_order',
+            5 =>'system_type_id',
+            6 =>'description',
+            7 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');

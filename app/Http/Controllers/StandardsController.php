@@ -128,9 +128,9 @@ class StandardsController extends Controller
         $totalData = Standard::count();
         $totalFiltered = $totalData;
         $columns = array(
-            0=>'id',
-            1 =>'name',
-            2 =>'action',
+            1=>'id',
+            2 =>'name',
+            3 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');

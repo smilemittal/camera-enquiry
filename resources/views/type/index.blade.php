@@ -114,7 +114,7 @@
             // Data table for serverside
             $('#types').DataTable({
                 "pageLength": 40,
-                "order": [[ 0, 'desc' ]],
+                "order": [[ 1, 'desc' ]],
                 "processing": true,
                 "serverSide": true,
                 "ajax":{

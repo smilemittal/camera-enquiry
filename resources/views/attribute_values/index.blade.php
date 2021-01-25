@@ -67,7 +67,7 @@
                                     <div class="table-responsive">
                                         <form class="form" action="{{ route('attribute_value.multipledelete') }}" method="post" id="{{ 'delete_all' }}">
                                             @csrf
-                                        <table class="table table-striped table-bordered zero-configuration" id="attribute-values" style="width: 100%; display: table;">
+                                        <table class="table table-striped table-bordered zero-configuration" id="attribute-values" style="width: 100%; display:table;">
                                             <thead>
                                                 <tr>
                                                     <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>

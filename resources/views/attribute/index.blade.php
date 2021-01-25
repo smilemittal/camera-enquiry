@@ -70,7 +70,7 @@
                                         <div class="table-responsive">
                                             <form class="form" action="{{ route('attributes.multipledelete') }}" method="post" id="{{ 'delete_all' }}">
                                                 @csrf
-                                            <table class="table table-striped table-bordered zero-configuration" style="width:100%" id="attribute">
+                                            <table class="table table-striped table-bordered zero-configuration" style="width:100%;display:table" id="attribute">
                                                 <thead>
                                                     <tr>
                                                         <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
@@ -124,7 +124,7 @@
             // Data table for serverside
             $('#attribute').DataTable({
                 "pageLength": 40,
-                "order": [[ 0, 'desc' ]],
+                "order": [[ 1, 'desc' ]],
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
