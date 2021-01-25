@@ -118,9 +118,12 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
+                                                                   
                                                                     <select name="attribute_value[{{ $attribute->id }}]" id="" class="form-control">
                                                                         <option value="">Select</option>
+                                                                   
                                                                         @if(!empty($attribute->attribute_values))
+                                                                    
                                                                             @foreach($attribute->attribute_values as $value) 
                                                                                 <option value="{{ $value->id }}" @if(!empty($attribute_value_ids) && in_array($value->id, $attribute_value_ids)) selected @endif>{{ $value->value }}</option>
                                                                             @endforeach

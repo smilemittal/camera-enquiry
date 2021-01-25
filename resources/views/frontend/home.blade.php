@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 col-xl-7 pl-lg-3">
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscinjygjugjgg elit.</p>
+                            <p>{{__('site.Camera panel description')}}</p>
                         </div>
                     </div>
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
@@ -82,7 +82,7 @@
 
                             </div>
 
-                            <p class="earch">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+                            <p class="earch">{{__('site.Camera panel description')}}</p>
 
                             <div class="col-kemey kemey-boxbtn">
                                 <div class="row d-flex align-items-center">
@@ -106,7 +106,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 col-xl-7 pl-lg-3">
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+                            <p>{{__('site.Camera panel description')}}</p>
                         </div>
                     </div>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
@@ -118,7 +118,7 @@
                                 @endif
                             </div>
 
-                            <p class="earch">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+                            <p class="earch">{{__('site.Camera panel description')}}</p>
 
                             <div class="col-kemey kemey-boxbtn">
                                 <div class="row d-flex align-items-center">
