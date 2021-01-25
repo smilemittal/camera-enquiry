@@ -16,7 +16,7 @@ class AttributeValue extends Model
 
     public function system_type()
     {
-        return $this->belongsTo('App\Models\SystemType','syatem_type_id', 'id');
+        return $this->belongsTo('App\Models\SystemType','system_type_id', 'id');
     }
 
     public function attribute()

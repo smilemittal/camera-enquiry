@@ -179,11 +179,11 @@ class AttributeValuesController extends Controller
 
             $totalFiltered = $attribute_values->count();
         }
+        
         $data = array();
         if (!empty($attribute_values)) {
             foreach ($attribute_values as $key => $attribute_value) {
                 $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$attribute_value->id.'" />';
-
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['attribute_id'] = !empty($attribute_value->attribute) ?$attribute_value->attribute->name : '';
                 $nestedData['value'] = $attribute_value->value;
@@ -196,8 +196,10 @@ class AttributeValuesController extends Controller
                 $comp = true;
                 $nestedData['action'] = view('attribute_values.partials.setting-action',compact('index','exist','comp','edit','delete', 'attribute_value'))->render();
                 $data[] = $nestedData;
+                
             }
         }
+        
         $json_data = array(
             "draw"=> intval($request->input('draw')),
             "recordsTotal" => intval($totalData),
