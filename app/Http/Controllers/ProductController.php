@@ -107,9 +107,10 @@ class ProductController extends Controller
             $attribute_ids[] = $product_attribute->attribute_id;
            
         }
-       // dd($product->product_attributes);
+        
         $standards = Standard::where('system_type_id', $product->system_type_id)->get();
         $attributes= Attribute::with('attribute_values')->where('created_at', '!=', Null)->where('type_id', $product->type_id)->where('system_type_id', $product->system_type_id)->get();
+     
         $system_types = SystemType::all();
         $types = Type::all();
         
