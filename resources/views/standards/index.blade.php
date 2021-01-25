@@ -68,7 +68,7 @@
 	                        <div class="table-responsive">
                                 <form class="form" action="{{ route('standards.multipledelete') }}" method="post" id="{{ 'delete_all' }}">
                                     @csrf
-	                            <table class="table table-striped table-bordered zero-configuration"style="width:100%" id="standard" >
+	                            <table class="table table-striped table-bordered zero-configuration"style="width:100%; display:table " id="standard" >
 	                                <thead>
 	                                    <tr>
                                             <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
@@ -110,7 +110,8 @@
             // Data table for serverside
             $('#standard').DataTable({
                 "pageLength": 40,
-                "order": [[ 0, 'desc' ]],
+                "order": [[ 1, 'desc' ]],
+                
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
@@ -128,7 +129,7 @@
                 aoColumnDefs: [
                     {
                         bSortable: false,
-                        aTargets: [ -1,0 ]
+                        aTargets: [ 0,3 ]
                     }
                 ]
             });

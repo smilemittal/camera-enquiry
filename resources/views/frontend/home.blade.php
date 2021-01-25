@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 col-xl-7 pl-lg-3">
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscinjygjugjgg elit.</p>
                         </div>
                     </div>
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
