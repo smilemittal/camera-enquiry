@@ -222,6 +222,11 @@
     $('.system_type').on('click', function(){
           
           var system_type_id = $(this).data('id');
+                  $('.system_type').removeClass('active');
+        $(this).addClass('active');
+ 
+
+        $('#selected_system_type').val(system_type_id);
 
           $.ajax({
               method: 'post',
@@ -256,7 +261,7 @@
     //     }
     // });
 
-    $('.standard').on('click', function(){
+    $(document).on('click', '.standard', function(){
         $('.standard').removeClass('active');
         $(this).addClass('active');
         var standard = $(this).data('id');
