@@ -124,7 +124,8 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name'=>'required|max:50|'.Rule::unique('products')->ignore($id)->whereNull('deleted_at'),
+            //'name'=>'required|max:50|'.Rule::unique('products')->ignore($id)->whereNull('deleted_at'),
+            'name'=>'required',
             'type_id' => 'required',
             'system_type_id' => 'required',
             'priority'=>'required',
