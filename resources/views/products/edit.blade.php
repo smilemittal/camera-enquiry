@@ -100,7 +100,7 @@
                                                 </div>
                                                 <div class=" form-group">
                                                     <label for="priority">{{ __('site.Priority')}}</label>
-                                                    <input type="priority" id="priority" class="form-control" value="{{$product->priority}}" name="priority">
+                                                    <input type="number" id="priority" class="form-control" value="{{$product->priority}}" name="priority">
                                                    
                                                 </div>
                                                 <hr>

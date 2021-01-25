@@ -68,7 +68,7 @@
                                     @endif
 
                                     <div class="table-responsive">
-                                        <form class="form" action="{{ route('types.multipledelete') }}" method="post" id="{{ 'delete_all' }}">
+                                        <form class="form" action="{{ route('types.multipledelete') }}" method="post" id='delete_all'>
                                             @csrf
                                         <table class="table table-striped table-bordered zero-configuration" id="types" style="width: 100%; display: table;">
                                             <thead>
@@ -113,7 +113,7 @@
         $(document).ready(function(){
             // Data table for serverside
             $('#types').DataTable({
-                "pageLength": 25,
+                "pageLength": 40,
                 "order": [[ 0, 'desc' ]],
                 "processing": true,
                 "serverSide": true,
@@ -139,7 +139,7 @@
         });
     </script>
     <script src="{{asset('assets/js/scripts.js')}}" type="text/javascript"></script>
-    <script>
+ <script>
         $('.checkboxes').click(function () {    
      $('input:checkbox').prop('checked', this.checked);    
  });
@@ -147,10 +147,25 @@
 
      $('.checkboxes').removeAttr('checked');    
  });
- $('#deleteTrigger').on('click',function () {    
-     $('#delete_all').submit();    
- });
- 
-
-        </script>
+//  $('#deleteTrigger').on('click',function () {    
+//      $('#delete_all').submit();    
+//  });
+  $('#deleteTrigger').on('click',function () { 
+    swal({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        closeOnConfirm: true,
+        closeOnCancel: true
+    }).then(function (isConfirm) {
+        if (isConfirm.value) {
+          $('#delete_all').submit();        
+        }
+    }).catch(swal.noop)
+  });
+  </script>
 @endsection

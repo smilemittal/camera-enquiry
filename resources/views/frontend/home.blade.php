@@ -37,14 +37,12 @@
                         </div>
                         <div class="heading-btns three-btn-under">
                         <h3>{{ __('site.Standard') }}</h3>
-                            <div class="col-kemey col-kemey-two">
-                                <div class="row d-flex align-items-center">
-                                    <input type="hidden" id="selected_standard" name="selected_standard" value="">
-                                    @foreach($standards as $standard)
-                                        <div class="col-xl-3 col-md-4">
+                            <div class="col-kemey col-kemey-two">   <input type="hidden" id="selected_standard" name="selected_standard" value="">
+                                <div class="row d-flex align-items-center selected_standard">
+                                 
+                                        {{-- <div class="col-xl-3 col-md-4">
                                         <button type="button" class="standard {{ $standard->name }}" data-name="{{ $standard->name }}" data-id="{{ $standard->id }}">{{ $standard->name }}</button>
-                                        </div>
-                                    @endforeach
+                                        </div> --}}
 
                                 </div>
                             </div>
@@ -208,19 +206,43 @@
 @section('scripts')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    $('.system_type').on('click', function(){
-        $('.system_type').removeClass('active');
-        $(this).addClass('active');
-        var system_type = $(this).data('id');
-        var system_type_name= $(this).data('name');
-        $('#selected_system_type').val(system_type);
-        if(system_type_name == 'HD Analogue system'){
-           $(".Professional").hide();
-        }else{
-            $(".Professional").show();
-        }
+    // $('.system_type').on('click', function(){
+    //     $('.system_type').removeClass('active');
+    //     $(this).addClass('active');
+    //     var system_type = $(this).data('id');
+    //     var system_type_name= $(this).data('name');
+    //     $('#selected_system_type').val(system_type);
+    //     if(system_type_name == 'HD Analogue system'){
+    //        $(".Professional").hide();
+    //     }else{
+    //         $(".Professional").show();
+    //     }
 
-    });
+    // });
+    $('.system_type').on('click', function(){
+          
+          var system_type_id = $(this).data('id');
+
+          $.ajax({
+              method: 'post',
+              url: '{{ route('get-standard') }}',
+              data: {
+                 
+                  'system_type_id': system_type_id,
+                  '_token': '{{ csrf_token() }}',
+              },
+              success: function(data){
+                  if(data.standard_attribute != ''){
+                      $('.selected_standard').empty();
+                      $('.selected_standard').append(data.standard_attribute);
+                      $('.selected_standard').show();   
+                  }
+                  else{
+                      $('.selected_standard').empty();
+                  }
+              }
+          });
+      });
 
 
 

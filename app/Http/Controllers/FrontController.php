@@ -238,6 +238,25 @@ class FrontController extends Controller
             return response()->json(['success' => true, 'html' => $html]);
 
     }
+    public function getStandard(Request $request){
+        if($request->ajax() && $request->isMethod('post')){
+            $system_type = $request->input('system_type_id');
+            $standard_attribute='';
+            
+          //  dd($standard);
+            $standards = Standard::where('system_type_id', $system_type)->get();
+            
+            //dd($attribute_recorder);
+            
+
+            $i = 1;
+            
+            $standard_attribute .= view('frontend.extras.standard', compact('standards'))->render();
+
+            return response()->json(['success'=> true, 'standard_attribute' => $standard_attribute, 'count'=> $i]);
+
+        }
+    }
 
 
 

@@ -99,7 +99,7 @@
         $(document).ready(function(){
             // Data table for serverside
             $('#productAttributes').DataTable({
-                "pageLength": 25,
+                "pageLength": 40,
                 "order": [[ 0, 'desc' ]],
                 "processing": true,
                 "serverSide": true,

@@ -102,7 +102,7 @@
                                                 
                                                 <div class=" form-group">
                                                     <label for="priority">{{ __('site.Priority')}}</label>
-                                                    <input type="text" class="form-control"  name="priority" placeholder="Priority">
+                                                    <input type="number" class="form-control"  name="priority" placeholder="Priority">
                                                 </div>
                                                 <hr>
                                                 <div id="add-attributes-div" style="display: none;">
