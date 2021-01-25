@@ -114,8 +114,8 @@
         $(document).ready(function(){
             // Data table for serverside
             $('#attribute-values').DataTable({
-                "pageLength": 40,
-                "order": [[ 0, 'desc' ]],
+                "pageLength":25,
+                "order": [[ 1, 'desc' ]],
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
