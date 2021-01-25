@@ -91,6 +91,7 @@ Route::post('get-enquiry-attributes', 'FrontController@getEnquiryProductAttribut
 Route::post('update-attributes', 'FrontController@updateAttributes')->name('update-attributes');
 Route::get('/', 'FrontController@home')->name('home');
 Route::post('get-next-product', 'FrontController@getNextProduct')->name('get-next-product');
+Route::post('get-standard', 'FrontController@getStandard')->name('get-standard');
 
 Route::post('save-enquiry', 'FrontController@saveEnquiry')->name('save-enquiry');
 //Route::post('get-summary', 'FrontController@getSummary')->name('get-summary');

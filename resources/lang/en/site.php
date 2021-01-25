@@ -71,7 +71,8 @@
 					'Description'				=>'Description',
 					'Types'						=>'Types',
 					'Type'						=>'Type',
-					'Type ID'					=>'Type ID'
+					'Type ID'					=>'Type ID',
+					'Priority'					=>'Priority',
 
 					
 
