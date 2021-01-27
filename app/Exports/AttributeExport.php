@@ -3,9 +3,6 @@
 namespace App\Exports;
 
 use App\Models\Attribute;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
@@ -16,9 +13,9 @@ class AttributeExport implements FromArray ,WithTitle
     */
     public function array(): array
     {
-        
+
         $data = [];
-        
+
         $data[] = [
             'attribute' =>'Attribute',
             'attribute_value' => 'Attribute_value',
@@ -33,7 +30,7 @@ class AttributeExport implements FromArray ,WithTitle
             if(!empty($attribute->attribute_values) && count($attribute->attribute_values) > 0){
              foreach($attribute->attribute_values as $attribute_value)
              {
-                 
+
                  $data[] = [
                     'attribute' => $attribute->name,
                     'attribute_value' => $attribute_value->value,
@@ -42,7 +39,7 @@ class AttributeExport implements FromArray ,WithTitle
                     'type'=>!empty($attribute->type) ?$attribute->type->name: '',
                     'description'=>$attribute->description,
                  ];
-             } 
+             }
             }else {
                 $data[] = [
                     'attribute' => $attribute->name,
@@ -55,7 +52,7 @@ class AttributeExport implements FromArray ,WithTitle
 
             }
         }
-      //  dd($data); 
+      //  dd($data);
         return($data);
     }
 
