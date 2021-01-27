@@ -19,8 +19,7 @@ class StandardsController extends Controller
      */
     public function index()
     {
-        $standard = Standard::all();
-        return view('standards.index',compact('standard'));
+        return view('standards.index');
     }
 
     /**
@@ -130,7 +129,8 @@ class StandardsController extends Controller
         $columns = array(
             1=>'id',
             2 =>'name',
-            3 =>'action',
+            3 =>'system_type',
+            4 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -157,6 +157,7 @@ class StandardsController extends Controller
                 $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$standard->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $standard->name;
+                $nestedData['system_type'] = $standard->system_type->name;
                 $view = route('standards.index' ,  encrypt($standard->id));
                 $edit = route('standards.edit' ,  encrypt($standard->id));
                 $delete = route('standards.destroy' ,  encrypt($standard->id));
