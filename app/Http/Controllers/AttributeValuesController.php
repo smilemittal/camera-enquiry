@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Validation\Rule;
-use Excel;
 use App\Models\Attribute;
 use App\Models\SystemType;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
-use App\Imports\AttributeValuesImport;
-use App\Exports\AttributeValuesExport;
 
 
 class AttributeValuesController extends Controller

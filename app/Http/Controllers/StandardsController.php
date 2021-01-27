@@ -43,7 +43,7 @@ class StandardsController extends Controller
     public function store(Request $request)
     {
        $this->validate($request, [
-            'name'=>'required|max:50|'.Rule::unique('standards')->whereNull('deleted_at'),
+            'name'=>'required|max:50|'.Rule::unique('standards')->where('system_type_id', $request->input('system_type_id'))->whereNull('deleted_at'),
             'system_type_id'=>'required',
         ]);
         Standard::create($request->all());
@@ -88,7 +88,7 @@ class StandardsController extends Controller
     public function update(Request $request, $id)
     {
             $this->validate($request, [
-            'name'=>'required|max:50|'.Rule::unique('standards')->ignore($id)->whereNull('deleted_at'),
+            'name'=>'required|max:50|'.Rule::unique('standards')->ignore($id)->where('system_type_id', $request->input('system_type_id'))->whereNull('deleted_at'),
             'system_type_id' => 'required',
         ]);
 
@@ -118,9 +118,9 @@ class StandardsController extends Controller
     public function multipleDelete(Request $request)
 	{
         $id = $request->bulk_delete;
-        
+
         Standard::whereIn('id', $id)->delete();
-	
+
 		return redirect()->back();
 	}
 
