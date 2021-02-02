@@ -124,9 +124,9 @@ class AttributeController extends Controller
     public function multipleDelete(Request $request)
 	{
         $id = $request->bulk_delete;
-        
+
         Attribute::whereIn('id', $id)->delete();
-	
+
 		return redirect()->back();
 	}
     public function getattribute(Request $request)
@@ -209,7 +209,7 @@ class AttributeController extends Controller
             Excel::import(new AttributeValuesImport, request()->file('import-attribute-values'));
         }
 
-        return redirect()->route('attribute.import')->with('success',__('message.Attributes Imported successfully'));
+        return redirect()->back()->with('success',__('Message.Attributes Imported successfully'));
     }
 
     public function export()

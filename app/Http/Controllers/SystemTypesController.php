@@ -111,9 +111,9 @@ class SystemTypesController extends Controller
     public function multipleDelete(Request $request)
 	{
         $id = $request->bulk_delete;
-        
+
 			SystemType::whereIn('id', $id)->delete();
-	
+
 		return redirect()->back();
 	}
 
