@@ -123,6 +123,7 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                     }
                 }
             }    
-        }    
+        } 
+       dd($rows);    
     }
 }
