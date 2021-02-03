@@ -22,7 +22,7 @@ class ProductAttributesExport implements FromArray
     {
         $data= [];
         $attributes = Attribute::get();
-        $data[0] =['product'    => 'Model',
+        $data[0] =['product'    => 'Product name',
                  'standards'    => 'Standard',
                  'system_types' => 'System type',
                  'types'        => 'Type',
@@ -55,7 +55,7 @@ class ProductAttributesExport implements FromArray
                 }
             foreach($product->product_attributes as $product_attributes)
             {  
-            if(!empty($data[$i][$product_attributes->attribute_value->attribute])){ 
+            if(!empty($product_attributes->attribute_value->attribute)){ 
              $data[$i][$product_attributes->attribute_value->attribute->name]=$product_attributes->attribute_value->value;
             }
             }
