@@ -182,7 +182,20 @@ class TypesController extends Controller
             'import-types' => 'required|mimes:csv,xlsx,xls',
 
         ]);
-        Excel::import(new TypesImport, request()->file('import-types'));
+        $import = new TypesImport;
+
+        Excel::import($import, request()->file('import-types'));
+
+        if($import->imported_types > 0){
+            return redirect()->route('types.import')->with('success', __('message.Types Imported successfully'));
+        }else{
+            if($import->existing_types > 0 && $import->existing_types == $import->total_types){
+                return redirect()->route('types.import')->withErrors([__('message.Types Import Failed Exists.')]);
+            }else{
+                return redirect()->route('types.import')->withErrors([__('message.Types Import Failed.')]);
+            }
+           
+        }
 
     }
 
