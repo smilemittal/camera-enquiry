@@ -54,9 +54,6 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                 }else if(isset($row['Standard'])){
                     $standard_name= $row['Standard'];
                 }
-
-
-                $display_order =$row['Display order'];
                 // $type = $row['type'];
 
                 if( (!empty($row['Type']) && $row['Type'] != null)){
