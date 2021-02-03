@@ -9,6 +9,9 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class SystemTypesImport implements ToCollection,WithHeadingRow
 {
+    public $total_system_types = 0;
+    public $existing_system_types = 0;
+    public $imported_system_types = 0;
     /**
     * @param array $rows
     *
@@ -16,6 +19,8 @@ class SystemTypesImport implements ToCollection,WithHeadingRow
     */
     public function collection(Collection  $rows)
     {
+        $system_types_existing = 0;
+        $system_types_imported = 0;
         foreach ($rows as $row)
         {
             //get systemtype, if exists, get id, otherwise create new systemtype and get its id
@@ -25,11 +30,15 @@ class SystemTypesImport implements ToCollection,WithHeadingRow
             {  
             $system_types = SystemType::create(['name' => $row['name']]);
             $system_type_id =$system_types->id;
+            $system_types_imported++;
             }
             else
             {
             $system_type_id =$system_type->id;
+            $system_types_existing++;
             }
         } 
+        $this->existing_system_types = $system_types_existing;
+        $this->imported_system_types = $system_types_imported;
     }
 }

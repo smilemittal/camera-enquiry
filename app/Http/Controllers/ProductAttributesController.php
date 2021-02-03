@@ -218,10 +218,43 @@ class ProductAttributesController extends Controller
                 
             ]);
             if($request->hasFile('import-product-attributes')){
-                Excel::import(new ProductAttributesImport, request()->file('import-product-attributes'));
-        }
+                $import = new ProductAttributesImport;
+                Excel::import($import, request()->file('import-product-attributes'));
+                if(!$import->importSuccess){
+                    $messages = $import->errors;
+                   if($import->products_imported < 1){
+                       
+                        if($import->already_existing > 0){
+                            return redirect()->route('product-attributes.import')->with('success', __('message.Products imported successfully. 2', ['1' => $import->products_imported, '2' => $import->row_count, '3' => $import->already_existing]));
+                        }else{
+                            return redirect()->route('product-attributes.import')->with('error', __('message.Product Import Failed.'))->withErrors($messages);
+                        }
+                        
+                   }else{
+                        if($import->already_existing < 1){
+                            return redirect()->route('product-attributes.import')->with('success', __('message.Products imported successfully.', ['1' => $import->products_imported, '2' => $import->row_count]));
+                        }else{
+                            return redirect()->route('product-attributes.import')->with('success', __('message.Products imported successfully. 2', ['1' => $import->products_imported, '2' => $import->row_count, '3' => $import->already_existing]));
+                        }
+                        // return redirect()->route('product-attributes.import')->with('success', __('message.Products imported successfully.', ['1' => $import->products_imported, '2' => $import->row_count]));
+                   }
+                    
+                }else{
+                    if($import->products_imported == $import->row_count){
+                        return redirect()->route('product-attributes.import')->with('success', __('message.All Products imported successfully.'));
+                    }else{
+                        if($import->already_existing < 1){
+                            return redirect()->route('product-attributes.import')->with('success', __('message.Products imported successfully.', ['1' => $import->products_imported, '2' => $import->row_count]));
+                        }else{
+                            return redirect()->route('product-attributes.import')->with('success', __('message.Products imported successfully. 2', ['1' => $import->products_imported, '2' => $import->row_count, '3' => $import->already_existing]));
+                        }
+                        
+                    }
+                    
+                }
+            }
           
-            return redirect()->route('product-attributes.import')->with('success', __('message.Products imported successfully'));
+            
         }
 
         public function export()

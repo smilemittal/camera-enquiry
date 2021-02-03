@@ -183,11 +183,24 @@ class SystemTypesController extends Controller
             'import-system-types' => 'required|mimes:csv,xlsx,xls',
 
         ]);
-        Excel::import(new SystemTypesImport, request()->file('import-system-types'));
+
+        $import = new SystemTypesImport;
+
+        Excel::import($import, request()->file('import-system-types'));
+
+        if($import->imported_system_types > 0){
+            return redirect()->route('system-types.import')->with('success', __('message.System types Imported successfully'));
+        }else{
+            if($import->existing_system_types > 0 && $import->existing_system_types == $import->total_system_types){
+                return redirect()->route('system-types.import')->withErrors([__('message.System types Import Failed Exists')]);
+            }else{
+                return redirect()->route('system-types.import')->withErrors([__('message.System types Import Failed.')]);
+            }
+        }
 
     }
 
-        return redirect()->route('system-types.import')->with('success', __('message.System types Imported successfully'));
+        
     }
 
     public function export()
