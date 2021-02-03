@@ -206,10 +206,18 @@ class AttributeController extends Controller
 
         ]);
         if($request->hasFile('import-attribute-values')){
-            Excel::import(new AttributeValuesImport, request()->file('import-attribute-values'));
+            $import = new AttributeValuesImport;
+            Excel::import($import, request()->file('import-attribute-values'));
+            
+            if($import->attribute_value_imported > 0){
+                return redirect()->back()->with('success',__('message.Attributes Imported successfully'));
+            }else{
+                return redirect()->back()->withErrors([__('message.Attributes Import Failed.')]);
+            }
+
         }
 
-        return redirect()->back()->with('success',__('Message.Attributes Imported successfully'));
+        
     }
 
     public function export()

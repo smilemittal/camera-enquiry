@@ -187,13 +187,27 @@ class StandardsController extends Controller
         if($request->hasFile('import-standards')){
 
                $this->validate($request, [
-            'import-standards'=>'required|mimes:csv,xlsx,xls',
-        ]);
-            Excel::import(new StandardsImport, request()->file('import-standards'));
+                'import-standards'=>'required|mimes:csv,xlsx,xls',
+                ]);
 
-    }
+                $import = new StandardsImport;
+                Excel::import($import, request()->file('import-standards'));
 
-        return redirect()->route('standards.import')->with('success', __('message.Standards Imported successfully'));
+                if($import->imported_standards > 0){
+                    return redirect()->route('standards.import')->with('success', __('message.Standards Imported successfully'));
+                }else{
+                    if($import->existing_standards > 0 && $import->existing_standards == $import->total_standards){
+                        return redirect()->route('standards.import')->withErrors([__('message.Standards Import Failed Exists.')]);
+                    }else{
+                        return redirect()->route('standards.import')->withErrors([__('message.Standards Import Failed.')]);
+                    }
+                   
+                }
+            
+
+        }
+
+       
     }
 
     public function export()
