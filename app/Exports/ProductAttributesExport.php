@@ -22,10 +22,10 @@ class ProductAttributesExport implements FromArray
     {
         $data= [];
         $attributes = Attribute::get();
-        $data[0] =['product' => 'Product',
+        $data[0] =['product' => 'Product name',
                  'standards' => 'Standard',
-                 'system_types' => 'System_types',
-                 'types' => 'Types',
+                 'system_types' => 'System type',
+                 'types' => 'Type',
                 ];
         foreach($attributes as $attribute)
         {
