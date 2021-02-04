@@ -153,7 +153,7 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                     }
 
                     $attribute_value_display_order = 0;
-                    $latest_attribute_value = AttributeValue::where('system_type_id' , '=', $system_type_id)->where('type_id', $type_id)->orderBy('id', 'DESC')->first();
+                    $latest_attribute_value = AttributeValue::where('attribute_id', $attribute_id)->where('system_type_id' , '=', $system_type_id)->where('type_id', $type_id)->orderBy('id', 'DESC')->first();
 
                     if($latest_attribute_value){
                         $attribute_value_display_order = $latest_attribute_value->display_order + 1;
