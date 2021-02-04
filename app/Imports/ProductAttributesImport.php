@@ -132,7 +132,7 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                
                 foreach($row as $key => $value){
 
-                    if(($key != 'Model' || $key != 'Product name') && $key != 'Display order' && $key != 'System type' && $key != 'Type' && ($key != 'Standards' && $key != 'Standard') && $value != null && $value != '' && $system_type_id != '' && $type_id != '' && $standard_id != ''){
+                    if(($key != 'Model' && $key != 'Product name') && $key != 'Display order' && $key != 'Priority' && $key != 'System type' && $key != 'Type' && ($key != 'Standards' && $key != 'Standard') && $value != null && $value != '' && $system_type_id != '' && $type_id != '' && $standard_id != ''){
           // dd($row['System type'], $standard_id, $type_id, $system_type_id, $this->products_imported);
                     $attribute_display_order = 0;
                     $latest_attribute = Attribute::where('system_type_id' , '=', $system_type_id)->where('type_id', $type_id)->orderBy('id', 'DESC')->first();
