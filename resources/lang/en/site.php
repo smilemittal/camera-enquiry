@@ -74,6 +74,7 @@
 					'Type ID'					=>'Type ID',
 					'Priority'					=>'Priority',
 			'Camera panel description'			=>'Camera panel description',
+			'Note*'								=>'Note*',
 					
 
   		
