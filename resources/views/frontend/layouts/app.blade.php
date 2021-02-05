@@ -126,7 +126,7 @@
             <div class="footer-middle">
                 <div class="container">
                     <div class="footer-map">
-                        <img src="img/footer-map.png" />
+                        <img src="{{asset("assets/frontend/img/footer-map.png")}}" />
                     </div>
                 </div>
             </div>
