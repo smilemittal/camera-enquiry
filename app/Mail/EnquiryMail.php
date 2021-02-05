@@ -13,6 +13,7 @@ class EnquiryMail extends Mailable
 
     protected $products;
     protected $quantities;
+    protected $enquiry;
 
     /**
      * Create a new message instance.

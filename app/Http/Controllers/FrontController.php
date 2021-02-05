@@ -202,8 +202,7 @@ class FrontController extends Controller
         if($enquiry){
             $products = json_decode($product_arr, true);
             $quantities = json_decode($quantity_arr, true);
-            Mail::to(config('app.admin_email'))->send(new EnquiryMail($products, $quantities,$enquiry));
-
+            Mail::to(config('app.admin_email'))->send(new EnquiryMail($products, $quantities,$enquiry));       
             return response()->json(['success'=> true, 'message'  => __('message.Enquiry Sent Successfully')]);
         }else{
             return response()->json(['success'=> false, 'message'  => __('message.Failed Sending enquiry! Try again')]);
