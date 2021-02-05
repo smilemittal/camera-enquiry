@@ -387,6 +387,7 @@
                     $('.'+product_type+'_'+ old_count).after(data.html);
                     $('.'+product_type+'_'+ old_count).hide();
                     $('input[name="'+ product_type +'_count"]').val(data.count);
+                    $('.'+product_type+'_'+ data.count).show();
                 }
             },
         });

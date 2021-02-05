@@ -19,10 +19,11 @@ class EnquiryMail extends Mailable
      *
      * @return void
      */
-    public function __construct($products, $quantities)
+    public function __construct($products, $quantities,$enquiry)
     {
         $this->products = $products;
         $this->quantities = $quantities;
+        $this->enquiry = $enquiry;
     }
 
     /**
@@ -32,6 +33,6 @@ class EnquiryMail extends Mailable
      */
     public function build()
     {
-        return $this->view('enquiries.partials.pdf')->with(['products' => $this->products, 'quantities' => $this->quantities]);
+        return $this->from($this->enquiry->email)->view('enquiries.partials.pdf')->with(['products' => $this->products, 'quantities' => $this->quantities]);
     }
 }
