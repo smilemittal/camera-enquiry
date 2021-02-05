@@ -1,13 +1,13 @@
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/bootstrap.css')}}">
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped" style="border-collapse: collapse; width: 100%" >
 
 
     <tbody>
         @if(!empty($enquiry))
-            <tr><th>Customer Name:</th><td>{{ $enquiry->first_name.''.$enquiry->last_name }}</td></tr>
-            <tr><th>Email:</th><td>{{ $enquiry->email }}</td></tr>
-            <tr><th>Company:</th><td>{{ $enquiry->company }}</td></tr>
-            <tr> <th>Mobile:</th><td>{{ $enquiry->mobile_no }}</td></tr>
+            <tr><th style="border: 1px solid #000;text-align: center; width: 50%;">Customer Name:</th><td style="border: 1px solid #000;text-align: center; width: 50%;">{{ $enquiry->first_name.''.$enquiry->last_name }}</td></tr>
+            <tr><th style="border: 1px solid #000;text-align: center;width: 50%;">Email:</th><td style="border: 1px solid #000;text-align: center;">{{ $enquiry->email }}</td></tr>
+            <tr><th style="border: 1px solid #000;text-align: center;width: 50%;">Company:</th><td style="border: 1px solid #000;text-align: center;">{{ $enquiry->company }}</td></tr>
+            <tr> <th style="border: 1px solid #000;text-align: center;width: 50%;">Mobile:</th><td style="border: 1px solid #000;text-align: center;">{{ $enquiry->mobile_no }}</td></tr>
         @endif
       
         @php
@@ -21,9 +21,9 @@
             @foreach($products as $product_type => $product)
                 @if(!empty($quantities[$product_type]['total'] ) && $quantities[$product_type]['total'] != 0)
 
-                    <tr><th>Product Type</th><td>     {{ ucfirst($product_type) }}</td><tr>
-                    <tr><th colspan="2" style="text-align: center">Product Details</th></tr>
-                    <tr><th>S. No.</th><th>Attributes</th></tr>
+                    <tr><th style="border: 1px solid #000; text-align: center;">Product Type</th><td style="border: 1px solid #000; text-align: center;">     {{ ucfirst($product_type) }}</td><tr>
+                    <tr><th colspan="2" style="text-align: center; border: 1px solid #000;">Product Details</th></tr>
+                    <tr><th style="border: 1px solid #000;text-align: center;">S. No.</th><th style="border: 1px solid #000; text-align: center;">Attributes</th></tr>
 
                     @php
                     $i= 1;
@@ -31,8 +31,8 @@
                     @endphp
                         @foreach($product as $no => $attribute_values)
                         <tr>
-                        <td>{{  $i }}</td>
-                        <td>
+                        <td style="border: 1px solid #000;text-align: center;">{{  $i }}</td>
+                        <td style="border: 1px solid #000;text-align: center;">
                             @php    
                                 $attributes = $attribute_values_arr = [];
 
@@ -79,8 +79,8 @@
                         @endforeach
                         
         
-                        <tr><th>Total {{ ucfirst($product_type).'s'}}<td>{{ $quantity_total }}</td>
-                        <tr rowspan="2"><td colspan="2"></td></tr>
+                        <tr><th style="border: 1px solid #000;text-align: center;">Total {{ ucfirst($product_type).'s'}}<td style="border: 1px solid #000;text-align: center;">{{ $quantity_total }}</td>
+                        
                 @endif
             @endforeach
            
