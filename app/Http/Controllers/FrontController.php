@@ -9,6 +9,7 @@ use App\Models\Standard;
 use App\Mail\EnquiryMail;
 use App\Models\Attribute;
 use App\Models\SystemType;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
 use Illuminate\Support\Facades\Mail;
@@ -57,14 +58,16 @@ class FrontController extends Controller
         if($request->ajax() && $request->isMethod('post')){
             $system_type = $request->input('system_type');
             $product_type = $request->input('product_type');
+            $type= Type::where('name','LIKE',$product_type)->first();
+            //dd($type);
             $count = $request->input('count');
             $attribute_value_id = $request->input('attribute_value');
             $attribute_value_id = explode(',', $attribute_value_id);
             $selected_attributes = $request->input('selected_attributes');
 
             $products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
-                        ->whereHas('product_attributes.attribute', function($q)use($product_type){
-                            $q->where('type', $product_type);
+                        ->whereHas('product_attributes.attribute', function($q)use($type){
+                            $q->where('type_id', $type->id);
                         });
 
 
@@ -77,9 +80,9 @@ class FrontController extends Controller
 
             }
 
-            $products = $products->where('system_type_id', $system_type)->where('type', $product_type)->get();
+            $products = $products->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
 
-            $all_attributes = Attribute::with('attribute_values')->where('type', $product_type)->orderBy('display_order', 'ASC')->get();
+            $all_attributes = Attribute::with('attribute_values')->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
             $attributes = array();
             if(!empty($products) && count($products) > 0){
                 foreach($products as $product){
@@ -105,15 +108,16 @@ class FrontController extends Controller
 
     public function getNextProduct(Request $request){
         if($request->ajax() && $request->isMethod('post')){
-
+            
             $system_type = $request->input('system_type');
             $standard = $request->input('standard');
             $product_type = $request->input('product_type');
+            $type= Type::where('name','LIKE',$product_type)->first();
             $count = $request->input('count');
             $i = $count+1;
 
 
-            $attributes_new_product = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type', $product_type)->get();
+            $attributes_new_product = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
 
             $html = $attribute_html = '';
 
@@ -198,7 +202,7 @@ class FrontController extends Controller
         if($enquiry){
             $products = json_decode($product_arr, true);
             $quantities = json_decode($quantity_arr, true);
-            Mail::to(config('app.admin_email'))->send(new EnquiryMail($products, $quantities));
+            Mail::to(config('app.admin_email'))->send(new EnquiryMail($products, $quantities,$enquiry));
 
             return response()->json(['success'=> true, 'message'  => __('message.Enquiry Sent Successfully')]);
         }else{

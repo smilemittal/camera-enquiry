@@ -75,6 +75,7 @@
 					'Priority'					=>'Priority',
 			'Camera panel description'			=>'Camera panel description',
 			'Note*'								=>'Note*',
+			'Click Here '						=>'Click Here',
 					
 
   		
