@@ -154,9 +154,11 @@ class FrontController extends Controller
         $system_type_id = $request->input('selected_system_type');
         $quantity_arr = [];
         $product_arr = [];
+        $total_products = 0;
         if(!empty($products))
         {
             foreach($products as $product_type => $product){
+                $quantity_total = 0;
 
                 foreach($product as $no => $attributes){
 
@@ -172,40 +174,52 @@ class FrontController extends Controller
                     }
                     if(!empty($quantities[$product_type][$no])){
                         $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
+   
+                  
+                        $quantity_total += (int)$quantities[$product_type][$no];
                     }
 
                 }
+                $quantity_arr[$product_type]['total'] = $quantity_total;
+                $total_products += $quantity_total;
 
             }
         }
 
+        if($total_products > 0){
 
-        $product_arr = json_encode($product_arr);
-        $quantity_arr = json_encode($quantity_arr);
-        //dd($product_arr);
-        $enquiry = Enquiry::create([
-            'products' => $product_arr,
-            'quantity' => $quantity_arr,
-            'standard_id' => $standard_id,
-            'system_type_id' => $system_type_id,
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'email' => $request->input('email'),
-            'company' => $request->input('company'),
-            'mobile_no' => $request->input('mobile_no'),
-
-        ]);
-       
+            $product_arr = json_encode($product_arr);
+            $quantity_arr = json_encode($quantity_arr);
 
 
+            //dd($product_arr);
+            $enquiry = Enquiry::create([
+                'products' => $product_arr,
+                'quantity' => $quantity_arr,
+                'standard_id' => $standard_id,
+                'system_type_id' => $system_type_id,
+                'first_name' => $request->input('first_name'),
+                'last_name' => $request->input('last_name'),
+                'email' => $request->input('email'),
+                'company' => $request->input('company'),
+                'mobile_no' => $request->input('mobile_no'),
 
-        if($enquiry){
-            $products = json_decode($product_arr, true);
-            $quantities = json_decode($quantity_arr, true);
-            Mail::to(config('app.admin_email'))->send(new EnquiryMail($products, $quantities,$enquiry));       
-            return response()->json(['success'=> true, 'message'  => __('message.Enquiry Sent Successfully')]);
+            ]);
+               
+
+
+
+            if($enquiry){
+                $products = json_decode($product_arr, true);
+                $quantities = json_decode($quantity_arr, true);
+                Mail::to(config('app.admin_email'))->send(new EnquiryMail($products, $quantities, $enquiry));
+
+                return response()->json(['success'=> true, 'message'  => __('message.Enquiry Sent Successfully')]);
+            }else{
+                return response()->json(['success'=> false, 'message'  => __('message.Failed Sending enquiry! Try again')]);
+            }
         }else{
-            return response()->json(['success'=> false, 'message'  => __('message.Failed Sending enquiry! Try again')]);
+            return response()->json(['success' => false, 'message' => 'Please Enter Quantity for the products.']);
         }
 
 
@@ -218,7 +232,9 @@ class FrontController extends Controller
         $system_type_id = $request->input('selected_system_type');
         $quantity_arr = [];
         $product_arr = [];
+        $total_products = 0;
         foreach($products as $product_type => $product){
+            $quantity_total = 0;
 
             foreach($product as $no => $attributes){
 
@@ -234,18 +250,29 @@ class FrontController extends Controller
                 }
                 if(!empty($quantities[$product_type][$no])){
                     $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
+                  
+                        $quantity_total += (int)$quantities[$product_type][$no];
+                   
+                    
                 }
 
+
             }
-
+            $quantity_arr[$product_type]['total'] = $quantity_total;
+            $total_products += $quantity_total;
         }
-
+        if($total_products > 0){
             $products = $product_arr;
             $quantities = $quantity_arr;
 
             $html = view('enquiries.partials.pdf', compact('products', 'quantities'))->render();
            // dd($html);
             return response()->json(['success' => true, 'html' => $html]);
+        }else{
+            return response()->json(['success' => false, 'message' => 'Please Enter Quantity for the products.']);
+        }
+
+            
 
     }
     public function getStandard(Request $request){

@@ -83,7 +83,45 @@
                                             </div>
                                         </form>
                                     </div>
-                                    
+                                    <label for="values">{{__('site.Note*')}}</label>
+                                      <p>
+                                        Steps to import Product Attributes:<br>
+
+                                        Admin needs to download the Download CSV file example :<br>
+
+                                        When you are on the import page , you can see --> Download an example file.<br>
+                                         Download that sample file in your local system <br>
+                                        -> open that file in MS excel software - you can see all column headings - Now we have to put all the values in below specific column.<br> 
+                                        We can’t change any column heading (label name ), Don’t delete any column name.<br>
+
+                                        Open the downloaded file and fill the information of products like <br>
+                                        Product name:
+                                       <li> This field is required.</li>
+                                       <li>if product with same name already exist then it will not be added and if it doesn't
+                                        then it will be added .</li><br>
+                                        Standard:
+                                        <li> This field is required.</li>
+                                        You can get existing standard values from here <a  href="{{ route('standards.index') }}">{{__('site.Click Here ')}}</a>.</li><br>
+                                        System type:
+                                        <li> This field is required .
+                                        <li>You can get existing System type values from here <a  href="{{ route('system-types.index') }}">{{__('site.Click Here ')}}</a>.</li><br>
+                                        Type:
+                                        <li>This field is required .</li>
+                                         <li>You can get existing Type values from here <a  href="{{ route('types.index') }}">{{__('site.Click Here ')}}</a>.</li><br>
+                                        Priority:
+                                        <li>This field is required .</li>
+                                        <li>and other Product attributes:</li>
+                                        <li>You can get existing  Product attributes values  from  here <a  href="{{ route('attribute-values.index') }}">{{__('site.Click Here ')}}</a>.</li><br>
+
+                                        After putting the information of all products now you need to upload the file. <br>
+                                        choose the file and click on the Save button.<br>
+
+                                        You will see a message - file imported successfully and then<br>
+                                        Go to product -> list and you can see all imported data.<br>
+
+                                        If the file does not import successfully , you will see an error message that File is not imported successfully.<br> It means there is some problem in your excel file and we have to crosscheck , fix the problem and upload the excel file again.<br>
+  
+                                    </p>      
                                 </div>
                             </div>
                         </div>
