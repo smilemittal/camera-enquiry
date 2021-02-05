@@ -73,10 +73,10 @@
 					'Type'						=>'Type',
 					'Type ID'					=>'Type ID',
 					'Priority'					=>'Priority',
-			'Camera panel description'			=>'Camera panel description',
-			'Note*'								=>'Note*',
-			'Click Here '						=>'Click Here',
-					
+					'Camera panel description'	=>'Camera panel description',
+					'Note*'						=>'Note*',
+					'Click Here '				=>'Click Here',
+					'Recorder panel description'=> 'Recorder panel description',
 
   		
 

@@ -106,7 +106,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 col-xl-7 pl-lg-3">
-                            <p>{{__('site.Camera panel description')}}</p>
+                            <p>{{__('site.Recorder panel description')}}</p>
                         </div>
                     </div>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
@@ -118,7 +118,7 @@
                                 @endif
                             </div>
 
-                            <p class="earch">{{__('site.Camera panel description')}}</p>
+                            <p class="earch">{{__('site.Recorder panel description')}}</p>
 
                             <div class="col-kemey kemey-boxbtn">
                                 <div class="row d-flex align-items-center">
@@ -283,7 +283,7 @@
                     $('#camera_attribute_div').append(data.html_camera);
                 }
                 if(data.html_recorder != ''){
-                    console.log('helo');
+                   
                     $('#recorder_attribute_div').empty();
                     $('#recorder_attribute_div').append(data.html_recorder);
 
@@ -471,6 +471,13 @@
                     return true;
                    }
 
+                }else{
+                    swal({
+                        title: "Error",
+                        text: data.message,
+                        icon: "error",
+                        button: "OK",
+                    });
                 }
             }
         });
