@@ -44,25 +44,26 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
           $system_type_id = $type_id = $standard_id = $product_id = '';
             if(((!empty($row['Model'])&&$row['Model'] != null) || (!empty($row['Product name'])&& $row['Product name'] != null))){
                 if(!empty($row['Model'])){
-                    $product_name= $row['Model'];
+                    $product_name= trim($row['Model'], " ");
                 }else{
-                    $product_name= $row['Product name'];
+                    $product_name= trim($row['Product name'], " ");
                 }
 
                 if(isset($row['Standards'])){
-                    $standard_name= $row['Standards'];
+                    $standard_name= trim($row['Standards'], " ");
                 }else if(isset($row['Standard'])){
-                    $standard_name= $row['Standard'];
+                    $standard_name= trim($row['Standard'], " ");
                 }
                 // $type = $row['type'];
 
                 if( (!empty($row['Type']) && $row['Type'] != null)){
-                    $type = Type::where('name', 'LIKE', $row['Type'])->first();
+                    $row_type = trim($row['Type'], " ");
+                    $type = Type::where('name', 'LIKE', "%{$row_type}%")->first();
                     if($type){
                         $type_id = $type->id;
                     }else{
                         $types = Type::create([
-                            'name' => $row['Type'],
+                            'name' => $row_type,
                         ]);
                         $type_id = $types->id;
                     }
@@ -74,13 +75,14 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                 }
              
                 if( (!empty($row['System type']) && $row['System type'] != null)){
+                    $row_sys_type = trim($row['System type'], " ");
                     //get system type, if exists, get id, otherwise create new system type and get its id
-                    $system_type = SystemType::where('name', 'LIKE', $row['System type'])->first();
+                    $system_type = SystemType::where('name', 'LIKE', "%{$row_sys_type}%")->first();
                     if($system_type){
                         $system_type_id = $system_type->id;
                     }else{
                         $system_types = SystemType::create([
-                            'name' => $row['System type'],
+                            'name' => $row_sys_type,
                         ]);
                         $system_type_id = $system_types->id;
                     }
@@ -91,6 +93,7 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                 }
 
                 if( !empty($standard_name) && $standard_name != null && !empty($system_type_id)){
+                   
                     //get standard, if exists, get id, otherwise create new standard and get its id 
                     $standard = Standard::where('name', 'LIKE', $standard_name)->first();
                   
@@ -111,10 +114,10 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                
                 //get product, if exists, get id, otherwise create new product and get its id
                if($system_type_id != '' && $type_id != '' && $standard_id != ''){
-                    $product= Product::where('name','LIKE', $product_name)->where('type_id', 'LIKE', $type_id)->where('system_type_id', $system_type_id)->where('standard_id', $standard_id)->where('priority','LIKE', $row['Priority'])->first();
+                    $product= Product::where('name','LIKE', $product_name)->where('type_id', 'LIKE', $type_id)->where('system_type_id', $system_type_id)->where('standard_id', $standard_id)->where('priority','LIKE', trim($row['Priority'], " "))->first();
 
                     if(!$product){
-                        $products = Product::create(['name' => $product_name, 'type_id' => $type_id, 'system_type_id' => $system_type_id, 'standard_id' => $standard_id,'priority' => $row['Priority']]);
+                        $products = Product::create(['name' => $product_name, 'type_id' => $type_id, 'system_type_id' => $system_type_id, 'standard_id' => $standard_id,'priority' => trim($row['Priority'], " ")]);
                         $product_id =$products->id;
                         $product_type = $products->type_id;
                         $import_count++;
@@ -131,6 +134,8 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                 }
                
                 foreach($row as $key => $value){
+                    $key = trim($key, " ");
+                    $value = trim($value, " ");
 
                     if(($key != 'Model' && $key != 'Product name') && $key != 'Display order' && $key != 'Priority' && $key != 'System type' && $key != 'Type' && ($key != 'Standards' && $key != 'Standard') && $value != null && $value != '' && $system_type_id != '' && $type_id != '' && $standard_id != ''){
           // dd($row['System type'], $standard_id, $type_id, $system_type_id, $this->products_imported);
