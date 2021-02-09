@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
-@endsection  
-@section('content') 
-<!--BEGIN content--> 
+@endsection
+@section('content')
+<!--BEGIN content-->
 <style>
     #checkAll {
     width: auto  !important;
@@ -16,7 +16,7 @@
 </style>
 <div class="row">
     <div class="content-header-left col-md-4 col-12 mb-2">
-        <h3 class="content-header-title">{{__('site.Type')}}</h3>
+        <h3 class="content-header-title">{{__('site.Language')}}</h3>
     </div>
     <div class="content-header-right col-md-8 col-12">
         <div class="breadcrumbs-top float-md-right">
@@ -41,9 +41,9 @@
                                     <div class="card-title layout_btns" id="basic-layout-form">
                                             <h3>{{__('site.List')}}</h3>
                                             <div class="btns-right-side">
-                                                <a href="{{ route('types.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{__('site.Add')}} </a>    
-                                                <a href="{{ route('types.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{__('site.Import')}} </a> 
-                                                <a href="{{ route('types.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{__('site.Export')}}</a>
+                                                <a href="{{ route('languages.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{__('site.Add')}} </a>
+                                                <a href="{{ route('languages.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{__('site.Import')}} </a>
+                                                <a href="{{ route('languages.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{__('site.Export')}}</a>
                                                 <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button>
                                             </div>
                                         </div>
@@ -68,9 +68,9 @@
                                     @endif
 
                                     <div class="table-responsive">
-                                        <form class="form" action="{{ route('types.multipledelete') }}" method="post" id='delete_all'>
+                                        <form class="form" action="{{ route('languages.multipledelete') }}" method="post" id='delete_all'>
                                             @csrf
-                                        <table class="table table-striped table-bordered zero-configuration" id="types" style="width: 100%; display: table;">
+                                        <table class="table table-striped table-bordered zero-configuration" id="languages" style="width: 100%; display: table;">
                                             <thead>
                                                 <tr>
                                                     <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
@@ -80,7 +80,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                        
+
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -112,16 +112,16 @@
     <script>
         $(document).ready(function(){
             // Data table for serverside
-            $('#types').DataTable({
+            $('#languages').DataTable({
                 "pageLength": 40,
                 "order": [[ 1, 'desc' ]],
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
-                    "url": "{{ route('get.types') }}",
+                    "url": "{{ route('get.languages') }}",
                     "dataType": "json",
                     "type": "POST",
-                    "data":{ _token: "{{csrf_token()}}",route:'{{route('types.index')}}'}
+                    "data":{ _token: "{{csrf_token()}}",route:'{{route('languages.index')}}'}
                 },
                 "columns": [
                     { "data": "#" },
@@ -140,17 +140,17 @@
     </script>
     <script src="{{asset('assets/js/scripts.js')}}" type="text/javascript"></script>
  <script>
-        $('.checkboxes').click(function () {    
-     $('input:checkbox').prop('checked', this.checked);    
+        $('.checkboxes').click(function () {
+     $('input:checkbox').prop('checked', this.checked);
  });
- $(document).on('click','.page-link',function () {    
+ $(document).on('click','.page-link',function () {
 
-     $('.checkboxes').removeAttr('checked');    
+     $('.checkboxes').removeAttr('checked');
  });
-//  $('#deleteTrigger').on('click',function () {    
-//      $('#delete_all').submit();    
+//  $('#deleteTrigger').on('click',function () {
+//      $('#delete_all').submit();
 //  });
-  $('#deleteTrigger').on('click',function () { 
+  $('#deleteTrigger').on('click',function () {
     swal({
         title: 'Are you sure?',
         text: 'You won\'t be able to revert this!',
@@ -163,7 +163,7 @@
         closeOnCancel: true
     }).then(function (isConfirm) {
         if (isConfirm.value) {
-          $('#delete_all').submit();        
+          $('#delete_all').submit();
         }
     }).catch(swal.noop)
   });
