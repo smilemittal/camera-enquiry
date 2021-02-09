@@ -141,30 +141,27 @@
     <script src="{{asset('assets/js/scripts.js')}}" type="text/javascript"></script>
     <script>
         $('.checkboxes').click(function () {
-     $('input:checkbox').prop('checked', this.checked);
- });
- $(document).on('click','.page-link',function () {
-
-     $('.checkboxes').removeAttr('checked');
- });
- $('#deleteTrigger').on('click',function () {
-    swal({
-        title: 'Are you sure?',
-        text: 'You won\'t be able to revert this!',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-        closeOnConfirm: true,
-        closeOnCancel: true
-    }).then(function (isConfirm) {
-        if (isConfirm.value) {
-          $('#delete_all').submit();
-        }
-    }).catch(swal.noop)
-  });
-
-
+            $('input:checkbox').prop('checked', this.checked);
+        });
+        $(document).on('click','.page-link',function () {
+            $('.checkboxes').removeAttr('checked');
+        });
+        $('#deleteTrigger').on('click',function () {
+            swal({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                closeOnConfirm: true,
+                closeOnCancel: true
+            }).then(function (isConfirm) {
+                if (isConfirm.value) {
+                $('#delete_all').submit();
+                }
+            }).catch(swal.noop)
+        });
         </script>
 @endsection

@@ -27,6 +27,7 @@ class AddSystemTypesToStandardsTable extends Migration
     {
         Schema::table('standards', function (Blueprint $table) {
             //
+            $table->dropColumn('system_type_id');
         });
     }
 }
