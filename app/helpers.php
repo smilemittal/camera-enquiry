@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Translation;
 use Illuminate\Support\Facades\App;
 
 function in_array_r($needle, $haystack, $strict = false) {
