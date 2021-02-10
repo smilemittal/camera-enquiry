@@ -16,9 +16,9 @@
 </style>
 <div class="row">
     <div class="content-header-left col-md-4 col-12 mb-2">
-        <h3 class="content-header-title">{{__('site.Language')}}</h3>
+        <h3 class="content-header-title">{{translate('Translations')}}</h3>
     </div>
-    <div class="content-header-right col-md-8 col-12">
+    {{-- <div class="content-header-right col-md-8 col-12">
         <div class="breadcrumbs-top float-md-right">
             <div class="breadcrumb-wrapper mr-1">
                 <ol class="breadcrumb">
@@ -29,7 +29,7 @@
                 </ol>
             </div>
         </div>
-    </div>
+    </div> --}}
     </div>
 <div class="content-body">
                 <!--Form layout section start -->
@@ -37,14 +37,15 @@
                     <div class="row match-height justify-content-center">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header" style="height: 50px;">
+                                <div class="card-header" style="height: 50px;"> 
                                     <div class="card-title layout_btns" id="basic-layout-form">
-                                            <h3>{{__('site.List')}}</h3>
+                                            <h3>{{translate('List')}} of Translations of {{translate($language->name)}}</h3>
                                             <div class="btns-right-side">
-                                                <a href="{{ route('languages.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{__('site.Add')}} </a>
-                                                {{-- <a href="{{ route('languages.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{__('site.Import')}} </a>
-                                                <a href="{{ route('languages.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{__('site.Export')}}</a>
-                                                <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button> --}}
+                                                {{-- <a href="{{ route('languages.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{__('site.Add')}} </a>
+                                                <a href="{{ route('languages.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{__('site.Import')}} </a>
+                                                <a href="{{ route('languages.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{__('site.Export')}}</a> --}}
+                                                {{-- <button type="submit" name="submit" class="btn mr-1 mb-1 btn-success btn-sm" >Submit</button> --}}
+                                                <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button>
                                             </div>
                                         </div>
                                 </div>
@@ -66,18 +67,16 @@
                                             {{\Session::get('deleted_success')}}
                                         </div>
                                     @endif
-
                                     <div class="table-responsive">
-                                        {{-- <form class="form" action="{{ route('languages.multipledelete') }}" method="post" id='delete_all'>
-                                            @csrf --}}
-                                        <table class="table table-striped table-bordered zero-configuration" id="languages" style="width: 100%; display: table;">
+                                        <form class="form" action="{{ route('languages_trans.multipledelete') }}" method="post" id="{{ 'delete_all' }}">
+                                            @csrf 
+                                        <table class="table table-striped table-bordered zero-configuration" id="languages_view" style="width: 100%; display: table;">
                                             <thead>
                                                 <tr>
-                                                    {{-- <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th> --}}
+                                                    <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
                                                     <th>{{ __('site.ID') }}</th>
-                                                    <th>{{ __('site.Name') }}</th>
-                                                    <th>{{ __('site.Code') }}</th>
-                                                    <th>{{ __('site.RTL') }}</th>
+                                                    <th>{{ __('site.Key') }}</th>
+                                                    <th>{{ __('site.Value') }}</th>
                                                     <th>{{ __('site.Action') }}</th>
                                                 </tr>
                                             </thead>
@@ -86,17 +85,17 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    {{-- <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th> --}}
-                                                    <th> {{ __('site.ID') }}</th>
-                                                    <th> {{  __('site.Name') }} </th>
-                                                    <th>{{ __('site.Code') }}</th>
-                                                    <th>{{ __('site.RTL') }}</th>
-                                                    <th> {{  __('site.Action') }}</th>
+                                                    <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
+                                                    <th>{{ __('site.ID') }}</th>
+                                                    <th>{{ __('site.Key') }}</th>
+                                                    <th>{{ __('site.Value') }}</th>
+                                                    <th>{{ __('site.Action') }}</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
                                     </div>
                                 </div>
+                            </form>
                                 </div>
                             </div>
                         </div>
@@ -116,24 +115,23 @@
     <script>
         $(document).ready(function(){
             // Data table for serverside
-            $('#languages').DataTable({
+            $('#languages_view').DataTable({
                 "pageLength": 40,
                 "order": [[ 1, 'desc' ]],
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
-                    "url": "{{ route('get.languages_list') }}",
+                    "url": "{{ route('get.languages_translations_list') }}",
                     "dataType": "json",
                     "type": "POST",
-                    "data":{ _token: "{{csrf_token()}}",route:'{{route('languages.index')}}'}
+                    "data":{ _token: "{{csrf_token()}}",route:'{{route('languages.key_value_store')}}'}
                 },
                 "columns": [
-                    // { "data": "#" },
+                    { "data": "#" },
                     { "data": "id" },
-                    { "data": "name" },
-                    { "data": "code" },
-                    { "data": "rtl"},
-                    { "data": "action" }
+                    { "data": "lang_key" },
+                    { "data": "lang_value" },
+                    { "data" : "action"}
                 ],
                 aoColumnDefs: [
                     {
@@ -145,18 +143,15 @@
         });
     </script>
     <script src="{{asset('assets/js/scripts.js')}}" type="text/javascript"></script>
- {{-- <script>
-        $('.checkboxes').click(function () {
-     $('input:checkbox').prop('checked', this.checked);
+    <script>
+        $('.checkboxes').click(function () {    
+     $('input:checkbox').prop('checked', this.checked);    
  });
- $(document).on('click','.page-link',function () {
+ $(document).on('click','.page-link',function () {    
 
-     $('.checkboxes').removeAttr('checked');
+     $('.checkboxes').removeAttr('checked');    
  });
-//  $('#deleteTrigger').on('click',function () {
-//      $('#delete_all').submit();
-//  });
-  $('#deleteTrigger').on('click',function () {
+ $('#deleteTrigger').on('click',function () { 
     swal({
         title: 'Are you sure?',
         text: 'You won\'t be able to revert this!',
@@ -169,9 +164,11 @@
         closeOnCancel: true
     }).then(function (isConfirm) {
         if (isConfirm.value) {
-          $('#delete_all').submit();
+          $('#delete_all').submit();        
         }
     }).catch(swal.noop)
   });
-  </script> --}}
+ 
+
+        </script>
 @endsection

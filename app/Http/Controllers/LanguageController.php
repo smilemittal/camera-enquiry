@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Language;
+use App\Models\Translation;
 use Illuminate\Validation\Rule;
 
 class LanguageController extends Controller
@@ -53,9 +54,11 @@ class LanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        //
+        $language = Language::findOrFail(decrypt($id));
+        $lang_keys = Translation::where('lang', default_language());
+        return view('language.language_view', compact('language','lang_keys'));
     }
 
     /**
@@ -106,21 +109,25 @@ class LanguageController extends Controller
 
 
     }
+
     public function multipleDelete(Request $request)
 	{
         $id = $request->bulk_delete;
 
-        Language::whereIn('id', $id)->delete();
+        Translation::whereIn('id', $id)->delete();
 
 		return redirect()->back();
 	}
+
     public function getLanguages(Request $request) {
         $totalData = Language::count();
         $totalFiltered = $totalData;
         $columns = array(
-            1=>'id',
+            1 =>'id',
             2 =>'name',
-            3 =>'action',
+            3 =>'code',
+            4 => 'rtl',
+            5 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -144,15 +151,101 @@ class LanguageController extends Controller
         $data = array();
         if (!empty($languages)) {
             foreach ($languages as $key => $language) {
-                $nestedData['#']='<input language="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$language->id.'" />';
+                // $nestedData['#']='<input language="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$language->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $language->name;
-                $index = route('languages.index' ,  encrypt($language->id));
-                $edit = route('languages.update' ,  encrypt($language->id));
-                $delete = route('languages.destroy' ,  encrypt($language->id));
+                $nestedData['code'] = $language->code;
+                $nestedData['rtl'] = $language->rtl == true ? 'on':'off';
+                $index = route('languages.index',encrypt($language->id));
+                $edit = route('languages.update',encrypt($language->id));
+                $delete = route('languages.destroy',encrypt($language->id));
+                $show =route('languages.show',encrypt($language->id));
                 $exist = $language;
                 $comp = true;
-                $nestedData['action'] = view('language.partials.setting-action',compact('index','exist','comp','edit','delete', 'language'))->render();
+                $nestedData['action'] = view('language.partials.setting-action',compact('index','exist','comp','edit','delete','show','language'))->render();
+                $data[] = $nestedData;
+            }
+        }
+        $json_data = array(
+            "draw"=> intval($request->input('draw')),
+            "recordsTotal" => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data" => $data
+        );
+        return json_encode($json_data);
+    }
+
+    public function key_value_store(Request $request)
+    {
+        $language = Language::findOrFail($request->id);
+        foreach ($request->values as $key => $value) {
+            $translation_def = Translation::where('lang_key', $key)->where('lang', $language->code)->first();
+            if($translation_def == null){
+                $translation_def = new Translation;
+                $translation_def->lang = $language->code;
+                $translation_def->lang_key = $key;
+                $translation_def->lang_value = $value;
+                $translation_def->save();
+            }
+            else {
+                $translation_def->lang_value = $value;
+                $translation_def->save();
+            }
+        }
+        // forgetCachedTranslations();
+        // //saveJSONFile($language->code, $data);
+        // flash(translate('Translations updated for ').$language->name)->success();
+        // return back();
+    }
+
+    public function destroytrans($id)
+    {  
+        $language_translation=Translation::find($id);
+        $language_translation->delete();
+
+         return redirect()->back()->with('deleted_success',__('Translation deleted successfully'));
+    }
+
+    public function getLanguagesTranslations(Request $request) {
+        $totalData = Translation::count();
+        $totalFiltered = $totalData;
+        $columns = array(
+            0 =>'#',
+            1 =>'id',
+            2 =>'lang_key',
+            3 =>'lang_value',
+            4 =>'action'
+        );
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $start = $start ? $start / $limit : 0;
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+        if(empty($request->input('search.value')))
+        {
+            $translations = Translation::orderBy($order, $dir)
+            ->paginate($limit, ['*'], 'page', $start + 1);
+            $totalFiltered = $totalData;
+        }else {
+            $search = $request->input('search.value');
+            $translations =  Translation::where('id','LIKE',"%{$search}%")
+                ->orWhere('lang_key', 'LIKE',"%{$search}%")
+                ->orderBy($order, $dir)
+                ->paginate($limit, ['*'], 'page', $start + 1);
+
+            $totalFiltered = $translations->count();
+        }
+        $data = array();
+        if (!empty($translations)) {
+            foreach ($translations as $key => $language_translation) {
+                $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$language_translation->id.'" />';
+                $nestedData['id'] = ($start * $limit) + $key + 1;
+                $nestedData['lang_key'] = $language_translation->lang_key;
+                $nestedData['lang_value'] = '<input type="text" class="form-control"  name="values[{{ $language_translation->lang_key }}]" value="'.$language_translation->lang_value.'" />';
+                $delete = route('languages_trans.destroy',encrypt($language_translation->id));
+                $exist = $language_translation;
+                $comp = true;
+                $nestedData['action'] = view('language.partials.trans-action',compact('exist','delete', 'language_translation'))->render();
                 $data[] = $nestedData;
             }
         }

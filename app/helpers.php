@@ -2,6 +2,9 @@
 
 use App\Models\Translation;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 
 function in_array_r($needle, $haystack, $strict = false) {
     foreach ($haystack as $item => $value) {
@@ -33,5 +36,34 @@ function translate($key, $lang = null){
     }
     else {
         return $translation_def->lang_value;
+    }
+}
+if (! function_exists('static_asset')) {
+    /**
+     * Generate an asset path for the application.
+     *
+     * @param  string  $path
+     * @param  bool|null  $secure
+     * @return string
+     */
+    function static_asset($path, $secure = null)
+    {
+        return app('url')->asset('public/'.$path, $secure);
+    }
+}
+
+function forgetCachedTranslations(){
+    Cache::forget('translations');
+}
+
+//highlights the selected navigation on frontend
+if (! function_exists('default_language')) {
+    function default_language()
+    {
+        if(!empty(Config::get('theme.default_lang'))) {
+            return Config::get('theme.default_lang');
+        } else {
+           return Config::get('app.locale');
+        }
     }
 }

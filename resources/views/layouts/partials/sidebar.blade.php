@@ -95,6 +95,10 @@
                 <li class=" nav-item">
                 <a href="{{ route('enquiries.index') }}"><i class="ft-mail"></i>
                     <span class="menu-title" data-i18n="">{{ __('site.Enquiries')}}</span></a>
+                </li> 
+                <li class=" nav-item">
+                <a href="{{ route('languages.index') }}"><i class="la la-language"></i>
+                    <span class="menu-title" data-i18n="">{{translate('Languages')}}</span></a>
                 </li>   
             </ul>
         </div>
