@@ -3,17 +3,17 @@
     <!-- BEGIN: Content-->
     <div class="content-header row">
         <div class="content-header-left col-md-4 col-12 mb-2">
-            <h3 class="content-header-title">{{__('Language') }}</h3>
+            <h3 class="content-header-title">{{translate('Language') }}</h3>
         </div>
         <div class="content-header-right col-md-8 col-12">
             <div class="breadcrumbs-top float-md-right">
                 <div class="breadcrumb-wrapper mr-1">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">{{__('Home') }}</a>
+                        <li class="breadcrumb-item"><a href="#">{{translate('Home') }}</a>
                         </li>
-                        {{-- <li class="breadcrumb-item"><a href="{{ route('system-types.index') }}">{{__('site.List')}}</a> --}}
+                        {{-- <li class="breadcrumb-item"><a href="{{ route('system-types.index') }}">{{translate('site.List')}}</a> --}}
                         </li>
-                        <li class="breadcrumb-item active">{{__('Add') }}
+                        <li class="breadcrumb-item active">{{translate('Add') }}
                         </li>
                     </ol>
                 </div>
@@ -28,7 +28,7 @@
                     <div class="card">
                         <div class="card-header">
 
-                            <h3 class="card-title" id="basic-layout-form">{{__('Add') }} </h3>
+                            <h3 class="card-title" id="basic-layout-form">{{translate('Add') }} </h3>
                             <a class="heading-elements-toggle">
                                 <i class="la la-ellipsis-v font-medium-3"></i>
                             </a>
@@ -56,11 +56,11 @@
                                     @csrf
                                     <div class="form-body">
                                         <div class="form-group {{ $errors->get('name') ? 'has-error' : '' }}">
-                                            <label for="name">{{__('Name') }}</label>
+                                            <label for="name">{{translate('Name') }}</label>
                                             <input type="text" name="name" placeholder="Name" class="form-control" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="code">{{__('Code') }}</label>
+                                            <label for="code">{{translate('Code') }}</label>
                                             <select class="country-flag-select form-control" id="code" name="code">
                                                 @foreach(\File::files(base_path('public/app-assets/images/flags')) as $path)
                                                 <option value="{{ pathinfo($path)['filename'] }}" data-icon="<img src='{{ static_asset('app-assets/images/flags/'.pathinfo($path)['filename'].'.png') }}'"><span>{{ strtoupper(pathinfo($path)['filename']) }}</span></option>
@@ -68,11 +68,11 @@
                                             </select>
                                         </div>
                                         <div class="form-actions" style="text-align: center;">
-                                            <button type="reset" name="submit" class="btn btn-danger">{{__('Reset') }}
+                                            <button type="reset" name="submit" class="btn btn-danger">{{translate('Reset') }}
                                             </button>
 
                                             <button type="submit" name="submit"
-                                                class="btn btn-success">{{__('Save') }}
+                                                class="btn btn-success">{{translate('Save') }}
                                             </button>
                                         </div>
                                     </div>
