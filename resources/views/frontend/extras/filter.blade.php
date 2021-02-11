@@ -34,7 +34,7 @@
                         <option value="unimportant">Unimportant</option>
                         @if(!empty($attribute->attribute_values))
                             @foreach($attribute->attribute_values as $attribute_value)
-                                <option value="{{ $attribute_value->id }}">{{ transalte($attribute_value->value) }}</option>
+                                <option value="{{ $attribute_value->id }}">{{ translate($attribute_value->value) }}</option>
                             @endforeach
                         @endif
                     </select>
