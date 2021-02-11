@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="code">{{__('Code') }}</label>
-                                            <select class="select2-icons form-control" id="code" name="code">
+                                            <select class="country-flag-select form-control" id="code" name="code">
                                                 @foreach(\File::files(base_path('public/app-assets/images/flags')) as $path)
                                                 <option value="{{ pathinfo($path)['filename'] }}" data-icon="<img src='{{ static_asset('app-assets/images/flags/'.pathinfo($path)['filename'].'.png') }}'"><span>{{ strtoupper(pathinfo($path)['filename']) }}</span></option>
                                                 @endforeach
@@ -84,4 +84,26 @@
             </div>
         </section>
     </div>
+@endsection
+@section('scripts')
+<script>
+     $(".country-flag-select").select2({
+        templateResult: countryCodeFlag,
+        templateSelection: countryCodeFlag,
+        escapeMarkup: function (m) {
+            return m;
+        },
+    });
+    function countryCodeFlag(state) {
+        var flagName = $(state.element).data("flag");
+        if (!flagName) return state.text;
+        return (
+            "<img  class='flag' src='" +
+            flagName +
+            "' height='14' />" +
+            state.text
+        );
+    }
+</script>
+
 @endsection
