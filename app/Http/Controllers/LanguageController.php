@@ -177,25 +177,31 @@ class LanguageController extends Controller
 
     public function key_value_store(Request $request)
     {
-        $language = Language::findOrFail($request->id);
-        foreach ($request->values as $key => $value) {
-            $translation_def = Translation::where('lang_key', $key)->where('lang', $language->code)->first();
-            if($translation_def == null){
-                $translation_def = new Translation;
-                $translation_def->lang = $language->code;
-                $translation_def->lang_key = $key;
-                $translation_def->lang_value = $value;
-                $translation_def->save();
-            }
-            else {
-                $translation_def->lang_value = $value;
-                $translation_def->save();
+        if($request->has('submit')){
+            $language = Language::findOrFail($request->id);
+            foreach ($request->values as $key => $value) {
+                $translation_def = Translation::where('lang_key', $key)->where('lang', $language->code)->first();
+                if($translation_def == null){
+                    $translation_def = new Translation;
+                    $translation_def->lang = $language->code;
+                    $translation_def->lang_key = $key;
+                    $translation_def->lang_value = $value;
+                    $translation_def->save();
+                }
+                else {
+                    $translation_def->lang_value = $value;
+                    $translation_def->save();
+                }
             }
         }
-        // forgetCachedTranslations();
+        if($request->has('delete')){
+            $translations = $request->bulk_delete;
+            Translation::whereIn('id', $translations)->delete();
+        }
+        
+        //forgetCachedTranslations();
         // //saveJSONFile($language->code, $data);
-        // flash(translate('Translations updated for ').$language->name)->success();
-        // return back();
+         return back()->with('success','Translations updated for'.$language->name);
     }
 
     public function destroytrans($id)
@@ -206,7 +212,7 @@ class LanguageController extends Controller
          return redirect()->back()->with('deleted_success',__('Translation deleted successfully'));
     }
 
-    public function getLanguagesTranslations(Request $request) {
+    public function getLanguagesTranslations(Request $request, $lang) {
         $totalData = Translation::count();
         $totalFiltered = $totalData;
         $columns = array(
@@ -223,7 +229,7 @@ class LanguageController extends Controller
         $dir = $request->input('order.0.dir');
         if(empty($request->input('search.value')))
         {
-            $translations = Translation::orderBy($order, $dir)
+            $translations = Translation::where('lang', $lang)->orderBy($order, $dir)
             ->paginate($limit, ['*'], 'page', $start + 1);
             $totalFiltered = $totalData;
         }else {
@@ -241,11 +247,11 @@ class LanguageController extends Controller
                 $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$language_translation->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['lang_key'] = $language_translation->lang_key;
-                $nestedData['lang_value'] = '<input type="text" class="form-control"  name="values[{{ $language_translation->lang_key }}]" value="'.$language_translation->lang_value.'" />';
+                $nestedData['lang_value'] = '<input type="text" class="form-control"  name="values['.$language_translation->lang_key.']" value="'.$language_translation->lang_value.'" />';
                 $delete = route('languages_trans.destroy',encrypt($language_translation->id));
                 $exist = $language_translation;
                 $comp = true;
-                $nestedData['action'] = view('language.partials.trans-action',compact('exist','delete', 'language_translation'))->render();
+                $nestedData['action'] = view('language.partials.translation-action',compact('exist','delete', 'language_translation'))->render();
                 $data[] = $nestedData;
             }
         }

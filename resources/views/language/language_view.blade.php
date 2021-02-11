@@ -44,8 +44,6 @@
                                                 {{-- <a href="{{ route('languages.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{__('site.Add')}} </a>
                                                 <a href="{{ route('languages.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{__('site.Import')}} </a>
                                                 <a href="{{ route('languages.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{__('site.Export')}}</a> --}}
-                                                {{-- <button type="submit" name="submit" class="btn mr-1 mb-1 btn-success btn-sm" >Submit</button> --}}
-                                                <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button>
                                             </div>
                                         </div>
                                 </div>
@@ -68,7 +66,7 @@
                                         </div>
                                     @endif
                                     <div class="table-responsive">
-                                        <form class="form" action="{{ route('languages_trans.multipledelete') }}" method="post" id="{{ 'delete_all' }}">
+                                        <form class="form" action="{{ route('languages.key_value_store') }}" method="post" id="{{ 'delete_all' }}">
                                             @csrf 
                                         <table class="table table-striped table-bordered zero-configuration" id="languages_view" style="width: 100%; display: table;">
                                             <thead>
@@ -93,6 +91,10 @@
                                                 </tr>
                                             </tfoot>
                                         </table>
+                                    </div>
+                                    <div class="form-actions" style="text-align: center;">
+                                        <button type="submit" name="submit" value="submit" class="btn mr-1 mb-1 btn-success btn-sm">Submit</button>
+                                        <button type="button" name="delete" value="delete" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button>
                                     </div>
                                 </div>
                             </form>
@@ -121,7 +123,7 @@
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
-                    "url": "{{ route('get.languages_translations_list') }}",
+                    "url": "{{ route('get.languages_translations_list', $language->code) }}",
                     "dataType": "json",
                     "type": "POST",
                     "data":{ _token: "{{csrf_token()}}",route:'{{route('languages.key_value_store')}}'}
@@ -162,8 +164,8 @@
         confirmButtonText: 'Yes, delete it!',
         closeOnConfirm: true,
         closeOnCancel: true
-    }).then(function (isConfirm) {
-        if (isConfirm.value) {
+    }).then(function (willDelete) {
+        if (willDelete) {
           $('#delete_all').submit();        
         }
     }).catch(swal.noop)

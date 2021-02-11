@@ -75,9 +75,9 @@
                                                         <select class="form-control select-dropdown-1" name="rtl"
                                                             id="rtl">
                                                             <option value="1" @if ($languages->rtl == true) selected
-                                                                @endif>{{ __('site.On') }}</option>
+                                                                @endif>{{ __('On') }}</option>
                                                             <option value="0" @if ($languages->rtl == false) selected
-                                                                @endif>{{ __('site.Off') }}</option>
+                                                                @endif>{{ __('Off') }}</option>
                                                         </select>
                                                     </div>
                                                 </div>
