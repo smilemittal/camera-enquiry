@@ -23,9 +23,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('languages', 'LanguageController');
     Route::post('languages/list','LanguageController@getLanguages')->name('get.languages_list');
     Route::post('languages_translations/list/{lang}','LanguageController@getLanguagesTranslations')->name('get.languages_translations_list');
-	Route::post('/languages/key_value_store', 'LanguageController@key_value_store')->name('languages.key_value_store');
+	Route::post('languages/key_value_store/{id}', 'LanguageController@key_value_store')->name('languages.key_value_store');
     Route::delete('/languages_translations/destroy/{id}', 'LanguageController@destroytrans')->name('languages_trans.destroy');
     Route::post('languages_translations/multiple-delete','LanguageController@multipleDelete')->name('languages_trans.multipledelete');
+    Route::post('/languages/update_rtl_status', 'LanguageController@update_rtl_status')->name('languages.update_rtl_status');
+    // Route::post('/env_key_update', 'LanguageController@env_key_update')->name('env_key_update.update');
 
     Route::get('system-types/import','SystemTypesController@importSystemTypes')->name('system-types.import');
     Route::post('system-types/post-import','SystemTypesController@postImport')->name('system-types.post-import');

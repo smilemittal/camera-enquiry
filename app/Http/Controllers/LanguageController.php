@@ -155,7 +155,12 @@ class LanguageController extends Controller
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $language->name;
                 $nestedData['code'] = $language->code;
-                $nestedData['rtl'] = $language->rtl == true ? 'on':'off';
+                if($language->rtl == 1){ $nestedData['rtl'] = '<input onchange="update_rtl_status(this)" value="'.$language->id.'" type="checkbox" echo "checked";?>';
+                }
+                else
+                {
+                    $nestedData['rtl'] = '<input onchange="update_rtl_status(this)" value="'.$language->id.'" type="checkbox"?>';
+                }
                 $index = route('languages.index',encrypt($language->id));
                 $edit = route('languages.update',encrypt($language->id));
                 $delete = route('languages.destroy',encrypt($language->id));
@@ -176,9 +181,10 @@ class LanguageController extends Controller
     }
 
     public function key_value_store(Request $request)
-    {
-        if($request->has('submit')){
-            $language = Language::findOrFail($request->id);
+    {   
+        $language = Language::findOrFail($request->id);
+        if($request->has('update')){
+         
             foreach ($request->values as $key => $value) {
                 $translation_def = Translation::where('lang_key', $key)->where('lang', $language->code)->first();
                 if($translation_def == null){
@@ -193,15 +199,14 @@ class LanguageController extends Controller
                     $translation_def->save();
                 }
             }
-        }
-        if($request->has('delete')){
+        }else{
             $translations = $request->bulk_delete;
             Translation::whereIn('id', $translations)->delete();
         }
         
         //forgetCachedTranslations();
         // //saveJSONFile($language->code, $data);
-         return back()->with('success','Translations updated for'.$language->name);
+         return back()->with('success','Translations updated for'. $language->name);
     }
 
     public function destroytrans($id)
@@ -213,7 +218,7 @@ class LanguageController extends Controller
     }
 
     public function getLanguagesTranslations(Request $request, $lang) {
-        $totalData = Translation::count();
+        $totalData = Translation::where('lang', $lang)->count();
         $totalFiltered = $totalData;
         $columns = array(
             0 =>'#',
@@ -264,4 +269,14 @@ class LanguageController extends Controller
         return json_encode($json_data);
     }
 
+    public function update_rtl_status(Request $request)
+    {
+        $language = Language::findOrFail($request->id);
+        $language->rtl = $request->status;
+        if($language->save()){
+            with('success',translate('RTL status updated successfully'));
+            return 1;
+        }
+        return 0;
+    }
 }
