@@ -39,7 +39,7 @@
                         <h3>{{ translate('Standard') }}</h3>
                             <div class="col-kemey col-kemey-two">   <input type="hidden" id="selected_standard" name="selected_standard" value="">
                                 <div class="row d-flex align-items-center selected_standard">
-                                 
+
                                         {{-- <div class="col-xl-3 col-md-4">
                                         <button type="button" class="standard {{ $standard->name }}" data-name="{{ $standard->name }}" data-id="{{ $standard->id }}">{{ $standard->name }}</button>
                                         </div> --}}
@@ -217,11 +217,11 @@
 
     // });
     $('.system_type').on('click', function(){
-          
+
           var system_type_id = $(this).data('id');
                   $('.system_type').removeClass('active');
         $(this).addClass('active');
- 
+
 
         $('#selected_system_type').val(system_type_id);
 
@@ -229,7 +229,7 @@
               method: 'post',
               url: '{{ route('get-standard') }}',
               data: {
-                 
+
                   'system_type_id': system_type_id,
                   '_token': '{{ csrf_token() }}',
               },
@@ -237,7 +237,7 @@
                   if(data.standard_attribute != ''){
                       $('.selected_standard').empty();
                       $('.selected_standard').append(data.standard_attribute);
-                      $('.selected_standard').show();   
+                      $('.selected_standard').show();
                   }
                   else{
                       $('.selected_standard').empty();
@@ -280,7 +280,7 @@
                     $('#camera_attribute_div').append(data.html_camera);
                 }
                 if(data.html_recorder != ''){
-                   
+
                     $('#recorder_attribute_div').empty();
                     $('#recorder_attribute_div').append(data.html_recorder);
 
