@@ -46,7 +46,7 @@ class LanguageController extends Controller
 
         Language::create($request->all());
 
-        return redirect()->route('languages.index')->with('success', __('message.Language added successfully'));
+        return redirect()->route('languages.index')->with('success', translate('Language added successfully'));
     }
     /**
      * Display the specified resource.
@@ -88,7 +88,7 @@ class LanguageController extends Controller
         $languages = Language::find($id);
         $languages->update($request->all());
 
-        return redirect()->route('languages.index')->with('updated_success', __('message.Language updated successfully'));
+        return redirect()->route('languages.index')->with('updated_success', translate('Language updated successfully'));
     }
 
     /**
@@ -102,7 +102,7 @@ class LanguageController extends Controller
         $languages = Language::find($id);
         $languages->delete();
 
-        return redirect()->route('languages.index')->with('deleted_success', __('message.Language deleted successfully'));
+        return redirect()->route('languages.index')->with('deleted_success', translate('Language deleted successfully'));
     }
     
     /**
@@ -203,7 +203,7 @@ class LanguageController extends Controller
 
         //forgetCachedTranslations();
         // //saveJSONFile($language->code, $data);
-        return back()->with('success', 'Translations updated for' . $language->name);
+        return back()->with('success', 'Translations updated for ' .$language->name);
     }
     /**
      * Single Translation delete dunction
@@ -213,7 +213,7 @@ class LanguageController extends Controller
         $language_translation = Translation::find($id);
         $language_translation->delete();
 
-        return redirect()->back()->with('deleted_success', __('Translation deleted successfully'));
+        return redirect()->back()->with('deleted_success', translate('Translation deleted successfully'));
     }
 
     /**
