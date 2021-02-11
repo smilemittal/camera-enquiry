@@ -47,7 +47,6 @@ class LanguageController extends Controller
         return redirect()->route('languages.index')->with('success',__('message.Language added successfully'));
 
     }
-
     /**
      * Display the specified resource.
      *
@@ -57,10 +56,8 @@ class LanguageController extends Controller
     public function show(Request $request,$id)
     {
         $language = Language::findOrFail(decrypt($id));
-        $lang_keys = Translation::where('lang', default_language());
-        return view('language.language_view', compact('language','lang_keys'));
+        return view('language.language_view', compact('language'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -106,8 +103,6 @@ class LanguageController extends Controller
         $languages->delete();
 
          return redirect()->route('languages.index')->with('deleted_success', __('message.Language deleted successfully'));
-
-
     }
 
     public function multipleDelete(Request $request)
@@ -217,9 +212,20 @@ class LanguageController extends Controller
          return redirect()->back()->with('deleted_success',__('Translation deleted successfully'));
     }
 
-    public function getLanguagesTranslations(Request $request, $lang) {
-        $totalData = Translation::where('lang', $lang)->count();
-        $totalFiltered = $totalData;
+    public function update_rtl_status(Request $request)
+    {
+        $language = Language::findOrFail($request->id);
+        $language->rtl = $request->status;
+        if($language->save()){
+            with('success',translate('RTL status updated successfully'));
+            return 1;
+        }
+        return 0;
+    }
+
+    public function getLanguagesTranslations(Request $request, $lang)
+    {
+        $totalData = 0;
         $columns = array(
             0 =>'#',
             1 =>'id',
@@ -232,20 +238,16 @@ class LanguageController extends Controller
         $start = $start ? $start / $limit : 0;
         $order = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
-        if(empty($request->input('search.value')))
-        {
-            $translations = Translation::where('lang', $lang)->orderBy($order, $dir)
-            ->paginate($limit, ['*'], 'page', $start + 1);
-            $totalFiltered = $totalData;
-        }else {
-            $search = $request->input('search.value');
-            $translations =  Translation::where('id','LIKE',"%{$search}%")
-                ->orWhere('lang_key', 'LIKE',"%{$search}%")
-                ->orderBy($order, $dir)
-                ->paginate($limit, ['*'], 'page', $start + 1);
+        $translations = Translation::where('lang', $lang)->orderBy($order,$dir);
+        $totalData = $translations->count();
 
-            $totalFiltered = $translations->count();
+        if (!empty($request->input('search.value'))) {
+            $search = $request->input('search.value');
+            $translations = $translations->where('id', 'LIKE', "%{$search}%")
+            ->orWhere('lang_key', 'LIKE',"%{$search}%");
         }
+        $translations = $translations->paginate($limit, ['*'], 'page', $start + 1);
+        $totalFiltered = $translations->total();
         $data = array();
         if (!empty($translations)) {
             foreach ($translations as $key => $language_translation) {
@@ -261,22 +263,11 @@ class LanguageController extends Controller
             }
         }
         $json_data = array(
-            "draw"=> intval($request->input('draw')),
+            "draw" => intval($request->input('draw')),
             "recordsTotal" => intval($totalData),
             "recordsFiltered" => intval($totalFiltered),
             "data" => $data
         );
         return json_encode($json_data);
-    }
-
-    public function update_rtl_status(Request $request)
-    {
-        $language = Language::findOrFail($request->id);
-        $language->rtl = $request->status;
-        if($language->save()){
-            with('success',translate('RTL status updated successfully'));
-            return 1;
-        }
-        return 0;
     }
 }
