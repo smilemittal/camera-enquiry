@@ -30,7 +30,6 @@ class FrontController extends Controller
         if($request->ajax() && $request->isMethod('post')){
             $system_type = $request->input('system_type');
             $standard = $request->input('standard');
-          //  dd($standard);
             $attribute_camera = Attribute::with('attribute_values')->where('system_type_id', $system_type)->whereHas('type',function($q)
             {
             $q->where('name','LIKE',"camera");
@@ -39,15 +38,12 @@ class FrontController extends Controller
             {
              $q->where('name','LIKE',"recorder");
             })->orderBy('display_order', 'ASC')->get();
-            
-            //dd($attribute_recorder);
+
             $html_camera = $html_recorder = '';
 
             $i = 1;
             $html_camera .= view('frontend.extras.filter', compact('attribute_camera', 'system_type', 'i'))->render();
             $html_recorder .= view('frontend.extras.filter', compact('attribute_recorder', 'system_type', 'i'))->render();
-
-
 
             return response()->json(['success'=> true, 'html_camera' => $html_camera, 'html_recorder' => $html_recorder, 'count'=> $i]);
 
@@ -108,7 +104,7 @@ class FrontController extends Controller
 
     public function getNextProduct(Request $request){
         if($request->ajax() && $request->isMethod('post')){
-            
+
             $system_type = $request->input('system_type');
             $standard = $request->input('standard');
             $product_type = $request->input('product_type');
@@ -174,8 +170,8 @@ class FrontController extends Controller
                     }
                     if(!empty($quantities[$product_type][$no])){
                         $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
-   
-                  
+
+
                         $quantity_total += (int)$quantities[$product_type][$no];
                     }
 
@@ -205,7 +201,7 @@ class FrontController extends Controller
                 'mobile_no' => $request->input('mobile_no'),
 
             ]);
-               
+
 
 
 
@@ -250,10 +246,10 @@ class FrontController extends Controller
                 }
                 if(!empty($quantities[$product_type][$no])){
                     $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
-                  
+
                         $quantity_total += (int)$quantities[$product_type][$no];
-                   
-                    
+
+
                 }
 
 
@@ -272,22 +268,22 @@ class FrontController extends Controller
             return response()->json(['success' => false, 'message' => 'Please Enter Quantity for the products.']);
         }
 
-            
+
 
     }
     public function getStandard(Request $request){
         if($request->ajax() && $request->isMethod('post')){
             $system_type = $request->input('system_type_id');
             $standard_attribute='';
-            
+
           //  dd($standard);
             $standards = Standard::where('system_type_id', $system_type)->get();
-            
+
             //dd($attribute_recorder);
-            
+
 
             $i = 1;
-            
+
             $standard_attribute .= view('frontend.extras.standard', compact('standards'))->render();
 
             return response()->json(['success'=> true, 'standard_attribute' => $standard_attribute, 'count'=> $i]);

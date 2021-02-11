@@ -1,6 +1,6 @@
-@extends('layouts.app')  
-@section('content')  
-<!--BEGIN content--> 
+@extends('layouts.app')
+@section('content')
+<!--BEGIN content-->
 <div class="row">
     <div class="content-header-left col-md-4 col-12 mb-2">
         <h3 class="content-header-title">{{translate('Language')}}</h3>
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    </div>            
+    </div>
 <div class="content-body">
                 <!-- Form layout section start -->
                 <section id="basic-form-layouts">
@@ -47,14 +47,14 @@
                                         @if($errors->all())
                                             <div class="alert alert-danger">
                                                 @foreach($errors->all() as $error)
-                                            
-                                                    <p>{{$error}}</p> 
-                                        
+
+                                                    <p>{{$error}}</p>
+
                                                 @endforeach
                                             </div>
                                         @endif
-                                       <form method="Post" action="{{route('languages.update',$languages->id)}}">  
-                                        @method('PATCH')     
+                                       <form method="Post" action="{{route('languages.update',$languages->id)}}">
+                                        @method('PATCH')
                                          @csrf
                                             <div class="form-body">
                                                 <div class="form-group">
@@ -63,7 +63,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="code">{{translate('Code') }}</label>
-                                                    <select class="select2-icons form-control" id="code" name="code">
+                                                    <select class="country-flag-select form-control" id="code" name="code">
                                                         @foreach(\File::files(base_path('public/app-assets/images/flags')) as $path)
                                                         <option value="{{ pathinfo($path)['filename'] }}" @if($languages->code == pathinfo($path)['filename']) selected @endif data-icon="<img src='{{ static_asset('app-assets/images/flags/'.pathinfo($path)['filename'].'.png') }}'"><span>{{ strtoupper(pathinfo($path)['filename']) }}</span></option>
                                                         @endforeach
@@ -96,6 +96,28 @@
                 </section>
             </div>
         </div>
-    </div>  
-  
+    </div>
+
+@endsection
+@section('scripts')
+<script>
+     $(".country-flag-select").select2({
+        templateResult: countryCodeFlag,
+        templateSelection: countryCodeFlag,
+        escapeMarkup: function (m) {
+            return m;
+        },
+    });
+    function countryCodeFlag(state) {
+        var flagName = $(state.element).data("flag");
+        if (!flagName) return state.text;
+        return (
+            "<img  class='flag' src='" +
+            flagName +
+            "' height='14' />" +
+            state.text
+        );
+    }
+</script>
+
 @endsection
