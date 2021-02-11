@@ -35,11 +35,6 @@
 <!-- Page Scripts -->
 @yield('scripts')
 <!-- Page scripts end -->
-
-
-
-
-
 </body>
 <!-- END: Body-->
 

@@ -10,7 +10,7 @@
                     <option value="unimportant">Unimportant</option>
                         @if(!empty($attribute->attribute_values))
                             @foreach($attribute->attribute_values as $attribute_value)
-                                <option value="{{ $attribute_value->id }}">{{ $attribute_value->value }}</option>
+                                <option value="{{ $attribute_value->id }}">{{ translate($attribute_value->value)}}</option>
                             @endforeach
                         @endif
                     </select>
@@ -34,7 +34,7 @@
                         <option value="unimportant">Unimportant</option>
                         @if(!empty($attribute->attribute_values))
                             @foreach($attribute->attribute_values as $attribute_value)
-                                <option value="{{ $attribute_value->id }}">{{ $attribute_value->value }}</option>
+                                <option value="{{ $attribute_value->id }}">{{ transalte($attribute_value->value) }}</option>
                             @endforeach
                         @endif
                     </select>
@@ -61,7 +61,7 @@
                     @if(!empty($attribute->attribute_values))
                         @foreach($attribute->attribute_values as $attribute_value)
                             @if($attribute_value->id == $selected_attributes[$attribute->id] || (!empty($attributes[$attribute->id]) && in_array($attribute_value->id, $attributes[$attribute->id])))
-                                <option value="{{ $attribute_value->id }}" {{ $attribute_value->id == $selected_attributes[$attribute->id] ? 'selected' : '' }}>{{ $attribute_value->value }}</option>
+                                <option value="{{ $attribute_value->id }}" {{ $attribute_value->id == $selected_attributes[$attribute->id] ? 'selected' : '' }}>{{ translate($attribute_value->value)}}</option>
                             @endif
                         @endforeach
                     @endif
@@ -87,7 +87,7 @@
                 <option value="unimportant">Unimportant</option>
                     @if(!empty($attribute->attribute_values))
                         @foreach($attribute->attribute_values as $attribute_value)
-                            <option value="{{ $attribute_value->id }}">{{ $attribute_value->value }}</option>
+                            <option value="{{ $attribute_value->id }}">{{ translate($attribute_value->value) }}</option>
                         @endforeach
                     @endif
                 </select>

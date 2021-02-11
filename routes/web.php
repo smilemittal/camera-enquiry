@@ -20,6 +20,13 @@ use Illuminate\Support\Facades\App;
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::resource('languages', 'LanguageController');
+    Route::post('languages/list','LanguageController@getLanguages')->name('get.languages_list');
+    Route::post('languages_translations/list/{lang}','LanguageController@getLanguagesTranslations')->name('get.languages_translations_list');
+	Route::post('/languages/key_value_store', 'LanguageController@key_value_store')->name('languages.key_value_store');
+    Route::delete('/languages_translations/destroy/{id}', 'LanguageController@destroytrans')->name('languages_trans.destroy');
+    Route::post('languages_translations/multiple-delete','LanguageController@multipleDelete')->name('languages_trans.multipledelete');
+
     Route::get('system-types/import','SystemTypesController@importSystemTypes')->name('system-types.import');
     Route::post('system-types/post-import','SystemTypesController@postImport')->name('system-types.post-import');
     Route::get('system-types/export','SystemTypesController@export')->name('system-types.export');
@@ -27,14 +34,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('system-types/multiple-delete','SystemTypesController@multipleDelete')->name('system-types.multipledelete');
     Route::resource('system-types', 'SystemTypesController');
 
-    
+
     Route::get('types/import','TypesController@importTypes')->name('types.import');
     Route::get('types/export','TypesController@export')->name('types.export');
     Route::resource('types', 'TypesController');
     Route::post('types/fetchtypes','TypesController@getTypes')->name('get.types');
     Route::post('types/post-import','TypesController@postImport')->name('types.post-import');
     Route::post('types/multiple-delete','TypesController@multipleDelete')->name('types.multipledelete');
-    
+
 
 
     Route::get('standards/import', 'StandardsController@importStandards')->name('standards.import');
@@ -56,7 +63,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('attribute-values', 'AttributeValuesController');
     Route::post('attribute-values/multiple-delete','AttributeValuesController@multipleDelete')->name('attribute_value.multipledelete');
     Route::post('attribute-values/fetchtypes','AttributeValuesController@getAttributeValues')->name('get.attribute_values');
-    
+
 
     Route::post('products/getproduct','ProductController@getproduct')->name('get.product');
     Route::post('products/multiple-delete','ProductController@multipleDelete')->name('products.multipledelete');
