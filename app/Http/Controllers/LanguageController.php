@@ -152,9 +152,9 @@ class LanguageController extends Controller
                 $nestedData['name'] = $language->name;
                 $nestedData['code'] = $language->code;
                 if ($language->rtl == 1) {
-                    $nestedData['rtl'] = '<input onchange="update_rtl_status(this)" value="' . $language->id . '" type="checkbox" echo "checked";?>';
+                    $nestedData['rtl'] = '<input name="status['.$language->id.']" value="1" type="checkbox" checked />';
                 } else {
-                    $nestedData['rtl'] = '<input onchange="update_rtl_status(this)" value="' . $language->id . '" type="checkbox"?>';
+                    $nestedData['rtl'] = '<input name="status['.$language->id.']" value="0" type="checkbox" />';
                 }
                 $index = route('languages.index', encrypt($language->id));
                 $edit = route('languages.update', encrypt($language->id));
@@ -174,7 +174,6 @@ class LanguageController extends Controller
         );
         return json_encode($json_data);
     }
-
     /**
      * Translation update function
     */
@@ -222,10 +221,11 @@ class LanguageController extends Controller
     public function update_rtl_status(Request $request)
     {
         $language = Language::findOrFail($request->id);
-        $language->rtl = $request->status;
-        if ($language->save()) {
-            with('success', translate('RTL status updated successfully'));
-            return 1;
+        $language->rtl = $request->input('status['.$request->id.']');
+        if ($language->save())
+        {
+           return back()->with('success', translate('RTL status updated successfully'));
+           
         }
         return 0;
     }

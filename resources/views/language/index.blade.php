@@ -104,9 +104,8 @@
                                 @endif
 
                                 <div class="table-responsive">
-                                    <form class="form" action="{{ route('languages.update_rtl_status') }}" method="post">
+                                    <form class="form" action="{{ route('languages.update_rtl_status', $language->id)  }}" method="post">
                                         @csrf
-                                        @method('PATCH')
                                     <table class="table table-striped table-bordered zero-configuration" id="languages"
                                         style="width: 100%; display: table;">
                                         <thead>
