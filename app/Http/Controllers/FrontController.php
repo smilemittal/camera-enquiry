@@ -22,7 +22,6 @@ class FrontController extends Controller
     public function home(){
         $system_types = SystemType::orderBy('id', 'ASC')->get();
         $standards = Standard::orderBy('id', 'ASC')->get();
-
         return view('frontend.home', compact('standards', 'system_types'));
     }
 
@@ -104,7 +103,6 @@ class FrontController extends Controller
 
     public function getNextProduct(Request $request){
         if($request->ajax() && $request->isMethod('post')){
-
             $system_type = $request->input('system_type');
             $standard = $request->input('standard');
             $product_type = $request->input('product_type');
@@ -112,11 +110,9 @@ class FrontController extends Controller
             $count = $request->input('count');
             $i = $count+1;
 
-
             $attributes_new_product = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
 
             $html = $attribute_html = '';
-
 
             $attribute_html .= view('frontend.extras.filter', compact('attributes_new_product', 'system_type', 'i', 'product_type'))->render();
 
@@ -125,8 +121,6 @@ class FrontController extends Controller
            // dd($html_recorder);
 
             return response()->json(['success'=> true, 'html' => $html, 'count'=> $i]);
-
-
         }
     }
 
