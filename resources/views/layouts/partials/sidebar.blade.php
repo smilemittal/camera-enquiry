@@ -5,7 +5,7 @@
                 <li class="nav-item mr-auto">
                     <a class="navbar-brand" href="#">
                          <img class="brand-logo" alt="camera admin logo" src="{{asset("assets/frontend/img/logo.png")}}" />
-                        <!--h3 class="brand-text"> {{__('site.Coming Soon')}}</h3-->
+                        <!--h3 class="brand-text"> {{translate('Coming Soon')}}</h3-->
                     </a>
                 </li>
                 <li class="nav-item d-md-none"><a class="nav-link close-navbar">
@@ -17,86 +17,87 @@
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class=" nav-item">
                     <a href="#"><i class="ft-home"></i>
-                    <span class="menu-title" data-i18n="">{{__('site.DashBoard')}}</span></a>
-                </li>   
+                    <span class="menu-title" data-i18n="">{{translate('DashBoard')}}</span></a>
+                </li> 
                 <li class=" nav-item">
                     <a href="#"><i class="ft-edit"></i>
-                        <span class="menu-title" data-i18n="">{{__('site.System Types')}}</span>
+                        <span class="menu-title" data-i18n="">{{translate('System Types')}}</span>
                     </a>
                     <ul class="menu-content">
-                        <li class="">
-                            <a class="menu-item" href="{{ route('system-types.create') }}">{{__('site.Add')}}</a>
+                        <li class="@if(\Request::routeIs('system-types.create')) active @endif">
+                            <a class="menu-item" href="{{ route('system-types.create') }}">{{translate('Add')}}</a>
                         </li>
-                        <li>
-                            <a class="menu-item" href="{{ route('system-types.index') }}">{{__('site.List')}}</a>
+                        <li class="@if(\Request::routeIs('system-types.index')) active @endif">
+                            <a class="menu-item" href="{{ route('system-types.index') }}">{{translate('List')}}</a>
                         </li>
                     </ul>
                 </li>
                 <li class=" nav-item">
                     <a href="#"><i class="ft-edit"></i>
-                        <span class="menu-title" data-i18n="">{{__('site.Types')}}</span>
+                        <span class="menu-title" data-i18n="">{{translate('Types')}}</span>
                     </a>
                     <ul class="menu-content">
-                        <li class="">
-                            <a class="menu-item" href="{{ route('types.create') }}">{{__('site.Add')}}</a>
+                        <li class="@if(\Request::routeIs('types.create')) active @endif">
+                            <a class="menu-item" href="{{ route('types.create') }}">{{translate('Add')}}</a>
                         </li>
-                        <li>
-                            <a class="menu-item" href="{{ route('types.index') }}">{{__('site.List')}}</a>
+                        <li class="@if(\Request::routeIs('types.index')) active @endif">
+                            <a class="menu-item" href="{{ route('types.index') }}">{{translate('List')}}</a>
                         </li>
                     </ul>
                 </li>
                 <li class=" nav-item">
                     <a href="#"><i class="ft-layers"></i>
-                        <span class="menu-title" data-i18n="">{{__('site.Standards')}}</span>
+                        <span class="menu-title" data-i18n="">{{translate('Standards')}}</span>
                     </a>
                     <ul class="menu-content">
-                        <li class="">
-                            <a class="menu-item" href="{{ route('standards.create') }}">{{__('site.Add')}}</a>
+                        <li class="@if(\Request::routeIs('standards.create')) active @endif">
+                            <a class="menu-item" href="{{ route('standards.create') }}">{{translate('Add')}}</a>
                         </li>
-                        <li>
-                            <a class="menu-item" href="{{ route('standards.index') }}">{{__('site.List')}}</a>
+                        <li class="@if(\Request::routeIs('standards.index')) active @endif">
+                            <a class="menu-item" href="{{ route('standards.index') }}">{{translate('List')}}</a>
                         </li>
                     </ul>
                 </li>
                 <li class=" nav-item">
                     <a href="#"><i class="ft-package"></i>
-                        <span class="menu-title" data-i18n="">{{__('site.Products')}}</span></a>
+                        <span class="menu-title" data-i18n="">{{translate('Products')}}</span></a>
                     <ul class="menu-content">
-                        <li>
-                            <a class="menu-item" href="{{ route('products.create') }}">{{__('site.Add')}} </a>
+                        <li class="nav-item @if(\Request::routeIs('products.create')) active @endif">
+                            <a class="menu-item" href="{{ route('products.create') }}">{{translate('Add')}} </a>
                         </li>
-                        <li>
-                            <a class="menu-item" href="{{ route('products.index') }}"> {{__('site.List')}}</a>
+                        <li class="nav-item @if(\Request::routeIs('products.index')) active @endif">
+                            <a class="menu-item" href="{{ route('products.index') }}"> {{translate('List')}}</a>
                         </li>   
                     </ul>
                 </li>
-                <li class="nav-item @if(\Route::currentRouteName() == 'attribute.create' || \Route::currentRouteName() == 'attribute.index' || \Route::currentRouteName() == 'attribute-values.create' || \Route::currentRouteName() == 'attribute-values.index') open @endif">
+                <li class="nav-item">
                     <a href="#"><i class="ft-check-circle"></i>
-                        <span class="menu-title" data-i18n="">{{__('site.Attributes')}}</span></a>
+                        <span class="menu-title" data-i18n="">{{translate('Attributes')}}</span></a>
                     <ul class="menu-content">
-                        <li class="">
-                            <a class="menu-item" href="{{ route('attribute.create') }}">{{__('site.Add')}}</a>
+                        <li class="nav-item @if(\Request::routeIs('attribute.create')) active @endif">
+                            <a class="menu-item" href="{{ route('attribute.create') }}">{{translate('Add')}}</a>
                         </li>
-                        <li>
-                            <a class="menu-item" href="{{ route('attribute.index') }}">{{__('site.List')}}</a>
+                        <li class="nav-item @if(\Request::routeIs('attribute.index')) active @endif">
+                            <a class="menu-item" href="{{ route('attribute.index') }}">{{translate('List')}}</a>
                         </li>
-                        <li class=" @if(\Route::currentRouteName() == 'attribute-values.create' || \Route::currentRouteName() == 'attribute-values.index') open @endif"><a class="menu-item " href="#">{{__('site.Attributes Values')}}</a>
+                        <li class="nav-item">
+                            <a href="#">{{translate('Attributes Values')}}</a>
                             <ul class="menu-content">
-                                <li class="">
-                                    <a class="menu-item" href="{{ route('attribute-values.create') }}">{{__('site.Add')}}</a>
+                                <li class="nav-item @if(\Request::routeIs('attribute-values.create')) active @endif">
+                                    <a class="menu-item" href="{{ route('attribute-values.create') }}">{{translate('Add')}}</a>
                                 </li>
-                                <li>
-                                    <a class="menu-item" href="{{ route('attribute-values.index') }}">{{__('site.List')}}</a>
+                                <li class="nav-item @if(\Request::routeIs('attribute-values.index')) active @endif">
+                                    <a class="menu-item" href="{{ route('attribute-values.index') }}">{{translate('List')}}</a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item">
+                <li class=" nav-item @if(\Request::routeIs('enquiries.*')) active @endif">
                 <a href="{{ route('enquiries.index') }}"><i class="ft-mail"></i>
-                    <span class="menu-title" data-i18n="">{{ __('site.Enquiries')}}</span></a>
+                    <span class="menu-title" data-i18n="">{{ translate('Enquiries')}}</span></a>
                 </li> 
-                <li class=" nav-item">
+                <li class=" nav-item @if(\Request::routeIs('languages.*')) active @endif">
                 <a href="{{ route('languages.index') }}"><i class="la la-language"></i>
                     <span class="menu-title" data-i18n="">{{translate('Languages')}}</span></a>
                 </li>   
