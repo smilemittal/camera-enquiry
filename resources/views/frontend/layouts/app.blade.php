@@ -31,14 +31,14 @@
                                 }
                             @endphp
                             <a href="javascript:void(0)" class="dropdown-toggle text-reset py-2" data-toggle="dropdown" data-display="static">
-                                <img data-src="{{ static_asset('app-assets/images/flags/'.$locale.'.png') }}" alt="{{ \App\Models\Language::where('code', $locale)->first()->name }}">
+                                <img src="{{ asset('app-assets/images/flags/'.$locale.'.png') }}" alt="{{ \App\Models\Language::where('code', $locale)->first()->name }}">
                                 <span class="opacity-60">{{ \App\Models\Language::where('code', $locale)->first()->name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-left">
                                 @foreach (\App\Models\Language::all() as $key => $language)
                                     <li>
                                         <a href="javascript:void(0)" data-flag="{{ $language->code }}" class="dropdown-item @if($locale == $language) active @endif">
-                                            <img data-src="{{ static_asset('app-assets/images/flags/'.$language->code.'.png') }}" alt="{{ $language->name }}">
+                                            <img src="{{ asset('app-assets/images/flags/'.$language->code.'.png') }}" alt="{{ $language->name }}">
                                             <span class="language">{{ $language->name }}</span>
                                         </a>
                                     </li>
@@ -66,7 +66,7 @@
         </section>
         <!-- end-header -->
 
-        
+
             @yield('content')
 
 
@@ -233,6 +233,20 @@
                     } else {
                         panel.style.display = "block";
                     }
+                });
+            }
+
+            if ($('#lang-change').length > 0) {
+                $('#lang-change .dropdown-item').each(function() {
+                    $(this).on('click', function(e){
+                        e.preventDefault();
+                        var $this = $(this);
+                        var locale = $this.data('flag');
+                        $.post('{{ route('language.change') }}',{_token:'{{ csrf_token() }}', locale:locale}, function(data){
+                            location.reload();
+                        });
+
+                    });
                 });
             }
         </script>

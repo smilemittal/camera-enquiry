@@ -63,7 +63,7 @@
                                             <label for="code">{{translate('Code') }}</label>
                                             <select class="country-flag-select form-control" id="code" name="code">
                                                 @foreach(\File::files(base_path('public/app-assets/images/flags')) as $path)
-                                                <option value="{{ pathinfo($path)['filename'] }}" data-icon="<img src='{{ static_asset('app-assets/images/flags/'.pathinfo($path)['filename'].'.png') }}'"><span>{{ strtoupper(pathinfo($path)['filename']) }}</span></option>
+                                                <option value="{{ pathinfo($path)['filename'] }}" data-icon="<img src='{{ asset('app-assets/images/flags/'.pathinfo($path)['filename'].'.png') }}'"><span>{{ strtoupper(pathinfo($path)['filename']) }}</span></option>
                                                 @endforeach
                                             </select>
                                         </div>

@@ -67,7 +67,7 @@
                                             <select class="country-flag-select form-control" id="code" name="code">
                                                 @foreach (\File::files(base_path('public/app-assets/images/flags')) as $path)
                                                     <option value="{{ pathinfo($path)['filename'] }}" @if ($languages->code == pathinfo($path)['filename']) selected @endif
-                                                        data-icon="<img src='{{ static_asset('app-assets/images/flags/' . pathinfo($path)['filename'] . '.png') }}'">
+                                                        data-icon="<img src='{{ asset('app-assets/images/flags/' . pathinfo($path)['filename'] . '.png') }}'">
                                                         <span>{{ strtoupper(pathinfo($path)['filename']) }}</span>
                                                     </option>
                                                 @endforeach

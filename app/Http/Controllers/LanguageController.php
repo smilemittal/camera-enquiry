@@ -103,7 +103,7 @@ class LanguageController extends Controller
 
         return redirect()->route('languages.index')->with('deleted_success', translate('Language deleted successfully'));
     }
-    
+
     /**
      * Translation Multidelete Function
     */
@@ -226,15 +226,15 @@ class LanguageController extends Controller
             }else{
                 $language->rtl = 0;
             }
-            $language->save(); 
+            $language->save();
         }
         return back()->with('success', translate('RTL status updated successfully'));
-           
+
     }
 
     /**
      * Translation ajax pagination function
-    */ 
+    */
     public function getLanguagesTranslations(Request $request, $lang)
     {
         $totalData = 0;
@@ -281,12 +281,5 @@ class LanguageController extends Controller
             "data" => $data
         );
         return json_encode($json_data);
-    }
-
-    public function changeLanguage(Request $request)
-    {
-    	$request->session()->put('locale', $request->locale);
-        $language = Language::where('code', $request->locale)->first();
-    	return back()->with('success',translate('Language changed to ').$language->name);
     }
 }
