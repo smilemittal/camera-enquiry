@@ -21,11 +21,8 @@ class Language
         if(Session::has('locale')){
             $locale = Session::get('locale');
         }
-        elseif(default_language() != null){
-            $locale = default_language();
-        }
         else{
-            $locale = 'en';
+            $locale = env('DEFAULT_LANGUAGE','en');
         }
 
         App::setLocale($locale);

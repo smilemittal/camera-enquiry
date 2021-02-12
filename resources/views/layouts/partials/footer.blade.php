@@ -24,4 +24,18 @@
     <script src="{{asset('app-assets/js/scripts/forms/select/form-select2.js')}}" type="text/javascript"></script>
     <!-- END: Page JS-->
 
+    <script>
+        if ($('.dropdown-language').length > 0) {
+                    $('.dropdown-language .dropdown-item').each(function() {
+                        $(this).on('click', function(e){
+                            e.preventDefault();
+                            var $this = $(this);
+                            var locale = $this.data('flag');
+                            $.post('{{ route('language.change') }}',{_token:'{{ csrf_token() }}', locale:locale}, function(data){
+                                location.reload();
+                            });
 
+                        });
+                    });
+                }
+    </script>
