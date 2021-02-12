@@ -42,8 +42,8 @@
                         <h5 class="mb-0 h4">{{ translate('Default Language') }}</h5>
                     </div>
                     <div class="card-body">
-                        {{-- <form class="form-horizontal" action="{{ route('env_key_update.update') }}" method="POST">
-                        @csrf --}}
+                        <form class="form-horizontal" action="{{ route('env_key_update.update') }}" method="POST">
+                        @csrf
                         <div class="form-group row">
                             <div class="col-lg-3">
                                 <label class="col-from-label">{{ translate('Default Language') }}</label>
@@ -63,7 +63,7 @@
                                 <button type="submit" class="btn btn-info">{{ translate('Save') }}</button>
                             </div>
                         </div>
-                        {{-- </form> --}}
+                        </form>
                     </div>
                 </div>
             </div>

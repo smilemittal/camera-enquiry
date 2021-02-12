@@ -54,12 +54,12 @@
                         <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
                     </button>
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                        <ul class="navbar-nav ml-auto">
+                        {{-- <ul class="navbar-nav ml-auto">
                             <li><a href="#">{{translate('Home')}}</a></li>
                             <li><a href="#">{{translate('Works')}}</a></li>
                             <li><a href="#">{{translate('Articles')}}</a></li>
                             <li><a href="#">{{translate('Contact Us')}}</a></li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </nav>
             </div>
@@ -72,7 +72,7 @@
 
         <!-- ---------footer--------- -->
         <footer>
-            <div class="footer-top">
+            {{-- <div class="footer-top">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-4 col-md-12">
@@ -154,7 +154,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="footer-middle">
                 <div class="container">
                     <div class="footer-map">
