@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Language;
 use App\Models\Translation;
 use Illuminate\Validation\Rule;
-use Psy\CodeCleaner\FunctionContextPass;
 
 class LanguageController extends Controller
 {
@@ -152,9 +151,9 @@ class LanguageController extends Controller
                 $nestedData['name'] = $language->name;
                 $nestedData['code'] = $language->code;
                 if ($language->rtl == 1) {
-                    $nestedData['rtl'] = '<input name="status['.$language->id.']" value="1" type="checkbox" checked />';
+                    $nestedData['rtl'] = '<input type="hidden" name="language_status[]" value="'.$language->id.'"><input name="status['.$language->id.']" value="1" type="checkbox" checked />';
                 } else {
-                    $nestedData['rtl'] = '<input name="status['.$language->id.']" value="0" type="checkbox" />';
+                    $nestedData['rtl'] = '<input type="hidden" name="language_status[]" value="'.$language->id.'"><input name="status['.$language->id.']" value="0" type="checkbox" />';
                 }
                 $index = route('languages.index', encrypt($language->id));
                 $edit = route('languages.update', encrypt($language->id));
@@ -220,14 +219,17 @@ class LanguageController extends Controller
     */
     public function update_rtl_status(Request $request)
     {
-        $language = Language::findOrFail($request->id);
-        $language->rtl = $request->input('status['.$request->id.']');
-        if ($language->save())
-        {
-           return back()->with('success', translate('RTL status updated successfully'));
-           
+        foreach($request->language_status as $lang_id){
+            $language = Language::findOrFail($lang_id);
+            if (!empty($request->status) && array_key_exists($lang_id, $request->status)){
+                $language->rtl = 1;
+            }else{
+                $language->rtl = 0;
+            }
+            $language->save(); 
         }
-        return 0;
+        return back()->with('success', translate('RTL status updated successfully'));
+           
     }
 
     /**
@@ -279,5 +281,12 @@ class LanguageController extends Controller
             "data" => $data
         );
         return json_encode($json_data);
+    }
+
+    public function changeLanguage(Request $request)
+    {
+    	$request->session()->put('locale', $request->locale);
+        $language = Language::where('code', $request->locale)->first();
+    	return back()->with('success',translate('Language changed to ').$language->name);
     }
 }

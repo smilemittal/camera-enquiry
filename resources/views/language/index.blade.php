@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
 @endsection
 @section('content')
     <!--BEGIN content-->
@@ -77,7 +78,8 @@
                                 <h3>{{ translate('List') }}</h3>
                                 <div class="btns-right-side">
                                     <a href="{{ route('languages.create') }}" method="post"
-                                        class="btn mr-1 mb-1 btn-success btn-sm" type="submit">{{ translate('Add') }} </a>
+                                        class="btn mr-1 mb-1 btn-success btn-sm" type="submit">{{ translate('Add') }}
+                                    </a>
                                     {{-- <a href="{{ route('languages.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{translate('Import')}} </a>
                                                 <a href="{{ route('languages.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{translate('Export')}}</a>
                                                 <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button> --}}
@@ -104,37 +106,38 @@
                                 @endif
 
                                 <div class="table-responsive">
-                                    <form class="form" action="{{ route('languages.update_rtl_status', $language->id)  }}" method="post">
+                                    <form class="form" action="{{ route('languages.update_rtl_status') }}"
+                                        method="post">
                                         @csrf
-                                    <table class="table table-striped table-bordered zero-configuration" id="languages"
-                                        style="width: 100%; display: table;">
-                                        <thead>
-                                            <tr>
-                                                {{-- <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th> --}}
-                                                <th>{{ translate('ID') }}</th>
-                                                <th>{{ translate('Name') }}</th>
-                                                <th>{{ translate('Code') }}</th>
-                                                <th>{{ translate('RTL') }}</th>
-                                                <th>{{ translate('Action') }}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                        <table class="table table-striped table-bordered zero-configuration" id="languages"
+                                            style="width: 100%; display: table;">
+                                            <thead>
+                                                <tr>
+                                                    {{-- <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th> --}}
+                                                    <th>{{ translate('ID') }}</th>
+                                                    <th>{{ translate('Name') }}</th>
+                                                    <th>{{ translate('Code') }}</th>
+                                                    <th>{{ translate('RTL') }}</th>
+                                                    <th>{{ translate('Action') }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                {{-- <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th> --}}
-                                                <th> {{ translate('ID') }}</th>
-                                                <th> {{ translate('Name') }} </th>
-                                                <th>{{ translate('Code') }}</th>
-                                                <th>{{ translate('RTL') }}</th>
-                                                <th> {{ translate('Action') }}</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                    <div class="form-actions" style="text-align: center;">
-                                        <button type="submit" class="btn btn-success">{{translate('Save')}}</button>
-                                    </div>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    {{-- <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th> --}}
+                                                    <th> {{ translate('ID') }}</th>
+                                                    <th> {{ translate('Name') }} </th>
+                                                    <th>{{ translate('Code') }}</th>
+                                                    <th>{{ translate('RTL') }}</th>
+                                                    <th> {{ translate('Action') }}</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                        <div class="form-actions" style="text-align: center;">
+                                            <button type="submit" class="btn btn-success">{{ translate('Save') }}</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -142,14 +145,15 @@
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
     </section>
     </div>
     </div>
     </div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}" type="text/javascript">
+    </script>
     <!-- BEGIN: Page Vendor JS-->
     <script src="https://unpkg.com/promise-polyfill" type="text/javascript"></script>
     <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert2.all.js') }}" type="text/javascript"></script>

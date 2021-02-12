@@ -16,6 +16,38 @@
         <!-- start-header -->
         <section class="header">
             <div class="container">
+                <div class="col-lg-7 col">
+                    <ul class="list-inline d-flex justify-content-between justify-content-lg-start mb-0">
+                        {{-- @if(get_setting('show_language_switcher') == 'on') --}}
+                        <li class="list-inline-item dropdown mr-3" id="lang-change">
+                            @php
+                                if(Session::has('locale'))
+                                {
+                                    $locale = Session::get('locale', Config::get('app.locale'));
+                                }
+                                else
+                                {
+                                    $locale = 'en';
+                                }
+                            @endphp
+                            <a href="javascript:void(0)" class="dropdown-toggle text-reset py-2" data-toggle="dropdown" data-display="static">
+                                <img data-src="{{ static_asset('app-assets/images/flags/'.$locale.'.png') }}" alt="{{ \App\Models\Language::where('code', $locale)->first()->name }}">
+                                <span class="opacity-60">{{ \App\Models\Language::where('code', $locale)->first()->name }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-left">
+                                @foreach (\App\Models\Language::all() as $key => $language)
+                                    <li>
+                                        <a href="javascript:void(0)" data-flag="{{ $language->code }}" class="dropdown-item @if($locale == $language) active @endif">
+                                            <img data-src="{{ static_asset('app-assets/images/flags/'.$language->code.'.png') }}" alt="{{ $language->name }}">
+                                            <span class="language">{{ $language->name }}</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    </ul>
+                    {{-- @endif --}}
+                </div>
                 <nav class="navbar navbar-expand-lg">
                     <a class="navbar-brand" href="#"><img src="{{asset('assets/frontend/img/logo.png')}}" /></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
