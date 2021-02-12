@@ -9,14 +9,15 @@
                 <input type="text" class="qty" name="quantity[{{ $product_type }}][{{ $i }}]" placeholder="Qty"/>
             </div>
         </div>
-        <div class="col-md-12 col-xl-7 pl-lg-3">
+        <div class="col-md-12 col-xl-5 pl-lg-3">
             <p>{{translate('Camera panel description')}}</p>
-        </div>
-        <div class="col-xl-2 col-md-6">
             <div class="totalQty">
                 <span class=""></span>
             </div>
         </div>
+        {{-- <div class="col-xl-2 col-md-6">
+           
+        </div> --}}
     </div>
     <div class="collapse multi-collapse" id="{{ 'multiCollapseExample'.$product_type.$i }}">
         <div class="card card-body">
@@ -60,12 +61,13 @@
         </div>
         <div class="col-md-12 col-xl-7 pl-lg-3">
             <p>{{translate('Recorder panel description')}}</p>
-        </div>
-        <div class="col-xl-2 col-md-6">
             <div class="totalQty">
                 <span class=""></span>
             </div>
         </div>
+        {{-- <div class="col-xl-2 col-md-6">
+           
+        </div> --}}
     </div>
     <div class="collapse multi-collapse" id="{{ 'multiCollapseExample'.$product_type.$i }}">
         <div class="card card-body">
