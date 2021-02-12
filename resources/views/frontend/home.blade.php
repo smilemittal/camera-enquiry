@@ -175,16 +175,14 @@
                 'standard': standard,
             },
             success: function(data){
+                data.html.forEach(element => {
+
+                });
                 if(data.html_camera != ''){
                     $('#camera_attribute_div').empty();
                     $('#camera_attribute_div').append(data.html_camera);
                 }
-                if(data.html_recorder != ''){
 
-                    $('#recorder_attribute_div').empty();
-                    $('#recorder_attribute_div').append(data.html_recorder);
-
-                }
                 $('input[name="camera_count"]').val(data.count);
                 $('input[name="recorder_count"]').val(data.count);
 

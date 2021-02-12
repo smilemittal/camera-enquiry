@@ -33,22 +33,15 @@ class FrontController extends Controller
         if($request->ajax() && $request->isMethod('post')){
             $system_type = $request->input('system_type');
             $standard = $request->input('standard');
-            $attribute_camera = Attribute::with('attribute_values')->where('system_type_id', $system_type)->whereHas('type',function($q)
-            {
-            $q->where('name','LIKE',"camera");
-            })->orderBy('display_order', 'ASC')->get();
-            $attribute_recorder = Attribute::with('attribute_values')->where('system_type_id', $system_type)->whereHas('type', function($q)
-            {
-             $q->where('name','LIKE',"recorder");
-            })->orderBy('display_order', 'ASC')->get();
-
-            $html_camera = $html_recorder = '';
-
+            $html = [];
             $i = 1;
-            $html_camera .= view('frontend.extras.filter', compact('attribute_camera', 'system_type', 'i'))->render();
-            $html_recorder .= view('frontend.extras.filter', compact('attribute_recorder', 'system_type', 'i'))->render();
+            $types = Type::get();
+            foreach($types as $type) {
+                $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
+                $html[$type->id] = view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type'))->render();
+            }
 
-            return response()->json(['success'=> true, 'html_camera' => $html_camera, 'html_recorder' => $html_recorder, 'count'=> $i]);
+            return response()->json(['success'=> true, 'html' => $html, 'count'=> $i]);
 
         }
     }
@@ -57,8 +50,7 @@ class FrontController extends Controller
         if($request->ajax() && $request->isMethod('post')){
             $system_type = $request->input('system_type');
             $product_type = $request->input('product_type');
-            $type= Type::where('name','LIKE',$product_type)->first();
-            //dd($type);
+            $type = Type::where('slug','LIKE',$product_type)->first();
             $count = $request->input('count');
             $attribute_value_id = $request->input('attribute_value');
             $attribute_value_id = explode(',', $attribute_value_id);
@@ -81,16 +73,14 @@ class FrontController extends Controller
 
             $products = $products->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
 
-            $all_attributes = Attribute::with('attribute_values')->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
-            $attributes = array();
+            $attributes = Attribute::with('attribute_values')->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
+            $filtered_attributes = array();
             if(!empty($products) && count($products) > 0){
                 foreach($products as $product){
 
                     if(!empty($product->product_attributes)){
-
                         foreach($product->product_attributes as $product_attribute){
-
-                            $attributes[$product_attribute->attribute_id][] = $product_attribute->attribute_value_id;
+                            $filtered_attributes[$product_attribute->attribute_id][] = $product_attribute->attribute_value_id;
                         }
                     }
                 }
@@ -99,7 +89,7 @@ class FrontController extends Controller
 
             $i = $count;
 
-            $html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'product_type', 'selected_attributes','all_attributes', 'i'))->render();
+            $html .= view('frontend.extras.filter', compact('filtered_attributes', 'system_type', 'type', 'selected_attributes','attributes', 'i'))->render();
             //dd($html);
             return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type]);
         }
@@ -110,17 +100,17 @@ class FrontController extends Controller
             $system_type = $request->input('system_type');
             $standard = $request->input('standard');
             $product_type = $request->input('product_type');
-            $type= Type::where('name','LIKE',$product_type)->first();
+            $type= Type::where('slug','LIKE',$product_type)->first();
             $count = $request->input('count');
             $i = $count+1;
 
-            $attributes_new_product = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
+            $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
 
             $html = $attribute_html = '';
 
-            $attribute_html .= view('frontend.extras.filter', compact('attributes_new_product', 'system_type', 'i', 'product_type'))->render();
+            $attribute_html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type'))->render();
 
-            $html .= view('frontend.extras.new-type', compact('attribute_html', 'system_type', 'i', 'product_type'))->render();
+            $html .= view('frontend.extras.new-type', compact('attribute_html', 'system_type', 'i', 'type'))->render();
 
            // dd($html_recorder);
 
