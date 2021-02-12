@@ -12,13 +12,17 @@ use App\Models\SystemType;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
+use App\Models\Language;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 
 class FrontController extends Controller
 {
-
+    public function changeLanguage(Request $request)
+    {
+    	$request->session()->put('locale', $request->locale);
+    }
     public function home(){
         $system_types = SystemType::orderBy('id', 'ASC')->get();
         $standards = Standard::orderBy('id', 'ASC')->get();

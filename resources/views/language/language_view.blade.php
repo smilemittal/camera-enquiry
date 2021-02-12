@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
 @endsection
 @section('content')
     <!--BEGIN content-->
@@ -118,7 +119,8 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}" type="text/javascript">
+    </script>
     <!-- BEGIN: Page Vendor JS-->
     <script src="https://unpkg.com/promise-polyfill" type="text/javascript"></script>
     <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert2.all.js') }}" type="text/javascript"></script>

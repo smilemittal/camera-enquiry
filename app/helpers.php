@@ -20,10 +20,10 @@ function translate($key, $lang = null){
         $lang = App::getLocale();
     }
 
-    $translation_def = Translation::where('lang', env('DEFAULT_LANGUAGE', 'en'))->where('lang_key', $key)->first();
+    $translation_def = Translation::where('lang', config('app.locale'))->where('lang_key', $key)->first();
     if($translation_def == null){
         $translation_def = new Translation;
-        $translation_def->lang = env('DEFAULT_LANGUAGE', 'en');
+        $translation_def->lang = config('app.locale');
         $translation_def->lang_key = $key;
         $translation_def->lang_value = $key;
         $translation_def->save();
@@ -36,19 +36,6 @@ function translate($key, $lang = null){
     }
     else {
         return $translation_def->lang_value;
-    }
-}
-if (! function_exists('static_asset')) {
-    /**
-     * Generate an asset path for the application.
-     *
-     * @param  string  $path
-     * @param  bool|null  $secure
-     * @return string
-     */
-    function static_asset($path, $secure = null)
-    {
-        return app('url')->asset('public/'.$path, $secure);
     }
 }
 

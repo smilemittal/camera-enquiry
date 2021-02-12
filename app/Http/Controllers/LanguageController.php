@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Language;
 use App\Models\Translation;
 use Illuminate\Validation\Rule;
-use Psy\CodeCleaner\FunctionContextPass;
 
 class LanguageController extends Controller
 {
@@ -104,7 +103,7 @@ class LanguageController extends Controller
 
         return redirect()->route('languages.index')->with('deleted_success', translate('Language deleted successfully'));
     }
-    
+
     /**
      * Translation Multidelete Function
     */
@@ -152,9 +151,9 @@ class LanguageController extends Controller
                 $nestedData['name'] = $language->name;
                 $nestedData['code'] = $language->code;
                 if ($language->rtl == 1) {
-                    $nestedData['rtl'] = '<input onchange="update_rtl_status(this)" value="' . $language->id . '" type="checkbox" echo "checked";?>';
+                    $nestedData['rtl'] = '<input type="hidden" name="language_status[]" value="'.$language->id.'"><input name="status['.$language->id.']" value="1" type="checkbox" checked />';
                 } else {
-                    $nestedData['rtl'] = '<input onchange="update_rtl_status(this)" value="' . $language->id . '" type="checkbox"?>';
+                    $nestedData['rtl'] = '<input type="hidden" name="language_status[]" value="'.$language->id.'"><input name="status['.$language->id.']" value="0" type="checkbox" />';
                 }
                 $index = route('languages.index', encrypt($language->id));
                 $edit = route('languages.update', encrypt($language->id));
@@ -174,7 +173,6 @@ class LanguageController extends Controller
         );
         return json_encode($json_data);
     }
-
     /**
      * Translation update function
     */
@@ -221,18 +219,22 @@ class LanguageController extends Controller
     */
     public function update_rtl_status(Request $request)
     {
-        $language = Language::findOrFail($request->id);
-        $language->rtl = $request->status;
-        if ($language->save()) {
-            with('success', translate('RTL status updated successfully'));
-            return 1;
+        foreach($request->language_status as $lang_id){
+            $language = Language::findOrFail($lang_id);
+            if (!empty($request->status) && array_key_exists($lang_id, $request->status)){
+                $language->rtl = 1;
+            }else{
+                $language->rtl = 0;
+            }
+            $language->save();
         }
-        return 0;
+        return back()->with('success', translate('RTL status updated successfully'));
+
     }
 
     /**
      * Translation ajax pagination function
-    */ 
+    */
     public function getLanguagesTranslations(Request $request, $lang)
     {
         $totalData = 0;

@@ -17,6 +17,6 @@
             </form>
         @endif
         <a class="dropdown-item" href="{{ $show }}">
-            <i class="la la-language"></i>Show</a>
+            <i class="la la-language"></i>Show Translations</a>
     </span>
 </span>
