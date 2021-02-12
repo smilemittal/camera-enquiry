@@ -20,10 +20,10 @@ function translate($key, $lang = null){
         $lang = App::getLocale();
     }
 
-    $translation_def = Translation::where('lang', env('DEFAULT_LANGUAGE', 'en'))->where('lang_key', $key)->first();
+    $translation_def = Translation::where('lang', config('app.locale'))->where('lang_key', $key)->first();
     if($translation_def == null){
         $translation_def = new Translation;
-        $translation_def->lang = env('DEFAULT_LANGUAGE', 'en');
+        $translation_def->lang = config('app.locale');
         $translation_def->lang_key = $key;
         $translation_def->lang_value = $key;
         $translation_def->save();
