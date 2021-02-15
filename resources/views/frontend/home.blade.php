@@ -52,8 +52,7 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" name="camera_count" value="0">
-        <input type="hidden" name="recorder_count" value="0">
+        <div class="hidden"></div>
         <div class="kemey-cameras-sec">
             <div class="container">
             </div>
@@ -165,7 +164,6 @@
          var system_type = $('#selected_system_type').val();
         $('#selected_standard').val(standard);
 
-
         $.ajax({
             method:'post',
             url: '{{ route('get-enquiry-attributes') }}',
@@ -175,19 +173,13 @@
                 'standard': standard,
             },
             success: function(data){
-                data.html.forEach(element => {
-
+                $('.kemey-cameras-sec .container').empty();
+                $('.hidden').empty();
+                $.each(data.html, function( index, value ) {
+                    $('.kemey-cameras-sec .container').append(value);
+                    $('.hidden').append('<input type="hidden" name="'+index+'_count" value="'+data.count+'">');
                 });
-                if(data.html_camera != ''){
-                    $('#camera_attribute_div').empty();
-                    $('#camera_attribute_div').append(data.html_camera);
-                }
-
-                $('input[name="camera_count"]').val(data.count);
-                $('input[name="recorder_count"]').val(data.count);
-
             },
-
         });
 
 

@@ -16,10 +16,6 @@
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class=" nav-item">
-                    <a href="#"><i class="ft-home"></i>
-                    <span class="menu-title" data-i18n="">{{translate('DashBoard')}}</span></a>
-                </li> 
-                <li class=" nav-item">
                     <a href="#"><i class="ft-edit"></i>
                         <span class="menu-title" data-i18n="">{{translate('System Types')}}</span>
                     </a>
@@ -67,7 +63,7 @@
                         </li>
                         <li class="nav-item @if(\Request::routeIs('products.index')) active @endif">
                             <a class="menu-item" href="{{ route('products.index') }}"> {{translate('List')}}</a>
-                        </li>   
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -96,11 +92,11 @@
                 <li class=" nav-item @if(\Request::routeIs('enquiries.*')) active @endif">
                 <a href="{{ route('enquiries.index') }}"><i class="ft-mail"></i>
                     <span class="menu-title" data-i18n="">{{ translate('Enquiries')}}</span></a>
-                </li> 
+                </li>
                 <li class=" nav-item @if(\Request::routeIs('languages.*')) active @endif">
                 <a href="{{ route('languages.index') }}"><i class="la la-language"></i>
                     <span class="menu-title" data-i18n="">{{translate('Languages')}}</span></a>
-                </li>   
+                </li>
             </ul>
         </div>
     </div>

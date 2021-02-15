@@ -42,24 +42,28 @@
                                     </ul>
                                 </div>
                                 </div>
-                            <!-- Card content body start -->    
+                            <!-- Card content body start -->
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         @if($errors->all())
                                             <div class="alert alert-danger">
                                                 @foreach($errors->all() as $error)
-                                                <p>{{$error}}</p> 
+                                                <p>{{$error}}</p>
                                                 @endforeach
                                             </div>
                                         @endif
                                         <form class="form" action="{{ route('types.store') }}" method="post">
-                                            @csrf  
+                                            @csrf
                                             <div class="form-body">
                                                 <div class="form-group {{ $errors->get('name') ? 'has-error' : '' }}">
                                                     <label for="name">{{ __('site.Name') }}</label>
                                                     <input type="text" name="name" placeholder="Name" class="form-control" required>
-                                                  </div>
-                                            
+                                                </div>
+                                                <div class="form-group {{ $errors->get('slug') ? 'has-error' : '' }}">
+                                                    <label for="slug">{{ __('site.Slug') }}</label>
+                                                    <input type="text" name="slug" placeholder="Slug" class="form-control" required>
+                                                </div>
+
                                                 <div class="form-actions" style="text-align: center;">
                                                 <button type="reset" name="submit" class="btn btn-danger">{{__('site.Reset')}}
                                                 </button>

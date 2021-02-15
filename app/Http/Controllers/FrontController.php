@@ -38,9 +38,9 @@ class FrontController extends Controller
             $types = Type::get();
             foreach($types as $type) {
                 $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
-                $html[$type->id] = view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type'))->render();
+                $attribute_html = view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type'))->render();
+                $html[$type->slug] = view('frontend.extras.new-type', compact('attributes', 'system_type', 'i', 'type', 'attribute_html'))->render();
             }
-
             return response()->json(['success'=> true, 'html' => $html, 'count'=> $i]);
 
         }

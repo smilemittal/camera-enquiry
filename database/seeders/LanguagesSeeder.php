@@ -17,12 +17,13 @@ class LanguagesSeeder extends Seeder
        $languages = [
             [
                 'name' => 'English',
-                'code' => 'en'
+                'code' => 'en',
+                'is_default' => 1
             ]
            ];
         foreach($languages as $language)
         {
-            Language::create($language);            
+            Language::create($language);
         }
     }
 }

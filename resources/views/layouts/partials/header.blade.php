@@ -24,9 +24,9 @@
                     <ul class="nav navbar-nav float-right">
                         @php
                             if(Session::has('locale')) {
-                                $locale = Session::get('locale', Config::get('app.locale'));
+                                $locale = Session::get('locale');
                             } else {
-                                $locale = 'en';
+                                $locale = default_language();
                             }
                             $current_lang = \App\Models\Language::where('code', $locale)->first();
                         @endphp
