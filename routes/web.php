@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/languages_translations/destroy/{id}', 'LanguageController@destroytrans')->name('languages_trans.destroy');
     Route::post('languages_translations/multiple-delete','LanguageController@multipleDelete')->name('languages_trans.multipledelete');
     Route::post('/languages/update_rtl_status', 'LanguageController@update_rtl_status')->name('languages.update_rtl_status');
-    Route::post('/env_key_update', 'LanguageController@env_key_update')->name('env_key_update.update');
+    Route::post('/defalut-lang', 'LanguageController@set_default_lang')->name('defalut_lang.update');
 
     //System Types Routes
     Route::get('system-types/import','SystemTypesController@importSystemTypes')->name('system-types.import');
@@ -99,7 +99,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::post('get-product-attributes', 'ProductController@getProductAttributes')->name('get-product-attributes');
 Route::post('get-standard-attributes', 'ProductController@getStandard')->name('get-standard-attributes');
 
-Route::post('get-enquiry-attributes', 'FrontController@getEnquiryProductAttributes')->name('get-enquiry-attributes');
 Route::post('update-attributes', 'FrontController@updateAttributes')->name('update-attributes');
 Route::get('/', 'FrontController@home')->name('home');
 Route::post('get-next-product', 'FrontController@getNextProduct')->name('get-next-product');

@@ -29,14 +29,12 @@ class TypesImport implements  ToCollection, WithHeadingRow
             $type= Type::where('name','LIKE', $row['name'])->first();
 
             if(!$type)
-            {  
-                $type = Type::create(['name' => $row['name']]);
-                $type_id =$type->id;
+            {
+                $type = Type::create(['name' => $row['name'], 'slug' => $row['slug']]);
                 $types_imported++;
             }
             else
             {
-                $type_id =$type->id;
                 $types_existing++;
             }
         }

@@ -3,6 +3,7 @@
     <head>
         <title>{{translate('Home')}}</title>
         <meta charset="utf-8" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="{{asset('assets/frontend/css/bootstrap.min.css')}}" />
         <link rel="stylesheet" href="{{asset('assets/frontend/fonts/stylesheet.css')}}" />
@@ -21,18 +22,16 @@
                         {{-- @if(get_setting('show_language_switcher') == 'on') --}}
                         <li class="list-inline-item dropdown mr-3" id="lang-change">
                             @php
-                                if(Session::has('locale'))
-                                {
-                                    $locale = Session::get('locale', Config::get('app.locale'));
+                                if(Session::has('locale')) {
+                                    $locale = Session::get('locale');
+                                } else {
+                                    $locale = default_language();
                                 }
-                                else
-                                {
-                                    $locale = 'en';
-                                }
+                                $current_lang = \App\Models\Language::where('code', $locale)->first();
                             @endphp
                             <a href="javascript:void(0)" class="dropdown-toggle text-reset py-2" data-toggle="dropdown" data-display="static">
-                                <img src="{{ asset('app-assets/images/flags/'.$locale.'.png') }}" alt="{{ \App\Models\Language::where('code', $locale)->first()->name }}">
-                                <span class="opacity-60">{{ \App\Models\Language::where('code', $locale)->first()->name }}</span>
+                                <img src="{{ asset('app-assets/images/flags/'.$locale.'.png') }}" alt="{{ $current_lang->name }}">
+                                <span class="opacity-60">{{ $current_lang->name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-left">
                                 @foreach (\App\Models\Language::all() as $key => $language)
@@ -71,90 +70,7 @@
 
 
         <!-- ---------footer--------- -->
-        <footer>
-            {{-- <div class="footer-top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-12">
-                            <h4>{{translate('BCS LINE')}}</h4>
-                            <div class="row">
-                                <div class="col">
-                                    <ul>
-                                        <li><a href="#">{{translate('Systemy IP')}}</a></li>
-                                        <li><a href="#">{{translate('Rejestratory')}}</a></li>
-                                        <li><a href="#">{{translate('Kamery')}}</a></li>
-                                        <li><a href="#">{{translate('Akcesoria')}}</a></li>
-                                        <li><a href="#">{{translate('Pulpity sterujące')}}</a></li>
-                                        <li><a href="#">{{translate('Obiektywy MP')}}</a></li>
-                                        <li><a href="#">{{translate('Urządzenia magazynujące')}}</a></li>
-                                        <li><a href="#">{{translate('Dekodery/Serwery wideo')}}</a></li>
-                                        <li><a href="#">{{translate('Monitory')}}</a></li>
-                                        <li><a href="#">{{translate('Pliki')}}</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col">
-                                    <ul>
-                                        <li><a href="#">{{translate('Systemy HD ANALOG')}}</a></li>
-                                        <li><a href="#">{{translate('HD-CVI (BCS-CVR)')}}</a></li>
-                                        <li><a href="#">{{translate('Rejestratory')}}</a></li>
-                                        <li><a href="#">{{translate('Kamery')}}</a></li>
-                                        <li><a href="#">{{translate('5w1 (BCS-XVR)')}}</a></li>
-                                        <li><a href="#">{{translate('Rejestratory')}}</a></li>
-                                        <li><a href="#">{{translate('Kamery')}}</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 col-md-12">
-                            <h4>{{translate('BCS POINT')}}</h4>
-                            <div class="row">
-                                <div class="col">
-                                    <ul>
-                                        <li><a href="#">{{translate('Systemy IP')}}</a></li>
-                                        <li><a href="#">{{translate('Rejestratory')}}</a></li>
-                                        <li><a href="#">{{translate('Kamery')}}</a></li>
-                                        <li><a href="#">{{translate('Akcesoria')}}</a></li>
-                                        <li><a href="#">{{translate('Monitory')}}</a></li>
-                                        <li><a href="#">{{translate('Pliki')}}</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col">
-                                    <ul>
-                                        <li><a href="#">{{translate('Systemy HD ANALOG')}}</a></li>
-                                        <li><a href="#">{{translate('Rejestratory')}}</a></li>
-                                        <li><a href="#">{{translate('Kamery')}}</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-12 pl-lg-0">
-                            <h4>{{translate('WIDEODOMOFONY')}}</h4>
-                            <div class="row">
-                                <div class="col">
-                                    <ul>
-                                        <li><a href="#">{{translate('Wideodomofony IP')}}</a></li>
-                                        <li><a href="#">{{translate('Jednorodzinne')}}</a></li>
-                                        <li><a href="#">{{translate('Modułowe')}}</a></li>
-                                        <li><a href="#">{{translate('Wielorodzinne')}}</a></li>
-                                        <li><a href="#">{{translate('Pliki')}}</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col">
-                                    <ul>
-                                        <li><a href="#">{{translate('Wideodomofony ')}}</a></li>
-                                        <li><a href="#">{{translate('2-przewodowe')}}</a></li>
-                                        <li><a href="#">{{translate('Panele zewnętrzne')}}</a></li>
-                                        <li><a href="#">{{translate('Monitory')}}</a></li>
-                                        <li><a href="#">{{translate('Zestawy')}}</a></li>
-                                        <li><a href="#">{{translate('Akcesoria')}}</a></li>
-                                        <li><a href="#">{{translate('Pliki')}}</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
+        {{-- <footer>
             <div class="footer-middle">
                 <div class="container">
                     <div class="footer-map">
@@ -208,7 +124,7 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer> --}}
         <!-- ---------footer-close--------- -->
 
         <script src="{{asset('assets/frontend/js/jquery-3.2.1.slim.min.js')}}"></script>

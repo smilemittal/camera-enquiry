@@ -42,6 +42,7 @@ class TypesController extends Controller
     {
         $this->validate($request, [
             'name'=>'required|max:50|'.Rule::unique('types')->whereNull('deleted_at'),
+            'slug'=>'required|max:50',
         ]);
 
         Type::create($request->all());
@@ -69,7 +70,7 @@ class TypesController extends Controller
      */
     public function edit($id)
     {
-        $types=Type::find($id);
+        $types = Type::find($id);
         return view('type.edit',compact('types'));
     }
 
@@ -82,16 +83,17 @@ class TypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $this->validate($request, [
             'name'=>'required|max:50|'.Rule::unique('types')->ignore($id)->whereNull('deleted_at'),
+            'slug'=>'required|max:50',
         ]);
 
         $types=Type::find($id);
         $types->update($request->all());
 
         return redirect()->route('types.index')->with('updated_success', __('message.Type updated successfully'));
-    
+
     }
 
     /**
@@ -105,16 +107,14 @@ class TypesController extends Controller
         $types=Type::find($id);
         $types->delete();
 
-         return redirect()->route('types.index')->with('deleted_success', __('message.Type deleted successfully'));
-
-   
+        return redirect()->route('types.index')->with('deleted_success', __('message.Type deleted successfully'));
     }
     public function multipleDelete(Request $request)
 	{
         $id = $request->bulk_delete;
-        
+
         Type::whereIn('id', $id)->delete();
-	
+
 		return redirect()->back();
 	}
     public function getTypes(Request $request) {
@@ -123,7 +123,8 @@ class TypesController extends Controller
         $columns = array(
             1=>'id',
             2 =>'name',
-            3 =>'action',
+            3 =>'slug',
+            4 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -150,6 +151,7 @@ class TypesController extends Controller
                 $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$type->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $type->name;
+                $nestedData['slug'] = $type->slug;
                 $index = route('types.index' ,  encrypt($type->id));
                 $edit = route('types.update' ,  encrypt($type->id));
                 $delete = route('types.destroy' ,  encrypt($type->id));
@@ -194,7 +196,7 @@ class TypesController extends Controller
             }else{
                 return redirect()->route('types.import')->withErrors([__('message.Types Import Failed.')]);
             }
-           
+
         }
 
     }

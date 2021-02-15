@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Language;
 use App\Models\Translation;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
@@ -19,11 +20,11 @@ function translate($key, $lang = null){
     if($lang == null){
         $lang = App::getLocale();
     }
-
-    $translation_def = Translation::where('lang', config('app.locale'))->where('lang_key', $key)->first();
+    $default_lang = default_language();
+    $translation_def = Translation::where('lang', $default_lang)->where('lang_key', $key)->first();
     if($translation_def == null){
         $translation_def = new Translation;
-        $translation_def->lang = config('app.locale');
+        $translation_def->lang = $default_lang;
         $translation_def->lang_key = $key;
         $translation_def->lang_value = $key;
         $translation_def->save();
@@ -47,8 +48,9 @@ function forgetCachedTranslations(){
 if (! function_exists('default_language')) {
     function default_language()
     {
-        if(!empty(Config::get('theme.default_lang'))) {
-            return Config::get('theme.default_lang');
+        $lang = Language::where('is_default', 1)->first();
+        if ($lang) {
+            return $lang->code;
         } else {
            return Config::get('app.locale');
         }

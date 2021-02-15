@@ -42,17 +42,16 @@
                         <h5 class="mb-0 h4">{{ translate('Default Language') }}</h5>
                     </div>
                     <div class="card-body">
-                        <form class="form-horizontal" action="{{ route('env_key_update.update') }}" method="POST">
+                        <form class="form-horizontal" action="{{ route('defalut_lang.update') }}" method="POST">
                         @csrf
                         <div class="form-group row">
                             <div class="col-lg-3">
                                 <label class="col-from-label">{{ translate('Default Language') }}</label>
                             </div>
-                            <input type="hidden" name="types[]" value="DEFAULT_LANGUAGE">
                             <div class="col-lg-6">
-                                <select class="form-control demo-select2-placeholder" name="DEFAULT_LANGUAGE">
+                                <select class="form-control demo-select2-placeholder" name="default_lang">
                                     @foreach (\App\Models\Language::all() as $key => $language)
-                                        <option value="{{ $language->code }}" <?php if
+                                        <option value="{{ $language->id }}" <?php if
                                             (default_language()==$language->code) {
                                             echo 'selected';
                                             } ?> >{{ $language->name }}</option>

@@ -21,7 +21,8 @@ class TypesExport implements FromCollection ,WithHeadings , WithTitle
     	return [
     		"id",
     		"name",
-    		"created_at", 
+    		"slug",
+    		"created_at",
     		"updated_at"];
     }
     public function title(): string

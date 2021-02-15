@@ -1,6 +1,6 @@
-@extends('layouts.app')  
-@section('content')  
-<!--BEGIN content--> 
+@extends('layouts.app')
+@section('content')
+<!--BEGIN content-->
 <div class="row">
     <div class="content-header-left col-md-4 col-12 mb-2">
         <h3 class="content-header-title">{{__('site. Type')}}</h3>
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    </div>            
+    </div>
 <div class="content-body">
                 <!-- Form layout section start -->
                 <section id="basic-form-layouts">
@@ -47,19 +47,25 @@
                                         @if($errors->all())
                                             <div class="alert alert-danger">
                                                 @foreach($errors->all() as $error)
-                                            
-                                                    <p>{{$error}}</p> 
-                                        
+
+                                                    <p>{{$error}}</p>
+
                                                 @endforeach
                                             </div>
                                         @endif
-                                       <form method="Post" action="{{route('types.update',$types->id)}}">  
-                                        @method('PATCH')     
+                                       <form method="Post" action="{{route('types.update',$types->id)}}">
+                                        @method('PATCH')
                                          @csrf
                                             <div class="form-body">
                                                 <div class="form-group">
                                                     <label for="name">{{ __('site.Name') }}</label>
                                                     <input type="text" id="name" class="form-control" placeholder="Name" name="name" value="{{$types->name}}">
+                                                </div>
+                                            </div>
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    <label for="slug">{{ __('site.Slug') }}</label>
+                                                    <input type="text" id="slug" class="form-control" placeholder="Slug" name="slug" value="{{$types->slug}}">
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
@@ -76,6 +82,6 @@
                 </section>
             </div>
         </div>
-    </div>  
-  
+    </div>
+
 @endsection
