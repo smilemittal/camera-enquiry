@@ -99,7 +99,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::post('get-product-attributes', 'ProductController@getProductAttributes')->name('get-product-attributes');
 Route::post('get-standard-attributes', 'ProductController@getStandard')->name('get-standard-attributes');
 
-Route::post('get-enquiry-attributes', 'FrontController@getEnquiryProductAttributes')->name('get-enquiry-attributes');
 Route::post('update-attributes', 'FrontController@updateAttributes')->name('update-attributes');
 Route::get('/', 'FrontController@home')->name('home');
 Route::post('get-next-product', 'FrontController@getNextProduct')->name('get-next-product');

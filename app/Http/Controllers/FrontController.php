@@ -29,23 +29,6 @@ class FrontController extends Controller
         return view('frontend.home', compact('standards', 'system_types'));
     }
 
-    public function getEnquiryProductAttributes(Request $request){
-        if($request->ajax() && $request->isMethod('post')){
-            $system_type = $request->input('system_type');
-            $standard = $request->input('standard');
-            $html = [];
-            $i = 1;
-            $types = Type::get();
-            foreach($types as $type) {
-                $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
-                $attribute_html = view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type'))->render();
-                $html[$type->slug] = view('frontend.extras.new-type', compact('attributes', 'system_type', 'i', 'type', 'attribute_html'))->render();
-            }
-            return response()->json(['success'=> true, 'html' => $html, 'count'=> $i]);
-
-        }
-    }
-
     public function updateAttributes(Request $request){
         if($request->ajax() && $request->isMethod('post')){
             $system_type = $request->input('system_type');
@@ -120,18 +103,6 @@ class FrontController extends Controller
 
     public function saveEnquiry(Request $request)
     {
-        //dd($request->products['camera'][1]);
-        // $validator = Validator::make($request->all(), [
-        //     'quantity.*.*' => 'required',
-        //     'products.*.*' => 'required',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return response()->json(['success'=> false, 'errors' => $validator->errors()]);
-        // }
-
-
-
         $quantities = $request->input('quantity');
         $products = $request->input('products');
         $standard_id = $request->input('selected_standard');
@@ -147,26 +118,17 @@ class FrontController extends Controller
                 foreach($product as $no => $attributes){
 
                     foreach($attributes as $key => $attribute){
-                    // dd($attribute);
                         if($attribute != NULL){
-                        // dd($quantities[$product_type][$no]);
                             $product_arr[$product_type][$no][$key] = $attribute;
-
-
                         }
-
                     }
                     if(!empty($quantities[$product_type][$no])){
                         $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
-
-
                         $quantity_total += (int)$quantities[$product_type][$no];
                     }
-
                 }
                 $quantity_arr[$product_type]['total'] = $quantity_total;
                 $total_products += $quantity_total;
-
             }
         }
 
@@ -174,9 +136,6 @@ class FrontController extends Controller
 
             $product_arr = json_encode($product_arr);
             $quantity_arr = json_encode($quantity_arr);
-
-
-            //dd($product_arr);
             $enquiry = Enquiry::create([
                 'products' => $product_arr,
                 'quantity' => $quantity_arr,
@@ -189,10 +148,6 @@ class FrontController extends Controller
                 'mobile_no' => $request->input('mobile_no'),
 
             ]);
-
-
-
-
             if($enquiry){
                 $products = json_decode($product_arr, true);
                 $quantities = json_decode($quantity_arr, true);
@@ -223,21 +178,13 @@ class FrontController extends Controller
             foreach($product as $no => $attributes){
 
                 foreach($attributes as $key => $attribute){
-                   // dd($attribute);
                     if($attribute != NULL){
-                       // dd($quantities[$product_type][$no]);
                         $product_arr[$product_type][$no][$key] = $attribute;
-
-
                     }
-
                 }
                 if(!empty($quantities[$product_type][$no])){
                     $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
-
-                        $quantity_total += (int)$quantities[$product_type][$no];
-
-
+                    $quantity_total += (int)$quantities[$product_type][$no];
                 }
 
 
@@ -263,18 +210,17 @@ class FrontController extends Controller
         if($request->ajax() && $request->isMethod('post')){
             $system_type = $request->input('system_type_id');
             $standard_attribute='';
-
-          //  dd($standard);
             $standards = Standard::where('system_type_id', $system_type)->get();
-
-            //dd($attribute_recorder);
-
-
-            $i = 1;
-
             $standard_attribute .= view('frontend.extras.standard', compact('standards'))->render();
-
-            return response()->json(['success'=> true, 'standard_attribute' => $standard_attribute, 'count'=> $i]);
+            $html = [];
+            $i = 1;
+            $types = Type::get();
+            foreach($types as $type) {
+                $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
+                $attribute_html = view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type'))->render();
+                $html[$type->slug] = view('frontend.extras.new-type', compact('attributes', 'system_type', 'i', 'type', 'attribute_html'))->render();
+            }
+            return response()->json(['success'=> true, 'standard_attribute' => $standard_attribute, 'html' => $html, 'count'=> $i]);
 
         }
     }

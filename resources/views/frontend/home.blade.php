@@ -127,8 +127,6 @@
 <script>
     $(document).ready(function(){
         $('.system_type:first-child').click();
-        nextProduct('camera');
-        nextProduct('recorder');
     });
     $('.system_type').on('click', function(){
         var system_type_id = $(this).data('id');
@@ -140,7 +138,7 @@
             url: '{{ route('get-standard') }}',
             data: {
                 'system_type_id': system_type_id,
-                '_token': '{{ csrf_token() }}',
+                '_token': $('meta[name="csrf-token"]').attr("content"),
             },
             success: function(data){
                 $('.selected_standard').empty();
@@ -148,42 +146,31 @@
                     $('.selected_standard').append(data.standard_attribute);
                     $('.selected_standard').show();
                 }
+                $('.kemey-cameras-sec .container').empty();
+                $('.hidden').empty();
+                $.each(data.html, function( index, value ) {
+                    $('.kemey-cameras-sec .container').append(value);
+                    $('.hidden').append('<input type="hidden" name="'+index+'_count" value="'+data.count+'"><input type="hidden" name="total_qty['+index+']" value="0">');
+                });
             }
         });
     });
 
     $(document).on('change', '.qty', function(){
-        var qty = parseInt($(this).val()) + parseInt($(this).parents('.col-kemey').find('.totalQty span').text());
+        var qty = 0;
+        if($(this).parents('.col-kemey').find('.totalQty span').text() !== "") {
+            qty = parseInt($(this).val()) + parseInt($(this).parents('.col-kemey').find('.totalQty span').text());
+        } else {
+            qty = parseInt($(this).val());
+        }
+        $('input[name="'+ product_type +'_count"]').val(qty);
         $(this).parents('.col-kemey').find('.totalQty span').text(qty);
     });
 
     $(document).on('click', '.standard', function(){
         $('.standard').removeClass('active');
         $(this).addClass('active');
-        var standard = $(this).data('id');
-         var system_type = $('#selected_system_type').val();
-        $('#selected_standard').val(standard);
-
-        $.ajax({
-            method:'post',
-            url: '{{ route('get-enquiry-attributes') }}',
-            data: {
-                '_token': '{{ csrf_token() }}',
-                'system_type': system_type,
-                'standard': standard,
-            },
-            success: function(data){
-                $('.kemey-cameras-sec .container').empty();
-                $('.hidden').empty();
-                $.each(data.html, function( index, value ) {
-                    $('.kemey-cameras-sec .container').append(value);
-                    $('.hidden').append('<input type="hidden" name="'+index+'_count" value="'+data.count+'">');
-                });
-            },
-        });
-
-
-
+        $('#selected_standard').val($(this).data('id'));
     });
 
     $(document).on('change', '.attribute',function(){
@@ -191,7 +178,6 @@
         var cam_attribute_value_arr  = [];
         var rec_attribute_value_arr = [];
         var ele = $(this);
-
 
         var system_type = $(this).data('system_type');
         var product_type = $(this).data('product_type');
@@ -209,8 +195,6 @@
                     rec_attribute_value_arr.push($(this).val());
                 }
             }
-
-
         });
 
         if($(ele).data('product_type') == 'camera'){
@@ -225,7 +209,7 @@
             method: 'post',
             url: '{{ route('update-attributes') }}',
             data: {
-                '_token': '{{ csrf_token() }}',
+                '_token': $('meta[name="csrf-token"]').attr("content"),
                 'attribute_value' : attribute_val,
                 'system_type': system_type,
                 'product_type': product_type,
@@ -234,15 +218,8 @@
             },
             success: function(data){
                 if(data.success == true && data.html != ''){
-
-                    if(data.product_type == 'camera'){
-
-                        $('.'+product_type+'_div_'+count).empty();
-                        $('.'+product_type+'_div_'+count).append(data.html);
-                    }else if(data.product_type == 'recorder'){
-                        $('.'+product_type+'_div_'+count).empty();
-                        $('.'+product_type+'_div_'+count).append(data.html);
-                    }
+                    $('.'+product_type+'_div_'+count).empty();
+                    $('.'+product_type+'_div_'+count).append(data.html);
                 }
             }
         });
@@ -271,7 +248,7 @@
                 'count': old_count,
                 'system_type': system_type,
                 'standard': standard,
-                '_token': '{{ csrf_token() }}',
+                '_token': $('meta[name="csrf-token"]').attr("content"),
             },
             success:function(data){
                 if(data.success == true){
@@ -295,11 +272,9 @@
         console.log(formData);
         jQuery.ajaxSetup({
                     headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
                     }
                 });
-
-
         $.ajax({
             method: 'post',
             url: url,
@@ -336,7 +311,7 @@
 
         jQuery.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
             }
         });
 
