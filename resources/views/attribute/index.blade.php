@@ -15,15 +15,15 @@
         </style>
           <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
-                    <h3 class="content-header-title">{{ __('site.Attributes')}}</h3>
+                    <h3 class="content-header-title">{{ translate('Attributes')}}</h3>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
                     <div class="breadcrumbs-top float-md-right">
                         <div class="breadcrumb-wrapper mr-1">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item active"><a href="#">{{ __('site.Home')}}</a>
+                                <li class="breadcrumb-item active"><a href="#">{{ translate('Home')}}</a>
                                 </li>
-                                <li class="breadcrumb-item active">{{ __('site.List')}}
+                                <li class="breadcrumb-item active">{{ translate('List')}}
                                 </li>
                             </ol>
                         </div>
@@ -39,12 +39,12 @@
                                 <div class="card-header" style="height:50px;">
                                     <div class="card-title layout_btns" id="basic-layout-form">
 
-                                        <h4>{{ __('site.List')}}</h4>
+                                        <h4>{{ translate('List')}}</h4>
                                         <div class="btns-right-side">
-                                            <a href="{{ route('attribute.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >Add </a>
-                                            <a href="{{ route('attribute.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{ __('site.Import')}} </a> 
-                                            <a href="{{ route('attribute.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{ __('site.Export')}}</a>
-                                            <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button>
+                                            <a href="{{ route('attribute.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{translate('Add')}}</a>
+                                            <a href="{{ route('attribute.import')}}" method="post" class="btn mr-1 mb-1 btn-primary btn-sm" type="submit" >{{ translate('Import')}} </a> 
+                                            <a href="{{ route('attribute.export')}}" method="post" class="btn mr-1 mb-1 btn-danger btn-sm" type="submit" >{{ translate('Export')}}</a>
+                                            <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >{{translate('Delete Selected')}}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -74,13 +74,13 @@
                                                 <thead>
                                                     <tr>
                                                         <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
-                                                        <th>{{ __('site.ID')}}</th>
-                                                        <th>{{ __('site.Attribute Name')}}</th>
-                                                        <th>{{__('site.Type ID')}}</th>
-                                                        <th>{{ __('site.Display Order')}}</th>
-                                                        <th>{{ __('site.System Type')}}</th>
-                                                        <th>{{ __('site.Description')}}</th>
-                                                        <th>{{ __('site.Action')}}</th>
+                                                        <th>{{ translate('ID')}}</th>
+                                                        <th>{{ translate('Attribute Name')}}</th>
+                                                        <th>{{translate('Type ID')}}</th>
+                                                        <th>{{ translate('Display Order')}}</th>
+                                                        <th>{{ translate('System Type')}}</th>
+                                                        <th>{{ translate('Description')}}</th>
+                                                        <th>{{ translate('Action')}}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -90,13 +90,13 @@
                                                 <tfoot>
                                                 <tr>
                                                     <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
-                                                        <th>{{ __('site.ID')}}</th>
-                                                        <th>{{ __('site.Attribute Name')}}</th>
-                                                        <th>{{__('site.Type ID')}}</th>
-                                                        <th>{{ __('site.Display Order')}}</th>
-                                                        <th>{{ __('site.System Type')}}</th>
-                                                        <th>{{ __('site.Description')}}</th>
-                                                        <th>{{ __('site.Action')}}</th>
+                                                        <th>{{ translate('ID')}}</th>
+                                                        <th>{{ translate('Attribute Name')}}</th>
+                                                        <th>{{translate('Type ID')}}</th>
+                                                        <th>{{ translate('Display Order')}}</th>
+                                                        <th>{{ translate('System Type')}}</th>
+                                                        <th>{{ translate('Description')}}</th>
+                                                        <th>{{ translate('Action')}}</th>
                                                 </tr> 
                                              </tfoot>
                                                

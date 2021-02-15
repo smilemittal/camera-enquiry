@@ -5,15 +5,15 @@
     <!-- BEGIN: Content-->
     <div class="content-header row">
         <div class="content-header-left col-md-4 col-12 mb-2">
-            <h3 class="content-header-title">{{ __('site.Enquiries')}}</h3>
+            <h3 class="content-header-title">{{ translate('Enquiries')}}</h3>
         </div>
         <div class="content-header-right col-md-8 col-12">
             <div class="breadcrumbs-top float-md-right">
                 <div class="breadcrumb-wrapper mr-1">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="#">{{ __('site.Home')}}</a>
+                        <li class="breadcrumb-item active"><a href="#">{{ translate('Home')}}</a>
                         </li>
-                        <li class="breadcrumb-item active">{{ __('site.List')}}
+                        <li class="breadcrumb-item active">{{ translate('List')}}
                         </li>
                     </ol>
                 </div>

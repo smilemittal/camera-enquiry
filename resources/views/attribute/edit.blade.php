@@ -5,17 +5,17 @@
     <!-- BEGIN: Content-->
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
-                    <h4 class="content-header-title" id="basic-layout-form"> {{ __('site.Attributes')}}</h4>
+                    <h4 class="content-header-title" id="basic-layout-form"> {{ translate('Attributes')}}</h4>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
                     <div class="breadcrumbs-top float-md-right">
                         <div class="breadcrumb-wrapper mr-1">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">{{ __('site.Home')}}</a>
+                                <li class="breadcrumb-item"><a href="#">{{ translate('Home')}}</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{ route('attribute.index') }}">{{ __('site.List')}}</a>
+                                <li class="breadcrumb-item"><a href="{{ route('attribute.index') }}">{{ translate('List')}}</a>
                                 </li>
-                                <li class="breadcrumb-item active">{{ __('site.Edit')}}
+                                <li class="breadcrumb-item active">{{ translate('Edit')}}
                                 </li>
                             </ol>
                         </div>
@@ -31,7 +31,7 @@
                             <div class="card">
                                 <div class="card-header">
 
-                                    <h4>{{ __('site.Edit')}}</h4>
+                                    <h4>{{ translate('Edit')}}</h4>
 
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
@@ -70,7 +70,7 @@
                                          @method('PATCH')
                                             <div class="form-body">
                                                         <div class="form-group">
-                                                            <label for="type">{{ __('site.Type')}}</label>
+                                                            <label for="type">{{ translate('Type')}}</label>
                                                             <select name="type_id" id="type_id" class="form-control">
                                                                 @foreach($types ?? '' as $type)
                                                                     <option value="{{ $type->id }}" {{ $attribute->type_id == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
@@ -78,7 +78,7 @@
                                                                </select>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="system_type_id">{{ __('site.System Type')}}</label>
+                                                            <label for="system_type_id">{{ translate('System Type')}}</label>
                                                            
                                                            <select name="system_type_id" id="system_type_id" class="form-control">
                                                             @foreach($system_types ?? '' as $system_type)
@@ -87,25 +87,25 @@
                                                            </select>
                                                         </div>
                                                      <div class="form-group">
-                                                            <label for="Name">{{ __('site.Attribute Name')}}</label>
+                                                            <label for="Name">{{ translate('Attribute Name')}}</label>
                                                             <input type="text" id="name" class="form-control" value="{{$attribute->name}}" name="name">
                                                      </div> 
                                                      
                                                      <div class="form-group">
-                                                            <label for="Name">{{ __('site.Display Order')}}</label>
+                                                            <label for="Name">{{ translate('Display Order')}}</label>
                                                             <input type="text" id="display_order" class="form-control" value="{{$attribute->display_order}}" name="display_order">
                                                      </div> 
                                                      <div class="form-group">
-                                                        <label for="Description">{{ __('site.Description')}}</label>
+                                                        <label for="Description">{{ translate('Description')}}</label>
                                                         <textarea rows="5" class="form-control"  name="description"><?php echo htmlspecialchars($attribute->description);?></textarea>
                                                     </div>
                                                     <div class="form-actions" style="text-align:center">
                                                         <button type="reset"  class="btn btn-danger">
-                                                            {{ __('site.Reset')}}
+                                                            {{ translate('Reset')}}
                                                         </button>           
 
                                                             <button type="submit" name="submit" class="btn btn-success">
-                                                                {{ __('site.Save')}}
+                                                                {{ translate('Save')}}
                                                             </button>
                                                      </div>
                                            </div>

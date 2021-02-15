@@ -57,7 +57,7 @@
                                         <img src="{{asset('assets/frontend/img/logo.png')}}" alt="branding logo">
                                     </div>
                                     <div class="font-large-1  text-center">
-                                        Admin Login
+                                        {{translate('Admin Login')}}
                                     </div>
                                 </div>
                                 <div class="card-content">
@@ -89,12 +89,12 @@
                                                 <div class="col-md-6 col-12 float-sm-left text-center text-sm-right">
                                                      @if (Route::has('password.request'))
 
-                                                    <a href="{{ route('password.request') }}" class="card-link">{{ __('Forgot your password?') }}</a>
+                                                    <a href="{{ route('password.request') }}" class="card-link">{{ translate('Forgot your password?') }}</a>
                                                     @endif
                                                 </div>
                                             </div>
                                             <div class="form-group text-center">
-                                                <button type="submit" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1"> {{ __('Login') }}</button>
+                                                <button type="submit" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1"> {{ translate('Login') }}</button>
                                             </div>
 
                                         </form>
