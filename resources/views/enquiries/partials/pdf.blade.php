@@ -18,9 +18,9 @@
         @foreach($products as $product_type => $product)
             @if(!empty($quantities[$product_type]['total'] ) && $quantities[$product_type]['total'] != 0)
 
-                <tr><th style="border: 1px solid #000; text-align: center;">Product Type</th><td style="border: 1px solid #000; text-align: center;">     {{ ucfirst($product_type) }}</td></tr>
-                <tr><th colspan="2" style="text-align: center; border: 1px solid #000;">Product Details</th></tr>
-                <tr><th style="border: 1px solid #000;text-align: center;">S. No.</th><th style="border: 1px solid #000; text-align: center;">Attributes</th></tr>
+                <tr><th style="border: 1px solid #000; text-align: center;">{{translate('Product Type')}}</th><td style="border: 1px solid #000; text-align: center;">     {{ ucfirst($product_type) }}</td></tr>
+                <tr><th colspan="2" style="text-align: center; border: 1px solid #000;">{{translate('Product Details')}}</th></tr>
+                <tr><th style="border: 1px solid #000;text-align: center;">{{translate('S. No.')}}</th><th style="border: 1px solid #000; text-align: center;">{{translate('Attributes')}}</th></tr>
 
                 @php
                 $i= 1;
@@ -60,13 +60,13 @@
                         @endphp
                         @if(!empty($quantities[$product_type][$no]))
                             <div>
-                                <strong>Quantity: </strong> {{ (int)$quantities[$product_type][$no] }}
+                                <strong>{{translate('Quantity:')}}</strong> {{ (int)$quantities[$product_type][$no] }}
                             </div>
                         @endif
                         </td>
                     </tr>
                     @endforeach
-                    <tr><th style="border: 1px solid #000;text-align: center;">Total {{ ucfirst($product_type).'s'}}</th><td style="border: 1px solid #000;text-align: center;">{{ $quantity_total }}</td></tr>
+                    <tr><th style="border: 1px solid #000;text-align: center;">{{translate('Total')}} {{ ucfirst($product_type).'s'}}</th><td style="border: 1px solid #000;text-align: center;">{{ $quantity_total }}</td></tr>
             @endif
         @endforeach
     </tbody>

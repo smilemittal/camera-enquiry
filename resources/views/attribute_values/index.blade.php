@@ -16,15 +16,15 @@
 </style>
 <div class="row">
     <div class="content-header-left col-md-4 col-12 mb-2">
-        <h3 class="content-header-title">{{__('site.Attribute Value')}}</h3>
+        <h3 class="content-header-title">{{translate('Attribute Value')}}</h3>
     </div>
     <div class="content-header-right col-md-8 col-12">
         <div class="breadcrumbs-top float-md-right">
             <div class="breadcrumb-wrapper mr-1">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
+                    <li class="breadcrumb-item"><a href="#">{{translate('Home')}}</a>
                     </li>
-                    <li class="breadcrumb-item active">{{__('site.List')}}
+                    <li class="breadcrumb-item active">{{translate('List')}}
                     </li>
                 </ol>
             </div>
@@ -39,9 +39,9 @@
                             <div class="card">
                                 <div class="card-header" style="height: 50px;">
                                     <div class="card-title layout_btns" id="basic-layout-form">
-                                    <h4>{{__('site.List')}}</h4>
+                                    <h4>{{translate('List')}}</h4>
                                     <div class="btns-right-side">
-                                        <a href="{{ route('attribute-values.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{__('site.Add')}} </a>
+                                        <a href="{{ route('attribute-values.create')}}" method="post" class="btn mr-1 mb-1 btn-success btn-sm" type="submit" >{{translate('Add')}} </a>
                                         <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button>
                                     </div>
                                     </div>
@@ -71,23 +71,23 @@
                                             <thead>
                                                 <tr>
                                                     <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
-                                                    <th>{{ __('site.ID')}}</th>
-                                                    <th>{{ __('site.Attribute')}}</th>
-                                                    <th>{{__('site.Value')}}</th>
-                                                    <th>{{ __('site.Display Order')}}</th>
-                                                    <th>{{ __('site.System Type')}}</th>
-                                                    <th>{{ __('site.Action')}}</th>
+                                                    <th>{{ translate('ID')}}</th>
+                                                    <th>{{ translate('Attribute')}}</th>
+                                                    <th>{{translate('Value')}}</th>
+                                                    <th>{{ translate('Display Order')}}</th>
+                                                    <th>{{ translate('System Type')}}</th>
+                                                    <th>{{ translate('Action')}}</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
                                                     <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
-                                                    <th>{{ __('site.ID')}}</th>
-                                                    <th>{{ __('site.Attribute')}}</th>
-                                                    <th>{{__('site.Value')}}</th>
-                                                    <th>{{ __('site.Display Order')}}</th>
-                                                    <th>{{ __('site.System Type')}}</th>
-                                                    <th>{{ __('site.Action')}}</th>
+                                                    <th>{{ translate('ID')}}</th>
+                                                    <th>{{ translate('Attribute')}}</th>
+                                                    <th>{{translate('Value')}}</th>
+                                                    <th>{{ translate('Display Order')}}</th>
+                                                    <th>{{ translate('System Type')}}</th>
+                                                    <th>{{ translate('Action')}}</th>
                                                 </tr>
             
                                             </tfoot>

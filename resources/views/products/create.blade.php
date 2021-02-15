@@ -4,17 +4,17 @@
     <!-- BEGIN: Content-->
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
-                    <h4 class="content-header-title" id="basic-layout-form">{{ __('site.Products')}}</h4>
+                    <h4 class="content-header-title" id="basic-layout-form">{{ translate('Products')}}</h4>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
                     <div class="breadcrumbs-top float-md-right">
                         <div class="breadcrumb-wrapper mr-1">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">{{ __('site.Home')}}</a>
+                                <li class="breadcrumb-item"><a href="#">{{ translate('Home')}}</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{ route('products.index') }}">{{ __('site.List')}}</a>
+                                <li class="breadcrumb-item"><a href="{{ route('products.index') }}">{{ translate('List')}}</a>
                                 </li>
-                                <li class="breadcrumb-item active">{{ __('site.Add')}}
+                                <li class="breadcrumb-item active">{{ translate('Add')}}
                                 </li>
                             </ol>
                         </div>
@@ -28,7 +28,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{ __('site.Add')}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{ translate('Add')}}</h4>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>
@@ -63,15 +63,15 @@
                                         @csrf
                                             <div class="form-body">
                                                 {{-- <div class="form-group">
-                                                    <label for="Name">{{ __('site.product_name')}}</label>
+                                                    <label for="Name">{{ translate('product_name')}}</label>
                                                     <input type="text" id="name" class="form-control" placeholder="name" name="name">
                                                 </div> --}}
                                                 <div class="form-group {{ $errors->get('name') ? 'has-error' : '' }}">
-                                                    <label for="name">{{ __('site.Name') }}</label>
+                                                    <label for="name">{{ translate('Name') }}</label>
                                                     <input type="text" name="name" placeholder="Name" class="form-control" required>
                                                   </div>
                                                   <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.System Type')}}
+                                                    <label for="system_type_id">{{ translate('System Type')}}
                                                     </label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
                                                         <option value="">Select</option>
@@ -82,7 +82,7 @@
                                                 </div>    
 
                                                 <div class="form-group">
-                                                    <label for="standard_id">{{ __('site.Standard')}}</label>
+                                                    <label for="standard_id">{{ translate('Standard')}}</label>
                                                     <select name="standard_id" id="standard_id" class="form-control">
                                                         <option value="">Select</option>
                                                         {{-- @foreach($standards as $standard)
@@ -91,7 +91,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="type">{{ __('site.Type')}}</label>
+                                                    <label for="type">{{ translate('Type')}}</label>
                                                     <select name="type_id" id="type_id" class="form-control">
                                                         <option value="">Select</option>
                                                         @foreach($types as $type)
@@ -101,7 +101,7 @@
                                                 </div>
                                                 
                                                 <div class=" form-group">
-                                                    <label for="priority">{{ __('site.Priority')}}</label>
+                                                    <label for="priority">{{ translate('Priority')}}</label>
                                                     <input type="number" class="form-control"  name="priority" placeholder="Priority">
                                                 </div>
                                                 <hr>
@@ -114,10 +114,10 @@
                                                
                                                 <div class="form-actions" style="text-align:center">
                                                     <button type="reset"  class="btn btn-danger">
-                                                        {{__('site.Reset')}}
+                                                        {{translate('Reset')}}
                                                     </button>            
                                                         <button type="submit" name="submit" class="btn btn-success">
-                                                            {{ __('site.Save')}}
+                                                            {{ translate('Save')}}
                                                         </button>
                                                 <div>
                                            </div>

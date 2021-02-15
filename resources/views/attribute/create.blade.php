@@ -6,17 +6,17 @@
 
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
-                    <h4 class="content-header-title" id="basic-layout-form"> {{ __('site.Attributes')}}</h4>
+                    <h4 class="content-header-title" id="basic-layout-form"> {{ translate('Attributes')}}</h4>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
                     <div class="breadcrumbs-top float-md-right">
                         <div class="breadcrumb-wrapper mr-1">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item active"><a href="#">{{ __('site.Home')}}</a>
+                                <li class="breadcrumb-item active"><a href="#">{{ translate('Home')}}</a>
                                 </li>
-                                <li class="breadcrumb-item active"><a href="{{route('attribute.index')}}">{{ __('site.List')}}</a>
+                                <li class="breadcrumb-item active"><a href="{{route('attribute.index')}}">{{ translate('List')}}</a>
                                 </li>
-                                <li class="breadcrumb-item active">{{ __('site.Add')}}
+                                <li class="breadcrumb-item active">{{ translate('Add')}}
                                 </li>
                             </ol>
                         </div>
@@ -31,7 +31,7 @@
                             <div class="card">
                                 <div class="card-header">
 
-                                    <h4 class="card-title" id="basic-layout-form"> {{ __('site.Add')}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form"> {{ translate('Add')}}</h4>
 
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
@@ -70,7 +70,7 @@
                                          @csrf
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="type_id">{{ __('site.Type')}}</label>
+                                                    <label for="type_id">{{ translate('Type')}}</label>
                                                     <select name="type_id" id="type_id" class="form-control">
                                                         @foreach($types as $type)
                                                             <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -78,7 +78,7 @@
                                                        </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.System Type')}}</label>
+                                                    <label for="system_type_id">{{ translate('System Type')}}</label>
                                                    
                                                    <select name="system_type_id" id="system_type_id" class="form-control">
                                                     @foreach($system_types as $system_type)
@@ -87,15 +87,15 @@
                                                    </select>
                                                 </div> 
                                                      <div class="form-group">
-                                                            <label for="Name">{{ __('site.Attribute Name')}}</label>
+                                                            <label for="Name">{{ translate('Attribute Name')}}</label>
                                                             <input type="text" id="name" class="form-control" placeholder="Name" name="name">
                                                      </div> 
                                                      <div class="form-group">
-                                                            <label for="Name">{{ __('site.Display Order')}}</label>
+                                                            <label for="Name">{{ translate('Display Order')}}</label>
                                                             <input type="text" id="display_order" class="form-control" placeholder="display_order" name="display_order">
                                                      </div> 
                                                      <div class=" form-group">
-                                                        <label for="Description">{{ __('site.Description')}}</label>
+                                                        <label for="Description">{{ translate('Description')}}</label>
                                                         <textarea class="form-control" type="text" name="description" placeholder="Attribute Description"></textarea>
                                                     </div>
                                                        
@@ -103,11 +103,11 @@
 
                                                     <div class="form-actions" style="text-align:center">
                                                         <button type="reset"  class="btn btn-danger">
-                                                            {{__('site.Reset')}}
+                                                            {{translate('Reset')}}
                                                         </button>           
 
                                                             <button type="submit" name="submit" class="btn btn-success">
-                                                                {{__('site.Save')}}
+                                                                {{translate('Save')}}
                                                             </button>   
                                                    </div>
                                                </div>

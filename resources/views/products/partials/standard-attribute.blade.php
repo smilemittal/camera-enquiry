@@ -1,5 +1,5 @@
 
-                        @foreach($standards as $standard) 
-                            <option value="{{ $standard->id }}">{{ $standard->name }}</option>
-                        @endforeach
+@foreach($standards as $standard) 
+    <option value="{{ $standard->id }}">{{ $standard->name }}</option>
+@endforeach
                    

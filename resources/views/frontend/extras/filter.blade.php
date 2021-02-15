@@ -7,7 +7,7 @@
                 <div class="form-group">
                 <label>{{ $attribute->name }}</label>
                 <select name="products[{{$type->slug}}][{{$i}}][{{ $attribute->id }}]" id="{{$type->slug}}_attributes" class="attribute" data-count="{{ $i }}" data-product_type="{{$type->slug}}" data-system_type="{{ $system_type }}" data-attribute="{{$attribute->id}}">
-                    <option value="unimportant">Unimportant</option>
+                    <option value="unimportant">{{translate('Unimportant')}}</option>
                         @if(!empty($attribute->attribute_values))
                             @foreach($attribute->attribute_values as $attribute_value)
                                 @if(!empty($selected_attributes) && ($attribute_value->id == $selected_attributes[$attribute->id] || (!empty($filtered_attributes[$attribute->id]) && in_array($attribute_value->id, $filtered_attributes[$attribute->id]))))
