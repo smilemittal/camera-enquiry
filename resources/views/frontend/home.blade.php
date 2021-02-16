@@ -156,14 +156,8 @@
         });
     });
 
-    $(document).on('change', '.qty', function(){
-        var qty = 0;
-        if($(this).parents('.col-kemey').find('.totalQty span').text() !== "") {
-            qty = parseInt($(this).val()) + parseInt($(this).parents('.col-kemey').find('.totalQty span').text());
-        } else {
-            qty = parseInt($(this).val());
-        }
-        $('input[name="'+ product_type +'_count"]').val(qty);
+    $(document).on('change', '.qty, .recorder_cal_col', function(){
+        var qty = calcQty(this);
         $(this).parents('.col-kemey').find('.totalQty span').text(qty);
     });
 
@@ -225,12 +219,9 @@
         });
 
     });
-
-
     $(document).on('click','.next_type', function(){
         var product_type = $(this).data('product_type');
         nextProduct(product_type);
-
     });
     function nextProduct(product_type){
         var old_count =  $('input[name="'+ product_type +'_count"]').val();
@@ -264,6 +255,30 @@
                 }
             },
         });
+    }
+
+    function calcQty(ele) {
+        var totalQty = 0;
+        var qty = 0;
+        var type = $(ele).parents('.col-kemey').data('type');
+        $('.section_'+type).each(function(index, item){
+            qty = 0;
+            if(type == 'recorder') {
+                if($(this).find('.'+ type + '_cal_col').val() == 'unimportant') {
+                    qty = parseInt($(this).find('.qty').val());
+                } else if($(this).find('.qty').val() == '') {
+                    qty = parseInt($(this).find('.'+ type + '_cal_col option:selected' ).text());
+                } else {
+                    qty = parseInt($(this).find('.qty').val()) * parseInt($(this).find('.'+ type + '_cal_col option:selected' ).text());
+                }
+            } else {
+                qty = parseInt($(this).find('.qty').val());
+            }
+            $(this).find('.total_qty').val(qty);
+            totalQty += qty;
+        });
+
+        return totalQty;
     }
 
     $('.form-submit-btn').on('click', function(){

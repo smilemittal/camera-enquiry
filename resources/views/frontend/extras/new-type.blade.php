@@ -1,4 +1,4 @@
-<div class="col-kemey section_{{$type->slug}} {{ $type->slug.'_'.$i }}">
+<div class="col-kemey section_{{$type->slug}} {{ $type->slug.'_'.$i }}" data-type="{{$type->slug}}">
     <div class="row d-flex align-items-center">
         <div class="col-xl-3 col-md-6">
         <a class="btn" data-toggle="collapse" href="#{{ 'multiCollapseExample'.$type->slug.$i  }}" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">{{ translate($type->name) }}</a>
@@ -11,6 +11,7 @@
         <div class="col-md-12 col-xl-5 pl-lg-3">
             <p>{{translate($type->name.' panel description')}}</p>
             <div class="totalQty">
+                <input type="hidden" class="total_qty" name="total_qty[{{ $type->slug }}][{{ $i }}]" placeholder="Qty"/>
                 <span class=""></span>
             </div>
         </div>
