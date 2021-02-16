@@ -12,9 +12,9 @@
        
                                         
             @foreach($products as $product_type => $product)
-            <tr><th>Product Type</th><td>     {{ ucfirst($product_type) }}</td><tr>
-            <tr><th colspan="2" style="text-align: center">Product Details</th></tr>
-            <tr><th>S. No.</th><th>Attributes</th></tr>
+            <tr><th>{{translate('Product Type')}}</th><td>     {{ ucfirst($product_type) }}</td><tr>
+            <tr><th colspan="2" style="text-align: center">{{translate('Product Details')}}</th></tr>
+            <tr><th>{{translate('S. No.')}}</th><th>{{translate('Attributes')}}</th></tr>
 
             @php
             $i= 1;

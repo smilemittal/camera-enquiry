@@ -3,17 +3,17 @@
 <!-- BEGIN: Content-->
     <div class="content-header row">
         <div class="content-header-left col-md-4 col-12 mb-2">
-            <h3 class="content-header-title">{{ __('site.Product Attribute')}}</h3>
+            <h3 class="content-header-title">{{ translate('Product Attribute')}}</h3>
         </div>
         <div class="content-header-right col-md-8 col-12">
             <div class="breadcrumbs-top float-md-right">
                 <div class="breadcrumb-wrapper mr-1">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active">{{ __('site.Home')}}
+                        <li class="breadcrumb-item active">{{ translate('Home')}}
                         </li>
-                        <li class="breadcrumb-item active"><a href="{{ route('products.index') }}">{{ __('site.List')}}</a>
+                        <li class="breadcrumb-item active"><a href="{{ route('products.index') }}">{{ translate('List')}}</a>
                         </li>
-                        <li class="breadcrumb-item active">{{ __('site.Import')}}
+                        <li class="breadcrumb-item active">{{ translate('Import')}}
                         </li>
                     </ol>
                 </div>
@@ -27,7 +27,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> {{ __('site.Import')}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form"> {{ translate('Import')}}</h4>
                                         <a class="heading-elements-toggle">
                                             <i class="la la-ellipsis-v font-medium-3"></i>
                                         </a>
@@ -69,21 +69,21 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div  class="form-group">
-                                                    <label for="values">{{__('site.File')}}</label>
+                                                    <label for="values">{{translate('File')}}</label>
                                                     <input type="file" class="form-control" placeholder="Value" name="import-product-attributes">
-                                                    <label for="Example">{{__('site.Example')}}</label>
-                                                    <a href={{asset('assets/frontend/example/product.xlsx')}} style="color:#464855;" download><i > </i>{{__('site.Download')}}</a>
+                                                    <label for="Example">{{translate('Example')}}</label>
+                                                    <a href={{asset('assets/frontend/example/product.xlsx')}} style="color:#464855;" download><i > </i>{{translate('Download')}}</a>
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
                                                 <button type="reset"  class="btn btn-danger">
-                                                    <i class=""></i>{{ __('site.Reset')}}
+                                                    <i class=""></i>{{ translate('Reset')}}
                                                 </button>     
-                                                <button type="submit" class="btn btn-success">{{ __('site.Save')}}</button>
+                                                <button type="submit" class="btn btn-success">{{ translate('Save')}}</button>
                                             </div>
                                         </form>
                                     </div>
-                                    <label for="values">{{__('site.Note*')}}</label>
+                                    <label for="values">{{translate('Note*')}}</label>
                                       <p>
                                         Steps to import Product Attributes:<br>
 
@@ -101,17 +101,17 @@
                                         then it will be added .</li><br>
                                         Standard:
                                         <li> This field is required.</li>
-                                        You can get existing standard values from here <a  href="{{ route('standards.index') }}">{{__('site.Click Here ')}}</a>.</li><br>
+                                        You can get existing standard values from here <a  href="{{ route('standards.index') }}">{{translate('Click Here ')}}</a>.</li><br>
                                         System type:
                                         <li> This field is required .
-                                        <li>You can get existing System type values from here <a  href="{{ route('system-types.index') }}">{{__('site.Click Here ')}}</a>.</li><br>
+                                        <li>You can get existing System type values from here <a  href="{{ route('system-types.index') }}">{{translate('Click Here ')}}</a>.</li><br>
                                         Type:
                                         <li>This field is required .</li>
-                                         <li>You can get existing Type values from here <a  href="{{ route('types.index') }}">{{__('site.Click Here ')}}</a>.</li><br>
+                                         <li>You can get existing Type values from here <a  href="{{ route('types.index') }}">{{translate('Click Here ')}}</a>.</li><br>
                                         Priority:
                                         <li>This field is required .</li>
                                         <li>and other Product attributes:</li>
-                                        <li>You can get existing  Product attributes values  from  here <a  href="{{ route('attribute-values.index') }}">{{__('site.Click Here ')}}</a>.</li><br>
+                                        <li>You can get existing  Product attributes values  from  here <a  href="{{ route('attribute-values.index') }}">{{translate('Click Here ')}}</a>.</li><br>
 
                                         After putting the information of all products now you need to upload the file. <br>
                                         choose the file and click on the Save button.<br>

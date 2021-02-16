@@ -3,17 +3,17 @@
 <!-- BEGIN: Content-->
 <div class="content-header row">
 <div class="content-header-left col-md-4 col-12 mb-2">
-    <h3 class="content-header-title">{{__('site.Attribute Value')}}</h3>
+    <h3 class="content-header-title">{{translate('Attribute Value')}}</h3>
 </div>
 <div class="content-header-right col-md-8 col-12">
     <div class="breadcrumbs-top float-md-right">
         <div class="breadcrumb-wrapper mr-1">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
+                <li class="breadcrumb-item"><a href="#">{{translate('Home')}}</a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ route('attribute-values.index') }}">{{__('site.List')}}</a>
+                <li class="breadcrumb-item"><a href="{{ route('attribute-values.index') }}">{{translate('List')}}</a>
                 </li>
-                <li class="breadcrumb-item active">{{__('site.Add')}}</a>
+                <li class="breadcrumb-item active">{{translate('Add')}}</a>
                 </li>
             </ol>
         </div>
@@ -27,7 +27,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> {{ __('site.Add')}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form"> {{ translate('Add')}}</h4>
                                     <a class="heading-elements-toggle">
                                         <i class="la la-ellipsis-v font-medium-3"></i>
                                     </a>
@@ -55,7 +55,7 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label for="type">{{ __('site.Type')}}</label>
+                                                    <label for="type">{{ translate('Type')}}</label>
                                                     <select name="type_id" id="type_id" class="form-control">
                                                         <option value="">Select</option>
                                                         @foreach($types as $type)
@@ -64,7 +64,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="system_type_id">{{ __('site.System Types')}}</label>
+                                                    <label for="system_type_id">{{ translate('System Types')}}</label>
                                                     <select name="system_type_id" id="system_type_id" class="form-control">
                                                         <option value="">Select</option>
                                                         @foreach($system_types as $system_type)
@@ -73,7 +73,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="attribute_id">{{__('site.Attribute')}} </label>
+                                                    <label for="attribute_id">{{translate('Attribute')}} </label>
                                                     <select name="attribute_id" id="attribute_id" class="form-control">
                                                         @foreach($attributes as $attribute)
                                                         <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
@@ -81,17 +81,17 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group {{ $errors->get('value') ? 'has-error' : '' }}">
-                                                    <label for="name">{{ __('site.Value') }}</label>
+                                                    <label for="name">{{ translate('Value') }}</label>
                                                     <input type="text" name="value" placeholder="Value" class="form-control" required>
                                                   </div>
         
                                                 <div class="form-group {{ $errors->get('display_order') ? 'has-error' : '' }}">
-                                                <label for="name">{{ __('site.Display Order') }}</label>
+                                                <label for="name">{{ translate('Display Order') }}</label>
                                                 <input type="text" name="display_order" placeholder="Display Order" class="form-control" required>
                                                 </div>
                                                 <div class="form-actions" style="text-align: center;">
-                                                    <button type="reset" class="btn btn-danger">{{ __('site.Reset')}}</button>
-                                                    <button type="submit" class="btn btn-success">{{ __('site.Save')}}</button>
+                                                    <button type="reset" class="btn btn-danger">{{ translate('Reset')}}</button>
+                                                    <button type="submit" class="btn btn-success">{{ translate('Save')}}</button>
                                                 </div>
                                             </div>
                                         </form>

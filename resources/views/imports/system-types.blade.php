@@ -3,17 +3,17 @@
 <!-- BEGIN: Content-->
 <div class="content-header row">
     <div class="content-header-left col-md-4 col-12 mb-2">
-        <h3 class="content-header-title">{{__('site.System Type')}}</h3>
+        <h3 class="content-header-title">{{translate('System Type')}}</h3>
     </div>
     <div class="content-header-right col-md-8 col-12">
         <div class="breadcrumbs-top float-md-right">
             <div class="breadcrumb-wrapper mr-1">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">{{__('site.Home')}}</a>
+                    <li class="breadcrumb-item"><a href="#">{{translate('Home')}}</a>
                     </li>
-                    <li class="breadcrumb-item"><a href="{{ route('system-types.index') }}">{{__('site.List')}}</a>
+                    <li class="breadcrumb-item"><a href="{{ route('system-types.index') }}">{{translate('List')}}</a>
                     </li>
-                    <li class="breadcrumb-item active">{{__('site.Import')}}</a>
+                    <li class="breadcrumb-item active">{{translate('Import')}}</a>
                     </li>
                 </ol>
             </div>
@@ -27,7 +27,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> {{ __('site.Import')}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form"> {{ translate('Import')}}</h4>
                                         <a class="heading-elements-toggle">
                                             <i class="la la-ellipsis-v font-medium-3"></i>
                                         </a>
@@ -60,16 +60,16 @@
                                             @csrf  
                                             <div class="form-body">
                                                 <div  class="form-group">
-                                                    <label for="File">{{__('site.File')}}</label>
+                                                    <label for="File">{{translate('File')}}</label>
                                                     <input type="file" class="form-control" placeholder="Value" name="import-system-types">
-                                                    <label for="Example">{{__('site.Example')}}</label>
-                                                    <a href={{asset('assets/frontend/example/system.xlsx')}} style="color:#464855;" download><i > </i> {{__('site.Download')}}  </a>
+                                                    <label for="Example">{{translate('Example')}}</label>
+                                                    <a href={{asset('assets/frontend/example/system.xlsx')}} style="color:#464855;" download><i > </i> {{translate('Download')}}  </a>
                                                 </div>
                                             </div>
                                             <div class="form-actions" style="text-align: center;">
-                                                <button type="reset" name="submit" class="btn btn-danger">{{__('site.Reset')}}
+                                                <button type="reset" name="submit" class="btn btn-danger">{{translate('Reset')}}
                                                 </button>   
-                                                <button type="submit" class="btn btn-success">{{__('site.Save')}}</button>
+                                                <button type="submit" class="btn btn-success">{{translate('Save')}}</button>
                                             </div>
                                         </form>
                                     </div>

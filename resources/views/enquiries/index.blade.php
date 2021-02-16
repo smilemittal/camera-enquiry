@@ -16,15 +16,15 @@
 
         <div class="content-header row">
             <div class="content-header-left col-md-4 col-12 mb-2">
-                <h3 class="content-header-title">{{ __('site.Enquiries')}}</h3>
+                <h3 class="content-header-title">{{ translate('Enquiries')}}</h3>
             </div>
             <div class="content-header-right col-md-8 col-12">
                 <div class="breadcrumbs-top float-md-right">
                     <div class="breadcrumb-wrapper mr-1">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active"><a href="#">{{ __('site.Home')}}</a>
+                            <li class="breadcrumb-item active"><a href="#">{{ translate('Home')}}</a>
                             </li>
-                            <li class="breadcrumb-item active">{{ __('site.List')}}
+                            <li class="breadcrumb-item active">{{ translate('List')}}
                             </li>
                         </ol>
                     </div>
@@ -39,7 +39,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="card-title layout_btns" id="basic-layout-form">
-                                        <h4>{{__('site.Enquiries')}}</h4>
+                                        <h4>{{translate('Enquiries')}}</h4>
                                         <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button>
                                    
                                     </div>
@@ -60,16 +60,16 @@
                                                 <thead>
                                                     <tr>
                                                         <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
-                                                        <th>{{ __('site.ID')}}</th>
-                                                        <th>{{ __('site.Name')}}</th>
-                                                        <th>{{ __('site.Email')}}</th>
-                                                        <th>{{ __('site.Mobile No.')}}</th>
-                                                        {{-- <th>{{ __('site.Company')}}</th>
-                                                        <th>{{ __('site.Product')}}</th>
-                                                        <th>{{ __('site.System Type')}}</th>
-                                                        <th>{{ __('site.Standard')}}</th> --}}
-                                                        <th>{{ __('site.Date')}}</th>
-                                                        <th>{{ __('site.Action')}}</th>
+                                                        <th>{{ translate('ID')}}</th>
+                                                        <th>{{ translate('Name')}}</th>
+                                                        <th>{{ translate('Email')}}</th>
+                                                        <th>{{ translate('Mobile No.')}}</th>
+                                                        {{-- <th>{{ translate('Company')}}</th>
+                                                        <th>{{ translate('Product')}}</th>
+                                                        <th>{{ translate('System Type')}}</th>
+                                                        <th>{{ translate('Standard')}}</th> --}}
+                                                        <th>{{ translate('Date')}}</th>
+                                                        <th>{{ translate('Action')}}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -79,16 +79,16 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th><input type="checkbox" name="" class="checkboxes" id="checkAll" /></th>
-                                                        <th>{{ __('site.ID')}}</th>
-                                                        <th>{{ __('site.Name')}}</th>
-                                                        <th>{{ __('site.Email')}}</th>
-                                                        <th>{{ __('site.Mobile No.')}}</th>
-                                                        {{-- <th>{{ __('site.Company')}}</th>
-                                                        <th>{{ __('site.Product')}}</th>
-                                                        <th>{{ __('site.System Type')}}</th>
-                                                        <th>{{ __('site.Standard')}}</th> --}}
-                                                        <th>{{ __('site.Date')}}</th>
-                                                        <th>{{ __('site.Action')}}</th>
+                                                        <th>{{ translate('ID')}}</th>
+                                                        <th>{{ translate('Name')}}</th>
+                                                        <th>{{ translate('Email')}}</th>
+                                                        <th>{{ translate('Mobile No.')}}</th>
+                                                        {{-- <th>{{ translate('Company')}}</th>
+                                                        <th>{{ translate('Product')}}</th>
+                                                        <th>{{ translate('System Type')}}</th>
+                                                        <th>{{ translate('Standard')}}</th> --}}
+                                                        <th>{{ translate('Date')}}</th>
+                                                        <th>{{ translate('Action')}}</th>
                                                     </tr> 
                                                 </tfoot>
                                                
