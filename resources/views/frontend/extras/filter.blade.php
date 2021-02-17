@@ -2,7 +2,6 @@
 @if(!empty($attributes))
     <div class="row {{ $type->slug.'_div_'.$i }}">
         @foreach($attributes as $attribute)
-
             <div class="col-lg-3 col-md-6">
                 <div class="form-group">
                 <label>{{ $attribute->name }}</label>
