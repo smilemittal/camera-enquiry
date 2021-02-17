@@ -116,7 +116,8 @@ class FrontController extends Controller
                         }
                     }
                     if(!empty($quantities[$product_type][$no])){
-                        $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
+                        $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
+                        $quantity_arr[$product_type][$no]['total_qty'] = $total_qtys[$product_type][$no];
                         $quantity_total += (int)$total_qtys[$product_type][$no];
                     }
                 }
@@ -156,9 +157,9 @@ class FrontController extends Controller
 
 
     }
-
     public function printEnquiry(Request $request){
         $quantities = $request->input('quantity');
+        $total_qtys = $request->input('total_qty');
         $products = $request->input('products');
         $standard_id = $request->input('selected_standard');
         $system_type_id = $request->input('selected_system_type');
@@ -176,8 +177,8 @@ class FrontController extends Controller
                     }
                 }
                 if(!empty($quantities[$product_type][$no])){
-                    $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
-                    $quantity_total += (int)$quantities[$product_type][$no];
+                    $quantity_arr[$product_type][$no] = $total_qtys[$product_type][$no];
+                    $quantity_total += (int)$total_qtys[$product_type][$no];
                 }
 
 
@@ -190,7 +191,6 @@ class FrontController extends Controller
             $quantities = $quantity_arr;
 
             $html = view('enquiries.partials.pdf', compact('products', 'quantities'))->render();
-           // dd($html);
             return response()->json(['success' => true, 'html' => $html]);
         }else{
             return response()->json(['success' => false, 'message' => 'Please Enter Quantity for the products.']);
