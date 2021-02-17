@@ -18,9 +18,9 @@
         @foreach($products as $product_type => $product)
             @if(!empty($quantities[$product_type]['total'] ) && $quantities[$product_type]['total'] != 0)
 
-                <tr><th style="border: 1px solid #000; text-align: center;">{{translate('Product Type')}}</th><td style="border: 1px solid #000; text-align: center;">     {{ ucfirst($product_type) }}</td></tr>
-                <tr><th colspan="2" style="text-align: center; border: 1px solid #000;">{{translate('Product Details')}}</th></tr>
-                <tr><th style="border: 1px solid #000;text-align: center;">{{translate('S. No.')}}</th><th style="border: 1px solid #000; text-align: center;">{{translate('Attributes')}}</th></tr>
+                <tr><th style="border: 1px solid #000; text-align: center;">{{translate('Product Type')}}</th><td colspan="2" style="border: 1px solid #000; text-align: center;">     {{ ucfirst($product_type) }}</td></tr>
+                <tr><th colspan="3" style="text-align: center; border: 1px solid #000;">{{translate('Product Details')}}</th></tr>
+                <tr><th style="border: 1px solid #000;text-align: center;">{{translate('S. No.')}}</th><th style="border: 1px solid #000; text-align: center;">{{translate('Attributes')}}</th><th style="border: 1px solid #000; text-align: center;">{{translate('Quantity')}}</th></tr>
 
                 @php
                 $i= 1;
@@ -52,21 +52,21 @@
                                 {!! $attr !!}
                             </div>
                         @endforeach
+                    </td>
+                    <td style="border: 1px solid #000;text-align: center;">
                         @php
-                            if(!empty($quantities[$product_type][$no])){
-                                $quantity_total += (int)$quantities[$product_type][$no];
-                            }
-                            $i++;
+                        if(!empty($quantities[$product_type][$no])){
+                            $quantity_total += (int)$quantities[$product_type][$no];
+                        }
+                        $i++;
                         @endphp
                         @if(!empty($quantities[$product_type][$no]))
-                            <div>
-                                <strong>{{translate('Quantity:')}}</strong> {{ (int)$quantities[$product_type][$no] }}
-                            </div>
+                            {{ (int)$quantities[$product_type][$no] }}
                         @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                    <tr><th style="border: 1px solid #000;text-align: center;">{{translate('Total')}} {{ ucfirst($product_type).'s'}}</th><td style="border: 1px solid #000;text-align: center;">{{ $quantity_total }}</td></tr>
+                    </td>
+                </tr>
+                @endforeach
+                <tr><th style="border: 1px solid #000;text-align: center;">{{translate('Total')}} {{ ucfirst($product_type).'s'}}</th><td colspan="2" style="border: 1px solid #000;text-align: center;">{{ $quantity_total }}</td></tr>
             @endif
         @endforeach
     </tbody>
