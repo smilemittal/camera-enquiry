@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use PDF;
 use App\Models\Enquiry;
 use App\Models\Product;
 use App\Models\Standard;
@@ -11,12 +10,7 @@ use App\Models\Attribute;
 use App\Models\SystemType;
 use App\Models\Type;
 use Illuminate\Http\Request;
-use App\Models\AttributeValue;
-use App\Models\Language;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
-
-
 class FrontController extends Controller
 {
     public function changeLanguage(Request $request)
