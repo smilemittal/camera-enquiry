@@ -89,8 +89,6 @@ class FrontController extends Controller
 
             $html .= view('frontend.extras.new-type', compact('attribute_html', 'system_type', 'i', 'type'))->render();
 
-           // dd($html_recorder);
-
             return response()->json(['success'=> true, 'html' => $html, 'count'=> $i]);
         }
     }
@@ -98,6 +96,7 @@ class FrontController extends Controller
     public function saveEnquiry(Request $request)
     {
         $quantities = $request->input('quantity');
+        $total_qtys = $request->input('total_qty');
         $products = $request->input('products');
         $standard_id = $request->input('selected_standard');
         $system_type_id = $request->input('selected_system_type');
@@ -118,7 +117,7 @@ class FrontController extends Controller
                     }
                     if(!empty($quantities[$product_type][$no])){
                         $quantity_arr[$product_type][$no] = $quantities[$product_type][$no];
-                        $quantity_total += (int)$quantities[$product_type][$no];
+                        $quantity_total += (int)$total_qtys[$product_type][$no];
                     }
                 }
                 $quantity_arr[$product_type]['total'] = $quantity_total;

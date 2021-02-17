@@ -125,6 +125,7 @@
 @section('scripts')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+    var series_type = 'unimportant';
     $(document).ready(function(){
         $('.system_type:first-child').click();
     });
@@ -161,6 +162,9 @@
         var qty = calcQty(type);
         $(this).parents('.col-kemey').find('.totalQty span').text(qty);
     });
+    $(document).on('change', '.camera_1 .camera_cal_col', function(){
+        series_type = $(this).val();
+    });
 
     $(document).on('click', '.standard', function(){
         $('.standard').removeClass('active');
@@ -169,9 +173,8 @@
     });
 
     $(document).on('change', '.attribute',function(){
+        $('.camera_cal_col').val(series_type);
         var attribute_value_arr = [];
-        var cam_attribute_value_arr  = [];
-        var rec_attribute_value_arr = [];
         var ele = $(this);
 
         var system_type = $(this).data('system_type');
@@ -183,22 +186,11 @@
 
             if($(this).val() != ''){
                 selected_attributes[$(this).data('attribute')] = $(this).val();
-                if($(ele).data('product_type') == 'camera'){
-
-                    cam_attribute_value_arr.push($(this).val());
-                }else{
-                    rec_attribute_value_arr.push($(this).val());
-                }
+                attribute_value_arr.push($(this).val());
             }
         });
 
-        if($(ele).data('product_type') == 'camera'){
-            var attribute_val = cam_attribute_value_arr.join(',');
-             $('input[name="selected_'+ product_type +'_attributes_'+ count +'"]').val(attribute_val);
-        }else if($(ele).data('product_type') == 'recorder'){
-            var attribute_val = rec_attribute_value_arr.join(',');
-            $('input[name="selected_'+ product_type +'_attributes_'+ count +'"]').val(attribute_val);
-        }
+        var attribute_val = attribute_value_arr.join(',');
 
         $.ajax({
             method: 'post',
@@ -250,6 +242,9 @@
                     var qty = calcQty(product_type);
                     $('.'+product_type+'_'+ data.count+ ' .totalQty span').text(qty);
                     $('.'+product_type+'_'+ data.count).show();
+                    if(product_type == 'camera') {
+                        $('.'+product_type+'_'+data.count).find('.camera_cal_col').val(series_type);
+                    }
                 }
             },
         });
@@ -289,10 +284,10 @@
         var formData = new FormData($('#product-enquiry')[0]);
         console.log(formData);
         jQuery.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
-                    }
-                });
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+            }
+        });
         $.ajax({
             method: 'post',
             url: url,
@@ -332,8 +327,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
             }
         });
-
-
         $.ajax({
             method: 'post',
             url: url,
