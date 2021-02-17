@@ -89,8 +89,6 @@ class FrontController extends Controller
 
             $html .= view('frontend.extras.new-type', compact('attribute_html', 'system_type', 'i', 'type'))->render();
 
-           // dd($html_recorder);
-
             return response()->json(['success'=> true, 'html' => $html, 'count'=> $i]);
         }
     }

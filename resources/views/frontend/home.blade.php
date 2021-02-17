@@ -125,6 +125,7 @@
 @section('scripts')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+    var series_type = 'unimportant';
     $(document).ready(function(){
         $('.system_type:first-child').click();
     });
@@ -161,6 +162,9 @@
         var qty = calcQty(type);
         $(this).parents('.col-kemey').find('.totalQty span').text(qty);
     });
+    $(document).on('change', '.camera_1 .camera_cal_col', function(){
+        series_type = $(this).val();
+    });
 
     $(document).on('click', '.standard', function(){
         $('.standard').removeClass('active');
@@ -169,6 +173,7 @@
     });
 
     $(document).on('change', '.attribute',function(){
+        $('.camera_cal_col').val(series_type);
         var attribute_value_arr = [];
         var ele = $(this);
 
@@ -237,6 +242,9 @@
                     var qty = calcQty(product_type);
                     $('.'+product_type+'_'+ data.count+ ' .totalQty span').text(qty);
                     $('.'+product_type+'_'+ data.count).show();
+                    if(product_type == 'camera') {
+                        $('.'+product_type+'_'+data.count).find('.camera_cal_col').val(series_type);
+                    }
                 }
             },
         });
