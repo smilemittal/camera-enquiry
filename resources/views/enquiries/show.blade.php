@@ -144,11 +144,11 @@
                                                     </td>
                                                     <td>@php
                                                         if(!empty($quantities[$product_type][$no])){
-                                                            $quantity_total += (int)$quantities[$product_type][$no];
+                                                            $quantity_total += (int)$quantities[$product_type][$no]['total_qty'];
                                                         }
                                                         $i++;
                                                     @endphp
-                                                        {{ (int)$quantities[$product_type][$no] }}</td>
+                                                        {{ (int)$quantities[$product_type][$no]['total_qty'] }}</td>
                                                 </tr>
 
                                                 @endforeach

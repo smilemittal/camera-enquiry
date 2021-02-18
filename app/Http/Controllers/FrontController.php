@@ -177,11 +177,10 @@ class FrontController extends Controller
                     }
                 }
                 if(!empty($quantities[$product_type][$no])){
-                    $quantity_arr[$product_type][$no] = $total_qtys[$product_type][$no];
+                    $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
+                    $quantity_arr[$product_type][$no]['total_qty'] = $total_qtys[$product_type][$no];
                     $quantity_total += (int)$total_qtys[$product_type][$no];
                 }
-
-
             }
             $quantity_arr[$product_type]['total'] = $quantity_total;
             $total_products += $quantity_total;
