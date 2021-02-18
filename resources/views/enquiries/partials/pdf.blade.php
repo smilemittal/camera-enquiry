@@ -56,12 +56,12 @@
                     <td style="border: 1px solid #000;text-align: center;">
                         @php
                         if(!empty($quantities[$product_type][$no])){
-                            $quantity_total += (int)$quantities[$product_type][$no];
+                            $quantity_total += (int)$quantities[$product_type][$no]['total_qty'];
                         }
                         $i++;
                         @endphp
-                        @if(!empty($quantities[$product_type][$no]))
-                            {{ (int)$quantities[$product_type][$no] }}
+                        @if(!empty($quantities[$product_type][$no]['total_qty']))
+                            {{ (int)$quantities[$product_type][$no]['total_qty'] }}
                         @endif
                     </td>
                 </tr>
