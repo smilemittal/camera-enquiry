@@ -182,10 +182,10 @@ class AttributeValuesController extends Controller
             foreach ($attribute_values as $key => $attribute_value) {
                 $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$attribute_value->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
-                $nestedData['attribute_id'] = !empty($attribute_value->attribute) ?$attribute_value->attribute->name : '';
-                $nestedData['value'] = $attribute_value->value;
+                $nestedData['attribute_id'] = !empty($attribute_value->attribute) ? translate($attribute_value->attribute->name) : '';
+                $nestedData['value'] = translate($attribute_value->value);
                 $nestedData['display_order'] = $attribute_value->display_order;
-                $nestedData['system_type_id'] = !empty($attribute_value->system_type) ? $attribute_value->system_type->name : '';
+                $nestedData['system_type_id'] = !empty($attribute_value->system_type) ? translate($attribute_value->system_type->name) : '';
                 $index = route('attribute-values.index' ,  encrypt($attribute_value->id));
                 $edit = route('attribute-values.update' ,  encrypt($attribute_value->id));
                 $delete = route('attribute-values.destroy' ,  encrypt($attribute_value->id));
