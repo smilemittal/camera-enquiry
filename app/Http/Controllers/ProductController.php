@@ -57,6 +57,7 @@ class ProductController extends Controller
             'system_type_id'=>'required',
             'priority'=>'required',
             'standard_id'=>'required',
+            'price' => 'required',
         ]);
         $product = Product::create([
                         'name' => $request->input('name'),
@@ -64,6 +65,7 @@ class ProductController extends Controller
                         'system_type_id' => $request->input('system_type_id'),
                         'priority' => $request->input('priority'),
                         'standard_id' => $request->input('standard_id'),
+                        'price' => $request->input('price'),
                     ]);
 
         if(!empty($request->input('attribute_value'))){
@@ -133,6 +135,7 @@ class ProductController extends Controller
             'system_type_id' => 'required',
             'priority'=>'required',
             'standard_id' => 'required',
+            'price' => 'required',
         ]);
 
 
@@ -143,6 +146,7 @@ class ProductController extends Controller
             'system_type_id' => $request->input('system_type_id'),
             'priority' => $request->input('priority'),
             'standard_id' => $request->input('standard_id'),
+            'price' => $request->input('price'),
         ]);
         if(!empty($request->input('attribute_value'))){
             foreach($request->attribute_value as $attribute_id => $attribute_value_id){
@@ -197,7 +201,8 @@ class ProductController extends Controller
             1=>'id',
             2 =>'name',
             3 =>'priority',
-            4 =>'action',
+            4 =>'price',
+            5 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -225,6 +230,7 @@ class ProductController extends Controller
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $product->name;
                 $nestedData['priority'] = $product->priority;
+                $nestedData['price'] = $product->price;
                 $index = route('products.index' ,  ($product->id));
                 $edit = route('products.edit' ,  ($product->id));
                 $destroy = route('products.destroy' ,  ($product->id));

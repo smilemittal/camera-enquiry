@@ -117,7 +117,7 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                     $product= Product::where('name','LIKE', $product_name)->where('type_id', 'LIKE', $type_id)->where('system_type_id', $system_type_id)->where('standard_id', $standard_id)->where('priority','LIKE', trim($row['Priority'], " "))->first();
 
                     if(!$product){
-                        $products = Product::create(['name' => $product_name, 'type_id' => $type_id, 'system_type_id' => $system_type_id, 'standard_id' => $standard_id,'priority' => trim($row['Priority'], " ")]);
+                        $products = Product::create(['name' => $product_name, 'type_id' => $type_id, 'system_type_id' => $system_type_id, 'standard_id' => $standard_id,'priority' => trim($row['Priority'], " "),'price' => $row['Price']]);
                         $product_id =$products->id;
                         $product_type = $products->type_id;
                         $import_count++;

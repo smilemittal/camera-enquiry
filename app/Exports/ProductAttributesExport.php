@@ -27,6 +27,7 @@ class ProductAttributesExport implements FromArray
                  'system_types' => 'System type',
                  'types'        => 'Type',
                  'priority'     => 'Priority',
+                 'price'        => 'Price',
                 ];
         foreach($attributes as $attribute)
         {
@@ -45,6 +46,7 @@ class ProductAttributesExport implements FromArray
                 'system_types'=>!empty($product->system_types)?$product->system_types->name: '',
                 'types'=>!empty($product->types)?$product->types->name: '',
                 'priority'=>$product->priority,
+                'price' => $product->price,
             ];
             foreach($attributes as $attribute)
             

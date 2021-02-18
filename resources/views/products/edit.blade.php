@@ -102,6 +102,12 @@
                                             </select>
                                         </div>
                                         <div class=" form-group">
+                                            <label for="price">{{ translate('Price') }}</label>
+                                            <input type="number" id="price" class="form-control"
+                                                value="{{ $product->price }}" name="price">
+
+                                        </div>
+                                        <div class=" form-group">
                                             <label for="priority">{{ translate('Priority') }}</label>
                                             <input type="number" id="priority" class="form-control"
                                                 value="{{ $product->priority }}" name="priority">
