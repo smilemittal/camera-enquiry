@@ -170,10 +170,10 @@ class AttributeController extends Controller
             foreach ($attributes as $key => $attribute) {
                 $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$attribute->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
-                $nestedData['name'] = ucfirst($attribute->name);
-                $nestedData['type_id'] =!empty($attribute->type) ? $attribute->type->name : '';
+                $nestedData['name'] = translate($attribute->name);
+                $nestedData['type_id'] =!empty($attribute->type) ? translate($attribute->type->name) : '';
                 $nestedData['display_order'] = $attribute->display_order;
-                $nestedData['system_type_id'] = !empty($attribute->system_type) ? $attribute->system_type->name : '';
+                $nestedData['system_type_id'] = !empty($attribute->system_type) ? translate($attribute->system_type->name) : '';
                 $nestedData['description'] = $attribute->description;
 
                 $index = route('attribute.index' ,  ($attribute->id));
