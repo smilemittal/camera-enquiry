@@ -4,10 +4,10 @@
 
     <tbody>
         @if(!empty($enquiry))
-            <tr><th style="border: 1px solid #000;text-align: center; width: 50%;">Customer Name:</th><td style="border: 1px solid #000;text-align: center; width: 50%;">{{ $enquiry->first_name.''.$enquiry->last_name }}</td></tr>
-            <tr><th style="border: 1px solid #000;text-align: center;width: 50%;">Email:</th><td style="border: 1px solid #000;text-align: center;">{{ $enquiry->email }}</td></tr>
-            <tr><th style="border: 1px solid #000;text-align: center;width: 50%;">Company:</th><td style="border: 1px solid #000;text-align: center;">{{ $enquiry->company }}</td></tr>
-            <tr> <th style="border: 1px solid #000;text-align: center;width: 50%;">Mobile:</th><td style="border: 1px solid #000;text-align: center;">{{ $enquiry->mobile_no }}</td></tr>
+            <tr><th style="border: 1px solid #000;text-align: center; width: 50%;">{{translate('Customer Name:')}}</th><td style="border: 1px solid #000;text-align: center; width: 50%;">{{ $enquiry->first_name.''.$enquiry->last_name }}</td></tr>
+            <tr><th style="border: 1px solid #000;text-align: center;width: 50%;">{{translate('Email:')}}'}}</th><td style="border: 1px solid #000;text-align: center;">{{ $enquiry->email }}</td></tr>
+            <tr><th style="border: 1px solid #000;text-align: center;width: 50%;">{{translate('Company:')}}</th><td style="border: 1px solid #000;text-align: center;">{{ $enquiry->company }}</td></tr>
+            <tr> <th style="border: 1px solid #000;text-align: center;width: 50%;">{{translate('Mobile:')}}</th><td style="border: 1px solid #000;text-align: center;">{{ $enquiry->mobile_no }}</td></tr>
         @endif
 
         @php

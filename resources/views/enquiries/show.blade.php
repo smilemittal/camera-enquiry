@@ -69,22 +69,22 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th colspan="2" style="text-align: center;">Customer Details</th>
+                                            <th colspan="2" style="text-align: center;">{{translate('Customer Details')}}</th>
                                         </tr>
                                         <tr>
-                                            <th>First Name</th><td>{{ $enquiry->first_name }}</td>
+                                            <th>{{translate('First Name')}}</th><td>{{ $enquiry->first_name }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Last Name</th><td>{{ $enquiry->last_name }}</td>
+                                            <th>{{translate('Last Name')}}</th><td>{{ $enquiry->last_name }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Email</th><td>{{ $enquiry->email }}</td>
+                                            <th>{{translate('Email')}}</th><td>{{ $enquiry->email }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Mobile No.</th><td>{{ $enquiry->mobile_no }}</td>
+                                            <th>{{translate('Mobile No.')}}</th><td>{{ $enquiry->mobile_no }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Company</th><td>{{ $enquiry->company }}</td>
+                                            <th>{{translate('Company')}}</th><td>{{ $enquiry->company }}</td>
                                         </tr>
                                     </thead>
 
@@ -100,10 +100,10 @@
 
 
                                             @foreach($products as $product_type => $product)
-                                            <tr><th>Product Type</th><td colspan="2">     {{ ucfirst($product_type) }}</td><tr>
-                                            <tr><th colspan="3" style="text-align: center">Product Details</th></tr>
-                                            <tr><th>S. No.</th><th>Attributes</th>
-                                                <th>Quantity</th>
+                                            <tr><th>{{translate('Product Type')}}</th><td colspan="2">     {{ ucfirst($product_type) }}</td><tr>
+                                            <tr><th colspan="3" style="text-align: center">{{translate('Product Details')}}</th></tr>
+                                            <tr><th>{{translate('S. No.')}}</th><th>{{translate('Attributes')}}</th>
+                                                <th>{{translate('Quantity')}}</th>
                                             </tr>
 
                                             @php

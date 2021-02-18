@@ -1,76 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>{{translate('Home')}}</title>
-        <meta charset="utf-8" />
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="{{asset('assets/frontend/css/bootstrap.min.css')}}" />
-        <link rel="stylesheet" href="{{asset('assets/frontend/fonts/stylesheet.css')}}" />
-        <link rel="stylesheet" href="{{asset('assets/frontend/css/style.css')}}" />
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
 
-        @yield('styles')
-    </head>
+<head>
+    <title>{{ translate('Home') }}</title>
+    <meta charset="utf-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/frontend/fonts/stylesheet.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
 
-    <body>
-        <!-- start-header -->
-        <section class="header">
-            <div class="container">
-                <div class="col-lg-7 col">
-                    <ul class="list-inline d-flex justify-content-between justify-content-lg-start mb-0">
-                        {{-- @if(get_setting('show_language_switcher') == 'on') --}}
-                        <li class="list-inline-item dropdown mr-3" id="lang-change">
-                            @php
-                                if(Session::has('locale')) {
-                                    $locale = Session::get('locale');
-                                } else {
-                                    $locale = default_language();
-                                }
-                                $current_lang = \App\Models\Language::where('code', $locale)->first();
-                            @endphp
-                            <a href="javascript:void(0)" class="dropdown-toggle text-reset py-2" data-toggle="dropdown" data-display="static">
-                                <img src="{{ asset('app-assets/images/flags/'.$locale.'.png') }}" alt="{{ $current_lang->name }}">
-                                <span class="opacity-60">{{ $current_lang->name }}</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-left">
-                                @foreach (\App\Models\Language::all() as $key => $language)
-                                    <li>
-                                        <a href="javascript:void(0)" data-flag="{{ $language->code }}" class="dropdown-item @if($locale == $language) active @endif">
-                                            <img src="{{ asset('app-assets/images/flags/'.$language->code.'.png') }}" alt="{{ $language->name }}">
-                                            <span class="language">{{ $language->name }}</span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    </ul>
-                    {{-- @endif --}}
-                </div>
-                <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" href="#"><img src="{{asset('assets/frontend/img/logo.png')}}" /></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                        <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                        {{-- <ul class="navbar-nav ml-auto">
+    @yield('styles')
+</head>
+
+<body>
+    <!-- start-header -->
+    <section class="header">
+        <div class="container">
+            <div class="col-lg-7 col">
+                <ul class="list-inline d-flex justify-content-between justify-content-lg-start mb-0">
+                    {{-- @if (get_setting('show_language_switcher') == 'on') --}}
+                    <li class="list-inline-item dropdown mr-3" id="lang-change">
+                        @php
+                            if (Session::has('locale')) {
+                                $locale = Session::get('locale');
+                            } else {
+                                $locale = default_language();
+                            }
+                            $current_lang = \App\Models\Language::where('code', $locale)->first();
+                        @endphp
+                        <a href="javascript:void(0)" class="dropdown-toggle text-reset py-2" data-toggle="dropdown"
+                            data-display="static">
+                            <img src="{{ asset('app-assets/images/flags/' . $locale . '.png') }}"
+                                alt="{{ $current_lang->name }}">
+                            <span class="opacity-60">{{ $current_lang->name }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-left">
+                            @foreach (\App\Models\Language::all() as $key => $language)
+                                <li>
+                                    <a href="javascript:void(0)" data-flag="{{ $language->code }}"
+                                        class="dropdown-item @if ($locale==$language) active @endif">
+                                        <img src="{{ asset('app-assets/images/flags/' . $language->code . '.png') }}"
+                                            alt="{{ $language->name }}">
+                                        <span class="language">{{ $language->name }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                </ul>
+                {{-- @endif --}}
+            </div>
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="#"><img src="{{ asset('assets/frontend/img/logo.png') }}" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    {{-- <ul class="navbar-nav ml-auto">
                             <li><a href="#">{{translate('Home')}}</a></li>
                             <li><a href="#">{{translate('Works')}}</a></li>
                             <li><a href="#">{{translate('Articles')}}</a></li>
                             <li><a href="#">{{translate('Contact Us')}}</a></li>
                         </ul> --}}
-                    </div>
-                </nav>
-            </div>
-        </section>
-        <!-- end-header -->
+                </div>
+            </nav>
+        </div>
+    </section>
+    <!-- end-header -->
 
 
-            @yield('content')
+    @yield('content')
 
 
-        <!-- ---------footer--------- -->
-        {{-- <footer>
+    <!-- ---------footer--------- -->
+    {{-- <footer>
             <div class="footer-middle">
                 <div class="container">
                     <div class="footer-map">
@@ -125,48 +131,54 @@
                 </div>
             </div>
         </footer> --}}
-        <!-- ---------footer-close--------- -->
+    <!-- ---------footer-close--------- -->
 
-        <script src="{{asset('assets/frontend/js/jquery-3.2.1.slim.min.js')}}"></script>
-        <script src="{{asset('assets/frontend/js/popper.min.js')}}"></script>
-        <script src="{{asset('assets/frontend/js/bootstrap.min.js')}}"></script>
-        <script src="{{asset('assets/frontend/js/jquery.min.js')}}"></script>
-        <script>
-            $(".navbar-toggler").click(function () {
-                $(this).find("i").toggleClass("fa-times");
+    <script src="{{ asset('assets/frontend/js/jquery-3.2.1.slim.min.js') }}"></script>
+    <script src="{{ asset('assets/frontend/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/frontend/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/frontend/js/jquery.min.js') }}"></script>
+    <script>
+        $(".navbar-toggler").click(function() {
+            $(this).find("i").toggleClass("fa-times");
+        });
+
+    </script>
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
             });
-        </script>
-        <script>
-            var acc = document.getElementsByClassName("accordion");
-            var i;
+        }
 
-            for (i = 0; i < acc.length; i++) {
-                acc[i].addEventListener("click", function () {
-                    this.classList.toggle("active");
-                    var panel = this.nextElementSibling;
-                    if (panel.style.display === "block") {
-                        panel.style.display = "none";
-                    } else {
-                        panel.style.display = "block";
-                    }
-                });
-            }
-
-            if ($('#lang-change').length > 0) {
-                $('#lang-change .dropdown-item').each(function() {
-                    $(this).on('click', function(e){
-                        e.preventDefault();
-                        var $this = $(this);
-                        var locale = $this.data('flag');
-                        $.post('{{ route('language.change') }}',{_token:'{{ csrf_token() }}', locale:locale}, function(data){
-                            location.reload();
-                        });
-
+        if ($('#lang-change').length > 0) {
+            $('#lang-change .dropdown-item').each(function() {
+                $(this).on('click', function(e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var locale = $this.data('flag');
+                    $.post('{{ route('language.change') }}', {
+                        _token: '{{ csrf_token() }}',
+                        locale: locale
+                    }, function(data) {
+                        location.reload();
                     });
-                });
-            }
-        </script>
 
-        @yield('scripts')
-    </body>
+                });
+            });
+        }
+
+    </script>
+
+    @yield('scripts')
+</body>
+
 </html>
