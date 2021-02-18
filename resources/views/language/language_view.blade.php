@@ -102,9 +102,9 @@
                                 </div>
                                 <div class="form-actions" style="text-align: center;">
                                     <button type="submit" name="update" value="submit"
-                                        class="btn mr-1 mb-1 btn-success btn-sm">Submit</button>
+                                        class="btn mr-1 mb-1 btn-success btn-sm">{{ translate('Submit') }}</button>
                                     <button type="button" name="delete" value="delete" id="deleteTrigger"
-                                        class="btn mr-1 mb-1 btn-danger btn-sm">Delete Selected</button>
+                                        class="btn mr-1 mb-1 btn-danger btn-sm">{{ translate('Delete Selected') }}</button>
                                 </div>
                             </div>
                             </form>
@@ -112,10 +112,8 @@
                     </div>
                 </div>
             </div>
-    </div>
-    </section>
-    </div>
-    </div>
+
+        </section>
     </div>
 @endsection
 @section('scripts')

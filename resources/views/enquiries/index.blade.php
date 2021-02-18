@@ -40,7 +40,7 @@
                                 <div class="card-header">
                                     <div class="card-title layout_btns" id="basic-layout-form">
                                         <h4>{{translate('Enquiries')}}</h4>
-                                        <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >Delete Selected</button>
+                                        <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm" >{{translate('Delete Selected')}}</button>
                                    
                                     </div>
                                 </div>

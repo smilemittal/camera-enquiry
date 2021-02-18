@@ -43,25 +43,25 @@
                     </div>
                     <div class="card-body">
                         <form class="form-horizontal" action="{{ route('defalut_lang.update') }}" method="POST">
-                        @csrf
-                        <div class="form-group row">
-                            <div class="col-lg-3">
-                                <label class="col-from-label">{{ translate('Default Language') }}</label>
+                            @csrf
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <label class="col-from-label">{{ translate('Default Language') }}</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select class="form-control demo-select2-placeholder" name="default_lang">
+                                        @foreach (\App\Models\Language::all() as $key => $language)
+                                            <option value="{{ $language->id }}" <?php if
+                                                (default_language()==$language->code) {
+                                                echo 'selected';
+                                                } ?> >{{ $language->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <button type="submit" class="btn btn-info">{{ translate('Save') }}</button>
+                                </div>
                             </div>
-                            <div class="col-lg-6">
-                                <select class="form-control demo-select2-placeholder" name="default_lang">
-                                    @foreach (\App\Models\Language::all() as $key => $language)
-                                        <option value="{{ $language->id }}" <?php if
-                                            (default_language()==$language->code) {
-                                            echo 'selected';
-                                            } ?> >{{ $language->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-lg-3">
-                                <button type="submit" class="btn btn-info">{{ translate('Save') }}</button>
-                            </div>
-                        </div>
                         </form>
                     </div>
                 </div>
@@ -105,8 +105,7 @@
                                 @endif
 
                                 <div class="table-responsive">
-                                    <form class="form" action="{{ route('languages.update_rtl_status') }}"
-                                        method="post">
+                                    <form class="form" action="{{ route('languages.update_rtl_status') }}" method="post">
                                         @csrf
                                         <table class="table table-striped table-bordered zero-configuration" id="languages"
                                             style="width: 100%; display: table;">
@@ -135,7 +134,8 @@
                                             </tfoot>
                                         </table>
                                         <div class="form-actions" style="text-align: center;">
-                                            <button type="submit" class="btn btn-success">{{ translate('Save') }}</button>
+                                            <button type="submit"
+                                                class="btn btn-success">{{ translate('Save') }}</button>
                                         </div>
                                     </form>
                                 </div>
@@ -144,10 +144,7 @@
                     </div>
                 </div>
             </div>
-    </div>
-    </section>
-    </div>
-    </div>
+        </section>
     </div>
 @endsection
 @section('scripts')
