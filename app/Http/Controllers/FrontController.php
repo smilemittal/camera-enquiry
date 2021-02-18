@@ -50,7 +50,7 @@ class FrontController extends Controller
 
             $products = $products->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
 
-            $attributes = Attribute::with('attribute_values')->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
+            $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
             $filtered_attributes = array();
             if(!empty($products) && count($products) > 0){
                 foreach($products as $product){
@@ -67,7 +67,6 @@ class FrontController extends Controller
             $i = $count;
 
             $html .= view('frontend.extras.filter', compact('filtered_attributes', 'system_type', 'type', 'selected_attributes','attributes', 'i'))->render();
-            //dd($html);
             return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type]);
         }
     }
