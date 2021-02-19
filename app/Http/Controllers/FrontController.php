@@ -164,17 +164,30 @@ class FrontController extends Controller
         $system_type_id = $request->input('selected_system_type');
         $quantity_arr = [];
         $product_arr = [];
+        $model_arr = [];
         $total_products = 0;
         foreach($products as $product_type => $product){
             $quantity_total = 0;
 
             foreach($product as $no => $attributes){
+                $type = Type::where('slug','LIKE',$product_type)->first();
 
+                $model = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
+                        ->whereHas('product_attributes.attribute', function($q)use($type){
+                            $q->where('type_id', $type->id);
+                        });
                 foreach($attributes as $key => $attribute){
                     if($attribute != NULL){
                         $product_arr[$product_type][$no][$key] = $attribute;
                     }
+                    if($attribute != 'unimportant'){
+                        $model->whereHas('product_attributes', function($q) use($attribute){
+                            $q->where('attribute_value_id', $attribute);
+                        });
+                    }
                 }
+                $model = $model->where('system_type_id', $system_type_id)->where('type_id', $type->id)->orderBy('priority')->first();
+                $model_arr[$product_type][$no] = $model;
                 if(!empty($quantities[$product_type][$no])){
                     $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
                     $quantity_arr[$product_type][$no]['total_qty'] = $total_qtys[$product_type][$no];
@@ -187,8 +200,8 @@ class FrontController extends Controller
         if($total_products > 0){
             $products = $product_arr;
             $quantities = $quantity_arr;
-
-            $html = view('enquiries.partials.pdf', compact('products', 'quantities'))->render();
+            $models = $model_arr;
+            $html = view('enquiries.partials.pdf', compact('products', 'quantities', 'models'))->render();
             return response()->json(['success' => true, 'html' => $html]);
         }else{
             return response()->json(['success' => false, 'message' => 'Please Enter Quantity for the products.']);
