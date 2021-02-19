@@ -9,10 +9,11 @@
                     <option value="unimportant">{{translate('Unimportant')}}</option>
                         @if(!empty($attribute->attribute_values))
                             @foreach($attribute->attribute_values as $attribute_value)
-                                @if(!empty($selected_attributes) && ($attribute_value->id == $selected_attributes[$attribute->id] || (!empty($filtered_attributes[$attribute->id]) && in_array($attribute_value->id, $filtered_attributes[$attribute->id]))))
-                                    <option value="{{ $attribute_value->id }}" {{ $attribute_value->id == $selected_attributes[$attribute->id] ? 'selected' : '' }}>{{ translate($attribute_value->value)}}</option>
-                                @else
+                                @if(empty($selected_attributes))
                                     <option value="{{ $attribute_value->id }}">{{ translate($attribute_value->value)}}</option>
+                                @elseif(count($selected_attributes) > 0  && in_array($attribute_value->id, $filtered_attributes[$attribute->id])
+                                )
+                                    <option value="{{ $attribute_value->id }}" {{ $attribute_value->id == $selected_attributes[$attribute->id] ? 'selected' : '' }}>{{ translate($attribute_value->value)}}</option>
                                 @endif
                             @endforeach
                         @endif
