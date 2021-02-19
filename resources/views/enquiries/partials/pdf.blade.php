@@ -27,13 +27,13 @@
                 @endphp
                 @foreach($product as $no => $attribute_values)
                 <tr>
-                    <td style="border: 1px solid #000;text-align: center;">{{ $models[$product_type][$no]->name }}</td>
+                    <td style="border: 1px solid #000;text-align: center;">{{ $attribute_values['model']['name'] }}</td>
                     <td style="border: 1px solid #000;text-align: center;">
                         @php
                         if(!empty($quantities[$product_type][$no])){
                             $quantity_total += (int)$quantities[$product_type][$no]['total_qty'];
-                            $price_total += $models[$product_type][$no]->price * (int)$quantities[$product_type][$no]['total_qty'];
-                            $total_price += $models[$product_type][$no]->price * (int)$quantities[$product_type][$no]['total_qty'];
+                            $price_total += $attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'];
+                            $total_price += $attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'];
                             $total_qty += (int)$quantities[$product_type][$no]['total_qty'];
                         }
                         @endphp
@@ -42,10 +42,10 @@
                         @endif
                     </td>
                     <td style="border: 1px solid #000;text-align: center;">
-                        {{$models[$product_type][$no]->price}}
+                        {{$attribute_values['model']['price']}}
                     </td>
                     <td style="border: 1px solid #000;text-align: center;">
-                        {{$models[$product_type][$no]->price * (int)$quantities[$product_type][$no]['total_qty'] }}
+                        {{$attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'] }}
                     </td>
                 </tr>
                 @endforeach

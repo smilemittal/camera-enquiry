@@ -91,76 +91,51 @@
                                     <tbody>
 
                                         @php
-                                            $product_name = '';
-                                            $quantity_total = 0;
                                             $products = json_decode($enquiry->products, true);
                                             $quantities  = json_decode($enquiry->quantity, true);
-
+                                            $total_price = 0;
+                                            $total_qty = 0;
                                         @endphp
+                                        @foreach($products as $product_type => $product)
+                                            @if(!empty($quantities[$product_type]['total'] ) && $quantities[$product_type]['total'] != 0)
+                                                <tr><th colspan="4" style="border: 1px solid #000; text-align: center;">{{translate('Chosen ').' '.ucfirst($product_type) }}</td></tr>
+                                                <tr><th style="border: 1px solid #000;text-align: center;">{{translate('Model')}}</th><th style="border: 1px solid #000; text-align: center;">{{translate('Quantity')}}</th><th style="border: 1px solid #000; text-align: center;">{{translate('Price for one')}}</th><th style="border: 1px solid #000; text-align: center;">{{translate('Summary price for all')}}</th></tr>
 
-
-                                            @foreach($products as $product_type => $product)
-                                            <tr><th>{{translate('Product Type')}}</th><td colspan="2">     {{ ucfirst($product_type) }}</td><tr>
-                                            <tr><th colspan="3" style="text-align: center">{{translate('Product Details')}}</th></tr>
-                                            <tr><th>{{translate('S. No.')}}</th><th>{{translate('Attributes')}}</th>
-                                                <th>{{translate('Quantity')}}</th>
-                                            </tr>
-
-                                            @php
-                                            $i= 1;
-                                            $quantity_total = 0;
-                                            @endphp
+                                                @php
+                                                $quantity_total = 0;
+                                                $price_total = 0;
+                                                @endphp
                                                 @foreach($product as $no => $attribute_values)
                                                 <tr>
-                                                <td>{{  $i }}</td>
-                                                <td>
-                                                    @php
-                                                        $attributes = $attribute_values_arr = [];
-
-                                                        foreach($attribute_values as $attribute_id => $attribute_value){
-                                                            if($attribute_value != 'unimportant'){
-                                                                $attr_value = \App\Models\AttributeValue::with('attribute')->where('id', $attribute_value)->orderBy('display_order', 'ASC')->first();
-
-                                                                $attr_name = $attr_value->attribute->name;
-                                                                $attr_val= $attr_value->value;
-                                                            }else{
-                                                                $attr_value = \App\Models\Attribute::with('attribute_values')->where('id', $attribute_id)->first();
-                                                                $attr_name = $attr_value->name;
-                                                                $attr_val= 'Unimportant';
-                                                            }
-
-                                                            $attributes[] = '<strong>'.$attr_name.'</strong>: '.$attr_val;
-                                                        }
-                                                    @endphp
-
-                                                    @foreach($attributes as $attr)
-                                                        <div>
-                                                            {!! $attr !!}
-                                                        </div>
-
-
-                                                    @endforeach
-
-                                                    </td>
-                                                    <td>@php
+                                                    <td style="border: 1px solid #000;text-align: center;">{{ $attribute_values['model']['name'] }}</td>
+                                                    <td style="border: 1px solid #000;text-align: center;">
+                                                        @php
                                                         if(!empty($quantities[$product_type][$no])){
                                                             $quantity_total += (int)$quantities[$product_type][$no]['total_qty'];
+                                                            $price_total += $attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'];
+                                                            $total_price += $attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'];
+                                                            $total_qty += (int)$quantities[$product_type][$no]['total_qty'];
                                                         }
-                                                        $i++;
-                                                    @endphp
-                                                        {{ (int)$quantities[$product_type][$no]['total_qty'] }}</td>
+                                                        @endphp
+                                                        @if(!empty($quantities[$product_type][$no]['total_qty']))
+                                                            {{ (int)$quantities[$product_type][$no]['total_qty'] }}
+                                                        @endif
+                                                    </td>
+                                                    <td style="border: 1px solid #000;text-align: center;">
+                                                        {{$attribute_values['model']['price']}}
+                                                    </td>
+                                                    <td style="border: 1px solid #000;text-align: center;">
+                                                        {{$attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'] }}
+                                                    </td>
                                                 </tr>
-
                                                 @endforeach
-
-
-                                                <tr><th>Total {{ ucfirst($product_type).'s'}}</th><td colspan="2">{{ $quantity_total }}</td></tr>
-                                                <tr rowspan="2"><td colspan="2"></td></tr>
-                                            @endforeach
-
-
-
-
+                                                <tr><th style="border: 1px solid #000;text-align: center;">{{translate('Total')}} {{ ucfirst($product_type).'s'}}</th><td  style="border: 1px solid #000;text-align: center;">{{ $quantity_total }}</td>
+                                                    <td  style="border: 1px solid #000;text-align: center;"></td>
+                                                    <td  style="border: 1px solid #000;text-align: center;">{{ $price_total }}</td></tr>
+                                            @endif
+                                        @endforeach
+                                        <tr><th style="border: 1px solid #000;text-align: center;" colspan="3">{{translate('Summary Price for all products')}}</th>
+                                        <td  style="border: 1px solid #000;text-align: center;">{{ $total_price }}</td></tr>
                                     </tbody>
                                 </table>
                             </div>
