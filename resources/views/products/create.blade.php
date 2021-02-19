@@ -100,7 +100,11 @@
                                                 @endforeach
                                             </select>
                                         </div>
-
+                                        <div class=" form-group">
+                                            <label for="price">{{ translate('Price') }}</label>
+                                            <input type="number" class="form-control" name="price"
+                                                placeholder="{{translate('Price')}}">
+                                        </div>
                                         <div class=" form-group">
                                             <label for="priority">{{ translate('Priority') }}</label>
                                             <input type="number" class="form-control" name="priority"

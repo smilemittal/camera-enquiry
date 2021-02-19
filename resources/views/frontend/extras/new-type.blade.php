@@ -7,14 +7,14 @@
         <div class="col-xl-2 col-md-6">
             <div class="kamaroty">
                 <input type="text" class="qty" name="quantity[{{ $type->slug }}][{{ $i }}]"
-                    placeholder="Qty" />
+                    placeholder="{{translate('Qty')}}" />
             </div>
         </div>
         <div class="col-md-12 col-xl-5 pl-lg-3">
             <p>{{ translate($type->name . ' panel description') }}</p>
             <div class="totalQty">
                 <input type="hidden" class="total_qty" name="total_qty[{{ $type->slug }}][{{ $i }}]"
-                    placeholder="Qty" />
+                    placeholder="{{translate('Qty')}}" />
                 <span class=""></span>
             </div>
         </div>
