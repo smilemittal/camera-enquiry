@@ -89,6 +89,7 @@
                                                     <th>{{ translate('ID') }}</th>
                                                     <th>{{ translate('Name') }}</th>
                                                     <th>{{ translate('Priority') }}</th>
+                                                    <th>{{ translate('Price') }}</th>
                                                     <th>{{ translate('Action') }}</th>
 
                                                 </tr>
@@ -104,6 +105,7 @@
                                                     <th>{{ translate('ID') }}</th>
                                                     <th>{{ translate('Name') }}</th>
                                                     <th>{{ translate('Priority') }}</th>
+                                                    <th>{{ translate('Price') }}</th>
                                                     <th>{{ translate('Action') }}</th>
                                                 </tr>
                                             </tfoot>
@@ -155,6 +157,9 @@
                     },
                     {
                         "data": "priority"
+                    },
+                    {
+                        "data": "price"
                     },
                     {
                         "data": "action"

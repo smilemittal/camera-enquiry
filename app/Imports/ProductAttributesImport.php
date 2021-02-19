@@ -64,6 +64,7 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                     }else{
                         $types = Type::create([
                             'name' => $row_type,
+                            'slug'=>  strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $row_type))),
                         ]);
                         $type_id = $types->id;
                     }
@@ -114,10 +115,14 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                
                 //get product, if exists, get id, otherwise create new product and get its id
                if($system_type_id != '' && $type_id != '' && $standard_id != ''){
+                $price = 0.00;   
+                if(!empty ($row['Price']) ){
+                    $price = $row['Price'];
+                }
                     $product= Product::where('name','LIKE', $product_name)->where('type_id', 'LIKE', $type_id)->where('system_type_id', $system_type_id)->where('standard_id', $standard_id)->where('priority','LIKE', trim($row['Priority'], " "))->first();
 
                     if(!$product){
-                        $products = Product::create(['name' => $product_name, 'type_id' => $type_id, 'system_type_id' => $system_type_id, 'standard_id' => $standard_id,'priority' => trim($row['Priority'], " ")]);
+                        $products = Product::create(['name' => $product_name, 'type_id' => $type_id, 'system_type_id' => $system_type_id, 'standard_id' => $standard_id,'priority' => trim($row['Priority'], " "),'price' => $price]);
                         $product_id =$products->id;
                         $product_type = $products->type_id;
                         $import_count++;
