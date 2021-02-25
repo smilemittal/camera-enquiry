@@ -133,6 +133,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         var series_type = 'unimportant';
+        var series_value = 0;
         $(document).ready(function() {
             $('.system_type:first-child').click();
         });
@@ -172,9 +173,30 @@
             var qty = calcQty(type);
             $(this).parents('.col-kemey').find('.totalQty span').text(qty);
         });
-        $(document).on('change', '.camera_1 .camera_cal_col', function() {
-            series_type = $(this).val();
+        // $(document).on('change', '.camera_1 .camera_cal_col', function() {
+        //     series_type = $(this).val();
+        // });
+
+        $(document).on('change', '.series_val', function() {
+            if(series_type == "unimportant") {
+                series_type = $(this).find('option:selected').text();
+            }   
+            setSeries();
+           
+            console.log(series_type);
         });
+        function setSeries(){
+            $('.kemey-cameras-sec').find('.col-kemey').each(function(){  
+                $(this).find(".series_val option").filter(function() {
+                    if(this.text == series_type)
+                    {
+                        series_value = this.value;
+                        return true;
+                    } 
+                }).attr('selected', true);
+                $(this).find('.series_val').val(series_value);
+            });
+        }
 
         $(document).on('click', '.standard', function() {
             $('.standard').removeClass('active');
@@ -183,7 +205,9 @@
         });
 
         $(document).on('change', '.attribute', function() {
-            $('.camera_cal_col').val(series_type);
+           // $('.camera_cal_col').val(series_type);
+           setSeries();
+           //$('.series_val').val(series_type);
             var attribute_value_arr = [];
             var ele = $(this);
 
@@ -225,10 +249,10 @@
         $(document).on('click', '.next_type', function() {
             var product_type = $(this).data('product_type');
             var this_product_qty = $(this).parentsUntil('.section_'+product_type).siblings('.align-items-center').find('.qty').val();
-            if(this_product_qty == ''){
+            if(this_product_qty == '' || this_product_qty <= 0){
                 swal({
                             title: "Error",
-                            text: 'Please Enter Quantity for the products.',
+                            text: '{{ translate('Please Enter Quantity for the products.')}}',
                             icon: "error",
                             button: "OK",
                         });
@@ -264,9 +288,12 @@
                         var qty = calcQty(product_type);
                         $('.' + product_type + '_' + data.count + ' .totalQty span').text(qty);
                         $('.' + product_type + '_' + data.count).show();
-                        if (product_type == 'camera') {
-                            $('.' + product_type + '_' + data.count).find('.camera_cal_col').val(series_type);
-                        }
+                        //if (product_type == 'camera') {
+                            //$('.' + product_type + '_' + data.count).find('.camera_cal_col').val(series_type);
+                            $('.series_val option').map(function() {
+                                                        if ($(this).text() == series_type) return this;
+                                                    }).attr('selected', 'selected');
+                        //}
                     }
                 },
             });
