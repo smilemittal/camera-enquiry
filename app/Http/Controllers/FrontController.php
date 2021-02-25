@@ -157,12 +157,12 @@ class FrontController extends Controller
                 $quantities = json_decode($quantity_arr, true);
                 Mail::to(config('app.admin_email'))->send(new EnquiryMail($products, $quantities, $enquiry));
 
-                return response()->json(['success'=> true, 'message'  => __('message.Enquiry Sent Successfully')]);
+                return response()->json(['success'=> true, 'message'  => translate('Enquiry Sent Successfully')]);
             }else{
-                return response()->json(['success'=> false, 'message'  => __('message.Failed Sending enquiry! Try again')]);
+                return response()->json(['success'=> false, 'message'  => translate('Failed Sending enquiry! Try again')]);
             }
         }else{
-            return response()->json(['success' => false, 'message' => 'Please Enter Quantity for the products.']);
+            return response()->json(['success' => false, 'message' => translate('Please Enter Quantity for the products.')]);
         }
 
 
@@ -212,7 +212,7 @@ class FrontController extends Controller
             $total_products += $quantity_total;
         }
         if(!$quantity_filled){
-            return response()->json(['success' => false, 'message' => 'Please Enter Quantity for the products.']); 
+            return response()->json(['success' => false, 'message' => translate('Please Enter Quantity for the products.')]); 
         }
 
 
@@ -222,7 +222,7 @@ class FrontController extends Controller
             $html = view('enquiries.partials.pdf', compact('products', 'quantities'))->render();
             return response()->json(['success' => true, 'html' => $html]);
         }else{
-            return response()->json(['success' => false, 'message' => 'Please Enter Quantity for the products.']);
+            return response()->json(['success' => false, 'message' => translate('Please Enter Quantity for the products.')]);
         }
 
 
