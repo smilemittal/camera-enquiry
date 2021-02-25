@@ -224,6 +224,17 @@
         });
         $(document).on('click', '.next_type', function() {
             var product_type = $(this).data('product_type');
+            var this_product_qty = $(this).parentsUntil('.section_'+product_type).siblings('.align-items-center').find('.qty').val();
+            if(this_product_qty == ''){
+                swal({
+                            title: "Error",
+                            text: 'Please Enter Quantity for the products.',
+                            icon: "error",
+                            button: "OK",
+                        });
+                        return;
+            }
+
             nextProduct(product_type);
         });
 

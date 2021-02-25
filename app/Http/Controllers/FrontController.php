@@ -200,15 +200,12 @@ class FrontController extends Controller
                 $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->orderBy('priority')->first()->toArray();
                 $product_arr[$product_type][$no]['model'] = $model;
                 if(!empty($quantities[$product_type][$no])){
-                    if($quantities[$product_type][$no] == '' && empty($quantities[$product_type][$no])){
-                       $quantity_filled = false;
-                       break 2;
-                    }else{
                         $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
                         $quantity_arr[$product_type][$no]['total_qty'] = $total_qtys[$product_type][$no];
-                        $quantity_total += (int)$total_qtys[$product_type][$no];
-                    }
-                   
+                        $quantity_total += (int)$total_qtys[$product_type][$no];                   
+                }else{
+                    $quantity_filled = false;
+                    break 2;
                 }
             }
             $quantity_arr[$product_type]['total'] = $quantity_total;
