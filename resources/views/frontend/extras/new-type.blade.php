@@ -1,5 +1,5 @@
 <div class="col-kemey section_{{ $type->slug }} {{ $type->slug . '_' . $i }}" data-type="{{ $type->slug }}">
-    <div class="row d-flex align-items-center">
+    <div class="row d-flex align-items-center helo">
         <div class="col-xl-3 col-md-6">
             <a class="btn" data-toggle="collapse" href="#{{ 'multiCollapseExample' . $type->slug . $i }}" role="button"
                 aria-expanded="false" aria-controls="multiCollapseExample1">{{ translate($type->name) }}</a>
