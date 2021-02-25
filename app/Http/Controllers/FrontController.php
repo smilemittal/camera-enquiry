@@ -65,7 +65,6 @@ class FrontController extends Controller
             $html='';
 
             $i = $count;
-
             $html .= view('frontend.extras.filter', compact('filtered_attributes', 'system_type', 'type', 'selected_attributes','attributes', 'i'))->render();
             return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type]);
         }
@@ -177,15 +176,17 @@ class FrontController extends Controller
         $quantity_arr = [];
         $product_arr = [];
         $total_products = 0;
+        $quantity_filled = true;
         foreach($products as $product_type => $product){
             $quantity_total = 0;
 
             foreach($product as $no => $attributes){
                 $type = Type::where('slug','LIKE',$product_type)->first();
-
+                
                 $model = Product::whereHas('product_attributes.attribute', function($q)use($type){
                             $q->where('type_id', $type->id);
                         });
+               
                 foreach($attributes as $key => $attribute){
                     if($attribute != NULL){
                         $product_arr[$product_type][$no][$key] = $attribute;
@@ -199,14 +200,25 @@ class FrontController extends Controller
                 $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->orderBy('priority')->first()->toArray();
                 $product_arr[$product_type][$no]['model'] = $model;
                 if(!empty($quantities[$product_type][$no])){
-                    $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
-                    $quantity_arr[$product_type][$no]['total_qty'] = $total_qtys[$product_type][$no];
-                    $quantity_total += (int)$total_qtys[$product_type][$no];
+                    if($quantities[$product_type][$no] == '' && empty($quantities[$product_type][$no])){
+                       $quantity_filled = false;
+                       break 2;
+                    }else{
+                        $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
+                        $quantity_arr[$product_type][$no]['total_qty'] = $total_qtys[$product_type][$no];
+                        $quantity_total += (int)$total_qtys[$product_type][$no];
+                    }
+                   
                 }
             }
             $quantity_arr[$product_type]['total'] = $quantity_total;
             $total_products += $quantity_total;
         }
+        if(!$quantity_filled){
+            return response()->json(['success' => false, 'message' => 'Please Enter Quantity for the products.']); 
+        }
+
+
         if($total_products > 0){
             $products = $product_arr;
             $quantities = $quantity_arr;

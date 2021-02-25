@@ -18,7 +18,7 @@
                             @endforeach
                         @endif
                     </select>
-                    <p>{!! htmlspecialchars(translate($attribute->description)) !!}</p>
+                    <p>@if(!empty($attribute->description)){!! htmlspecialchars(translate($attribute->description)) !!} @endif</p>
                 </div>
             </div>
         @endforeach
