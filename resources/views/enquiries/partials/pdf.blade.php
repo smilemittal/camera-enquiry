@@ -37,9 +37,12 @@
                             $total_qty += (int)$quantities[$product_type][$no]['total_qty'];
                         }
                         @endphp
-                        @if(!empty($quantities[$product_type][$no]['total_qty']))
+                       @if(!empty($quantities[$product_type][$no]['total_qty']))
                             {{ (int)$quantities[$product_type][$no]['total_qty'] }}
                         @endif
+                        {{-- @if(!empty($quantities[$product_type][$no]['qty']))
+                            {{ (int)$quantities[$product_type][$no]['qty'] }}
+                        @endif--}}
                     </td>
                     <td style="border: 1px solid #000;text-align: center;">
                         {{$attribute_values['model']['price']}}

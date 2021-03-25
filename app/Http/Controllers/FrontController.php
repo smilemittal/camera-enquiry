@@ -32,7 +32,7 @@ class FrontController extends Controller
             $attribute_value_id = $request->input('attribute_value');
             $attribute_value_id = explode(',', $attribute_value_id);
             $selected_attributes = $request->input('selected_attributes');
-
+    //dd($attribute_value_id);
             $products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
                         ->whereHas('product_attributes.attribute', function($q)use($type){
                             $q->where('type_id', $type->id);
@@ -40,7 +40,7 @@ class FrontController extends Controller
 
 
             foreach($attribute_value_id as $id){
-                if($id != 'unimportant'){
+                if($id != 'unimportant' && $id != ''){
                     $products->whereHas('product_attributes', function($q) use($id){
                         $q->where('attribute_value_id', $id);
                     });
@@ -49,7 +49,7 @@ class FrontController extends Controller
             }
 
             $products = $products->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
-
+    //dd($products);
             $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
             $filtered_attributes = array();
             if(!empty($products) && count($products) > 0){

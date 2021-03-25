@@ -169,6 +169,7 @@
         });
 
         $(document).on('change', '.qty, .recorder_cal_col', function() {
+            console.log('helo');
             var type = $(this).parents('.col-kemey').data('type');
             var qty = calcQty(type);
             $(this).parents('.col-kemey').find('.totalQty span').text(qty);
@@ -178,10 +179,22 @@
         // });
 
         $(document).on('change', '.series_val', function() {
+         
             if(series_type == "unimportant") {
                 series_type = $(this).find('option:selected').text();
             }   
             setSeries();
+            // if($(this).hasClass('camera_cal_col')){
+            //     console.log('camera');
+            //         $('.series_val').trigger('change');
+            // }else{
+            //     console.log('rec');
+            //     $('.series_val').trigger('change');
+            // }
+           
+               
+                    
+        
            
             console.log(series_type);
         });
@@ -195,6 +208,8 @@
                     } 
                 }).attr('selected', true);
                 $(this).find('.series_val').val(series_value);
+               
+               
             });
         }
 
@@ -205,6 +220,8 @@
         });
 
         $(document).on('change', '.attribute', function() {
+            console.log('helo2');
+            console.log($(this));
            // $('.camera_cal_col').val(series_type);
            setSeries();
            //$('.series_val').val(series_type);
