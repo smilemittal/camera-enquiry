@@ -53,8 +53,12 @@
                                     <a href="{{ route('product-attributes.export') }}" method="post"
                                         class="btn mr-1 mb-1 btn-danger btn-sm"
                                         type="submit">{{ translate('Export') }}</a>
-                                    <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm">Delete
-                                        Selected</button>
+                                    <button type="button" id="deleteTrigger" class="btn mr-1 mb-1 btn-danger btn-sm">{{translate('Delete Selected')}}</button>
+                                    <a href="#" id="deleteAllTrigger" data-form_id="{{ 'delete_form_'}}" class="btn mr-1 mb-1 btn-danger btn-sm">{{ translate('Delete All') }}</a>
+                                    <form action="{{route('products.deleteall')}}" method="post" id="{{ 'delete_form_'}}">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -196,6 +200,25 @@
             }).then(function(isConfirm) {
                 if (isConfirm.value) {
                     $('#delete_all').submit();
+                }
+            }).catch(swal.noop)
+        });
+
+
+        $('#deleteAllTrigger').on('click', function() {
+            swal({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                closeOnConfirm: true,
+                closeOnCancel: true
+            }).then(function(isConfirm) {
+                if (isConfirm.value) {
+                    $('#delete_form_').submit();
                 }
             }).catch(swal.noop)
         });

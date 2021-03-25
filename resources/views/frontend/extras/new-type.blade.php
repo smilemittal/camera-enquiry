@@ -7,7 +7,7 @@
         <div class="col-xl-2 col-md-6">
             <div class="kamaroty">
                 <input type="text" class="qty" name="quantity[{{ $type->slug }}][{{ $i }}]"
-                    placeholder="{{translate('Qty')}}" />
+                    placeholder="{{translate('Qty')}}" id="quantity"/>
             </div>
         </div>
         <div class="col-md-12 col-xl-5 pl-lg-3">

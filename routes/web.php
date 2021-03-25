@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('products/getproduct','ProductController@getproduct')->name('get.product');
     Route::post('products/multiple-delete','ProductController@multipleDelete')->name('products.multipledelete');
     Route::resource('products', 'ProductController');
+    Route::delete('product/delete-all','ProductController@deleteAllProducts')->name('products.deleteall');
 
     //Product Attributes Route
     Route::get('product-attributes/import', 'ProductAttributesController@importProductAttribute')->name('product-attributes.import');

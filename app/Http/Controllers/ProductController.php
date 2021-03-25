@@ -287,4 +287,10 @@ class ProductController extends Controller
             return response()->json(['html' => $html, 'success' => true]);
         }
     }
+
+    public function deleteAllProducts()
+    {
+        $delete_all_product = Product::whereNotNull('id')->delete();
+        return redirect()->route('products.index')->with('deleted',__('message.Products deleted successfully'));
+    }
 }
