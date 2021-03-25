@@ -42,6 +42,7 @@
 	'Standards Import Failed Exists.'		=> 'Standards Import Failed. Already Exists.',
 	'System types Import Failed Exists'		=> 'System types Import Failed. Already Exists.',
 	'Types Import Failed.'					=> 'Types Import Failed.',
-	'Types Import Failed Exists.'			=> 'Types Import Failed. Already Exists.'
+	'Types Import Failed Exists.'			=> 'Types Import Failed. Already Exists.',
+	'Products deleted successfully'			=> 'Products deleted successfully',	
   ];
 ?>

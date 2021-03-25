@@ -87,6 +87,7 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="container">
                             <label for="values">{{ translate('Note*') }}</label>
                             <p>
                                 Steps to import Product Attributes:<br>
@@ -135,6 +136,7 @@
                                 crosscheck , fix the problem and upload the excel file again.<br>
 
                             </p>
+                            </div>
                         </div>
                     </div>
                 </div>
