@@ -17,6 +17,11 @@ class FrontController extends Controller
     {
     	$request->session()->put('locale', $request->locale);
     }
+
+    public function changeCurrency(Request $request)
+    {
+    	$request->session()->put('default_currency', $request->default_currency);
+    } 
     public function home(){
         $system_types = SystemType::orderBy('id', 'ASC')->get();
         $standards = Standard::orderBy('id', 'ASC')->get();

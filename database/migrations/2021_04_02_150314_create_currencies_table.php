@@ -20,6 +20,7 @@ class CreateCurrenciesTable extends Migration
             $table->double('exchange_rate', 10, 3)->nullable();
             $table->tinyInteger('status')->default(0);
             $table->string('code');
+            $table->boolean('is_default')->default(0);
             $table->timestamps();
         });
     }

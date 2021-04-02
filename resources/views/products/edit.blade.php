@@ -101,17 +101,18 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        @if(!empty($currencies) && count($currencies))
+                                        @if(!empty($currencies) && count($currencies) > 0)
                                             @foreach($currencies as $currency)
+                                            {{-- @dd(strtoupper($currency->code), $product_prices, array_key_exists(strtoupper($currency->code), $product_prices)) --}}
                                             <div class=" form-group">
                                                 <label for="price">{{ translate('Price For: '.strtoupper($currency->code)) }}</label>
                                                 <input type="number" class="form-control" name="price[{{ strtoupper($currency->code) }}]"
-                                                    placeholder="{{translate('Price')}}">
+                                                    placeholder="{{translate('Price')}}" value="@if(array_key_exists(strtoupper($currency->code), $product_prices)){{$product_prices[strtoupper($currency->code)]}}@endif" >
                                             </div>
                                             @endforeach
                                         @else
                                             <div class=" form-group">
-                                                <label for="price">{{ translate('Price For: '.strtoupper($currency->code)) }}</label>
+                                                <label for="price">{{ translate('Price For: '.strtoupper(default_language())) }}</label>
                                                 <input type="number" class="form-control" name="price[{{ strtoupper(default_language()) }}]"
                                                     placeholder="{{translate('Price')}}">
                                             </div>

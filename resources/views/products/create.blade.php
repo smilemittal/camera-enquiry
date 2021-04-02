@@ -106,7 +106,7 @@
                                             <input type="number" class="form-control" name="priority"
                                                 placeholder="Priority">
                                         </div>
-                                        @if(!empty($currencies) && count($currencies))
+                                        @if(!empty($currencies) && count($currencies) > 0)
                                             @foreach($currencies as $currency)
                                             <div class=" form-group">
                                                 <label for="price">{{ translate('Price For: '.strtoupper($currency->code)) }}</label>
@@ -116,8 +116,8 @@
                                             @endforeach
                                         @else
                                             <div class=" form-group">
-                                                <label for="price">{{ translate('Price For: '.strtoupper($currency->code)) }}</label>
-                                                <input type="number" class="form-control" name="price[{{ strtoupper(default_language()) }}]"
+                                                <label for="price">{{ translate('Price For: '.strtoupper(default_currency())) }}</label>
+                                                <input type="number" class="form-control" name="price[{{ strtoupper(default_currency()) }}]"
                                                     placeholder="{{translate('Price')}}">
                                             </div>
                                         @endif

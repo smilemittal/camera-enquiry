@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
 use App\Models\Product;
+use App\Models\Currency;
 use App\Models\Standard;
 use App\Models\Attribute;
 use App\Models\SystemType;
-use App\Models\Type;
 use Illuminate\Http\Request;
-use App\Models\ProductAttribute;
 use Illuminate\Validation\Rule;
+use App\Models\ProductAttribute;
 
 class ProductController extends Controller
 {
@@ -39,8 +40,8 @@ class ProductController extends Controller
         $system_types = SystemType::all();
         $types = Type::all();
         $standards = Standard::all();
-        $currencies = Currency::all();
-        return view('products.create', compact('system_types', 'standards','types'));
+        $currencies = Currency::where('status', 1)->get();
+        return view('products.create', compact('system_types', 'standards','types', 'currencies'));
     }
 
     /**
@@ -110,14 +111,16 @@ class ProductController extends Controller
             $attribute_ids[] = $product_attribute->attribute_id;
            
         }
+        $product_prices = json_decode($product->price, 1);
         
         $standards = Standard::where('system_type_id', $product->system_type_id)->get();
         $attributes= Attribute::with('attribute_values')->where('created_at', '!=', Null)->where('type_id', $product->type_id)->where('system_type_id', $product->system_type_id)->get();
      
         $system_types = SystemType::all();
         $types = Type::all();
+        $currencies = Currency::where('status', 1)->get();
         
-        return view('products.edit', compact('product', 'system_types','types', 'attribute_ids', 'attribute_value_ids', 'attributes', 'standards'));
+        return view('products.edit', compact('product', 'system_types','types', 'attribute_ids', 'attribute_value_ids', 'attributes', 'standards', 'currencies', 'product_prices'));
     }
 
     /**
@@ -227,11 +230,12 @@ class ProductController extends Controller
         $data = array();
         if (!empty($products)) {
             foreach ($products as $key => $product) {
+                $product_prices = json_decode($product->price, 1);
                 $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$product->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $product->name;
                 $nestedData['priority'] = $product->priority;
-                $nestedData['price'] = $product->price;
+                $nestedData['price'] = is_array($product_prices) && array_key_exists(strtoupper(default_currency()), $product_prices) ? $product_prices[strtoupper(default_currency())]: '';
                 $index = route('products.index' ,  ($product->id));
                 $edit = route('products.edit' ,  ($product->id));
                 $destroy = route('products.destroy' ,  ($product->id));

@@ -52,6 +52,37 @@
                             @endforeach
                         </ul>
                     </li>
+
+                    <li class="list-inline-item dropdown mr-3" id="currency-change">
+                        @php
+                            if (Session::has('default_currency')) {
+                                $default_currency = Session::get('default_currency');
+                            } else {
+                                $default_currency = default_currency();
+                            }
+                        
+                            $current_currency = \App\Models\Currency::where('code', $default_currency)->first();
+                          
+                        @endphp
+                        <a href="javascript:void(0)" class="dropdown-toggle text-reset py-2" data-toggle="dropdown"
+                            data-display="static">
+                            {{-- <img src="{{ asset('app-assets/images/flags/' . $locale . '.png') }}"
+                                alt="{{ $current_lang->name }}"> --}}
+                            <span class="opacity-60">{{ $current_currency->symbol." ".$current_currency->code }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-left">
+                            @foreach (\App\Models\Currency::all() as $key => $currency)
+                                <li>
+                                    <a href="javascript:void(0)" data-flag="{{ $currency->code }}"
+                                        class="dropdown-item @if ($current_currency==$currency) active @endif">
+                                        {{-- <img src="{{ asset('app-assets/images/flags/' . $currency->code . '.png') }}"
+                                            alt="{{ $currency->name }}"> --}}
+                                        <span class="language">{{ $currency->symbol." ".$currency->code }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
                 </ul>
                 {{-- @endif --}}
             </div>
@@ -170,6 +201,23 @@
                     $.post('{{ route('language.change') }}', {
                         _token: '{{ csrf_token() }}',
                         locale: locale
+                    }, function(data) {
+                        location.reload();
+                    });
+
+                });
+            });
+        }
+
+        if ($('#currency-change').length > 0) {
+            $('#currency-change .dropdown-item').each(function() {
+                $(this).on('click', function(e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var default_currency = $this.data('flag');
+                    $.post('{{ route('currency.change') }}', {
+                        _token: '{{ csrf_token() }}',
+                        default_currency: default_currency
                     }, function(data) {
                         location.reload();
                     });

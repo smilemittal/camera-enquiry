@@ -1,11 +1,12 @@
 <?php
 
+use App\Models\Currency;
 use App\Models\Language;
 use App\Models\Translation;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
 
 function in_array_r($needle, $haystack, $strict = false) {
     foreach ($haystack as $item => $value) {
@@ -53,6 +54,19 @@ if (! function_exists('default_language')) {
             return $lang->code;
         } else {
            return Config::get('app.locale');
+        }
+    }
+}
+
+//highlights the selected navigation on frontend
+if (! function_exists('default_currency')) {
+    function default_currency()
+    {
+        $lang = Currency::where('is_default', 1)->first();
+        if ($lang) {
+            return $lang->code;
+        } else {
+           return Config::get('app.default_currency');
         }
     }
 }
