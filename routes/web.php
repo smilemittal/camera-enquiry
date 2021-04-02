@@ -82,6 +82,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('product-attributes/fetchtypes','ProductAttributesController@getProductAttribute')->name('get.ProductAttributes');
     Route::resource('product-attributes','ProductAttributesController');
 
+    // Currency Route
+    Route::resource('currency','CurrencyController');
+
     //Enquiries
     Route::get('enquiries', 'EnquiryController@index')->name('enquiries.index');
     Route::get('enquiries/{id}/show', 'EnquiryController@show')->name('enquiries.show');
