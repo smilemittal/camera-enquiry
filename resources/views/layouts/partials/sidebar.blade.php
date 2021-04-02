@@ -96,7 +96,19 @@
                 <li class=" nav-item @if(\Request::routeIs('languages.*')) active @endif">
                 <a href="{{ route('languages.index') }}"><i class="la la-language"></i>
                     <span class="menu-title" data-i18n="">{{translate('Languages')}}</span></a>
-                </li>
+                    <li class=" nav-item">
+                        <a href="#"><i class="ft-edit"></i>
+                            <span class="menu-title" data-i18n="">{{translate('Currency')}}</span>
+                        </a>
+                        <ul class="menu-content">
+                            <li class="@if(\Request::routeIs('currency.create')) active @endif">
+                                <a class="menu-item" href="{{ route('currency.create') }}">{{translate('Add')}}</a>
+                            </li>
+                            <li class="@if(\Request::routeIs('currency.index')) active @endif">
+                                <a class="menu-item" href="{{ route('currency.index') }}">{{translate('List')}}</a>
+                            </li>
+                        </ul>
+                    </li>
             </ul>
         </div>
     </div>
