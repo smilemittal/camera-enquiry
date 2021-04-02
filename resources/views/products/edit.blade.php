@@ -101,12 +101,21 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class=" form-group">
-                                            <label for="price">{{ translate('Price') }}</label>
-                                            <input type="number" id="price" class="form-control"
-                                                value="{{ $product->price }}" name="price">
-
-                                        </div>
+                                        @if(!empty($currencies) && count($currencies))
+                                            @foreach($currencies as $currency)
+                                            <div class=" form-group">
+                                                <label for="price">{{ translate('Price For: '.strtoupper($currency->code)) }}</label>
+                                                <input type="number" class="form-control" name="price[{{ strtoupper($currency->code) }}]"
+                                                    placeholder="{{translate('Price')}}">
+                                            </div>
+                                            @endforeach
+                                        @else
+                                            <div class=" form-group">
+                                                <label for="price">{{ translate('Price For: '.strtoupper($currency->code)) }}</label>
+                                                <input type="number" class="form-control" name="price[{{ strtoupper(default_language()) }}]"
+                                                    placeholder="{{translate('Price')}}">
+                                            </div>
+                                        @endif
                                         <div class=" form-group">
                                             <label for="priority">{{ translate('Priority') }}</label>
                                             <input type="number" id="priority" class="form-control"

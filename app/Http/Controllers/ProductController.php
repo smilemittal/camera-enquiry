@@ -39,6 +39,7 @@ class ProductController extends Controller
         $system_types = SystemType::all();
         $types = Type::all();
         $standards = Standard::all();
+        $currencies = Currency::all();
         return view('products.create', compact('system_types', 'standards','types'));
     }
 
@@ -65,7 +66,7 @@ class ProductController extends Controller
                         'system_type_id' => $request->input('system_type_id'),
                         'priority' => $request->input('priority'),
                         'standard_id' => $request->input('standard_id'),
-                        'price' => $request->input('price'),
+                        'price' => json_encode($request->input('price')),
                     ]);
 
         if(!empty($request->input('attribute_value'))){
@@ -146,7 +147,7 @@ class ProductController extends Controller
             'system_type_id' => $request->input('system_type_id'),
             'priority' => $request->input('priority'),
             'standard_id' => $request->input('standard_id'),
-            'price' => $request->input('price'),
+            'price' => json_encode($request->input('price')),
         ]);
         if(!empty($request->input('attribute_value'))){
             foreach($request->attribute_value as $attribute_id => $attribute_value_id){

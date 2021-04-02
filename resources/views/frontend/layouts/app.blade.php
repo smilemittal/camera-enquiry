@@ -29,7 +29,9 @@
                             } else {
                                 $locale = default_language();
                             }
+                        
                             $current_lang = \App\Models\Language::where('code', $locale)->first();
+                          
                         @endphp
                         <a href="javascript:void(0)" class="dropdown-toggle text-reset py-2" data-toggle="dropdown"
                             data-display="static">

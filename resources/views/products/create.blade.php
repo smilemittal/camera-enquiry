@@ -100,16 +100,27 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class=" form-group">
-                                            <label for="price">{{ translate('Price') }}</label>
-                                            <input type="number" class="form-control" name="price"
-                                                placeholder="{{translate('Price')}}">
-                                        </div>
+                                        
                                         <div class=" form-group">
                                             <label for="priority">{{ translate('Priority') }}</label>
                                             <input type="number" class="form-control" name="priority"
                                                 placeholder="Priority">
                                         </div>
+                                        @if(!empty($currencies) && count($currencies))
+                                            @foreach($currencies as $currency)
+                                            <div class=" form-group">
+                                                <label for="price">{{ translate('Price For: '.strtoupper($currency->code)) }}</label>
+                                                <input type="number" class="form-control" name="price[{{ strtoupper($currency->code) }}]"
+                                                    placeholder="{{translate('Price')}}">
+                                            </div>
+                                            @endforeach
+                                        @else
+                                            <div class=" form-group">
+                                                <label for="price">{{ translate('Price For: '.strtoupper($currency->code)) }}</label>
+                                                <input type="number" class="form-control" name="price[{{ strtoupper(default_language()) }}]"
+                                                    placeholder="{{translate('Price')}}">
+                                            </div>
+                                        @endif
                                         <hr>
                                         <div id="add-attributes-div" style="display: none;">
                                             <h5>{{ translate('Add Product Attributes') }}</h5>
