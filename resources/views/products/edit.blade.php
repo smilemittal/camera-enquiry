@@ -107,7 +107,7 @@
                                             <div class=" form-group">
                                                 <label for="price">{{ translate('Price For: '.strtoupper($currency->code)) }}</label>
                                                 <input type="number" class="form-control" name="price[{{ strtoupper($currency->code) }}]"
-                                                    placeholder="{{translate('Price')}}" value="@if(array_key_exists(strtoupper($currency->code), $product_prices)){{$product_prices[strtoupper($currency->code)]}}@endif" >
+                                                    placeholder="{{translate('Price')}}" value="@if(!empty($product_prices[strtoupper($currency->code)]) && array_key_exists(strtoupper($currency->code), $product_prices)){{$product_prices[strtoupper($currency->code)]}}@endif" >
                                             </div>
                                             @endforeach
                                         @else
