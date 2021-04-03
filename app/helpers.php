@@ -62,9 +62,9 @@ if (! function_exists('default_language')) {
 if (! function_exists('default_currency')) {
     function default_currency()
     {
-        $lang = Currency::where('is_default', 1)->first();
-        if ($lang) {
-            return $lang->code;
+        $curr = Currency::where('is_default', 1)->first();
+        if ($curr) {
+            return $curr->code;
         } else {
            return Config::get('app.default_currency');
         }

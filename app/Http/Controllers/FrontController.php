@@ -13,6 +13,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 class FrontController extends Controller
 {
+
+    public function __construct()
+    {
+        if (\Session::has('default_currency')) {
+            $default_currency = \Session::get('default_currency');
+        } else {
+            $default_currency = default_currency();
+        }
+        \Session::put('default_currency', $default_currency);
+    }
     public function changeLanguage(Request $request)
     {
     	$request->session()->put('locale', $request->locale);

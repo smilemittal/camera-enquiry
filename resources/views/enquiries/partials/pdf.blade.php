@@ -32,8 +32,26 @@
                         @php
                         if(!empty($quantities[$product_type][$no])){
                             $quantity_total += (int)$quantities[$product_type][$no]['total_qty'];
-                            $price_total += $attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'];
-                            $total_price += $attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'];
+                            $product_prices = json_decode($attribute_values['model']['price'], 1);
+                            $prices = [];
+                            if(!is_array($product_prices)){
+                                $prices[strtoupper(default_currency())] = $product_prices;
+                                // dd(($prices),array_key_exists(strtoupper(\Session::get('default_currency')), $prices),  $prices[strtoupper(\Session::get('default_currency'))]);
+                            }else if(is_array($product_prices)){
+                                $prices = $product_prices;
+                            }
+                           
+                            // $price_total += $attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'];
+                            // $total_price += $attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'];
+                            if(!empty($prices[strtoupper(\Session::get('default_currency'))])){
+                                $price_total += $prices[strtoupper(\Session::get('default_currency'))] * (int)$quantities[$product_type][$no]['total_qty'];
+                                $total_price += $prices[strtoupper(\Session::get('default_currency'))] * (int)$quantities[$product_type][$no]['total_qty'];
+                            }else{
+                                $price_total += $prices[strtoupper(default_currency())] * (int)$quantities[$product_type][$no]['total_qty'];
+                                $total_price += $prices[strtoupper(default_currency())] * (int)$quantities[$product_type][$no]['total_qty'];
+                            }
+                            // $price_total += $prices[strtoupper(\Session::get('default_currency'))] * (int)$quantities[$product_type][$no]['total_qty'];
+                            // $total_price += $prices[strtoupper(\Session::get('default_currency'))] * (int)$quantities[$product_type][$no]['total_qty'];
                             $total_qty += (int)$quantities[$product_type][$no]['total_qty'];
                         }
                         @endphp
@@ -45,19 +63,30 @@
                         @endif--}}
                     </td>
                     <td style="border: 1px solid #000;text-align: center;">
-                        {{$attribute_values['model']['price']}}
+                        {{-- {{$attribute_values['model']['price']}} --}}
+                        @if(!empty($prices[strtoupper(\Session::get('default_currency'))])))
+                            {{ $prices[strtoupper(\Session::get('default_currency'))].' '.strtoupper(\Session::get('default_currency')) }}
+                        @else
+                        {{ $prices[strtoupper(default_currency())].' '.strtoupper(default_currency()) }}
+                        @endif
                     </td>
                     <td style="border: 1px solid #000;text-align: center;">
-                        {{$attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'] }}
+                        @if(!empty($prices[strtoupper(\Session::get('default_currency'))])))
+                        {{ $prices[strtoupper(\Session::get('default_currency'))]  * (int)$quantities[$product_type][$no]['total_qty'].' '.strtoupper(\Session::get('default_currency')) }}
+                        @else
+                        {{ $prices[strtoupper(default_currency())]  * (int)$quantities[$product_type][$no]['total_qty'].' '.strtoupper(default_currency()) }}
+                        @endif
+                        {{-- {{$attribute_values['model']['price'] * (int)$quantities[$product_type][$no]['total_qty'] }} --}}
+                        
                     </td>
                 </tr>
                 @endforeach
                 <tr><th style="border: 1px solid #000;text-align: center;">{{translate('Total')}} {{ ucfirst($product_type).'s'}}</th><td  style="border: 1px solid #000;text-align: center;">{{ $quantity_total }}</td>
                     <td  style="border: 1px solid #000;text-align: center;"></td>
-                    <td  style="border: 1px solid #000;text-align: center;">{{ $price_total }}</td></tr>
+                    <td  style="border: 1px solid #000;text-align: center;">{{ $price_total.' '.strtoupper(\Session::get('default_currency')) }}</td></tr>
             @endif
         @endforeach
         <tr><th style="border: 1px solid #000;text-align: center;" colspan="3">{{translate('Summary Price for all products')}}</th>
-        <td  style="border: 1px solid #000;text-align: center;">{{ $total_price }}</td></tr>
+        <td  style="border: 1px solid #000;text-align: center;">{{ $total_price.' '.strtoupper(\Session::get('default_currency')) }}</td></tr>
     </tbody>
 </table>
