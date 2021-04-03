@@ -14,7 +14,7 @@ class AlterProductsTableChangePriceColumn extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->json('price')->nullable()->change();
+            $table->json('price')->change();
         });
     }
 

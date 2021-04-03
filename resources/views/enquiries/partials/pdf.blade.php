@@ -64,14 +64,14 @@
                     </td>
                     <td style="border: 1px solid #000;text-align: center;">
                         {{-- {{$attribute_values['model']['price']}} --}}
-                        @if(!empty($prices[strtoupper(\Session::get('default_currency'))])))
+                        @if(!empty($prices[strtoupper(\Session::get('default_currency'))]))
                             {{ $prices[strtoupper(\Session::get('default_currency'))].' '.strtoupper(\Session::get('default_currency')) }}
                         @else
                         {{ $prices[strtoupper(default_currency())].' '.strtoupper(default_currency()) }}
                         @endif
                     </td>
                     <td style="border: 1px solid #000;text-align: center;">
-                        @if(!empty($prices[strtoupper(\Session::get('default_currency'))])))
+                        @if(!empty($prices[strtoupper(\Session::get('default_currency'))]))
                         {{ $prices[strtoupper(\Session::get('default_currency'))]  * (int)$quantities[$product_type][$no]['total_qty'].' '.strtoupper(\Session::get('default_currency')) }}
                         @else
                         {{ $prices[strtoupper(default_currency())]  * (int)$quantities[$product_type][$no]['total_qty'].' '.strtoupper(default_currency()) }}
