@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class AlterProductsTableChangePriceColumn extends Migration
 {
@@ -14,7 +15,7 @@ class AlterProductsTableChangePriceColumn extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->json('price')->change();
+            DB::statement("ALTER TABLE products MODIFY price JSON");
         });
     }
 

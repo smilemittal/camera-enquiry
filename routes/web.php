@@ -83,10 +83,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('product-attributes','ProductAttributesController');
 
     // Currency Route
-    Route::post('currency/get-all', 'CurrencyController@getCurrencies')->name('currency.get-all');
-    Route::post('currency/multiple-delete','CurrencyController@multipleDelete')->name('currency.multipledelete');
-    Route::post('/defalut-currency', 'CurrencyController@set_default_currency')->name('defalut_currency.update');
     Route::resource('currency','CurrencyController');
+    Route::post('currency-get-all', 'CurrencyController@getCurrencies')->name('currency.get-all');
+    Route::post('currency-multiple-delete','CurrencyController@multipleDelete')->name('currency.multipledelete');
+    Route::post('/defalut-currency', 'CurrencyController@set_default_currency')->name('defalut_currency.update');
+    
 
     //Enquiries
     Route::get('enquiries', 'EnquiryController@index')->name('enquiries.index');
@@ -115,7 +116,7 @@ Route::post('save-enquiry', 'FrontController@saveEnquiry')->name('save-enquiry')
 //Route::post('get-summary', 'FrontController@getSummary')->name('get-summary');
 
 Route::post('/language', 'FrontController@changeLanguage')->name('language.change');
-Route::post('/currency', 'FrontController@changeCurrency')->name('currency.change');
+Route::post('/currency-change', 'FrontController@changeCurrency')->name('currency.change');
 
 
 
