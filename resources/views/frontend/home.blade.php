@@ -74,6 +74,9 @@
                             <button type="button" class="summary"
                                 data-url="{{ route('print.enquiries') }}">{{ translate('Summary') }}</button>
                         </div>
+                        <div class="col-xl-3 col-md-4">
+                            <button type="reset" value="reset" class="btnreset" onclick="window.location.reload()">{{ translate('Reset All Values') }}</button>
+                        </div>
                         {{-- <div class="col-xl-3 col-md-4">
                             <button>Kamey / Cameras</button>
                         </div> --}}
@@ -278,6 +281,15 @@
 
             nextProduct(product_type);
         });
+
+        $(document).on('click','.reset', function(){
+
+            var btn = $(this);
+            var target = $(btn).data('target');
+
+            $('.'+ target).find('.reset_all_values').prop("selectedIndex",0);
+
+        });    
 
         function nextProduct(product_type) {
             var old_count = $('input[name="' + product_type + '_count"]').val();

@@ -7,7 +7,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
                     <label>{{ translate($attribute->name) }}</label>
-                    <select name="products[{{$type->slug}}][{{$i}}][{{ $attribute->id }}]" id="{{$type->slug}}_attributes" class="attribute @if($attribute->name == 'Series of equipment') series_val @endif {{ in_array($attribute->name, ['Series of equipment', 'Number of channels']) ? $type->slug.'_cal_col' : '' }}" data-count="{{ $i }}" data-product_type="{{$type->slug}}" data-system_type="{{ $system_type }}" data-attribute="{{$attribute->id}}">
+                    <select name="products[{{$type->slug}}][{{$i}}][{{ $attribute->id }}]" id="{{$type->slug}}_attributes" class="reset_all_values attribute @if($attribute->name == 'Series of equipment') series_val @endif {{ in_array($attribute->name, ['Series of equipment', 'Number of channels']) ? $type->slug.'_cal_col' : '' }}" data-count="{{ $i }}" data-product_type="{{$type->slug}}" data-system_type="{{ $system_type }}" data-attribute="{{$attribute->id}}">
                         <option value="unimportant">{{translate('Unimportant')}}</option>
                             @if(!empty($attribute->attribute_values))
                                 @foreach($attribute->attribute_values as $attribute_value)
@@ -25,5 +25,6 @@
                 </div>
             @endif
         @endforeach
+            <button type="reset" class="reset" id="reset" data-target="{{ $type->slug.'_div_'.$i }}">Reset</button>
     </div>
 @endif
