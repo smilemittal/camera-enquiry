@@ -286,8 +286,29 @@
 
             var btn = $(this);
             var target = $(btn).data('target');
+            var type = $('.'+ target).data('type');
+            var count = $('.'+ target).data('count');
+            console.log($('.'+ target).data('type'));
+            // console.log($('.'+ target).find('.reset_all_values').prop("selectedIndex",0));
+            // $('.'+ target).find('.reset_all_values').prop("selectedIndex",0);
+            $('.'+ target).find('.reset_all_values').each(function(){
+                console.log($(this).children('option:selected').val());
+                $(this).children('option:selected').removeAttr('selected');
+                $(this).prop("selectedIndex",0);
+                console.log($(this).children('option:selected').val());
+                $(this).children('option:first-child').attr('selected', 'selected');
 
-            $('.'+ target).find('.reset_all_values').prop("selectedIndex",0);
+             
+            });
+            $('.'+ target).find('.total_qty').val(0)
+            console.log($('.'+ target).find('.total_qty'));
+            $('.' + type + '_' + count + ' .totalQty span').text(0);
+            if(calcQty(type) == 0){
+                $('.' + type + '_' + count + ' .totalQty').hide();
+            }
+           
+
+            console.log(calcQty(type));
 
         });    
 

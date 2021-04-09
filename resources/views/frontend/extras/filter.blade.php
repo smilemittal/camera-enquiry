@@ -1,5 +1,5 @@
 @if(!empty($attributes))
-    <div class="row {{ $type->slug.'_div_'.$i }}">
+    <div class="row {{ $type->slug.'_div_'.$i }}" data-type="{{$type->slug}}" data-count="{{ $i }}">
         @foreach($attributes as $attribute)
             @if ($type->name == 'recorder' && $attribute->name == 'Price')
             
