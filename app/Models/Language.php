@@ -8,5 +8,5 @@ class Language extends Model
 {
    protected $table = 'languages';
 
-   protected $fillable = ['name','code','rtl', 'is_default'];
+   protected $fillable = ['name','code','rtl', 'is_default', 'default_currency_id'];
 }
