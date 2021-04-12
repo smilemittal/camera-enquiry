@@ -25,6 +25,10 @@
                 </div>
             @endif
         @endforeach
-            <button type="reset" class="reset" id="reset" data-target="{{ $type->slug.'_div_'.$i }}">Reset</button>
+       
+        <button type="button" class="btn btn-secondary reset" style="width: 30%;" id="reset" data-target="{{ $type->slug.'_div_'.$i }}">Reset</button>
     </div>
+ 
+           
+ 
 @endif

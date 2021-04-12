@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Currency;
 use Illuminate\Http\Request;
 use App\Models\Language;
 use App\Models\Translation;
@@ -29,7 +30,8 @@ class LanguageController extends Controller
      */
     public function create()
     {
-        return view('language.create');
+        $currencies = Currency::all();
+        return view('language.create', compact('currencies'));
     }
 
     /**
@@ -42,6 +44,9 @@ class LanguageController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:50|' . Rule::unique('languages')->whereNull('deleted_at'),
+            'currency_id' => 'required'
+        ], [
+            'currency_id.required' => 'The default currency field is required.',
         ]);
 
         Language::create($request->all());
@@ -83,6 +88,9 @@ class LanguageController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:50|' . Rule::unique('languages')->ignore($id)->whereNull('deleted_at'),
+            'default_currency_id' => 'required'
+        ], [
+            'default_currency_id.required' => 'The default currency field is required.',
         ]);
 
         $languages = Language::find($id);

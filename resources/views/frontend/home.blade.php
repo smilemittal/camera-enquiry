@@ -223,8 +223,8 @@
         });
 
         $(document).on('change', '.attribute', function() {
-            console.log('helo2');
-            console.log($(this));
+            // console.log('helo2');
+            // console.log($(this));
            // $('.camera_cal_col').val(series_type);
            setSeries();
            //$('.series_val').val(series_type);
@@ -288,27 +288,38 @@
             var target = $(btn).data('target');
             var type = $('.'+ target).data('type');
             var count = $('.'+ target).data('count');
-            console.log($('.'+ target).data('type'));
+            // console.log($('.'+ target).data('type'));
+          
+            var current_qty = $('.'+ type+'_'+count).find('.qty').val();
+            $('.'+ type+'_'+count).find('.qty').val('');
+           
             // console.log($('.'+ target).find('.reset_all_values').prop("selectedIndex",0));
             // $('.'+ target).find('.reset_all_values').prop("selectedIndex",0);
             $('.'+ target).find('.reset_all_values').each(function(){
-                console.log($(this).children('option:selected').val());
+                // console.log($(this).children('option:selected').val());
                 $(this).children('option:selected').removeAttr('selected');
                 $(this).prop("selectedIndex",0);
-                console.log($(this).children('option:selected').val());
+                // console.log($(this).children('option:selected').val());
                 $(this).children('option:first-child').attr('selected', 'selected');
-
              
             });
-            $('.'+ target).find('.total_qty').val(0)
-            console.log($('.'+ target).find('.total_qty'));
-            $('.' + type + '_' + count + ' .totalQty span').text(0);
-            if(calcQty(type) == 0){
-                $('.' + type + '_' + count + ' .totalQty').hide();
-            }
-           
+            
+            $('.'+ target).find('.attribute').trigger('change');
+                // if(current_qty == '' || current_qty == undefined){
+                //     current_qty = 0;
+                // }
+              
+                var total_qty = calcQty(type);
+            
+                var final_qty = total_qty;
 
-            console.log(calcQty(type));
+               // console.log($('.'+ target).find('.total_qty'));
+                $('.' + type + '_' + count).find('.total_qty').val(final_qty);
+                
+                $('.' + type + '_' + count + ' .totalQty span').text(final_qty);
+                // if(final_qty <= 0){
+                //     $('.' + type + '_' + count + ' .totalQty').hide();
+                // }
 
         });    
 

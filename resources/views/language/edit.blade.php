@@ -73,6 +73,14 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div class="form-group {{ $errors->get('name') ? 'has-error' : '' }}">
+                                            <label for="name">{{ translate('Default Currency') }}</label>
+                                            <select class="country-flag-select form-control" id="default_currency_id" name="default_currency_id">
+                                                @foreach ($currencies as $currency)
+                                                    <option value="{{ $currency->id }}">{{ $currency->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="form-actions" style="text-align: center;">
                                         <button type="reset" class="btn btn-danger">{{ translate('Reset') }}</button>
