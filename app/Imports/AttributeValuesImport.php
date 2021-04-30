@@ -74,6 +74,7 @@ class AttributeValuesImport implements ToCollection, WithHeadingRow
                 }else{
                     $types = Type::create([
                         'name' => $row['type'],
+                         'slug'=>  strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $row['type']))),
                     ]);
                     $type_id = $types->id;
                 }
