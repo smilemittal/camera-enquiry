@@ -137,7 +137,7 @@ class FrontController extends Controller
                             });
                         }
                     }
-                    $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->orderBy('priority')->first()->toArray();
+                    $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->orderBy('priority', 'DESC')->first()->toArray();
                     $product_arr[$product_type][$no]['model'] = $model;
 
                     if(!empty($quantities[$product_type][$no])){
@@ -213,7 +213,7 @@ class FrontController extends Controller
                         });
                     }
                 }
-                $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->orderBy('priority')->first()->toArray();
+                $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->orderBy('priority', 'DESC')->first()->toArray();
                 $product_arr[$product_type][$no]['model'] = $model;
                 if(!empty($quantities[$product_type][$no])){
                         $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
