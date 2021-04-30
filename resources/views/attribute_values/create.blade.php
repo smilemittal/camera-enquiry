@@ -75,6 +75,15 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <label for="attribute_id">{{ translate('Standard') }} </label>
+                                            <select name="standard_id" id="standard_id" class="form-control">
+                                                @foreach ($standards as $standard)
+                                                    <option value="{{ $standard->id }}">{{ $standard->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="attribute_id">{{ translate('Attribute') }} </label>
                                             <select name="attribute_id" id="attribute_id" class="form-control">
                                                 @foreach ($attributes as $attribute)

@@ -84,6 +84,7 @@
                                                     <th>{{ translate('Value') }}</th>
                                                     <th>{{ translate('Display Order') }}</th>
                                                     <th>{{ translate('System Type') }}</th>
+                                                    <th>{{ translate('Standard') }}</th>
                                                     <th>{{ translate('Action') }}</th>
                                                 </tr>
                                             </thead>
@@ -96,6 +97,7 @@
                                                     <th>{{ translate('Value') }}</th>
                                                     <th>{{ translate('Display Order') }}</th>
                                                     <th>{{ translate('System Type') }}</th>
+                                                    <th>{{ translate('Standard') }}</th>
                                                     <th>{{ translate('Action') }}</th>
                                                 </tr>
 
@@ -154,6 +156,9 @@
                     },
                     {
                         "data": "system_type_id"
+                    },
+                    {
+                        "data": "standard_id"
                     },
                     {
                         "data": "action"

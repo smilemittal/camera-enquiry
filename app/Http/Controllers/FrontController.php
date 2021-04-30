@@ -47,6 +47,7 @@ class FrontController extends Controller
             $attribute_value_id = $request->input('attribute_value');
             $attribute_value_id = explode(',', $attribute_value_id);
             $selected_attributes = $request->input('selected_attributes');
+            $standard = $request->input('standard');
     //dd($attribute_value_id);
             $products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
                         ->whereHas('product_attributes.attribute', function($q)use($type){
@@ -80,7 +81,7 @@ class FrontController extends Controller
             $html='';
 
             $i = $count;
-            $html .= view('frontend.extras.filter', compact('filtered_attributes', 'system_type', 'type', 'selected_attributes','attributes', 'i'))->render();
+            $html .= view('frontend.extras.filter', compact('filtered_attributes', 'system_type', 'type', 'selected_attributes','attributes', 'i', 'standard'))->render();
             return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type]);
         }
     }
@@ -98,7 +99,7 @@ class FrontController extends Controller
 
             $html = $attribute_html = '';
 
-            $attribute_html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type'))->render();
+            $attribute_html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type', 'standard'))->render();
 
             $html .= view('frontend.extras.new-type', compact('attribute_html', 'system_type', 'i', 'type'))->render();
 
@@ -137,7 +138,7 @@ class FrontController extends Controller
                             });
                         }
                     }
-                    $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->orderBy('priority', 'DESC')->first()->toArray();
+                    $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->where('standard_id', $standard_id)->orderBy('priority', 'DESC')->first()->toArray();
                     $product_arr[$product_type][$no]['model'] = $model;
 
                     if(!empty($quantities[$product_type][$no])){
@@ -213,7 +214,7 @@ class FrontController extends Controller
                         });
                     }
                 }
-                $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->orderBy('priority', 'DESC')->first()->toArray();
+                $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->where('standard_id', $standard_id)->orderBy('priority', 'DESC')->first()->toArray();
                 $product_arr[$product_type][$no]['model'] = $model;
                 if(!empty($quantities[$product_type][$no])){
                         $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
@@ -245,24 +246,66 @@ class FrontController extends Controller
 
 
     }
+    // public function getStandard(Request $request){
+    //     if($request->ajax() && $request->isMethod('post')){
+    //         $system_type = $request->input('system_type_id');
+    //         $standard_attribute='';
+    //         $standards = Standard::where('system_type_id', $system_type)->get();
+    //         $standard_attribute .= view('frontend.extras.standard', compact('standards'))->render();
+    //         $html = [];
+    //         $i = 1;
+    //         $types = Type::get();
+    //         foreach($types as $type) {
+    //             $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
+    //             $attribute_html = view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type'))->render();
+    //             $html[$type->slug] = view('frontend.extras.new-type', compact('attributes', 'system_type', 'i', 'type', 'attribute_html'))->render();
+    //         }
+    //         return response()->json(['success'=> true, 'standard_attribute' => $standard_attribute, 'html' => $html, 'count'=> $i]);
+
+    //     }
+    // }
+
     public function getStandard(Request $request){
         if($request->ajax() && $request->isMethod('post')){
             $system_type = $request->input('system_type_id');
             $standard_attribute='';
             $standards = Standard::where('system_type_id', $system_type)->get();
             $standard_attribute .= view('frontend.extras.standard', compact('standards'))->render();
+           // $html = [];
+            $i = 1;
+            $types = Type::get();
+            // foreach($types as $type) {
+            //     $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
+            //     $attribute_html = view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type'))->render();
+            //     $html[$type->slug] = view('frontend.extras.new-type', compact('attributes', 'system_type', 'i', 'type', 'attribute_html'))->render();
+            // }
+            return response()->json(['success'=> true, 'standard_attribute' => $standard_attribute,  'count'=> $i]);
+
+        }
+    }
+
+    public function getAttributes(Request $request){
+
+        if($request->ajax() && $request->isMethod('post')){
+            $system_type = $request->input('system_type_id');
+            $standard = $request->input('standard_id');
+            // dd($standard);
             $html = [];
             $i = 1;
             $types = Type::get();
             foreach($types as $type) {
                 $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
-                $attribute_html = view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type'))->render();
+                $attribute_html = view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type', 'standard'))->render();
                 $html[$type->slug] = view('frontend.extras.new-type', compact('attributes', 'system_type', 'i', 'type', 'attribute_html'))->render();
             }
-            return response()->json(['success'=> true, 'standard_attribute' => $standard_attribute, 'html' => $html, 'count'=> $i]);
+
+            return response()->json(['success'=> true, 'html' => $html,  'count'=> $i]);
 
         }
+
     }
+
+    
 
 
 

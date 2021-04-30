@@ -140,9 +140,13 @@
         $(document).ready(function() {
             $('.system_type:first-child').click();
         });
+        
+
         $('.system_type').on('click', function() {
+           
             var system_type_id = $(this).data('id');
-            $('.system_type').removeClass('active');
+             $('.system_type').removeClass('active');
+        
             $(this).addClass('active');
             $('#selected_system_type').val(system_type_id);
             $.ajax({
@@ -158,18 +162,21 @@
                         $('.selected_standard').append(data.standard_attribute);
                         $('.selected_standard').show();
                     }
-                    $('.kemey-cameras-sec .container').empty();
-                    $('.hidden').empty();
-                    $.each(data.html, function(index, value) {
-                        $('.kemey-cameras-sec .container').append(value);
-                        $('.hidden').append('<input type="hidden" name="' + index +
-                            '_count" value="' + data.count +
-                            '"><input type="hidden" name="total_qty[' + index +
-                            ']" value="0">');
-                    });
+                    // $('.kemey-cameras-sec .container').empty();
+                    // $('.hidden').empty();
+                    // $.each(data.html, function(index, value) {
+                    //     $('.kemey-cameras-sec .container').append(value);
+                    //     $('.hidden').append('<input type="hidden" name="' + index +
+                    //         '_count" value="' + data.count +
+                    //         '"><input type="hidden" name="total_qty[' + index +
+                    //         ']" value="0">');
+                    // });
                 }
             });
         });
+
+    
+
 
         $(document).on('change', '.qty, .recorder_cal_col', function() {
             console.log('helo');
@@ -218,8 +225,34 @@
 
         $(document).on('click', '.standard', function() {
             $('.standard').removeClass('active');
-            $(this).addClass('active');
+            $(this).addClass('active');   
             $('#selected_standard').val($(this).data('id'));
+
+            var standard_id = $(this).data('id');
+            var system_type_id = $('#selected_system_type').val();
+          
+           $.ajax({
+               method: 'post',
+               url: '{{ route('front-get-attributes') }}',
+               data: {
+                   'system_type_id': system_type_id,
+                   'standard_id':standard_id,
+                   '_token': $('meta[name="csrf-token"]').attr("content"),
+               },
+               success: function(data) {
+                   
+                   $('.kemey-cameras-sec .container').empty();
+                   $('.hidden').empty();
+                   $.each(data.html, function(index, value) {
+                       $('.kemey-cameras-sec .container').append(value);
+                       $('.hidden').append('<input type="hidden" name="' + index +
+                           '_count" value="' + data.count +
+                           '"><input type="hidden" name="total_qty[' + index +
+                           ']" value="0">');
+                   });
+               }
+           });
+           
         });
 
         $(document).on('change', '.attribute', function() {
@@ -230,7 +263,7 @@
            //$('.series_val').val(series_type);
             var attribute_value_arr = [];
             var ele = $(this);
-
+            var standard = $('#selected_standard').val();
             var system_type = $(this).data('system_type');
             var product_type = $(this).data('product_type');
             var count = $('input[name="' + product_type + '_count"]').val();
@@ -253,6 +286,7 @@
                     '_token': $('meta[name="csrf-token"]').attr("content"),
                     'attribute_value': attribute_val,
                     'system_type': system_type,
+                    'standard': standard,
                     'product_type': product_type,
                     'count': count,
                     'selected_attributes': selected_attributes

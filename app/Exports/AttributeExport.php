@@ -20,9 +20,10 @@ class AttributeExport implements FromArray ,WithTitle
             'attribute' =>'Attribute',
             'attribute_value' => 'Attribute_value',
             'display_order'=> 'Display_order',
+            'description'=>'Description',
             'system_type'=>'System_type',
             'type'=>'Type',
-            'description'=>'Description',
+            'standard' => 'Standard'
 
          ];
         $attributes= Attribute::with('attribute_values','system_type','type')->get();
@@ -35,9 +36,12 @@ class AttributeExport implements FromArray ,WithTitle
                     'attribute' => $attribute->name,
                     'attribute_value' => $attribute_value->value,
                     'display_order'=> $attribute->display_order,
+                    'description'=>$attribute->description,
                     'system_type'=>!empty($attribute->system_type)?$attribute->system_type->name: '',
                     'type'=>!empty($attribute->type) ?$attribute->type->name: '',
-                    'description'=>$attribute->description,
+                    'standard'=>!empty($attribute_value->standard) ?$attribute->standard->name: '',
+
+                   
                  ];
              }
             }else {
@@ -48,6 +52,7 @@ class AttributeExport implements FromArray ,WithTitle
                     'system_type'=>!empty($attribute->system_type)?$attribute->system_type->name: '',
                     'type'=>!empty($attribute->type) ?$attribute->type->name: '',
                     'description'=>$attribute->description,
+                    'standard' => '',
                  ];
 
             }
