@@ -473,48 +473,48 @@
             });
         });
 
-        $('.summary').on('click', function() {
-            var url = $(this).data('url');
-            var formData = new FormData($('#product-enquiry')[0]);
-            console.log(formData);
+        // $('.summary').on('click', function() {
+        //     var url = $(this).data('url');
+        //     var formData = new FormData($('#product-enquiry')[0]);
+        //     console.log(formData);
 
-            jQuery.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
-                }
-            });
-            $.ajax({
-                method: 'post',
-                url: url,
-                data: formData,
-                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-                processData: false,
-                success: function(data) {
-                    if (data.success) {
-                        if (data.html != '') {
-                            var mywindow = window.open('', 'my div', 'height=400,width=600');
-                            mywindow.document.write('<html><head><title>my div</title>');
-                            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-                            mywindow.document.write('</head><body >');
-                            mywindow.document.write(data.html);
-                            mywindow.document.write('</body></html>');
+        //     jQuery.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+        //         }
+        //     });
+        //     $.ajax({
+        //         method: 'post',
+        //         url: url,
+        //         data: formData,
+        //         contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+        //         processData: false,
+        //         success: function(data) {
+        //             if (data.success) {
+        //                 if (data.html != '') {
+        //                     var mywindow = window.open('', 'my div', 'height=400,width=600');
+        //                     mywindow.document.write('<html><head><title>my div</title>');
+        //                     /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+        //                     mywindow.document.write('</head><body >');
+        //                     mywindow.document.write(data.html);
+        //                     mywindow.document.write('</body></html>');
 
-                            mywindow.print();
-                            // mywindow.close();
+        //                     mywindow.print();
+        //                     // mywindow.close();
 
-                            return true;
-                        }
+        //                     return true;
+        //                 }
 
-                    } else {
-                        swal({
-                            title: "Error",
-                            text: data.message,
-                            icon: "error",
-                            button: "OK",
-                        });
-                    }
-                }
-            });
-        });
+        //             } else {
+        //                 swal({
+        //                     title: "Error",
+        //                     text: data.message,
+        //                     icon: "error",
+        //                     button: "OK",
+        //                 });
+        //             }
+        //         }
+        //     });
+        // });
     </script>
 @endsection

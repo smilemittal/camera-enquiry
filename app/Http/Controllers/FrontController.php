@@ -170,8 +170,8 @@ class FrontController extends Controller
             if($enquiry){
                 $products = json_decode($product_arr, true);
                 $quantities = json_decode($quantity_arr, true);
+                //Mail::to(config('app.admin_email'))->send(new EnquiryMail($products, $quantities, $enquiry)); 
                 Mail::to(config('app.admin_email'))->send(new EnquiryMail($products, $quantities, $enquiry));
-
                 return response()->json(['success'=> true, 'message'  => translate('Enquiry Sent Successfully')]);
             }else{
                 return response()->json(['success'=> false, 'message'  => translate('Failed Sending enquiry! Try again')]);
@@ -185,6 +185,7 @@ class FrontController extends Controller
     public function printEnquiry(Request $request){
         $quantities = $request->input('quantity');
         $total_qtys = $request->input('total_qty');
+       // dd($total_qtys['recorder'],$quantities['recorder'] );
         $products = $request->input('products');
         $standard_id = $request->input('selected_standard');
         $system_type_id = $request->input('selected_system_type');
@@ -229,7 +230,8 @@ class FrontController extends Controller
         if(!$quantity_filled){
             return response()->json(['success' => false, 'message' => translate('Please Enter Quantity for the products.')]); 
         }
-
+        //dd($quantity_arr['recorder'][1]);
+       
 
         if($total_products > 0){
             $products = $product_arr;
