@@ -448,8 +448,8 @@
                 success: function(data) {
                     if (data.success) {
                         if (data.html != '') {
-                            var mywindow = window.open('', 'my div', 'height=400,width=600');
-                            mywindow.document.write('<html><head><title>my div</title>');
+                            var mywindow = window.open('', 'Summary', 'height=400,width=600');
+                            mywindow.document.write('<html><head><title>Summary</title>');
                             /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
                             mywindow.document.write('</head><body >');
                             mywindow.document.write(data.html);
@@ -492,8 +492,8 @@
                 success: function(data) {
                     if (data.success) {
                         if (data.html != '') {
-                            var mywindow = window.open('', 'my div', 'height=400,width=600');
-                            mywindow.document.write('<html><head><title>my div</title>');
+                            var mywindow = window.open('', 'Summary', 'height=400,width=600');
+                            mywindow.document.write('<html><head><title>Summary</title>');
                             /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
                             mywindow.document.write('</head><body >');
                             mywindow.document.write(data.html);
