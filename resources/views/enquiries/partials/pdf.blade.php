@@ -31,8 +31,9 @@
                 $price_total = 0;
                 @endphp
                 @foreach($product as $no => $attribute_values)
+                @if(!empty($attribute_values['model']))
                 <tr>
-                    <td style="border: 1px solid #000;text-align: center;">{{ $attribute_values['model']['name'] }}</td>
+                    <td style="border: 1px solid #000;text-align: center;">{{ !empty($attribute_values['model']['name']) ? $attribute_values['model']['name']: '' }}</td>
                     <td style="border: 1px solid #000;text-align: center;">
                         @php
                         if(!empty($quantities[$product_type][$no])){
@@ -92,6 +93,7 @@
                         
                     </td>
                 </tr>
+                @endif
                 @endforeach
                 <tr><th style="border: 1px solid #000;text-align: center;">{{translate('Total')}} {{ ucfirst($product_type).'s'}}</th>
                     <td  style="border: 1px solid #000;text-align: center;">{{ $quantity_total }}</td>

@@ -214,8 +214,13 @@ class FrontController extends Controller
                         });
                     }
                 }
-                $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->where('standard_id', $standard_id)->orderBy('priority', 'DESC')->first()->toArray();
-                $product_arr[$product_type][$no]['model'] = $model;
+                $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->where('standard_id', $standard_id)->orderBy('priority', 'DESC')->first();
+                if($model){
+                  
+                    $model = $model->toArray();
+                    $product_arr[$product_type][$no]['model'] = $model;
+                }
+              
                 if(!empty($quantities[$product_type][$no])){
                         $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
                         $quantity_arr[$product_type][$no]['total_qty'] = $total_qtys[$product_type][$no];
