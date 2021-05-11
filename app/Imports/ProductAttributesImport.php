@@ -96,7 +96,7 @@ class ProductAttributesImport implements ToCollection, WithHeadingRow
                 if( !empty($standard_name) && $standard_name != null && !empty($system_type_id)){
                    
                     //get standard, if exists, get id, otherwise create new standard and get its id 
-                    $standard = Standard::where('name', 'LIKE', $standard_name)->first();
+                    $standard = Standard::where('name', 'LIKE', $standard_name)->where('system_type_id', $system_type_id)->first();
                   
                     if($standard){
                         $standard_id = $standard->id;

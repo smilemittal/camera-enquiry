@@ -39,7 +39,7 @@ class AttributeExport implements FromArray ,WithTitle
                     'description'=>$attribute->description,
                     'system_type'=>!empty($attribute->system_type)?$attribute->system_type->name: '',
                     'type'=>!empty($attribute->type) ?$attribute->type->name: '',
-                    'standard'=>!empty($attribute_value->standard) ?$attribute->standard->name: '',
+                    'standard'=>!empty($attribute_value->standard->name) ?$attribute_value->standard->name: '',
 
                    
                  ];
