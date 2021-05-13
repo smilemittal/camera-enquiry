@@ -13,7 +13,9 @@
                     <option value="">{{ translate('Select') }}</option>
                     @if (!empty($attribute->attribute_values))
                         @foreach ($attribute->attribute_values as $value)
-                            <option value="{{ $value->id }}">{{ $value->value }}</option>
+                            @if($value->standard_id == $standard && $value->system_type_id == $system_type && $value->type_id == $type)
+                                <option value="{{ $value->id }}">{{ $value->value }}</option>
+                            @endif
                         @endforeach
                     @endif
                 </select>

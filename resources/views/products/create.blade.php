@@ -179,7 +179,7 @@
         // });
         $('#system_type_id').on('change', function() {
 
-            var system_type_id = $(this).val();;
+            var system_type_id = $(this).val();
 
             $.ajax({
                 method: 'post',
@@ -225,8 +225,10 @@
         //     });
         // });
         $('#type_id').on('change', function() {
-            var type = $("#type_id option:selected").val()
-            var type_id = $(this).val();;
+            var type = $("#type_id option:selected").val();
+            var type_id = $(this).val();
+            var system_type_id = $("#system_type_id option:selected").val();
+            var standard_id = $("#standard_id option:selected").val();
 
             $.ajax({
                 method: 'post',
@@ -234,6 +236,8 @@
                 data: {
                     'type': type,
                     'type_id': type_id,
+                    'system_type_id': system_type_id,
+                    'standard_id': standard_id,
                     '_token': '{{ csrf_token() }}',
                 },
                 success: function(data) {
