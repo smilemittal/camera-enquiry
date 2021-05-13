@@ -389,6 +389,7 @@
                                                         if ($(this).text() == series_type) return this;
                                                     }).attr('selected', 'selected');
                         //}
+                        $('.' + product_type + '_' + old_count).find('.series_val.attribute').trigger('change');
                     }
                 },
             });
