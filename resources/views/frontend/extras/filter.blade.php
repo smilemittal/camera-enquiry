@@ -32,8 +32,10 @@
                 </div>
             @endif
         @endforeach
-       
+       <div class="col-lg-12">
         <button type="button" class="btn btn-secondary reset" style="width: 30%;" id="reset" data-target="{{ $type->slug.'_div_'.$i }}">Reset</button>
+       </div>
+    
     </div>
  
            
