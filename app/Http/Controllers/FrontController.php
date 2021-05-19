@@ -195,6 +195,7 @@ class FrontController extends Controller
         $product_arr = [];
         $total_products = 0;
         $quantity_filled = true;
+        $attribute_selected = true;
         foreach($products as $product_type => $product){
             $quantity_total = 0;
 
@@ -222,9 +223,12 @@ class FrontController extends Controller
                 }
                // dd($unselected_attr_count, $attribute_count);
                 if($unselected_attr_count == $attribute_count){
-                    return response()->json(['success' => false, 'message' => translate('Please select at least one attribute for all product types.')]); 
+                    $attribute_selected = false;
+                    //return response()->json(['success' => false, 'message' => translate('Please select at least one attribute for all product types.')]); 
                     //$errors[$product_type] =  translate('Please select at least one attribute for all product types.');
-                }else{
+                }
+                // else{
+                 
                     $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->where('standard_id', $standard_id)->orderBy('priority', 'DESC')->first();
                     if($model){
                       
@@ -240,14 +244,18 @@ class FrontController extends Controller
                         $quantity_filled = false;
                         break 2;
                     }
-                }
+                //}
                 
             }
             $quantity_arr[$product_type]['total'] = $quantity_total;
             $total_products += $quantity_total;
         }
+      
         if(!$quantity_filled){
             return response()->json(['success' => false, 'message' => translate('Please Enter Quantity for the products.')]); 
+        }
+        if(!$attribute_selected){
+            return response()->json(['success' => false, 'message' => translate('Please select at least one attribute for all product types.')]); 
         }
         //dd($quantity_arr['recorder'][1]);
        //dd($errors);
