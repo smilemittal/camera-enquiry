@@ -188,9 +188,10 @@ class FrontController extends Controller
         $total_qtys = $request->input('total_qty');
        // dd($total_qtys['recorder'],$quantities['recorder'] );
         $products = $request->input('products');
+        
         $standard_id = $request->input('selected_standard');
         $system_type_id = $request->input('selected_system_type');
-        $quantity_arr = [];
+        $quantity_arr = $errors = [];
         $product_arr = [];
         $total_products = 0;
         $quantity_filled = true;
@@ -198,6 +199,8 @@ class FrontController extends Controller
             $quantity_total = 0;
 
             foreach($product as $no => $attributes){
+                $unselected_attr_count = 0;
+                $attribute_count = count($attributes);
                 $type = Type::where('slug','LIKE',$product_type)->first();
                 
                 $model = Product::whereHas('product_attributes.attribute', function($q)use($type){
@@ -213,22 +216,32 @@ class FrontController extends Controller
                             $q->where('attribute_value_id', $attribute);
                         });
                     }
+                    else if($attribute == 'unimportant'){
+                        $unselected_attr_count++;
+                    }
                 }
-                $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->where('standard_id', $standard_id)->orderBy('priority', 'DESC')->first();
-                if($model){
-                  
-                    $model = $model->toArray();
-                    $product_arr[$product_type][$no]['model'] = $model;
-                }
-              
-                if(!empty($quantities[$product_type][$no])){
-                        $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
-                        $quantity_arr[$product_type][$no]['total_qty'] = $total_qtys[$product_type][$no];
-                        $quantity_total += (int)$total_qtys[$product_type][$no];                   
+               // dd($unselected_attr_count, $attribute_count);
+                if($unselected_attr_count == $attribute_count){
+                    return response()->json(['success' => false, 'message' => translate('Please select at least one attribute for all product types.')]); 
+                    //$errors[$product_type] =  translate('Please select at least one attribute for all product types.');
                 }else{
-                    $quantity_filled = false;
-                    break 2;
+                    $model = $model->select('name', 'price')->where('system_type_id', $system_type_id)->where('type_id', $type->id)->where('standard_id', $standard_id)->orderBy('priority', 'DESC')->first();
+                    if($model){
+                      
+                        $model = $model->toArray();
+                        $product_arr[$product_type][$no]['model'] = $model;
+                    }
+                  
+                    if(!empty($quantities[$product_type][$no])){
+                            $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
+                            $quantity_arr[$product_type][$no]['total_qty'] = $total_qtys[$product_type][$no];
+                            $quantity_total += (int)$total_qtys[$product_type][$no];                   
+                    }else{
+                        $quantity_filled = false;
+                        break 2;
+                    }
                 }
+                
             }
             $quantity_arr[$product_type]['total'] = $quantity_total;
             $total_products += $quantity_total;
@@ -237,7 +250,7 @@ class FrontController extends Controller
             return response()->json(['success' => false, 'message' => translate('Please Enter Quantity for the products.')]); 
         }
         //dd($quantity_arr['recorder'][1]);
-       
+       //dd($errors);
 
         if($total_products > 0){
             $products = $product_arr;

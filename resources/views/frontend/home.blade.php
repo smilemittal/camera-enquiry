@@ -312,6 +312,25 @@
                         });
                         return;
             }
+            let attr_count =0;
+            let unselected_attr_count = 0;
+            $(this).parentsUntil('.section_'+product_type).find('.attribute').each(function(){
+                attr_count++;
+                if($(this).find('option:selected').val() == 'unimportant'){
+                    unselected_attr_count++;
+                }
+            });
+           if(attr_count == unselected_attr_count){
+            swal({
+                            title: "Error",
+                            text: 'Please select at-least one attribute.',
+                            icon: "error",
+                            button: "OK",
+                        });
+               return;
+           }
+
+           
 
             nextProduct(product_type);
         });
@@ -361,6 +380,10 @@
             var old_count = $('input[name="' + product_type + '_count"]').val();
             var system_type = $('#selected_system_type').val();
             var standard = $('#selected_standard').val();
+
+         
+
+
             $.ajax({
                 method: 'post',
                 url: '{{ route('get-next-product') }}',
@@ -466,8 +489,32 @@
 
         $('.summary').on('click', function() {
             var url = $(this).data('url');
+            
             var formData = new FormData($('#product-enquiry')[0]);
-            console.log(formData);
+            // let attr_count =0;
+            // let unselected_attr_count = 0;
+        //     $('.attribute').each(function(){
+        //         let attr_count =0;
+        //     let unselected_attr_count = 0;
+        //         if($(this).data('product_type') == 'recorder'){
+
+        //         }
+
+        //         attr_count++;
+               
+        //         if($(this).find('option:selected').val() == 'unimportant'){
+        //             unselected_attr_count++;
+        //         }
+        //     });
+        //    if(attr_count == unselected_attr_count){
+        //     swal({
+        //                     title: "Error",
+        //                     text: 'Please select atleast one attribute from dropdowns.',
+        //                     icon: "error",
+        //                     button: "OK",
+        //                 });
+        //        return;
+        //    }
 
             jQuery.ajaxSetup({
                 headers: {
