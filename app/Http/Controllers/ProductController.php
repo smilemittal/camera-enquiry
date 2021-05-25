@@ -258,22 +258,27 @@ class ProductController extends Controller
         if($request->ajax()){
             $type = $request->type_id;
             $system_type = $request->system_type_id;
+            $standard = $request->standard_id;
+
 
             $attribute= Attribute::with('attribute_values')->where('created_at', '!=', Null);
 
             if(!empty($type)){
 
                 $attribute->where('type_id','=' ,$type);
+               
             }
-
             if(!empty($system_type)){
                 $attribute->where('system_type_id','=', $system_type);
+               
             }
 
-            $attributes = $attribute->get();
+        
+           
 
+            $attributes = $attribute->get();
             $html = '';
-            $html .= view('products.partials.select-attributes', compact('attributes'))->render();
+            $html .= view('products.partials.select-attributes', compact('attributes', 'type', 'system_type', 'standard'))->render();
 
             return response()->json(['html' => $html, 'success' => true]);
         }

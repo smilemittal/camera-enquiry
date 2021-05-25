@@ -95,7 +95,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('enquiries/multiple-delete','EnquiryController@multipleDelete')->name('enquiries.multipledelete');
     Route::delete('enquiries/{id}/destroy', 'EnquiryController@destroy')->name('enquiries.destroy');
 
-
+    Route::post('get-product-attributes', 'ProductController@getProductAttributes')->name('get-product-attributes');
+    Route::post('get-standard-attributes', 'ProductController@getStandard')->name('get-standard-attributes');
 
     // Route::get('/logout' , function (){
     //     \Illuminate\Support\Facades\Auth::logout();
@@ -104,13 +105,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 //Front routes
-Route::post('get-product-attributes', 'ProductController@getProductAttributes')->name('get-product-attributes');
-Route::post('get-standard-attributes', 'ProductController@getStandard')->name('get-standard-attributes');
+
 
 Route::post('update-attributes', 'FrontController@updateAttributes')->name('update-attributes');
 Route::get('/', 'FrontController@home')->name('home');
 Route::post('get-next-product', 'FrontController@getNextProduct')->name('get-next-product');
 Route::post('get-standard', 'FrontController@getStandard')->name('get-standard');
+
+
+
 
 Route::post('save-enquiry', 'FrontController@saveEnquiry')->name('save-enquiry');
 //Route::post('get-summary', 'FrontController@getSummary')->name('get-summary');
@@ -118,7 +121,7 @@ Route::post('save-enquiry', 'FrontController@saveEnquiry')->name('save-enquiry')
 Route::post('/language', 'FrontController@changeLanguage')->name('language.change');
 Route::post('/currency-change', 'FrontController@changeCurrency')->name('currency.change');
 
-
+ Route::post('front-get-attributes', 'FrontController@getAttributes')->name('front-get-attributes');
 
 
 

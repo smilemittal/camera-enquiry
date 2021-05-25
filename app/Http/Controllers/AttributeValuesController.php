@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Validation\Rule;
+use App\Models\Type;
+use App\Models\Standard;
 use App\Models\Attribute;
 use App\Models\SystemType;
-use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
+use Illuminate\Validation\Rule;
 
 
 class AttributeValuesController extends Controller
@@ -34,8 +35,9 @@ class AttributeValuesController extends Controller
         $attributes=Attribute::all();
         $system_types=SystemType::all();
         $types=Type::all();
+        $standards = Standard::all();
 
-        return view('attribute_values.create',compact('attributes','system_types','types'));
+        return view('attribute_values.create',compact('attributes','system_types','types', 'standards'));
     }
 
     /**
@@ -52,6 +54,7 @@ class AttributeValuesController extends Controller
             'value'=>'required|max:50|'.Rule::unique('attribute_values')->whereNull('deleted_at'),
             'display_order'=>'required',
             'system_type_id'=>'required',
+            'standard_id' => 'required',
         ]);
 
         AttributeValue::create($request->all());
@@ -82,8 +85,9 @@ class AttributeValuesController extends Controller
         $attributes=Attribute::all();
         $system_types=SystemType::all();
         $types=Type::all();
+        $standards = Standard::all();
 
-        return view('attribute_values.edit',compact('attributes','attribute_value','system_types','types'));
+        return view('attribute_values.edit',compact('attributes','attribute_value','system_types','types', 'standards'));
     }
 
     /**
@@ -100,6 +104,7 @@ class AttributeValuesController extends Controller
             'value'=>'required|max:50|',
             'display_order'=>'required',
             'system_type_id'=>'required',
+            'standard_id' => 'required',
         ]);
 
         $attribute_values=AttributeValue::find($id);
@@ -141,12 +146,13 @@ class AttributeValuesController extends Controller
         $totalData = AttributeValue::count();
         $totalFiltered = $totalData;
         $columns = array(
-            1=>'id',
+            1 =>'id',
             2 =>'attribute_id',
             3 =>'value',
             4 =>'display_order',
             5 =>'system_type_id',
-            6 =>'action'
+            6 => 'standard_id',
+            7 =>'action'
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -160,17 +166,22 @@ class AttributeValuesController extends Controller
             $totalFiltered = $totalData;
         }else {
             $search = $request->input('search.value');
-            $attribute_values =  AttributeValue::with('system_type', 'attribute')->whereHas('system_type', function($q)use($search)
-                {
-                    $q->where('name','LIKE',"%{$search}%");
-                })->orWhereHas('attribute', function($q)use($search)
-                {
+            $attribute_values =  AttributeValue::with('system_type', 'attribute')
+                ->whereHas('system_type', function($q)use($search){
                     $q->where('name','LIKE',"%{$search}%");
                 })
-                ->orWhere('attribute_id', 'LIKE',"%{$search}%")
+                ->orWhereHas('attribute', function($q)use($search){
+                    $q->where('name','LIKE',"%{$search}%");
+                })
+                ->orWhereHas('system_type', function($q)use($search){
+                    $q->where('name','LIKE',"%{$search}%");
+                })
+                ->orWhereHas('standard', function($q)use($search){
+                    $q->where('name','LIKE',"%{$search}%");
+                }) 
                 ->orWhere('value', 'LIKE',"%{$search}%")
                 ->orWhere('display_order', 'LIKE',"%{$search}%")
-                ->orWhere('system_type_id', 'LIKE',"%{$search}%")
+            
                 ->orderBy($order, $dir)
                 ->paginate($limit, ['*'], 'page', $start + 1);
 
@@ -186,6 +197,7 @@ class AttributeValuesController extends Controller
                 $nestedData['value'] = translate($attribute_value->value);
                 $nestedData['display_order'] = $attribute_value->display_order;
                 $nestedData['system_type_id'] = !empty($attribute_value->system_type) ? translate($attribute_value->system_type->name) : '';
+                $nestedData['standard_id'] = !empty($attribute_value->standard) ? translate($attribute_value->standard->name) : '';
                 $index = route('attribute-values.index' ,  encrypt($attribute_value->id));
                 $edit = route('attribute-values.update' ,  encrypt($attribute_value->id));
                 $delete = route('attribute-values.destroy' ,  encrypt($attribute_value->id));

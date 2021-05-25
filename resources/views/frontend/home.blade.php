@@ -140,9 +140,13 @@
         $(document).ready(function() {
             $('.system_type:first-child').click();
         });
+        
+
         $('.system_type').on('click', function() {
+           
             var system_type_id = $(this).data('id');
-            $('.system_type').removeClass('active');
+             $('.system_type').removeClass('active');
+        
             $(this).addClass('active');
             $('#selected_system_type').val(system_type_id);
             $.ajax({
@@ -158,18 +162,21 @@
                         $('.selected_standard').append(data.standard_attribute);
                         $('.selected_standard').show();
                     }
-                    $('.kemey-cameras-sec .container').empty();
-                    $('.hidden').empty();
-                    $.each(data.html, function(index, value) {
-                        $('.kemey-cameras-sec .container').append(value);
-                        $('.hidden').append('<input type="hidden" name="' + index +
-                            '_count" value="' + data.count +
-                            '"><input type="hidden" name="total_qty[' + index +
-                            ']" value="0">');
-                    });
+                    // $('.kemey-cameras-sec .container').empty();
+                    // $('.hidden').empty();
+                    // $.each(data.html, function(index, value) {
+                    //     $('.kemey-cameras-sec .container').append(value);
+                    //     $('.hidden').append('<input type="hidden" name="' + index +
+                    //         '_count" value="' + data.count +
+                    //         '"><input type="hidden" name="total_qty[' + index +
+                    //         ']" value="0">');
+                    // });
                 }
             });
         });
+
+    
+
 
         $(document).on('change', '.qty, .recorder_cal_col', function() {
             console.log('helo');
@@ -218,11 +225,46 @@
 
         $(document).on('click', '.standard', function() {
             $('.standard').removeClass('active');
-            $(this).addClass('active');
+            $(this).addClass('active');   
             $('#selected_standard').val($(this).data('id'));
-        });
 
+            var standard_id = $(this).data('id');
+            var system_type_id = $('#selected_system_type').val();
+          
+           $.ajax({
+               method: 'post',
+               url: '{{ route('front-get-attributes') }}',
+               data: {
+                   'system_type_id': system_type_id,
+                   'standard_id':standard_id,
+                   '_token': $('meta[name="csrf-token"]').attr("content"),
+               },
+               success: function(data) {
+                   
+                   $('.kemey-cameras-sec .container').empty();
+                   $('.hidden').empty();
+                   $.each(data.html, function(index, value) {
+                       $('.kemey-cameras-sec .container').append(value);
+                       $('.hidden').append('<input type="hidden" name="' + index +
+                           '_count" value="' + data.count +
+                           '"><input type="hidden" name="total_qty[' + index +
+                           ']" value="0">');
+                   });
+               }
+           });
+           
+        });
+        // var attribute_selected = true;
+        // $(document).on('click', function(){
+
+        // });
+        
         $(document).on('change', '.attribute', function() {
+            $('.attribute').each(function(){
+                if($(this).find('option:selected').val() != 'umimportant'){
+                    attribute_selected = false;
+                }
+            });
             // console.log('helo2');
             // console.log($(this));
            // $('.camera_cal_col').val(series_type);
@@ -230,7 +272,7 @@
            //$('.series_val').val(series_type);
             var attribute_value_arr = [];
             var ele = $(this);
-
+            var standard = $('#selected_standard').val();
             var system_type = $(this).data('system_type');
             var product_type = $(this).data('product_type');
             var count = $('input[name="' + product_type + '_count"]').val();
@@ -253,6 +295,7 @@
                     '_token': $('meta[name="csrf-token"]').attr("content"),
                     'attribute_value': attribute_val,
                     'system_type': system_type,
+                    'standard': standard,
                     'product_type': product_type,
                     'count': count,
                     'selected_attributes': selected_attributes
@@ -261,8 +304,16 @@
                     if (data.success == true && data.html != '') {
                         $('.' + product_type + '_div_' + count).empty();
                         $('.' + product_type + '_div_' + count).append(data.html);
+                        $('.series_val option').map(function() {
+
+                                console.log($(this).text());
+                                console.log( data.pro_series);
+                                                        if ($(this).text() == data.pro_series) return this;
+                                                    }).attr('selected', 'selected');
+                        //}
+                        //$('.' + product_type + '_' + count).find('.series_val').trigger('change');
                     }
-                }
+                },
             });
 
         });
@@ -278,6 +329,25 @@
                         });
                         return;
             }
+            let attr_count =0;
+            let unselected_attr_count = 0;
+            $(this).parentsUntil('.section_'+product_type).find('.attribute').each(function(){
+                attr_count++;
+                if($(this).find('option:selected').val() == 'unimportant'){
+                    unselected_attr_count++;
+                }
+            });
+           if(attr_count == unselected_attr_count){
+            swal({
+                            title: "Error",
+                            text: 'Please select at-least one attribute.',
+                            icon: "error",
+                            button: "OK",
+                        });
+               return;
+           }
+
+           
 
             nextProduct(product_type);
         });
@@ -327,6 +397,10 @@
             var old_count = $('input[name="' + product_type + '_count"]').val();
             var system_type = $('#selected_system_type').val();
             var standard = $('#selected_standard').val();
+
+         
+
+
             $.ajax({
                 method: 'post',
                 url: '{{ route('get-next-product') }}',
@@ -355,6 +429,7 @@
                                                         if ($(this).text() == series_type) return this;
                                                     }).attr('selected', 'selected');
                         //}
+                        $('.' + product_type + '_' + old_count).find('.series_val.attribute').trigger('change');
                     }
                 },
             });
@@ -431,8 +506,32 @@
 
         $('.summary').on('click', function() {
             var url = $(this).data('url');
+            
             var formData = new FormData($('#product-enquiry')[0]);
-            console.log(formData);
+            // let attr_count =0;
+            // let unselected_attr_count = 0;
+        //     $('.attribute').each(function(){
+        //         let attr_count =0;
+        //     let unselected_attr_count = 0;
+        //         if($(this).data('product_type') == 'recorder'){
+
+        //         }
+
+        //         attr_count++;
+               
+        //         if($(this).find('option:selected').val() == 'unimportant'){
+        //             unselected_attr_count++;
+        //         }
+        //     });
+        //    if(attr_count == unselected_attr_count){
+        //     swal({
+        //                     title: "Error",
+        //                     text: 'Please select atleast one attribute from dropdowns.',
+        //                     icon: "error",
+        //                     button: "OK",
+        //                 });
+        //        return;
+        //    }
 
             jQuery.ajaxSetup({
                 headers: {
@@ -473,48 +572,48 @@
             });
         });
 
-        $('.summary').on('click', function() {
-            var url = $(this).data('url');
-            var formData = new FormData($('#product-enquiry')[0]);
-            console.log(formData);
+        // $('.summary').on('click', function() {
+        //     var url = $(this).data('url');
+        //     var formData = new FormData($('#product-enquiry')[0]);
+        //     console.log(formData);
 
-            jQuery.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
-                }
-            });
-            $.ajax({
-                method: 'post',
-                url: url,
-                data: formData,
-                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-                processData: false,
-                success: function(data) {
-                    if (data.success) {
-                        if (data.html != '') {
-                            var mywindow = window.open('', 'Summary', 'height=400,width=600');
-                            mywindow.document.write('<html><head><title>Summary</title>');
-                            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-                            mywindow.document.write('</head><body >');
-                            mywindow.document.write(data.html);
-                            mywindow.document.write('</body></html>');
+        //     jQuery.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+        //         }
+        //     });
+        //     $.ajax({
+        //         method: 'post',
+        //         url: url,
+        //         data: formData,
+        //         contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+        //         processData: false,
+        //         success: function(data) {
+        //             if (data.success) {
+        //                 if (data.html != '') {
+        //                     var mywindow = window.open('', 'my div', 'height=400,width=600');
+        //                     mywindow.document.write('<html><head><title>my div</title>');
+        //                     /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+        //                     mywindow.document.write('</head><body >');
+        //                     mywindow.document.write(data.html);
+        //                     mywindow.document.write('</body></html>');
 
-                            mywindow.print();
-                            // mywindow.close();
+        //                     mywindow.print();
+        //                     // mywindow.close();
 
-                            return true;
-                        }
+        //                     return true;
+        //                 }
 
-                    } else {
-                        swal({
-                            title: "Error",
-                            text: data.message,
-                            icon: "error",
-                            button: "OK",
-                        });
-                    }
-                }
-            });
-        });
+        //             } else {
+        //                 swal({
+        //                     title: "Error",
+        //                     text: data.message,
+        //                     icon: "error",
+        //                     button: "OK",
+        //                 });
+        //             }
+        //         }
+        //     });
+        // });
     </script>
 @endsection

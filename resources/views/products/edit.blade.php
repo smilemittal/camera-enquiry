@@ -149,8 +149,10 @@
                                                                     @if (!empty($attribute->attribute_values))
 
                                                                         @foreach ($attribute->attribute_values as $value)
+                                                                            @if($value->standard_id == $product->standard_id && $value->system_type_id == $product->system_type_id && $value->type_id == $product->type_id)
                                                                             <option value="{{ $value->id }}" @if (!empty($attribute_value_ids) && in_array($value->id, $attribute_value_ids)) selected @endif>
                                                                                 {{ $value->value }}</option>
+                                                                            @endif
                                                                         @endforeach
                                                                     @endif
                                                                 </select>
