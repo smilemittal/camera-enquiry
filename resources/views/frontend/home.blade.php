@@ -306,9 +306,11 @@
                         $('.' + product_type + '_div_' + count).append(data.html);
                         $('.series_val option').map(function() {
 
-                                console.log($(this).text());
+                            let series = $(this).text().toUpperCase();
+
+                                console.log(series);
                                 console.log( data.pro_series);
-                                                        if ($(this).text() == data.pro_series) return this;
+                                                        if (series == data.pro_series) return this;
                                                     }).attr('selected', 'selected');
                         //}
                         //$('.' + product_type + '_' + count).find('.series_val').trigger('change');
