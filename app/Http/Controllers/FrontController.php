@@ -71,7 +71,7 @@ class FrontController extends Controller
             $pro_attrs = ProductAttribute::with('attribute')->where('product_id', $get_product->id)->whereHas('attribute', function($q){
                 $q->where('name','LIKE', 'Series of Equipment');
             })->first();
-            $pro_series = strtoupper($pro_attrs->attribute_value->value);
+            $pro_series = ($pro_attrs->attribute_value->value);
            
     //dd($products);
             $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();

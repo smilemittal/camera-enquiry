@@ -75,7 +75,8 @@
                                 data-url="{{ route('print.enquiries') }}">{{ translate('Summary') }}</button>
                         </div>
                         <div class="col-xl-3 col-md-4">
-                            <button type="reset" value="reset" class="btnreset" onclick="window.location.reload()">{{ translate('Reset All Values') }}</button>
+                            <button type="reset" value="reset" class="btnreset"
+                                onclick="window.location.reload()">{{ translate('Reset All Values') }}</button>
                         </div>
                         {{-- <div class="col-xl-3 col-md-4">
                             <button>Kamey / Cameras</button>
@@ -137,16 +138,17 @@
     <script>
         var series_type = 'unimportant';
         var series_value = 0;
+        var set_series;
         $(document).ready(function() {
             $('.system_type:first-child').click();
         });
-        
+
 
         $('.system_type').on('click', function() {
-           
+
             var system_type_id = $(this).data('id');
-             $('.system_type').removeClass('active');
-        
+            $('.system_type').removeClass('active');
+
             $(this).addClass('active');
             $('#selected_system_type').val(system_type_id);
             $.ajax({
@@ -175,7 +177,7 @@
             });
         });
 
-    
+
 
 
         $(document).on('change', '.qty, .recorder_cal_col', function() {
@@ -189,10 +191,10 @@
         // });
 
         $(document).on('change', '.series_val', function() {
-         
-            if(series_type == "unimportant") {
+
+            if (series_type == "unimportant") {
                 series_type = $(this).find('option:selected').text();
-            }   
+            }
             setSeries();
             // if($(this).hasClass('camera_cal_col')){
             //     console.log('camera');
@@ -201,75 +203,75 @@
             //     console.log('rec');
             //     $('.series_val').trigger('change');
             // }
-           
-               
-                    
-        
-           
+
+
+
+
+
             console.log(series_type);
         });
-        function setSeries(){
-            $('.kemey-cameras-sec').find('.col-kemey').each(function(){  
+
+        function setSeries() {
+            $('.kemey-cameras-sec').find('.col-kemey').each(function() {
                 $(this).find(".series_val option").filter(function() {
-                    if(this.text == series_type)
-                    {
+                    if (this.text == series_type) {
                         series_value = this.value;
                         return true;
-                    } 
+                    }
                 }).attr('selected', true);
                 $(this).find('.series_val').val(series_value);
-               
-               
+
+
             });
         }
 
         $(document).on('click', '.standard', function() {
             $('.standard').removeClass('active');
-            $(this).addClass('active');   
+            $(this).addClass('active');
             $('#selected_standard').val($(this).data('id'));
 
             var standard_id = $(this).data('id');
             var system_type_id = $('#selected_system_type').val();
-          
-           $.ajax({
-               method: 'post',
-               url: '{{ route('front-get-attributes') }}',
-               data: {
-                   'system_type_id': system_type_id,
-                   'standard_id':standard_id,
-                   '_token': $('meta[name="csrf-token"]').attr("content"),
-               },
-               success: function(data) {
-                   
-                   $('.kemey-cameras-sec .container').empty();
-                   $('.hidden').empty();
-                   $.each(data.html, function(index, value) {
-                       $('.kemey-cameras-sec .container').append(value);
-                       $('.hidden').append('<input type="hidden" name="' + index +
-                           '_count" value="' + data.count +
-                           '"><input type="hidden" name="total_qty[' + index +
-                           ']" value="0">');
-                   });
-               }
-           });
-           
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('front-get-attributes') }}',
+                data: {
+                    'system_type_id': system_type_id,
+                    'standard_id': standard_id,
+                    '_token': $('meta[name="csrf-token"]').attr("content"),
+                },
+                success: function(data) {
+
+                    $('.kemey-cameras-sec .container').empty();
+                    $('.hidden').empty();
+                    $.each(data.html, function(index, value) {
+                        $('.kemey-cameras-sec .container').append(value);
+                        $('.hidden').append('<input type="hidden" name="' + index +
+                            '_count" value="' + data.count +
+                            '"><input type="hidden" name="total_qty[' + index +
+                            ']" value="0">');
+                    });
+                }
+            });
+
         });
         // var attribute_selected = true;
         // $(document).on('click', function(){
 
         // });
-        
+
         $(document).on('change', '.attribute', function() {
-            $('.attribute').each(function(){
-                if($(this).find('option:selected').val() != 'umimportant'){
+            $('.attribute').each(function() {
+                if ($(this).find('option:selected').val() != 'umimportant') {
                     attribute_selected = false;
                 }
             });
             // console.log('helo2');
             // console.log($(this));
-           // $('.camera_cal_col').val(series_type);
-           setSeries();
-           //$('.series_val').val(series_type);
+            // $('.camera_cal_col').val(series_type);
+            setSeries();
+            //$('.series_val').val(series_type);
             var attribute_value_arr = [];
             var ele = $(this);
             var standard = $('#selected_standard').val();
@@ -304,14 +306,14 @@
                     if (data.success == true && data.html != '') {
                         $('.' + product_type + '_div_' + count).empty();
                         $('.' + product_type + '_div_' + count).append(data.html);
-                        $('.series_val option').map(function() {
+                        console.log(data.pro_series);
+                        series_type = data.pro_series;
 
-                            let series = $(this).text().toUpperCase();
-
-                                console.log(series);
-                                console.log( data.pro_series);
-                                                        if (series == data.pro_series) return this;
-                                                    }).attr('selected', 'selected');
+                        //setSeries();
+                        // $('.series_val option').map(function() {
+                        //     let series = $(this).text().toUpperCase();
+                        //     if (series == data.pro_series) return this;
+                        // }).attr('selected', 'selected');
                         //}
                         //$('.' + product_type + '_' + count).find('.series_val').trigger('change');
                     }
@@ -319,88 +321,94 @@
             });
 
         });
+
+        $(document).on('click', '.showProductFilterBtn', function(){
+            setSeries();
+        });
+
         $(document).on('click', '.next_type', function() {
             var product_type = $(this).data('product_type');
-            var this_product_qty = $(this).parentsUntil('.section_'+product_type).siblings('.align-items-center').find('.qty').val();
-            if(this_product_qty == '' || this_product_qty <= 0){
+            var this_product_qty = $(this).parentsUntil('.section_' + product_type).siblings('.align-items-center')
+                .find('.qty').val();
+            if (this_product_qty == '' || this_product_qty <= 0) {
                 swal({
-                            title: "Error",
-                            text: '{{ translate('Please Enter Quantity for the products.')}}',
-                            icon: "error",
-                            button: "OK",
-                        });
-                        return;
+                    title: "Error",
+                    text: '{{ translate('Please Enter Quantity for the products.') }}',
+                    icon: "error",
+                    button: "OK",
+                });
+                return;
             }
-            let attr_count =0;
+            let attr_count = 0;
             let unselected_attr_count = 0;
-            $(this).parentsUntil('.section_'+product_type).find('.attribute').each(function(){
+            $(this).parentsUntil('.section_' + product_type).find('.attribute').each(function() {
                 attr_count++;
-                if($(this).find('option:selected').val() == 'unimportant'){
+                if ($(this).find('option:selected').val() == 'unimportant') {
                     unselected_attr_count++;
                 }
             });
-           if(attr_count == unselected_attr_count){
-            swal({
-                            title: "Error",
-                            text: 'Please select at-least one attribute.',
-                            icon: "error",
-                            button: "OK",
-                        });
-               return;
-           }
+            if (attr_count == unselected_attr_count) {
+                swal({
+                    title: "Error",
+                    text: 'Please select at-least one attribute.',
+                    icon: "error",
+                    button: "OK",
+                });
+                return;
+            }
 
-           
+
 
             nextProduct(product_type);
         });
 
-        $(document).on('click','.reset', function(){
+        $(document).on('click', '.reset', function() {
 
             var btn = $(this);
             var target = $(btn).data('target');
-            var type = $('.'+ target).data('type');
-            var count = $('.'+ target).data('count');
+            var type = $('.' + target).data('type');
+            var count = $('.' + target).data('count');
             // console.log($('.'+ target).data('type'));
-          
-            var current_qty = $('.'+ type+'_'+count).find('.qty').val();
-            $('.'+ type+'_'+count).find('.qty').val('');
-           
+
+            var current_qty = $('.' + type + '_' + count).find('.qty').val();
+            $('.' + type + '_' + count).find('.qty').val('');
+
             // console.log($('.'+ target).find('.reset_all_values').prop("selectedIndex",0));
             // $('.'+ target).find('.reset_all_values').prop("selectedIndex",0);
-            $('.'+ target).find('.reset_all_values').each(function(){
+            $('.' + target).find('.reset_all_values').each(function() {
                 // console.log($(this).children('option:selected').val());
                 $(this).children('option:selected').removeAttr('selected');
-                $(this).prop("selectedIndex",0);
+                $(this).prop("selectedIndex", 0);
                 // console.log($(this).children('option:selected').val());
                 $(this).children('option:first-child').attr('selected', 'selected');
-             
+
             });
-            
-            $('.'+ target).find('.attribute').trigger('change');
-                // if(current_qty == '' || current_qty == undefined){
-                //     current_qty = 0;
-                // }
-              
-                var total_qty = calcQty(type);
-            
-                var final_qty = total_qty;
 
-               // console.log($('.'+ target).find('.total_qty'));
-                $('.' + type + '_' + count).find('.total_qty').val(final_qty);
-                
-                $('.' + type + '_' + count + ' .totalQty span').text(final_qty);
-                // if(final_qty <= 0){
-                //     $('.' + type + '_' + count + ' .totalQty').hide();
-                // }
+            $('.' + target).find('.attribute').trigger('change');
+            // if(current_qty == '' || current_qty == undefined){
+            //     current_qty = 0;
+            // }
 
-        });    
+            var total_qty = calcQty(type);
+
+            var final_qty = total_qty;
+
+            // console.log($('.'+ target).find('.total_qty'));
+            $('.' + type + '_' + count).find('.total_qty').val(final_qty);
+
+            $('.' + type + '_' + count + ' .totalQty span').text(final_qty);
+            // if(final_qty <= 0){
+            //     $('.' + type + '_' + count + ' .totalQty').hide();
+            // }
+
+        });
 
         function nextProduct(product_type) {
             var old_count = $('input[name="' + product_type + '_count"]').val();
             var system_type = $('#selected_system_type').val();
             var standard = $('#selected_standard').val();
 
-         
+
 
 
             $.ajax({
@@ -426,10 +434,10 @@
                         $('.' + product_type + '_' + data.count + ' .totalQty span').text(qty);
                         $('.' + product_type + '_' + data.count).show();
                         //if (product_type == 'camera') {
-                            //$('.' + product_type + '_' + data.count).find('.camera_cal_col').val(series_type);
-                            $('.series_val option').map(function() {
-                                                        if ($(this).text() == series_type) return this;
-                                                    }).attr('selected', 'selected');
+                        //$('.' + product_type + '_' + data.count).find('.camera_cal_col').val(series_type);
+                        $('.series_val option').map(function() {
+                            if ($(this).text() == series_type) return this;
+                        }).attr('selected', 'selected');
                         //}
                         $('.' + product_type + '_' + old_count).find('.series_val.attribute').trigger('change');
                     }
@@ -508,32 +516,32 @@
 
         $('.summary').on('click', function() {
             var url = $(this).data('url');
-            
+
             var formData = new FormData($('#product-enquiry')[0]);
             // let attr_count =0;
             // let unselected_attr_count = 0;
-        //     $('.attribute').each(function(){
-        //         let attr_count =0;
-        //     let unselected_attr_count = 0;
-        //         if($(this).data('product_type') == 'recorder'){
+            //     $('.attribute').each(function(){
+            //         let attr_count =0;
+            //     let unselected_attr_count = 0;
+            //         if($(this).data('product_type') == 'recorder'){
 
-        //         }
+            //         }
 
-        //         attr_count++;
-               
-        //         if($(this).find('option:selected').val() == 'unimportant'){
-        //             unselected_attr_count++;
-        //         }
-        //     });
-        //    if(attr_count == unselected_attr_count){
-        //     swal({
-        //                     title: "Error",
-        //                     text: 'Please select atleast one attribute from dropdowns.',
-        //                     icon: "error",
-        //                     button: "OK",
-        //                 });
-        //        return;
-        //    }
+            //         attr_count++;
+
+            //         if($(this).find('option:selected').val() == 'unimportant'){
+            //             unselected_attr_count++;
+            //         }
+            //     });
+            //    if(attr_count == unselected_attr_count){
+            //     swal({
+            //                     title: "Error",
+            //                     text: 'Please select atleast one attribute from dropdowns.',
+            //                     icon: "error",
+            //                     button: "OK",
+            //                 });
+            //        return;
+            //    }
 
             jQuery.ajaxSetup({
                 headers: {
@@ -617,5 +625,6 @@
         //         }
         //     });
         // });
+
     </script>
 @endsection
