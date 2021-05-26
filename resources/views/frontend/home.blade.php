@@ -388,6 +388,10 @@
 
 
                 setSeries();
+                $('.series_val.attribute').each(function(){
+                                //console.log('taho');
+                                $(this).trigger('change');
+                            });
             }
             }
             
