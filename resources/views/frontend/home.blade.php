@@ -138,7 +138,7 @@
     <script>
         var series_type = 'unimportant';
         var series_value = 0;
-        var set_series;
+        var set_series = 'unimportant';
         $(document).ready(function() {
             $('.system_type:first-child').click();
         });
@@ -181,7 +181,7 @@
 
 
         $(document).on('change', '.qty, .recorder_cal_col', function() {
-            console.log('helo');
+
             var type = $(this).parents('.col-kemey').data('type');
             var qty = calcQty(type);
             $(this).parents('.col-kemey').find('.totalQty span').text(qty);
@@ -203,17 +203,16 @@
             //     console.log('rec');
             //     $('.series_val').trigger('change');
             // }
-
-
-
-
-
-            console.log(series_type);
         });
 
         function setSeries() {
+            var i = 0;
             $('.kemey-cameras-sec').find('.col-kemey').each(function() {
+              //  console.log(i);
+                i++;
+               // console.log(series_value);
                 $(this).find(".series_val option").filter(function() {
+                    //console.log($(this));
                     if (this.text == series_type) {
                         series_value = this.value;
                         return true;
@@ -224,6 +223,7 @@
 
             });
         }
+
 
         $(document).on('click', '.standard', function() {
             $('.standard').removeClass('active');
@@ -262,13 +262,6 @@
         // });
 
         $(document).on('change', '.attribute', function() {
-            $('.attribute').each(function() {
-                if ($(this).find('option:selected').val() != 'umimportant') {
-                    attribute_selected = false;
-                }
-            });
-            // console.log('helo2');
-            // console.log($(this));
             // $('.camera_cal_col').val(series_type);
             setSeries();
             //$('.series_val').val(series_type);
@@ -306,8 +299,8 @@
                     if (data.success == true && data.html != '') {
                         $('.' + product_type + '_div_' + count).empty();
                         $('.' + product_type + '_div_' + count).append(data.html);
-                        console.log(data.pro_series);
-                        series_type = data.pro_series;
+
+                        set_series = data.pro_series;
 
                         //setSeries();
                         // $('.series_val option').map(function() {
@@ -322,8 +315,83 @@
 
         });
 
-        $(document).on('click', '.showProductFilterBtn', function(){
-            setSeries();
+        $(document).on('click', '.showProductFilterBtn', function() {
+          
+           
+         
+            if($('input[name="camera_count"]').val()< 2) {
+                if (set_series == 'unimportant') {
+                //console.log($('.section_recorder').find('.series_val'));
+                var ele = $('.section_recorder').find('.series_val');
+                var attribute_value_arr = [];
+                //  var ele = $(this);
+                var standard = $('#selected_standard').val();
+                var system_type = $(ele).data('system_type');
+                var product_type = $(ele).data('product_type');
+                var count = $('input[name="' + product_type + '_count"]').val();
+                var selected_attributes = [];
+
+                $('.attribute', '.' + product_type + '_div_' + count).each(function() {
+
+                    if ($(this).val() != '') {
+                        selected_attributes[$(this).data('attribute')] = $(this).val();
+                        attribute_value_arr.push($(this).val());
+                    }
+                });
+
+                var attribute_val = attribute_value_arr.join(',');
+
+                $.ajax({
+                    method: 'post',
+                    url: '{{ route('update-attributes') }}',
+                    data: {
+                        '_token': $('meta[name="csrf-token"]').attr("content"),
+                        'attribute_value': attribute_val,
+                        'system_type': system_type,
+                        'standard': standard,
+                        'product_type': product_type,
+                        'count': count,
+                        'selected_attributes': selected_attributes
+                    },
+                    success: function(data) {
+                        if (data.success == true && data.html != '') {
+                            $('.' + product_type + '_div_' + count).empty();
+                            $('.' + product_type + '_div_' + count).append(data.html);
+
+                            set_series = data.pro_series;
+                            series_type = set_series;
+
+
+                            setSeries();
+                            $('.series_val.attribute').each(function(){
+                                //console.log('taho');
+                                $(this).trigger('change');
+                            });
+                            
+                            
+                            //setSeries();
+                            // $('.series_val option').map(function() {
+                            //     let series = $(this).text().toUpperCase();
+                            //     if (series == data.pro_series) return this;
+                            // }).attr('selected', 'selected');
+                            //}
+                            //$('.' + product_type + '_' + count).find('.series_val').trigger('change');
+                        }
+                    },
+                });
+
+                // series_type = set_series;
+            } else {
+
+               // console.log('sett');
+                series_type = set_series;
+
+
+                setSeries();
+            }
+            }
+            
+
         });
 
         $(document).on('click', '.next_type', function() {
@@ -479,7 +547,7 @@
         $('.form-submit-btn').on('click', function() {
             var url = $(this).data('url');
             var formData = new FormData($('#product-enquiry')[0]);
-            console.log(formData);
+
             jQuery.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")

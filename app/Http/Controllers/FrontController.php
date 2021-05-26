@@ -47,15 +47,18 @@ class FrontController extends Controller
             $type = Type::where('slug','LIKE',$product_type)->first();
             $count = $request->input('count');
             $attribute_value_id = $request->input('attribute_value');
+          
             $attribute_value_id = explode(',', $attribute_value_id);
             $selected_attributes = $request->input('selected_attributes');
+           // dd($selected_attributes);
             $standard = $request->input('standard');
+          
     //dd($attribute_value_id);
             $products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
                         ->whereHas('product_attributes.attribute', function($q)use($type){
                             $q->where('type_id', $type->id);
                         });
-
+                        
 
             foreach($attribute_value_id as $id){
                 if($id != 'unimportant' && $id != ''){
@@ -65,8 +68,15 @@ class FrontController extends Controller
                 }
 
             }
-            $get_product =$products->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('priority', 'ASC')->orderBy('created_at', 'ASC')->first();
+            $get_product_query = $products;
+            //dd($get_product_query->where('system_type_id', $system_type)->where('type_id', $type->id)->get(), $system_type, $type->id);
+           
+            
+          
+          
             $products = $products->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
+          
+            $get_product =$get_product_query->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('priority', 'ASC')->orderBy('created_at', 'ASC')->first();
             
             $pro_attrs = ProductAttribute::with('attribute')->where('product_id', $get_product->id)->whereHas('attribute', function($q){
                 $q->where('name','LIKE', 'Series of Equipment');
@@ -86,6 +96,7 @@ class FrontController extends Controller
                     }
                 }
             }
+            //dd($filtered_attributes);
             $html='';
 
             $i = $count;
