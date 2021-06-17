@@ -130,3 +130,6 @@ Route::post('print-enquiries', 'FrontController@printEnquiry')->name('print.enqu
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
+Route::get('/dd', 'FrontController@dd')->name('dd');
