@@ -47,20 +47,33 @@ class FrontController extends Controller
         if ($request->ajax() && $request->isMethod('post')) {
             $system_type = $request->input('system_type');
             $product_type = $request->input('product_type');
-            $type = Type::where('slug', 'LIKE', $product_type)->first();
+            $first_selected_product_type = $request->input('first_selected_product_type');
+            if ($product_type == 'camera') {
+                $type = Type::where('slug', 'LIKE', $product_type)->first();
+                $second_type = Type::where('slug', 'LIKE', 'recorder')->first();
+            } else {
+                $type = Type::where('slug', 'LIKE', $product_type)->first();
+                $second_type = Type::where('slug', 'LIKE', 'camera')->first();
+            }
             $count = $request->input('count');
+            $second_count = $request->input('second_count');
             $attribute_value_id = $request->input('attribute_value');
-
             $attribute_value_id = explode(',', $attribute_value_id);
             $selected_attributes = $request->input('selected_attributes');
-            // dd($selected_attributes);
             $standard = $request->input('standard');
+            $post_available_series = !empty($request->input('available_series')) ? json_decode($request->input('available_series'), true) : [];
 
-            //dd($attribute_value_id);
+            //fetching products for current product type
+
             $products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
                 ->whereHas('product_attributes.attribute', function ($q) use ($type) {
                     $q->where('type_id', $type->id);
                 });
+            if ($product_type != $first_selected_product_type) {
+                $products->whereHas('product_attributes.attribute_value', function ($q) use ($post_available_series) {
+                    $q->whereIn('value', $post_available_series);
+                });
+            }
 
 
             foreach ($attribute_value_id as $id) {
@@ -70,68 +83,118 @@ class FrontController extends Controller
                     });
                 }
             }
-            $get_product_query = $products;
-            //dd($get_product_query->where('system_type_id', $system_type)->where('type_id', $type->id)->get(), $system_type, $type->id);
-
-
-
+            $get_product_query = clone $products;
 
             $products = $products->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
 
-            $get_product = $get_product_query->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('priority', 'ASC')->orderBy('created_at', 'ASC')->first();
 
-            $pro_attrs = ProductAttribute::with('attribute')->where('product_id', $get_product->id)->whereHas('attribute', function ($q) {
-                $q->where('name', 'LIKE', 'Series of Equipment');
-            })->first();
-            $pro_series = ($pro_attrs->attribute_value->value);
-            $attribute_names = [];
-            //dd($products);
+            $available_series = [];
             $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
-            $filtered_attributes = array();
+            $filtered_attributes = $second_filtered_attributes = array();
+
+            //fetching attributes for current products
             if (!empty($products) && count($products) > 0) {
                 foreach ($products as $product) {
 
                     if (!empty($product->product_attributes)) {
+
                         foreach ($product->product_attributes as $product_attribute) {
-
-
                             //get product series
-                            // $product_attribute_value = AttributeValue::find($product_attribute->attribute_id);
-                            // if(!empty($product_attribute_value)){
-                            //     if(!empty($product_attribute_value->attribute)){
-                            //         $product_attribute_name = $product_attribute_value->attribute->name;
-                            //         if($product_attribute_name == 'Series of equipment'){
-                            //             if(!in_array($product_attribute_value->value, $attribute_names)){
-                            //                 $attribute_names[] = $product_attribute_value->value;
-                            //             }
 
-                            //          }
-                            //     }
-                            // }
+                            if ($product_type == $first_selected_product_type) {
+                                $product_attribute_value = AttributeValue::find($product_attribute->attribute_value_id);
+                                if (!empty($product_attribute_value)) {
+                                    if (!empty($product_attribute_value->attribute)) {
 
-                            // if(!empty($product_attribute->attribute) && $product_attribute->attribute->name == 'Series of Equipment'){
-                            //     dd($product_attribute->attribute_value->value);
-                            // }
+                                        $product_attribute_name = $product_attribute_value->attribute->name;
+
+                                        if ($product_attribute_name == 'Series of equipment') {
+
+                                            if (!in_array($product_attribute_value->value, $available_series)) {
+                                                $available_series[] = $product_attribute_value->value;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
 
                             $filtered_attributes[$product_attribute->attribute_id][] = $product_attribute->attribute_value_id;
                         }
                     }
                 }
             }
-            //dd($attribute_names);
 
-            //get product series
-            // if(count($attributes) == 1){
-            //     $select_product = $get_product->product_attributes()->whereHas('attribute', function($q){
-            //         $q->where('name', '=', 'Series of equipment');
-            //     })->get();
-            //   //  dd($select_product);
-            // }
-            $html = '';
+            //get current series
+            $get_product = $get_product_query->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('priority', 'ASC')->orderBy('created_at', 'ASC')->first();
+            $pro_attrs = ProductAttribute::with('attribute')->where('product_id', $get_product->id)->whereHas('attribute', function ($q) {
+                $q->where('name', 'LIKE', 'Series of Equipment');
+            })->first();
+            $pro_series = ($pro_attrs->attribute_value->value);
+
+
+            //dd($available_series);
+
+
+
+            $html = $second_html = '';
 
             $i = $count;
-            $html .= view('frontend.extras.filter', compact('filtered_attributes', 'system_type', 'type', 'selected_attributes', 'attributes', 'i', 'standard'))->render();
-            return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type, 'pro_series' => $pro_series]);
+
+            $is_second_product = false;
+
+            $html .= view('frontend.extras.filter', compact('filtered_attributes', 'system_type', 'type', 'selected_attributes', 'attributes', 'i', 'standard', 'is_second_product'))->render();
+
+            if ($product_type == $first_selected_product_type) {
+                $is_second_product = true;
+                $second_products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
+                    ->whereHas('product_attributes.attribute', function ($q) use ($second_type) {
+                        $q->where('type_id', $second_type->id);
+                    })
+                    ->whereHas('product_attributes.attribute_value', function ($q) use ($available_series) {
+                        $q->whereIn('value', $available_series);
+                    })
+                    ->where('system_type_id', $system_type)
+                    ->where('standard_id', $standard)
+
+                    ->where('type_id', $second_type->id)
+                    ->get();
+                //dd($second_products->toArray()[3]);
+                $second_attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $second_type->id)->orderBy('display_order', 'ASC')->get();
+
+                if (!empty($second_products) && count($second_products) > 0) {
+                    foreach ($second_products as $product) {
+
+                        if (!empty($product->product_attributes)) {
+
+                            foreach ($product->product_attributes as $product_attribute) {
+
+                                if (!empty($second_filtered_attributes[$product_attribute->attribute_id])) {
+                                    if (!in_array($product_attribute->attribute_value_id, $second_filtered_attributes[$product_attribute->attribute_id])) {
+                                        $second_filtered_attributes[$product_attribute->attribute_id][] = $product_attribute->attribute_value_id;
+                                    }
+                                } else {
+                                    $second_filtered_attributes[$product_attribute->attribute_id][] = $product_attribute->attribute_value_id;
+                                }
+                            }
+                        }
+                    }
+                }
+                //  dd($second_filtered_attributes);
+                $second_html .= view('frontend.extras.filter', [
+                    'filtered_attributes' => $second_filtered_attributes,
+                    'system_type' => $system_type,
+                    'type' => $second_type,
+                    'selected_attributes' => [],
+                    'attributes' => $second_attributes,
+                    'i' => $second_count,
+                    'standard' => $standard,
+                    'is_second_product' => $is_second_product,
+                ])->render();
+            }
+
+
+
+            return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type, 'pro_series' => $pro_series, 'available_series' => json_encode($available_series), 'second_html' => $second_html]);
         }
     }
 
@@ -247,13 +310,13 @@ class FrontController extends Controller
         $quantity_filled = true;
         $attribute_selected = true;
 
-        if($first_selected_product_type == 'camera'){
+        if ($first_selected_product_type == 'camera') {
             $priority_product = 'recorder';
-        }else if($first_selected_product_type == 'recorder'){
+        } else if ($first_selected_product_type == 'recorder') {
             $priority_product = 'camera';
         }
         $priority_product_series = '';
-        if(!empty($priority_product)){
+        if (!empty($priority_product)) {
             $priority_product_type = Type::where('name', 'LIKE', $priority_product)->first();
             $get_priority_product = Product::whereHas('product_attributes.attribute', function ($q) use ($priority_product_type, $system_type_id) {
                 $q->where('type_id', $priority_product_type->id)
@@ -265,7 +328,6 @@ class FrontController extends Controller
             $priority_product_attributes = ProductAttribute::with('attribute', 'attribute_value')->where('product_id', $get_priority_product->id)->whereHas('attribute', function ($q) {
                 $q->where('name', 'LIKE', 'Series of Equipment');
                 $q->orWhere('name', 'LIKE', 'Series of equipment');
-
             })->first();
             $priority_product_series = ($priority_product_attributes->attribute_value->value);
         }
@@ -282,21 +344,20 @@ class FrontController extends Controller
                 $model = Product::whereHas('product_attributes.attribute', function ($q) use ($type, $system_type_id, $priority_product_series) {
                     $q->where('type_id', $type->id)
                         ->where('system_type_id', $system_type_id);
-                        if($priority_product_series){
-                            $q->where('name', 'LIKE', 'Series of equipment');
-                        }
+                    if ($priority_product_series) {
+                        $q->where('name', 'LIKE', 'Series of equipment');
+                    }
                 });
 
-                if($priority_product_series){
+                if ($priority_product_series) {
                     $model->whereHas('product_attributes.attribute_value', function ($q) use ($type, $system_type_id, $standard_id, $priority_product_series) {
                         $q->where('type_id', $type->id)
-                        ->where('standard_id', $standard_id)
+                            ->where('standard_id', $standard_id)
                             ->where('system_type_id', $system_type_id);
-                            if($priority_product_series){
-                                $q->where('value', 'LIKE', $priority_product_series);
-                            }
+                        if ($priority_product_series) {
+                            $q->where('value', 'LIKE', $priority_product_series);
+                        }
                     });
-                  
                 }
 
                 foreach ($attributes as $key => $attribute) {
@@ -334,7 +395,7 @@ class FrontController extends Controller
             $total_products += $quantity_total;
         }
 
-    
+
         if (!$quantity_filled) {
             return response()->json(['success' => false, 'message' => translate('Please Enter Quantity for the products.')]);
         }
@@ -401,9 +462,10 @@ class FrontController extends Controller
             $html = [];
             $i = 1;
             $types = Type::get();
+            $is_second_product = false;
             foreach ($types as $type) {
                 $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
-                $attribute_html = view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type', 'standard'))->render();
+                $attribute_html = view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type', 'standard', 'is_second_product'))->render();
                 $html[$type->slug] = view('frontend.extras.new-type', compact('attributes', 'system_type', 'i', 'type', 'attribute_html'))->render();
             }
 

@@ -18,7 +18,9 @@
                                     }
                                 @endphp
                                 @foreach($attribute_values as $attribute_value)
-                                    @if(empty($selected_attributes))
+                                    @if(empty($selected_attributes) && !$is_second_product)
+                                        <option value="{{ $attribute_value->id }}">{{ translate($attribute_value->value)}}</option>
+                                    @elseif(empty($selected_attributes) && $is_second_product && in_array($attribute_value->id, $filtered_attributes[$attribute->id]))
                                         <option value="{{ $attribute_value->id }}">{{ translate($attribute_value->value)}}</option>
                                     @elseif(count($selected_attributes) > 0  && in_array($attribute_value->id, $filtered_attributes[$attribute->id])
                                     )

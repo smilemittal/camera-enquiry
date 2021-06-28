@@ -127,6 +127,8 @@
                 </div>
             </div>
         </div>
+
+        <input type="hidden" name="available_series" value="" id="available_series">
     </form>
     {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     Launch demo modal
@@ -257,10 +259,6 @@
             });
 
         });
-        // var attribute_selected = true;
-        // $(document).on('click', function(){
-
-        // });
 
         $(document).on('change', '.attribute', function() {
             // $('.camera_cal_col').val(series_type);
@@ -271,13 +269,33 @@
             var standard = $('#selected_standard').val();
             var system_type = $(this).data('system_type');
             var product_type = $(this).data('product_type');
+            var available_series = $('#available_series').val();
 
             if (first_selected_product_type == '') {
                 first_selected_product_type = product_type;
             }
 
+            if (product_type == 'camera') {
+                second_product_type = 'recorder';
+            } else {
+                second_product_type = 'camera';
+            }
+
+            if (first_selected_product_type != product_type) {
+                available_series = available_series;
+            } 
+            // else {
+            //     available_series = '';
+            // }
+
+
 
             var count = $('input[name="' + product_type + '_count"]').val();
+
+            var second_count = $('input[name="' + second_product_type + '_count"]').val();
+            console.log(second_count);
+
+
             var selected_attributes = [];
 
             $('.attribute', '.' + product_type + '_div_' + count).each(function() {
@@ -300,13 +318,27 @@
                     'standard': standard,
                     'product_type': product_type,
                     'count': count,
-                    'selected_attributes': selected_attributes
+                    'second_count': second_count,
+                    'selected_attributes': selected_attributes,
+                    'available_series': available_series,
+                    'first_selected_product_type': first_selected_product_type,
                 },
                 success: function(data) {
                     if (data.success == true && data.html != '') {
                         $('.' + product_type + '_div_' + count).empty();
                         $('.' + product_type + '_div_' + count).append(data.html);
-
+                        if (first_selected_product_type == product_type) {
+                            available_series = data.available_series;
+                            $('#available_series').val(data.available_series);
+                        }
+                        console.log(available_series);
+                        // else{
+                        if (data.second_html != '' && available_series != '') {
+                            $('.' + second_product_type + '_div_' + second_count).empty();
+                            $('.' + second_product_type + '_div_' + second_count).append(data
+                                .second_html);
+                        }
+                        //}
                         // set_series = data.pro_series;
 
                         //setSeries();
@@ -322,64 +354,9 @@
 
         });
 
-        // $(document).on('click', '.showProductFilterBtn', function() {
+        function getOtherProduct() {
 
-        //     if ($('input[name="camera_count"]').val() < 2) {
-        //         if (set_series == 'unimportant') {
-        //             //console.log($('.section_recorder').find('.series_val'));
-        //             var ele = $('.section_recorder').find('.series_val');
-        //             var attribute_value_arr = [];
-        //             //  var ele = $(this);
-        //             var standard = $('#selected_standard').val();
-        //             var system_type = $(ele).data('system_type');
-        //             var product_type = $(ele).data('product_type');
-        //             var count = $('input[name="' + product_type + '_count"]').val();
-        //             var selected_attributes = [];
-
-        //             $('.attribute', '.' + product_type + '_div_' + count).each(function() {
-        //                 if ($(this).val() != '') {
-        //                     selected_attributes[$(this).data('attribute')] = $(this).val();
-        //                     attribute_value_arr.push($(this).val());
-        //                 }
-        //             });
-
-        //             var attribute_val = attribute_value_arr.join(',');
-
-        //             $.ajax({
-        //                 method: 'post',
-        //                 url: '{{ route('update-attributes') }}',
-        //                 data: {
-        //                     '_token': $('meta[name="csrf-token"]').attr("content"),
-        //                     'attribute_value': attribute_val,
-        //                     'system_type': system_type,
-        //                     'standard': standard,
-        //                     'product_type': product_type,
-        //                     'count': count,
-        //                     'selected_attributes': selected_attributes
-        //                 },
-        //                 success: function(data) {
-        //                     if (data.success == true && data.html != '') {
-        //                         $('.' + product_type + '_div_' + count).empty();
-        //                         $('.' + product_type + '_div_' + count).append(data.html);
-        //                         set_series = data.pro_series;
-        //                         series_type = set_series;
-        //                         setSeries();
-        //                         $('.series_val.attribute').each(function() {
-        //                             //console.log('taho');
-        //                             $(this).trigger('change');
-        //                         });
-        //                     }
-        //                 },
-        //             });
-        //         } else {
-        //             series_type = set_series;
-        //             setSeries();
-        //             $('.series_val.attribute').each(function() {
-        //                 $(this).trigger('change');
-        //             });
-        //         }
-        //     }
-        // });
+        }
 
         $(document).on('click', '.next_type', function() {
             var product_type = $(this).data('product_type');
@@ -425,6 +402,8 @@
             var count = $('.' + target).data('count');
             // console.log($('.'+ target).data('type'));
 
+
+
             var current_qty = $('.' + type + '_' + count).find('.qty').val();
             $('.' + type + '_' + count).find('.qty').val('');
 
@@ -455,6 +434,11 @@
             // if(final_qty <= 0){
             //     $('.' + type + '_' + count + ' .totalQty').hide();
             // }
+            if (type == first_selected_product_type) {
+                $('#available_series').val('');
+                first_selected_product_type = '';
+            }
+
 
         });
 
@@ -571,9 +555,7 @@
 
         $('.summary').on('click', function() {
             var url = $(this).data('url');
-
             var formData = new FormData($('#product-enquiry')[0]);
-
             formData.append('first_selected_product_type', first_selected_product_type);
             // let attr_count =0;
             // let unselected_attr_count = 0;
@@ -623,7 +605,7 @@
                                 $(this).trigger('change');
                             });
                         }
-                        
+
                         if (data.html != '') {
                             var mywindow = window.open('', 'Summary', 'height=400,width=600');
                             mywindow.document.write('<html><head><title>Summary</title>');
@@ -638,7 +620,7 @@
                             return true;
                         }
 
-                      
+
                     } else {
                         swal({
                             title: "Error",
@@ -650,50 +632,6 @@
                 }
             });
         });
-
-        // $('.summary').on('click', function() {
-        //     var url = $(this).data('url');
-        //     var formData = new FormData($('#product-enquiry')[0]);
-        //     console.log(formData);
-
-        //     jQuery.ajaxSetup({
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
-        //         }
-        //     });
-        //     $.ajax({
-        //         method: 'post',
-        //         url: url,
-        //         data: formData,
-        //         contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-        //         processData: false,
-        //         success: function(data) {
-        //             if (data.success) {
-        //                 if (data.html != '') {
-        //                     var mywindow = window.open('', 'my div', 'height=400,width=600');
-        //                     mywindow.document.write('<html><head><title>my div</title>');
-        //                     /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-        //                     mywindow.document.write('</head><body >');
-        //                     mywindow.document.write(data.html);
-        //                     mywindow.document.write('</body></html>');
-
-        //                     mywindow.print();
-        //                     // mywindow.close();
-
-        //                     return true;
-        //                 }
-
-        //             } else {
-        //                 swal({
-        //                     title: "Error",
-        //                     text: data.message,
-        //                     icon: "error",
-        //                     button: "OK",
-        //                 });
-        //             }
-        //         }
-        //     });
-        // });
 
     </script>
 @endsection
