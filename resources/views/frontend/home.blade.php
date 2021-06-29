@@ -446,7 +446,7 @@
             var old_count = $('input[name="' + product_type + '_count"]').val();
             var system_type = $('#selected_system_type').val();
             var standard = $('#selected_standard').val();
-
+            var available_series = $('#available_series').val();
 
 
 
@@ -459,6 +459,8 @@
                     'system_type': system_type,
                     'standard': standard,
                     '_token': $('meta[name="csrf-token"]').attr("content"),
+                    'available_series': available_series,
+                    'first_selected_product_type': first_selected_product_type,
                 },
                 success: function(data) {
                     if (data.success == true) {
@@ -474,11 +476,11 @@
                         $('.' + product_type + '_' + data.count).show();
                         //if (product_type == 'camera') {
                         //$('.' + product_type + '_' + data.count).find('.camera_cal_col').val(series_type);
-                        $('.series_val option').map(function() {
-                            if ($(this).text() == series_type) return this;
-                        }).attr('selected', 'selected');
+                        // $('.series_val option').map(function() {
+                        //     if ($(this).text() == series_type) return this;
+                        // }).attr('selected', 'selected');
                         //}
-                        $('.' + product_type + '_' + old_count).find('.series_val.attribute').trigger('change');
+                        //$('.' + product_type + '_' + old_count).find('.series_val.attribute').trigger('change');
                     }
                 },
             });
@@ -595,16 +597,16 @@
                 processData: false,
                 success: function(data) {
                     if (data.success) {
-                        console.log(data.priority_product_series);
-                        if (data.priority_product_series != '') {
-                            set_series = data.priority_product_series;
-                            series_type = set_series;
-                            setSeries();
-                            $('.series_val.attribute').each(function() {
-                                console.log('changed');
-                                $(this).trigger('change');
-                            });
-                        }
+                        // console.log(data.priority_product_series);
+                        // if (data.priority_product_series != '') {
+                        //     set_series = data.priority_product_series;
+                        //     series_type = set_series;
+                        //     setSeries();
+                        //     $('.series_val.attribute').each(function() {
+                        //         console.log('changed');
+                        //         $(this).trigger('change');
+                        //     });
+                        // }
 
                         if (data.html != '') {
                             var mywindow = window.open('', 'Summary', 'height=400,width=600');

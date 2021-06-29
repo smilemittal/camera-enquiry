@@ -206,13 +206,53 @@ class FrontController extends Controller
             $product_type = $request->input('product_type');
             $type = Type::where('slug', 'LIKE', $product_type)->first();
             $count = $request->input('count');
+            $first_selected_product_type = $request->input('first_selected_product_type');
+            $post_available_series = !empty($request->input('available_series')) ? json_decode($request->input('available_series'), true) : [];
             $i = $count + 1;
 
-            $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
+            $is_second_product = false;
+            // dd($post_available_series);
+            //get products
+            $products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
+                ->whereHas('product_attributes.attribute', function ($q) use ($type) {
+                    $q->where('type_id', $type->id);
+                })
+                ->whereHas('product_attributes.attribute_value', function ($q) use ($post_available_series) {
+                    $q->whereIn('value', $post_available_series);
+                })
+                ->where('system_type_id', $system_type)
+                ->where('standard_id', $standard)
+                ->where('type_id', $type->id)
+                ->get();
+
+            //dd($products->toArray());
+            $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
+            // get atttributes acc to product fetched above
+            if (!empty($products) && count($products) > 0) {
+                foreach ($products as $product) {
+
+                    if (!empty($product->product_attributes)) {
+
+                        foreach ($product->product_attributes as $product_attribute) {
+
+                            if (!empty($filtered_attributes[$product_attribute->attribute_id])) {
+                                if (!in_array($product_attribute->attribute_value_id, $filtered_attributes[$product_attribute->attribute_id])) {
+                                    $filtered_attributes[$product_attribute->attribute_id][] = $product_attribute->attribute_value_id;
+                                }
+                            } else {
+                                $filtered_attributes[$product_attribute->attribute_id][] = $product_attribute->attribute_value_id;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            //$attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
 
             $html = $attribute_html = '';
 
-            $attribute_html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type', 'standard'))->render();
+            $attribute_html .= view('frontend.extras.filter', compact('attributes', 'system_type', 'i', 'type', 'standard', 'is_second_product', 'filtered_attributes'))->render();
 
             $html .= view('frontend.extras.new-type', compact('attribute_html', 'system_type', 'i', 'type'))->render();
 
@@ -297,6 +337,9 @@ class FrontController extends Controller
     {
 
         $quantities = $request->input('quantity');
+        // echo "<pre>";
+        // print_r($quantities);
+        // exit;
         $total_qtys = $request->input('total_qty');
         // dd($total_qtys['recorder'],$quantities['recorder'] );
         $products = $request->input('products');
@@ -310,27 +353,29 @@ class FrontController extends Controller
         $quantity_filled = true;
         $attribute_selected = true;
 
-        if ($first_selected_product_type == 'camera') {
-            $priority_product = 'recorder';
-        } else if ($first_selected_product_type == 'recorder') {
-            $priority_product = 'camera';
-        }
-        $priority_product_series = '';
-        if (!empty($priority_product)) {
-            $priority_product_type = Type::where('name', 'LIKE', $priority_product)->first();
-            $get_priority_product = Product::whereHas('product_attributes.attribute', function ($q) use ($priority_product_type, $system_type_id) {
-                $q->where('type_id', $priority_product_type->id)
-                    ->where('system_type_id', $system_type_id);
-            });
+        // if ($first_selected_product_type == 'camera') {
+        //     $priority_product = 'recorder';
+        // } else if ($first_selected_product_type == 'recorder') {
+        //     $priority_product = 'camera';
+        // }
 
-            $get_priority_product = $get_priority_product->where('system_type_id', $system_type_id)->where('type_id', $priority_product_type->id)->where('standard_id', $standard_id)->orderBy('priority', 'DESC')->orderBy('created_at', 'ASC')->first();
+        // get product series acc. to priority product
+        // $priority_product_series = '';
+        // if (!empty($priority_product)) {
+        //     $priority_product_type = Type::where('name', 'LIKE', $priority_product)->first();
+        //     $get_priority_product = Product::whereHas('product_attributes.attribute', function ($q) use ($priority_product_type, $system_type_id) {
+        //         $q->where('type_id', $priority_product_type->id)
+        //             ->where('system_type_id', $system_type_id);
+        //     });
 
-            $priority_product_attributes = ProductAttribute::with('attribute', 'attribute_value')->where('product_id', $get_priority_product->id)->whereHas('attribute', function ($q) {
-                $q->where('name', 'LIKE', 'Series of Equipment');
-                $q->orWhere('name', 'LIKE', 'Series of equipment');
-            })->first();
-            $priority_product_series = ($priority_product_attributes->attribute_value->value);
-        }
+        //     $get_priority_product = $get_priority_product->where('system_type_id', $system_type_id)->where('type_id', $priority_product_type->id)->where('standard_id', $standard_id)->orderBy('priority', 'DESC')->orderBy('created_at', 'ASC')->first();
+
+        //     $priority_product_attributes = ProductAttribute::with('attribute', 'attribute_value')->where('product_id', $get_priority_product->id)->whereHas('attribute', function ($q) {
+        //         $q->where('name', 'LIKE', 'Series of Equipment');
+        //         $q->orWhere('name', 'LIKE', 'Series of equipment');
+        //     })->first();
+        //     $priority_product_series = ($priority_product_attributes->attribute_value->value);
+        // }
 
 
         foreach ($products as $product_type => $product) {
@@ -341,36 +386,39 @@ class FrontController extends Controller
                 $attribute_count = count($attributes);
                 $type = Type::where('slug', 'LIKE', $product_type)->first();
 
-                $model = Product::whereHas('product_attributes.attribute', function ($q) use ($type, $system_type_id, $priority_product_series) {
+                $model = Product::whereHas('product_attributes.attribute', function ($q) use ($type, $system_type_id) {
                     $q->where('type_id', $type->id)
                         ->where('system_type_id', $system_type_id);
-                    if ($priority_product_series) {
-                        $q->where('name', 'LIKE', 'Series of equipment');
-                    }
+                    // if ($priority_product_series) {
+                    //     $q->where('name', 'LIKE', 'Series of equipment');
+                    // }
                 });
 
-                if ($priority_product_series) {
-                    $model->whereHas('product_attributes.attribute_value', function ($q) use ($type, $system_type_id, $standard_id, $priority_product_series) {
-                        $q->where('type_id', $type->id)
-                            ->where('standard_id', $standard_id)
-                            ->where('system_type_id', $system_type_id);
-                        if ($priority_product_series) {
-                            $q->where('value', 'LIKE', $priority_product_series);
-                        }
-                    });
-                }
+                // if ($priority_product_series) {
+                $model->whereHas('product_attributes.attribute_value', function ($q) use ($type, $system_type_id, $standard_id) {
+                    $q->where('type_id', $type->id)
+                        ->where('standard_id', $standard_id)
+                        ->where('system_type_id', $system_type_id);
+                    // if ($priority_product_series) {
+                    //     $q->where('value', 'LIKE', $priority_product_series);
+                    // }
+                });
+                //}
 
                 foreach ($attributes as $key => $attribute) {
                     if ($attribute != NULL) {
                         $product_arr[$product_type][$no][$key] = $attribute;
                     }
-                    if ($attribute != 'unimportant') {
-                        $model->whereHas('product_attributes', function ($q) use ($attribute) {
-                            $q->where('attribute_value_id', $attribute);
-                        });
-                    } else if ($attribute == 'unimportant') {
-                        $unselected_attr_count++;
+                    if (isset($quantities[$product_type][$no]) && $quantities[$product_type][$no] != 0) {
+                        if ($attribute != 'unimportant') {
+                            $model->whereHas('product_attributes', function ($q) use ($attribute) {
+                                $q->where('attribute_value_id', $attribute);
+                            });
+                        } else if ($attribute == 'unimportant') {
+                            $unselected_attr_count++;
+                        }
                     }
+                   
                 }
                 // dd($unselected_attr_count, $attribute_count);
                 if ($unselected_attr_count == $attribute_count) {
@@ -381,7 +429,8 @@ class FrontController extends Controller
                         $model = $model->toArray();
                         $product_arr[$product_type][$no]['model'] = $model;
                     }
-                    if (!empty($quantities[$product_type][$no])) {
+
+                    if (isset($quantities[$product_type][$no]) && $quantities[$product_type][$no] != '' && $quantities[$product_type][$no] != null) {
                         $quantity_arr[$product_type][$no]['qty'] = $quantities[$product_type][$no];
                         $quantity_arr[$product_type][$no]['total_qty'] = $total_qtys[$product_type][$no];
                         $quantity_total += (int)$total_qtys[$product_type][$no];
@@ -409,7 +458,7 @@ class FrontController extends Controller
             $products = $product_arr;
             $quantities = $quantity_arr;
             $html = view('enquiries.partials.pdf', compact('products', 'quantities'))->render();
-            return response()->json(['success' => true, 'html' => $html, 'priority_product_series' => $priority_product_series]);
+            return response()->json(['success' => true, 'html' => $html]);
         } else {
             return response()->json(['success' => false, 'message' => translate('Please Enter Quantity for the products.')]);
         }

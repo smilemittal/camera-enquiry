@@ -111,7 +111,8 @@
                                                     <td style="border: 1px solid #000;text-align: center;">
                                                         @php
                                                         if(!empty($quantities[$product_type][$no])){
-                                                            $quantity_total += (int)$quantities[$product_type][$no]['total_qty'];
+                                                            //$quantity_total += (int)$quantities[$product_type][$no]['total_qty'];
+                                                            $quantity_total +=  (int)$quantities[$product_type][$no]['qty'];
                                                             $product_prices = json_decode($attribute_values['model']['price'], 1);
                                                             $prices = [];
                                                             if(!is_array($product_prices)){
