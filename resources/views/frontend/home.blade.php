@@ -265,6 +265,7 @@
             setSeries();
             //$('.series_val').val(series_type);
             var attribute_value_arr = [];
+            var second_attribute_value_arr = [];
             var ele = $(this);
             var standard = $('#selected_standard').val();
             var system_type = $(this).data('system_type');
@@ -281,32 +282,41 @@
                 second_product_type = 'camera';
             }
 
-            if (first_selected_product_type != product_type) {
-                available_series = available_series;
-            } 
+            
             // else {
             //     available_series = '';
             // }
 
-
-
             var count = $('input[name="' + product_type + '_count"]').val();
 
             var second_count = $('input[name="' + second_product_type + '_count"]').val();
-            console.log(second_count);
-
 
             var selected_attributes = [];
+            var second_selected_attributes = [];
 
-            $('.attribute', '.' + product_type + '_div_' + count).each(function() {
-
+            //$('.attribute', '.' + product_type + '_div_' + count).each(function() {
+            $('.' + product_type + '_div_' + count + ' .attribute').each(function() {
                 if ($(this).val() != '') {
                     selected_attributes[$(this).data('attribute')] = $(this).val();
                     attribute_value_arr.push($(this).val());
                 }
             });
 
+            if (first_selected_product_type != product_type) {
+                available_series = available_series;
+                $('.' + second_product_type + '_div_' + second_count + ' .attribute').each(function() {
+                    if ($(this).val() != '') {
+                        second_selected_attributes[$(this).data('attribute')] = $(this).val();
+                        second_attribute_value_arr.push($(this).val());
+                    }
+                });
+            } 
+
+
+            console.log(attribute_value_arr, second_attribute_value_arr);
+
             var attribute_val = attribute_value_arr.join(',');
+            var second_attribute_val = second_attribute_value_arr.join(',');
 
             $.ajax({
                 method: 'post',
@@ -322,16 +332,21 @@
                     'selected_attributes': selected_attributes,
                     'available_series': available_series,
                     'first_selected_product_type': first_selected_product_type,
+                    'second_attribute_value': second_attribute_val,
+                    'second_selected_attributes': second_selected_attributes,
                 },
                 success: function(data) {
                     if (data.success == true && data.html != '') {
                         $('.' + product_type + '_div_' + count).empty();
                         $('.' + product_type + '_div_' + count).append(data.html);
+                        available_series = data.available_series;
+                        $('#available_series').val(data.available_series);
                         if (first_selected_product_type == product_type) {
-                            available_series = data.available_series;
-                            $('#available_series').val(data.available_series);
+                            if (data.configuration_status != '') {
+                                swal('Sorry!', data.configuration_status, 'warning');
+                            }
                         }
-                        console.log(available_series);
+                        //console.log(available_series);
                         // else{
                         if (data.second_html != '' && available_series != '') {
                             $('.' + second_product_type + '_div_' + second_count).empty();
@@ -403,7 +418,7 @@
             // console.log($('.'+ target).data('type'));
 
 
-
+            selected_attributes
             var current_qty = $('.' + type + '_' + count).find('.qty').val();
             $('.' + type + '_' + count).find('.qty').val('');
 

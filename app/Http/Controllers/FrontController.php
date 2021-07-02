@@ -60,8 +60,12 @@ class FrontController extends Controller
             $attribute_value_id = $request->input('attribute_value');
             $attribute_value_id = explode(',', $attribute_value_id);
             $selected_attributes = $request->input('selected_attributes');
+            
             $standard = $request->input('standard');
             $post_available_series = !empty($request->input('available_series')) ? json_decode($request->input('available_series'), true) : [];
+
+            $second_attribute_value_id = !empty($request->input('second_attribute_value')) ? explode(',', $request->input('second_attribute_value')) : '';
+            $second_selected_attributes = $request->input('second_selected_attributes');
 
             //fetching products for current product type
 
@@ -88,7 +92,7 @@ class FrontController extends Controller
             $products = $products->where('system_type_id', $system_type)->where('type_id', $type->id)->get();
 
 
-            $available_series = [];
+            $available_series = $second_available_series = [];
             $attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('display_order', 'ASC')->get();
             $filtered_attributes = $second_filtered_attributes = array();
 
@@ -101,22 +105,22 @@ class FrontController extends Controller
                         foreach ($product->product_attributes as $product_attribute) {
                             //get product series
 
-                            if ($product_type == $first_selected_product_type) {
-                                $product_attribute_value = AttributeValue::find($product_attribute->attribute_value_id);
-                                if (!empty($product_attribute_value)) {
-                                    if (!empty($product_attribute_value->attribute)) {
+                            //if ($product_type == $first_selected_product_type) {
+                            $product_attribute_value = AttributeValue::find($product_attribute->attribute_value_id);
+                            if (!empty($product_attribute_value)) {
+                                if (!empty($product_attribute_value->attribute)) {
 
-                                        $product_attribute_name = $product_attribute_value->attribute->name;
+                                    $product_attribute_name = $product_attribute_value->attribute->name;
 
-                                        if ($product_attribute_name == 'Series of equipment') {
+                                    if ($product_attribute_name == 'Series of equipment') {
 
-                                            if (!in_array($product_attribute_value->value, $available_series)) {
-                                                $available_series[] = $product_attribute_value->value;
-                                            }
+                                        if (!in_array($product_attribute_value->value, $available_series)) {
+                                            $available_series[] = $product_attribute_value->value;
                                         }
                                     }
                                 }
                             }
+                            // }
 
                             $filtered_attributes[$product_attribute->attribute_id][] = $product_attribute->attribute_value_id;
                         }
@@ -142,8 +146,11 @@ class FrontController extends Controller
 
             $is_second_product = false;
 
+
             $html .= view('frontend.extras.filter', compact('filtered_attributes', 'system_type', 'type', 'selected_attributes', 'attributes', 'i', 'standard', 'is_second_product'))->render();
 
+
+            $is_second_product_configurable = true;
             if ($product_type == $first_selected_product_type) {
                 $is_second_product = true;
                 $second_products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
@@ -158,7 +165,7 @@ class FrontController extends Controller
 
                     ->where('type_id', $second_type->id)
                     ->get();
-                //dd($second_products->toArray()[3]);
+
                 $second_attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $second_type->id)->orderBy('display_order', 'ASC')->get();
 
                 if (!empty($second_products) && count($second_products) > 0) {
@@ -167,6 +174,21 @@ class FrontController extends Controller
                         if (!empty($product->product_attributes)) {
 
                             foreach ($product->product_attributes as $product_attribute) {
+
+                                // $product_attribute_value = AttributeValue::find($product_attribute->attribute_value_id);
+                                // if (!empty($product_attribute_value)) {
+                                //     if (!empty($product_attribute_value->attribute)) {
+
+                                //         $product_attribute_name = $product_attribute_value->attribute->name;
+
+                                //         if ($product_attribute_name == 'Series of equipment') {
+
+                                //             if (!in_array($product_attribute_value->value, $available_series)) {
+                                //                 $second_available_series[] = $product_attribute_value->value;
+                                //             }second_attribute_value_id
+                                //         }HDD Slots
+                                //     }
+                                // }
 
                                 if (!empty($second_filtered_attributes[$product_attribute->attribute_id])) {
                                     if (!in_array($product_attribute->attribute_value_id, $second_filtered_attributes[$product_attribute->attribute_id])) {
@@ -179,7 +201,6 @@ class FrontController extends Controller
                         }
                     }
                 }
-                //  dd($second_filtered_attributes);
                 $second_html .= view('frontend.extras.filter', [
                     'filtered_attributes' => $second_filtered_attributes,
                     'system_type' => $system_type,
@@ -190,11 +211,81 @@ class FrontController extends Controller
                     'standard' => $standard,
                     'is_second_product' => $is_second_product,
                 ])->render();
+
+                if (count($second_products) > 0) {
+                    $is_second_product_configurable = true;
+                } else {
+                    $is_second_product_configurable = false;
+                }
+
+
+                //  dd($second_filtered_attributes);
+
+            } else {
+                if (count($post_available_series) > count($available_series)) {
+                    //secondproduct
+                    $is_second_product = true;
+                    $second_products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
+                        ->whereHas('product_attributes.attribute', function ($q) use ($second_type) {
+                            $q->where('type_id', $second_type->id);
+                        })
+                        ->whereHas('product_attributes.attribute_value', function ($q) use ($available_series) {
+                            $q->whereIn('value', $available_series);
+                        })
+                        ->where('system_type_id', $system_type)
+                        ->where('standard_id', $standard)
+
+                        ->where('type_id', $second_type->id)
+                        ->get();
+
+                    $second_attributes = Attribute::with('attribute_values')->where('system_type_id', $system_type)->where('type_id', $second_type->id)->orderBy('display_order', 'ASC')->get();
+
+                    if (!empty($second_products) && count($second_products) > 0) {
+                        foreach ($second_products as $product) {
+
+                            if (!empty($product->product_attributes)) {
+
+                                foreach ($product->product_attributes as $product_attribute) {
+
+                         
+
+                                    if (!empty($second_filtered_attributes[$product_attribute->attribute_id])) {
+                                        if (!in_array($product_attribute->attribute_value_id, $second_filtered_attributes[$product_attribute->attribute_id])) {
+                                            $second_filtered_attributes[$product_attribute->attribute_id][] = $product_attribute->attribute_value_id;
+                                        }
+                                    } else {
+                                        $second_filtered_attributes[$product_attribute->attribute_id][] = $product_attribute->attribute_value_id;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                   //dd( $second_attribute_value_id );
+                    $second_html .= view('frontend.extras.filter', [
+                        'filtered_attributes' => $second_filtered_attributes,
+                        'system_type' => $system_type,
+                        'type' => $second_type,
+                        'selected_attributes' =>$second_selected_attributes,
+                        'attributes' => $second_attributes,
+                        'i' => $second_count,
+                        'standard' => $standard,
+                        'is_second_product' => $is_second_product,
+                    ])->render();
+
+                }
+            }
+
+            //dd($is_second_product_configurable);
+            $configuration_status = '';
+            if ($is_second_product_configurable) {
+            } else {
+                $configuration_status = __('site.No configuration found', ['first_type' => $type->slug, 'second_type' => $second_type->slug]);
             }
 
 
+            //dd($configuration_status);
 
-            return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type, 'pro_series' => $pro_series, 'available_series' => json_encode($available_series), 'second_html' => $second_html]);
+            return response()->json(['success' => true, 'html' => $html, 'product_type' => $product_type, 'pro_series' => $pro_series, 'available_series' => json_encode($available_series), 'second_html' => $second_html, 'configuration_status' => $configuration_status]);
         }
     }
 
@@ -346,6 +437,8 @@ class FrontController extends Controller
         $standard_id = $request->input('selected_standard');
         $system_type_id = $request->input('selected_system_type');
         $first_selected_product_type = $request->input('first_selected_product_type');
+        $available_series = !empty($request->input('available_series')) ? json_decode($request->input('available_series'), true) : '';
+
 
         $quantity_arr = $errors = [];
         $product_arr = [];
@@ -386,22 +479,22 @@ class FrontController extends Controller
                 $attribute_count = count($attributes);
                 $type = Type::where('slug', 'LIKE', $product_type)->first();
 
-                $model = Product::whereHas('product_attributes.attribute', function ($q) use ($type, $system_type_id) {
+                $model = Product::whereHas('product_attributes.attribute', function ($q) use ($type, $system_type_id, $available_series) {
                     $q->where('type_id', $type->id)
                         ->where('system_type_id', $system_type_id);
-                    // if ($priority_product_series) {
-                    //     $q->where('name', 'LIKE', 'Series of equipment');
-                    // }
+                    if ($available_series) {
+                        $q->where('name', 'LIKE', 'Series of equipment');
+                    }
                 });
 
                 // if ($priority_product_series) {
-                $model->whereHas('product_attributes.attribute_value', function ($q) use ($type, $system_type_id, $standard_id) {
+                $model->whereHas('product_attributes.attribute_value', function ($q) use ($type, $system_type_id, $standard_id, $available_series) {
                     $q->where('type_id', $type->id)
                         ->where('standard_id', $standard_id)
                         ->where('system_type_id', $system_type_id);
-                    // if ($priority_product_series) {
-                    //     $q->where('value', 'LIKE', $priority_product_series);
-                    // }
+                    if ($available_series) {
+                        $q->where('value', 'LIKE', $available_series);
+                    }
                 });
                 //}
 
@@ -418,7 +511,6 @@ class FrontController extends Controller
                             $unselected_attr_count++;
                         }
                     }
-                   
                 }
                 // dd($unselected_attr_count, $attribute_count);
                 if ($unselected_attr_count == $attribute_count) {

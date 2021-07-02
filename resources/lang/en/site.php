@@ -77,6 +77,7 @@
 					'Note*'						=>'Note*',
 					'Click Here '				=>'Click Here',
 					'Recorder panel description'=> 'Recorder panel description',
+					'No configuration found' => 'No configuration found for :second_type Enter quantity 0 for :second_type to print summary for just :first_type',
 
   		
 
