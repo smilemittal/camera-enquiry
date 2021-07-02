@@ -73,11 +73,16 @@ class FrontController extends Controller
                 ->whereHas('product_attributes.attribute', function ($q) use ($type) {
                     $q->where('type_id', $type->id);
                 });
-            if ($product_type != $first_selected_product_type) {
-                $products->whereHas('product_attributes.attribute_value', function ($q) use ($post_available_series) {
-                    $q->whereIn('value', $post_available_series);
-                });
-            }
+
+              // comment to make second product series as main  
+            //if ($product_type != $first_selected_product_type) {
+                if(!empty($post_available_series)){
+                    $products->whereHas('product_attributes.attribute_value', function ($q) use ($post_available_series) {
+                        $q->whereIn('value', $post_available_series);
+                    });
+                }
+                
+            //}
 
 
             foreach ($attribute_value_id as $id) {
