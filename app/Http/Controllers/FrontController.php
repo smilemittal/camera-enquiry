@@ -510,6 +510,8 @@ class FrontController extends Controller
                         //     $sr++;
                         // }   
                         $q->where('value','LIKE',$final_series);
+                    }else{
+                        $q->where('value','LIKE',$final_series);
                     }
                    
                 });
