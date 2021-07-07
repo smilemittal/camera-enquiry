@@ -129,6 +129,7 @@
         </div>
 
         <input type="hidden" name="available_series" value="" id="available_series">
+        <input type="hidden" name="final_series" id="final_series" value="">
     </form>
     {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     Launch demo modal
@@ -346,13 +347,18 @@
                                 swal('Sorry!', data.configuration_status, 'warning');
                             }
                         }
-                        //console.log(available_series);
+                        console.log();
                         // else{
                         if (data.second_html != '' && available_series != '') {
                             $('.' + second_product_type + '_div_' + second_count).empty();
                             $('.' + second_product_type + '_div_' + second_count).append(data
                                 .second_html);
                         }
+
+                        $('#final_series').val(data.pro_series);
+                       
+                        
+                        
                         //}
                         // set_series = data.pro_series;
 
@@ -572,8 +578,10 @@
 
         $('.summary').on('click', function() {
             var url = $(this).data('url');
+            var final_series = $('#final_series').val();
             var formData = new FormData($('#product-enquiry')[0]);
             formData.append('first_selected_product_type', first_selected_product_type);
+            formData.append('final_series', final_series);
             // let attr_count =0;
             // let unselected_attr_count = 0;
             //     $('.attribute').each(function(){

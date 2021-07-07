@@ -227,8 +227,10 @@ class FrontController extends Controller
                 //  dd($second_filtered_attributes);
 
             } else {
-                if (count($post_available_series) > count($available_series)) {
+                
+                if (count($post_available_series) >= count($available_series)) {
                     //secondproduct
+                    //dd($post_available_series, $available_series);
                     $is_second_product = true;
                     $second_products = Product::with('product_attributes', 'product_attributes.attribute.attribute_values', 'product_attributes.attribute_value')
                         ->whereHas('product_attributes.attribute', function ($q) use ($second_type) {
@@ -443,7 +445,7 @@ class FrontController extends Controller
         $system_type_id = $request->input('selected_system_type');
         $first_selected_product_type = $request->input('first_selected_product_type');
         $available_series = !empty($request->input('available_series')) ? json_decode($request->input('available_series'), true) : '';
-
+        $final_series = !empty($request->input('final_series')) ? $request->input('final_series'): '';
 
         $quantity_arr = $errors = [];
         $product_arr = [];
@@ -493,13 +495,23 @@ class FrontController extends Controller
                 });
 
                 // if ($priority_product_series) {
-                $model->whereHas('product_attributes.attribute_value', function ($q) use ($type, $system_type_id, $standard_id, $available_series) {
+                $model->whereHas('product_attributes.attribute_value', function ($q) use ($type, $system_type_id, $standard_id, $available_series, $final_series) {
                     $q->where('type_id', $type->id)
                         ->where('standard_id', $standard_id)
                         ->where('system_type_id', $system_type_id);
-                    if ($available_series) {
-                        $q->where('value', 'LIKE', $available_series);
+                    if (count($available_series)> 1) {
+                        // $sr = 0;
+                        // foreach($available_series as $series){
+                        //     if($sr == 0){
+                        //         $q->where('value', 'LIKE', $series);
+                        //     }else{
+                        //         $q->orWhere('value', 'LIKE', $series);
+                        //     }
+                        //     $sr++;
+                        // }   
+                        $q->where('value','LIKE',$final_series);
                     }
+                   
                 });
                 //}
 
