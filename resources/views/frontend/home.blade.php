@@ -338,6 +338,7 @@
                 },
                 success: function(data) {
                     if (data.success == true && data.html != '') {
+                        console.log(data.pro_series);
                         $('.' + product_type + '_div_' + count).empty();
                         $('.' + product_type + '_div_' + count).append(data.html);
                         available_series = data.available_series;
@@ -423,8 +424,6 @@
             var count = $('.' + target).data('count');
             // console.log($('.'+ target).data('type'));
 
-
-            selected_attributes
             var current_qty = $('.' + type + '_' + count).find('.qty').val();
             $('.' + type + '_' + count).find('.qty').val('');
 
@@ -581,7 +580,7 @@
             var final_series = $('#final_series').val();
             var formData = new FormData($('#product-enquiry')[0]);
             formData.append('first_selected_product_type', first_selected_product_type);
-            formData.append('final_series', final_series);
+            //formData.append('final_series', final_series);
             // let attr_count =0;
             // let unselected_attr_count = 0;
             //     $('.attribute').each(function(){

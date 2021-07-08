@@ -20,7 +20,7 @@
                                 @endphp
                                 
                                 @foreach($attribute_values as $attribute_value)
-                                    @if(empty($selected_attributes) && !$is_second_product && empty($filtered_attributes[$attribute->id]))
+                                    @if(empty($selected_attributes) && !$is_second_product && empty($filtered_attributes))
                                         <option value="{{ $attribute_value->id }}" class="1">{{ translate($attribute_value->value)}}</option>
                                     @elseif(empty($selected_attributes) && !$is_second_product && in_array($attribute_value->id, $filtered_attributes[$attribute->id]))
                                         <option value="{{ $attribute_value->id }}" class="2">{{ translate($attribute_value->value)}}</option>
@@ -29,7 +29,7 @@
                                     @elseif(!empty($selected_attributes) && count($selected_attributes) > 0 && !empty($filtered_attributes) && in_array($attribute_value->id, $filtered_attributes[$attribute->id])
                                     )
                                   
-                                        <option value="{{ $attribute_value->id }}" class="4" {{ !empty($selected_attributes[$attribute->id]) && $attribute_value->id == $selected_attributes[$attribute->id] ? 'selected' : '' }}>{{ translate($attribute_value->value)}}</option>
+                                        <option value="{{ $attribute_value->id }}" class="4" data-attr_id="" {{ !empty($selected_attributes[$attribute->id]) && $attribute_value->id == $selected_attributes[$attribute->id] ? 'selected' : '' }}>{{ translate($attribute_value->value)}}</option>
                                     @endif
                                 @endforeach
                             @endif
