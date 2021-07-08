@@ -482,7 +482,7 @@ class FrontController extends Controller
             $quantity_total = 0;
 
             foreach ($product as $no => $attributes) {
-                if (isset($quantities[$product_type][$no]) && $quantities[$product_type][$no] != 0) {
+               
 
                     $unselected_attr_count = 0;
                     $attribute_count = count($attributes);
@@ -554,7 +554,7 @@ class FrontController extends Controller
                             break 2;
                         }
                     }
-                }
+                
             }
             $quantity_arr[$product_type]['total'] = $quantity_total;
             $total_products += $quantity_total;
