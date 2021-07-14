@@ -134,7 +134,7 @@ class FrontController extends Controller
             }
 
             //get current series
-            $get_product = $get_product_query->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('priority', 'ASC')->orderBy('created_at', 'ASC')->first();
+            $get_product = $get_product_query->where('system_type_id', $system_type)->where('type_id', $type->id)->orderBy('priority', 'DESC')->orderBy('created_at', 'ASC')->first();
 
             $pro_attrs = ProductAttribute::with('attribute')->where('product_id', $get_product->id)->whereHas('attribute', function ($q) {
                 $q->where('name', 'LIKE', 'Series of Equipment');
