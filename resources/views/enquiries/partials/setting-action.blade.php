@@ -8,11 +8,11 @@
         x-placement="bottom-end"
         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(55px, 27px, 0px);">
             <a class="dropdown-item" href="{{ route('enquiries.show', $enquiry ?? ''->id)}}"><i
-              class="ft-eye"></i>Details</a>
-                        <form action="{{ $destroy }}" method="post" id="{{ 'delete_form_'.$enquiry->id}}">  
-                            @csrf  
-                            @method('DELETE')  
-                        </form> 
-            <a href="#"  data-form_id="{{ 'delete_form_'.$enquiry->id }}" class="dropdown-item delete" > <i class="ft-trash-2"></i>Delete</a>  
+              class="ft-eye"></i>{{translate('Details')}}</a>
+                        <form action="{{ $destroy }}" method="post" id="{{ 'delete_form_'.$enquiry->id}}">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+            <a href="#"  data-form_id="{{ 'delete_form_'.$enquiry->id }}" class="dropdown-item delete" > <i class="ft-trash-2"></i>{{translate('Delete')}}</a>
     </span>
 </span>

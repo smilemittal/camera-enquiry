@@ -7,6 +7,7 @@ use App\Imports\SystemTypesImport;
 use App\Exports\SystemTypesExport;
 use Illuminate\Http\Request;
 use App\Models\SystemType;
+use Illuminate\Validation\Rule;
 
 class SystemTypesController extends Controller
 {
@@ -42,7 +43,7 @@ class SystemTypesController extends Controller
     {
 
         $this->validate($request, [
-            'name'=>'required|max:50|unique:system_types,name',
+            'name'=>'required|max:50|'.Rule::unique('system_types')->whereNull('deleted_at'),
         ]);
 
         SystemType::create($request->all());
@@ -83,14 +84,12 @@ class SystemTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-     
-
         $this->validate($request, [
-            'name'=>'required|max:50|unique:system_types,name,'.$id,
+            'name'=>'required|max:50|'.Rule::unique('system_types')->ignore($id)->whereNull('deleted_at'),
         ]);
-  
-        $system_types=SystemType::find($id);          
-        $system_types->update($request->all()); 
+
+        $system_types=SystemType::find($id);
+        $system_types->update($request->all());
 
         return redirect()->route('system-types.index')->with('updated_success', __('message.System type updated successfully'));
     }
@@ -103,20 +102,28 @@ class SystemTypesController extends Controller
      */
     public function destroy($id)
     {
-        $system_types=SystemType::find($id);  
+        $system_types=SystemType::find($id);
         $system_types->delete();
-        
+
          return redirect()->route('system-types.index')->with('deleted_success', __('message.System type deleted successfully'));
 
     }
+    public function multipleDelete(Request $request)
+	{
+        $id = $request->bulk_delete;
+
+			SystemType::whereIn('id', $id)->delete();
+
+		return redirect()->back();
+	}
 
     public function getSystemTypes(Request $request) {
         $totalData = SystemType::count();
         $totalFiltered = $totalData;
         $columns = array(
-            0=>'id',
-            1 =>'name',
-            2 =>'action',
+            1=>'id',
+            2 =>'name',
+            3 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -140,6 +147,7 @@ class SystemTypesController extends Controller
         $data = array();
         if (!empty($system_types)) {
             foreach ($system_types as $key => $system_type) {
+                $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$system_type->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $system_type->name;
                 $index = route('system-types.index' ,  encrypt($system_type->id));
@@ -171,20 +179,33 @@ class SystemTypesController extends Controller
         if($request->hasFile('import-system-types')){
 
         $this->validate($request, [
-          
+
             'import-system-types' => 'required|mimes:csv,xlsx,xls',
-            
-        ]); 
-        Excel::import(new SystemTypesImport, request()->file('import-system-types'));
+
+        ]);
+
+        $import = new SystemTypesImport;
+
+        Excel::import($import, request()->file('import-system-types'));
+
+        if($import->imported_system_types > 0){
+            return redirect()->route('system-types.import')->with('success', __('message.System types Imported successfully'));
+        }else{
+            if($import->existing_system_types > 0 && $import->existing_system_types == $import->total_system_types){
+                return redirect()->route('system-types.import')->withErrors([__('message.System types Import Failed Exists')]);
+            }else{
+                return redirect()->route('system-types.import')->withErrors([__('message.System types Import Failed.')]);
+            }
+        }
 
     }
-      
-        return redirect()->route('system-types.import')->with('success', __('message.System types Imported successfully'));
+
+        
     }
 
     public function export()
     {
         return Excel::download(new SystemTypesExport ,'systemtypes.xlsx');
     }
-    
+
 }

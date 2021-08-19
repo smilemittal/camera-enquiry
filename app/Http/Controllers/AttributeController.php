@@ -6,8 +6,9 @@ use Excel;
 use Illuminate\Http\Request;
 use App\Models\SystemType;
 use App\Models\Attribute;
+use App\Models\Type;
 use App\Exports\AttributeExport;
-
+use App\Imports\AttributeValuesImport;
 
 class AttributeController extends Controller
 {
@@ -36,7 +37,8 @@ class AttributeController extends Controller
     public function create()
     {
         $system_types = SystemType::all();
-        return view('attribute.create', compact('system_types'));
+        $types = Type::all();
+        return view('attribute.create', compact('system_types','types'));
     }
 
     /**
@@ -49,14 +51,14 @@ class AttributeController extends Controller
     {
         $this->validate($request, [
             'name'=>'required|max:50',
-            'type'=>'required',
+            'type_id'=>'required',
             'display_order'=>'required',
             'system_type_id'=>'required',
             'description' =>'required'
-            
+
         ]);
         Attribute::create($request->all());
-            // 
+            //
         return redirect()->route('attribute.index')->with('success', __('message.Attribute added successfully'));
     }
 
@@ -81,7 +83,8 @@ class AttributeController extends Controller
     {
         $attribute=Attribute::find($id);
         $system_types = SystemType::all();
-        return view('attribute.edit', compact('attribute','system_types'));
+        $types = Type::all();
+        return view('attribute.edit', compact('attribute','system_types','types'));
     }
 
     /**
@@ -95,7 +98,7 @@ class AttributeController extends Controller
     {
         $this->validate($request, [
             'name'=>'required|max:50',
-            'type'=>'required',
+            'type_id'=>'required',
             'display_order'=>'required',
             'system_type_id'=>'required',
             'description' =>'required'
@@ -118,19 +121,27 @@ class AttributeController extends Controller
         $deletes->delete();
         return redirect()->route('attribute.index')->with('deleted', __('message.Attribute deleted successfully'));
     }
-    public function getattribute(Request $request) 
+    public function multipleDelete(Request $request)
+	{
+        $id = $request->bulk_delete;
+
+        Attribute::whereIn('id', $id)->delete();
+
+		return redirect()->back();
+	}
+    public function getattribute(Request $request)
     {
 
         $totalData = Attribute::count();
         $totalFiltered = $totalData;
         $columns = array(
-            0=>'id',
-            1 =>'name',
-            2 =>'type',
-            3 =>'display_order',
-            4 =>'system_type_id',
-            5 =>'description',
-            6 =>'action',
+            1=>'id',
+            2 =>'name',
+            3 =>'type_id',
+            4 =>'display_order',
+            5 =>'system_type_id',
+            6 =>'description',
+            7 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -157,11 +168,12 @@ class AttributeController extends Controller
         $data = array();
         if (!empty($attributes)) {
             foreach ($attributes as $key => $attribute) {
+                $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$attribute->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
-                $nestedData['name'] = ucfirst($attribute->name);
-                $nestedData['type'] =ucfirst($attribute->type);
+                $nestedData['name'] = translate($attribute->name);
+                $nestedData['type_id'] =!empty($attribute->type) ? translate($attribute->type->name) : '';
                 $nestedData['display_order'] = $attribute->display_order;
-                $nestedData['system_type_id'] = !empty($attribute->system_type) ? $attribute->system_type->name : '';
+                $nestedData['system_type_id'] = !empty($attribute->system_type) ? translate($attribute->system_type->name) : '';
                 $nestedData['description'] = $attribute->description;
 
                 $index = route('attribute.index' ,  ($attribute->id));
@@ -189,28 +201,29 @@ class AttributeController extends Controller
     public function postImport(Request $request)
     {
         $this->validate($request, [
-          
+
             'import-attribute-values' => 'required|mimes:csv,xlsx,xls',
-            
+
         ]);
         if($request->hasFile('import-attribute-values')){
+            $import = new AttributeValuesImport;
+            Excel::import($import, request()->file('import-attribute-values'));
             
-            $this->validate($request, [
-          
-                'import-attribute-values' => 'required|mimes:csv,xlsx,xls',
-                
-            ]);
-            Excel::import(new AttributeValuesImport, request()->file('import-attribute-values'));
+            if($import->attribute_value_imported > 0){
+                return redirect()->back()->with('success',__('message.Attributes Imported successfully'));
+            }else{
+                return redirect()->back()->withErrors([__('message.Attributes Import Failed.')]);
+            }
 
         }
-      
-        return redirect()->route('attribute-values.import')->with('success',__('Message.Attributes Imported successfully'));
+
+        
     }
-    
-    public function export() 
+
+    public function export()
     {
         return Excel::download(new AttributeExport, 'AttributeData.xlsx');
     }
-      
+
 
 }

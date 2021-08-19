@@ -6,13 +6,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
-    <meta name="keywords" content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
+    <meta name="description"
+        content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
+    <meta name="keywords"
+        content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
     <title>Login</title>
     <link rel="apple-touch-icon" href="app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="app-assets/images/ico/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700"
+        rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/vendors.min.css">
@@ -40,7 +44,8 @@
 
 <!-- BEGIN: Body-->
 
-<body class="vertical-layout vertical-menu 1-column  bg-full-screen-image blank-page blank-page" data-open="click" data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="1-column">
+<body class="vertical-layout vertical-menu 1-column  bg-full-screen-image blank-page blank-page" data-open="click"
+    data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="1-column">
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-wrapper">
@@ -54,10 +59,10 @@
                             <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
                                 <div class="card-header border-0">
                                     <div class="text-center mb-1">
-                                        <img src="{{asset('assets/frontend/img/logo.png')}}" alt="branding logo">
+                                        <img src="{{ asset('assets/frontend/img/logo.png') }}" alt="branding logo">
                                     </div>
                                     <div class="font-large-1  text-center">
-                                        Admin Login
+                                        {{ translate('Admin Login') }}
                                     </div>
                                 </div>
                                 <div class="card-content">
@@ -71,13 +76,16 @@
                                         <form class="form-horizontal" action="{{ route('login') }}" method="POST">
                                             @csrf
                                             <fieldset class="form-group position-relative has-icon-left">
-                                                <input type="email" class="form-control round" id="email" value="{{ old('email') }}" name="email" placeholder="Enter Email" required >
+                                                <input type="email" class="form-control round" id="email"
+                                                    value="{{ old('email') }}" name="email" placeholder="Enter Email"
+                                                    required>
                                                 <div class="form-control-position">
                                                     <i class="ft-user"></i>
                                                 </div>
                                             </fieldset>
                                             <fieldset class="form-group position-relative has-icon-left">
-                                                <input type="password" class="form-control round" id="user-password" name="password" placeholder="Enter Password"  value="" required>
+                                                <input type="password" class="form-control round" id="user-password"
+                                                    name="password" placeholder="Enter Password" value="" required>
                                                 <div class="form-control-position">
                                                     <i class="ft-lock"></i>
                                                 </div>
@@ -87,14 +95,17 @@
 
                                                 </div>
                                                 <div class="col-md-6 col-12 float-sm-left text-center text-sm-right">
-                                                     @if (Route::has('password.request'))
+                                                    @if (Route::has('password.request'))
 
-                                                    <a href="{{ route('password.request') }}" class="card-link">{{ __('Forgot your password?') }}</a>
+                                                        <a href="{{ route('password.request') }}"
+                                                            class="card-link">{{ translate('Forgot your password?') }}</a>
                                                     @endif
                                                 </div>
                                             </div>
                                             <div class="form-group text-center">
-                                                <button type="submit" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1"> {{ __('Login') }}</button>
+                                                <button type="submit"
+                                                    class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">
+                                                    {{ translate('Login') }}</button>
                                             </div>
 
                                         </form>

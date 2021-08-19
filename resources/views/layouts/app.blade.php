@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+@if(\App\Models\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
+<html dir="rtl" lang="{{ str_replace('_', '-', app()->getLocale()) }}"  data-textdirection="rtl">
+@else
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@endif
+{{-- <html class="loading" lang="en" data-textdirection="ltr"> --}}
 <!-- BEGIN: Head-->
 
 @include('layouts.partials.head')
@@ -35,11 +40,6 @@
 <!-- Page Scripts -->
 @yield('scripts')
 <!-- Page scripts end -->
-
-
-
-
-
 </body>
 <!-- END: Body-->
 

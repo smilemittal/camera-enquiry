@@ -1,0 +1,6 @@
+Options -Indexes
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^camera.vhostevents.com$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^camera.vhostevents.com$
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /public/$1 [L]

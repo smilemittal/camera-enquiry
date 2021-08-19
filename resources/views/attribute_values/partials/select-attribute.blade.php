@@ -1,4 +1,4 @@
-@foreach($attributes as $attribute)
-<option value="{{ $attribute->id }}">{{ $attribute->name }}
+@foreach ($attributes as $attribute)
+    <option value="{{ $attribute->id }}">{{ $attribute->name }}
     </option>
 @endforeach

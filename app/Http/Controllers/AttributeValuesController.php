@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Excel;
+use App\Models\Type;
+use App\Models\Standard;
 use App\Models\Attribute;
 use App\Models\SystemType;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
-use App\Imports\AttributeValuesImport;
-use App\Exports\AttributeValuesExport;
+use Illuminate\Validation\Rule;
 
 
 class AttributeValuesController extends Controller
@@ -21,7 +21,7 @@ class AttributeValuesController extends Controller
     public function index()
     {
         $attribute_values=AttributeValue::with('system_type', 'attribute')->get();
-        
+
         return view('attribute_values.index',compact('attribute_values'));
     }
 
@@ -34,8 +34,10 @@ class AttributeValuesController extends Controller
     {
         $attributes=Attribute::all();
         $system_types=SystemType::all();
+        $types=Type::all();
+        $standards = Standard::all();
 
-        return view('attribute_values.create',compact('attributes','system_types'));
+        return view('attribute_values.create',compact('attributes','system_types','types', 'standards'));
     }
 
     /**
@@ -49,9 +51,10 @@ class AttributeValuesController extends Controller
 
         $this->validate($request, [
             'attribute_id'=>'required',
-            'value'=>'required|max:50|unique:attribute_values,value',
+            'value'=>'required|max:50|'.Rule::unique('attribute_values')->whereNull('deleted_at'),
             'display_order'=>'required',
             'system_type_id'=>'required',
+            'standard_id' => 'required',
         ]);
 
         AttributeValue::create($request->all());
@@ -81,8 +84,10 @@ class AttributeValuesController extends Controller
         $attribute_value=AttributeValue::find($id);
         $attributes=Attribute::all();
         $system_types=SystemType::all();
+        $types=Type::all();
+        $standards = Standard::all();
 
-        return view('attribute_values.edit',compact('attributes','attribute_value','system_types'));
+        return view('attribute_values.edit',compact('attributes','attribute_value','system_types','types', 'standards'));
     }
 
     /**
@@ -94,15 +99,16 @@ class AttributeValuesController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $request->validate([  
+         $request->validate([
             'attribute_id'=>'required',
             'value'=>'required|max:50|',
             'display_order'=>'required',
             'system_type_id'=>'required',
+            'standard_id' => 'required',
         ]);
-  
-        $attribute_values=AttributeValue::find($id);          
-        $attribute_values->update($request->all()); 
+
+        $attribute_values=AttributeValue::find($id);
+        $attribute_values->update($request->all());
 
         return redirect()->route('attribute-values.index')->with('updated_success', __('message.Attribute value updated successfully'));
     }
@@ -115,29 +121,38 @@ class AttributeValuesController extends Controller
      */
     public function destroy($id)
     {
-        $attribute_values=AttributeValue::find($id);  
+        $attribute_values=AttributeValue::find($id);
         $attribute_values->delete();
-        
+
         return redirect()->route('attribute-values.index')->with('delete_success', __('message.Attribute value deleted successfully'));
     }
+    public function multipleDelete(Request $request)
+	{
+        $id = $request->bulk_delete;
+        
+        AttributeValue::whereIn('id', $id)->delete();
+	
+		return redirect()->back();
+	}
 
     /**
-     * Fetching, Sorting attribute values and Pagination.  
-     * 
+     * Fetching, Sorting attribute values and Pagination.
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getAttributeValues(Request $request) 
+    public function getAttributeValues(Request $request)
     {
         $totalData = AttributeValue::count();
         $totalFiltered = $totalData;
         $columns = array(
-            0=>'id',
-            1 =>'attribute_id',
-            2 =>'value',
-            3 =>'display_order',
-            4 =>'system_type_id',
-            5 =>'action'
+            1 =>'id',
+            2 =>'attribute_id',
+            3 =>'value',
+            4 =>'display_order',
+            5 =>'system_type_id',
+            6 => 'standard_id',
+            7 =>'action'
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -151,31 +166,38 @@ class AttributeValuesController extends Controller
             $totalFiltered = $totalData;
         }else {
             $search = $request->input('search.value');
-            $attribute_values =  AttributeValue::with('system_type', 'attribute')->whereHas('system_type', function($q)use($search)
-                {
+            $attribute_values =  AttributeValue::with('system_type', 'attribute')
+                ->whereHas('system_type', function($q)use($search){
                     $q->where('name','LIKE',"%{$search}%");
-                })->orWhereHas('attribute', function($q)use($search)
-                {
+                })
+                ->orWhereHas('attribute', function($q)use($search){
                     $q->where('name','LIKE',"%{$search}%");
-                })   
-                ->orWhere('attribute_id', 'LIKE',"%{$search}%")
+                })
+                ->orWhereHas('system_type', function($q)use($search){
+                    $q->where('name','LIKE',"%{$search}%");
+                })
+                ->orWhereHas('standard', function($q)use($search){
+                    $q->where('name','LIKE',"%{$search}%");
+                }) 
                 ->orWhere('value', 'LIKE',"%{$search}%")
                 ->orWhere('display_order', 'LIKE',"%{$search}%")
-                ->orWhere('system_type_id', 'LIKE',"%{$search}%")
+            
                 ->orderBy($order, $dir)
                 ->paginate($limit, ['*'], 'page', $start + 1);
 
             $totalFiltered = $attribute_values->count();
         }
+        
         $data = array();
         if (!empty($attribute_values)) {
             foreach ($attribute_values as $key => $attribute_value) {
-
+                $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$attribute_value->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
-                $nestedData['attribute_id'] = !empty($attribute_value->attribute) ?$attribute_value->attribute->name : '';
-                $nestedData['value'] = $attribute_value->value;
+                $nestedData['attribute_id'] = !empty($attribute_value->attribute) ? translate($attribute_value->attribute->name) : '';
+                $nestedData['value'] = translate($attribute_value->value);
                 $nestedData['display_order'] = $attribute_value->display_order;
-                $nestedData['system_type_id'] = !empty($attribute_value->system_type) ? $attribute_value->system_type->name : '';
+                $nestedData['system_type_id'] = !empty($attribute_value->system_type) ? translate($attribute_value->system_type->name) : '';
+                $nestedData['standard_id'] = !empty($attribute_value->standard) ? translate($attribute_value->standard->name) : '';
                 $index = route('attribute-values.index' ,  encrypt($attribute_value->id));
                 $edit = route('attribute-values.update' ,  encrypt($attribute_value->id));
                 $delete = route('attribute-values.destroy' ,  encrypt($attribute_value->id));
@@ -183,8 +205,10 @@ class AttributeValuesController extends Controller
                 $comp = true;
                 $nestedData['action'] = view('attribute_values.partials.setting-action',compact('index','exist','comp','edit','delete', 'attribute_value'))->render();
                 $data[] = $nestedData;
+                
             }
         }
+        
         $json_data = array(
             "draw"=> intval($request->input('draw')),
             "recordsTotal" => intval($totalData),
@@ -198,23 +222,23 @@ class AttributeValuesController extends Controller
         if($request->ajax()){
             $type = $request->type;
             $system_type = $request->system_type_id;
-            
+
             $attribute= Attribute::with('attribute_values')->where('created_at', '!=', Null);
-         
+
             if(!empty($type)){
-                
+
                 $attribute->where('type','=' ,$type);
             }
-           
+
             if(!empty($system_type)){
                 $attribute->where('system_type_id','=', $system_type);
             }
-           
+
             $attributes = $attribute ->orderBy('display_order', 'ASC')->get();
-            
+
             $html = '';
             $html .= view('attribute_values.partials.select-attribute', compact('attributes'))->render();
-            
+
             return response()->json(['html' => $html, 'success' => true]);
         }
     }

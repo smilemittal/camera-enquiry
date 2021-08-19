@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Imports\StandardsImport;
 use App\Exports\StandardsExport;
 use App\Models\Standard;
+use App\Models\SystemType;
+use Illuminate\Validation\Rule;
 
 class StandardsController extends Controller
 {
@@ -17,8 +19,7 @@ class StandardsController extends Controller
      */
     public function index()
     {
-        $standard = Standard::all();
-        return view('standards.index',compact('standard')); 
+        return view('standards.index');
     }
 
     /**
@@ -28,8 +29,8 @@ class StandardsController extends Controller
      */
     public function create()
     {
-
-    return view('standards.create');
+        $system_types = SystemType::all();
+        return view('standards.create', compact('system_types'));
     }
 
     /**
@@ -41,12 +42,13 @@ class StandardsController extends Controller
     public function store(Request $request)
     {
        $this->validate($request, [
-            'name'=>'required|max:50|unique:standards,name',
+            'name'=>'required|max:50|'.Rule::unique('standards')->where('system_type_id', $request->input('system_type_id'))->whereNull('deleted_at'),
+            'system_type_id'=>'required',
         ]);
         Standard::create($request->all());
 
         return redirect()->route('standards.index')->with('success',__('message.Standard added successfully'));
-        
+
     }
 
     /**
@@ -69,8 +71,9 @@ class StandardsController extends Controller
     public function edit($id)
     {
       $standard= Standard::find($id);
-      return view('standards.edit',compact('standard'));
-       
+      $system_types = SystemType::all();
+      return view('standards.edit',compact('standard','system_types'));
+
 
     }
 
@@ -84,10 +87,11 @@ class StandardsController extends Controller
     public function update(Request $request, $id)
     {
             $this->validate($request, [
-            'name'=>'required|max:50|unique:standards,name,'.$id,
+            'name'=>'required|max:50|'.Rule::unique('standards')->ignore($id)->where('system_type_id', $request->input('system_type_id'))->whereNull('deleted_at'),
+            'system_type_id' => 'required',
         ]);
-  
-        $standard=Standard::find($id);     
+
+        $standard=Standard::find($id);
 
         $standard->update($request->all());
 
@@ -110,14 +114,23 @@ class StandardsController extends Controller
       return redirect()->route('standards.index')->with('deleted',__('message.Standard deleted successfully'));
 
     }
-    
+    public function multipleDelete(Request $request)
+	{
+        $id = $request->bulk_delete;
+
+        Standard::whereIn('id', $id)->delete();
+
+		return redirect()->back();
+	}
+
     public function getStandard(Request $request) {
         $totalData = Standard::count();
         $totalFiltered = $totalData;
         $columns = array(
-            0=>'id',
-            1 =>'name',
-            2 =>'action',   
+            1=>'id',
+            2 =>'name',
+            3 =>'system_type',
+            4 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -141,8 +154,10 @@ class StandardsController extends Controller
         $data = array();
         if (!empty($standards)) {
             foreach ($standards as $key => $standard) {
+                $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$standard->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $standard->name;
+                $nestedData['system_type'] = $standard->system_type->name;
                 $view = route('standards.index' ,  encrypt($standard->id));
                 $edit = route('standards.edit' ,  encrypt($standard->id));
                 $delete = route('standards.destroy' ,  encrypt($standard->id));
@@ -170,15 +185,29 @@ class StandardsController extends Controller
     {
 
         if($request->hasFile('import-standards')){
-              
-               $this->validate($request, [
-            'import-standards'=>'required|mimes:csv,xlsx,xls',
-        ]);
-            Excel::import(new StandardsImport, request()->file('import-standards'));
 
-    }
-      
-        return redirect()->route('standards.import')->with('success', __('message.Standards Imported successfully'));
+               $this->validate($request, [
+                'import-standards'=>'required|mimes:csv,xlsx,xls',
+                ]);
+
+                $import = new StandardsImport;
+                Excel::import($import, request()->file('import-standards'));
+
+                if($import->imported_standards > 0){
+                    return redirect()->route('standards.import')->with('success', __('message.Standards Imported successfully'));
+                }else{
+                    if($import->existing_standards > 0 && $import->existing_standards == $import->total_standards){
+                        return redirect()->route('standards.import')->withErrors([__('message.Standards Import Failed Exists.')]);
+                    }else{
+                        return redirect()->route('standards.import')->withErrors([__('message.Standards Import Failed.')]);
+                    }
+                   
+                }
+            
+
+        }
+
+       
     }
 
     public function export()

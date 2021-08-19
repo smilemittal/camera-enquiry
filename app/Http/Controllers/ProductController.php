@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
 use App\Models\Product;
+use App\Models\Currency;
 use App\Models\Standard;
 use App\Models\Attribute;
 use App\Models\SystemType;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\ProductAttribute;
 
 class ProductController extends Controller
@@ -24,9 +27,9 @@ class ProductController extends Controller
         }catch (Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
         }
-      
+
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,8 +38,10 @@ class ProductController extends Controller
     public function create()
     {
         $system_types = SystemType::all();
+        $types = Type::all();
         $standards = Standard::all();
-        return view('products.create', compact('system_types', 'standards'));
+        $currencies = Currency::where('status', 1)->get();
+        return view('products.create', compact('system_types', 'standards','types', 'currencies'));
     }
 
     /**
@@ -47,20 +52,24 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $this->validate($request, [
             'name'=>'required|max:50',
-            'type'=>'required',
+            'type_id'=>'required',
             'system_type_id'=>'required',
+            'priority'=>'required',
             'standard_id'=>'required',
+            'price' => 'required',
         ]);
         $product = Product::create([
                         'name' => $request->input('name'),
-                        'type' => $request->input('type'),
+                        'type_id' => $request->input('type_id'),
                         'system_type_id' => $request->input('system_type_id'),
+                        'priority' => $request->input('priority'),
                         'standard_id' => $request->input('standard_id'),
+                        'price' => json_encode($request->input('price')),
                     ]);
-       
+
         if(!empty($request->input('attribute_value'))){
             foreach($request->attribute_value as $attribute_id => $attribute_value_id){
                 if(!empty($attribute_value_id)){
@@ -69,11 +78,11 @@ class ProductController extends Controller
                         'attribute_id' => $attribute_id,
                         'attribute_value_id' => $attribute_value_id,
                     ]);
-                }                
+                }
             }
         }
         return redirect()->route('products.index')->with('success', __('message.Product added successfully'));
-     
+
     }
 
     /**
@@ -100,11 +109,18 @@ class ProductController extends Controller
         foreach($product->product_attributes as $product_attribute){
             $attribute_value_ids[] = $product_attribute->attribute_value_id;
             $attribute_ids[] = $product_attribute->attribute_id;
+           
         }
-        $standards = Standard::all();
-        $attributes= Attribute::with('attribute_values')->where('created_at', '!=', Null)->where('type', $product->type)->where('system_type_id', $product->system_type_id)->get();
+        $product_prices = json_decode($product->price, 1);
+        
+        $standards = Standard::where('system_type_id', $product->system_type_id)->get();
+        $attributes= Attribute::with('attribute_values')->where('created_at', '!=', Null)->where('type_id', $product->type_id)->where('system_type_id', $product->system_type_id)->get();
+     
         $system_types = SystemType::all();
-        return view('products.edit', compact('product', 'system_types', 'attribute_ids', 'attribute_value_ids', 'attributes', 'standards'));
+        $types = Type::all();
+        $currencies = Currency::where('status', 1)->get();
+        
+        return view('products.edit', compact('product', 'system_types','types', 'attribute_ids', 'attribute_value_ids', 'attributes', 'standards', 'currencies', 'product_prices'));
     }
 
     /**
@@ -117,19 +133,24 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name'=>'required|max:50|unique:products,name,'.$id,
-            'type' => 'required',
+            //'name'=>'required|max:50|'.Rule::unique('products')->ignore($id)->whereNull('deleted_at'),
+            'name'=>'required',
+            'type_id' => 'required',
             'system_type_id' => 'required',
+            'priority'=>'required',
             'standard_id' => 'required',
+            'price' => 'required',
         ]);
-      
-       
+
+
         $product=Product::find($id);
         $product->update([
             'name' => $request->input('name'),
-            'type' => $request->input('type'),
+            'type_id' => $request->input('type_id'),
             'system_type_id' => $request->input('system_type_id'),
+            'priority' => $request->input('priority'),
             'standard_id' => $request->input('standard_id'),
+            'price' => json_encode($request->input('price')),
         ]);
         if(!empty($request->input('attribute_value'))){
             foreach($request->attribute_value as $attribute_id => $attribute_value_id){
@@ -148,9 +169,9 @@ class ProductController extends Controller
                             'attribute_value_id' => $attribute_value_id,
                         ]);
                     }
-                    
+
                 }
-                
+
             }
         }
        return redirect()->route('products.index')->with('updated',__('message.Product updated successfully'));
@@ -168,14 +189,24 @@ class ProductController extends Controller
         $deletes->delete();
         return redirect()->route('products.index')->with('deleted',__('message.Product deleted successfully'));
     }
+    public function multipleDelete(Request $request)
+	{
+        $id = $request->bulk_delete;
+        
+        Product::whereIn('id', $id)->delete();
+	
+		return redirect()->back();
+	}
     public function getproduct(Request $request) {
 
         $totalData = Product::count();
         $totalFiltered = $totalData;
         $columns = array(
-            0=>'id',
-            1 =>'name',
-            2 =>'action',
+            1=>'id',
+            2 =>'name',
+            3 =>'priority',
+            4 =>'price',
+            5 =>'action',
         );
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -199,8 +230,12 @@ class ProductController extends Controller
         $data = array();
         if (!empty($products)) {
             foreach ($products as $key => $product) {
+                $product_prices = json_decode($product->price, 1);
+                $nestedData['#']='<input type="checkbox" name="bulk_delete[]" class="checkboxes" value="'.$product->id.'" />';
                 $nestedData['id'] = ($start * $limit) + $key + 1;
                 $nestedData['name'] = $product->name;
+                $nestedData['priority'] = $product->priority;
+                $nestedData['price'] = is_array($product_prices) && array_key_exists(strtoupper(default_currency()), $product_prices) ? $product_prices[strtoupper(default_currency())]: '';
                 $index = route('products.index' ,  ($product->id));
                 $edit = route('products.edit' ,  ($product->id));
                 $destroy = route('products.destroy' ,  ($product->id));
@@ -221,26 +256,51 @@ class ProductController extends Controller
 
     public function getProductAttributes(Request $request){
         if($request->ajax()){
-            $type = $request->type;
+            $type = $request->type_id;
             $system_type = $request->system_type_id;
-            
+            $standard = $request->standard_id;
+
+
             $attribute= Attribute::with('attribute_values')->where('created_at', '!=', Null);
-         
+
             if(!empty($type)){
-                
-                $attribute->where('type','=' ,$type);
+
+                $attribute->where('type_id','=' ,$type);
+               
             }
-           
             if(!empty($system_type)){
                 $attribute->where('system_type_id','=', $system_type);
+               
             }
+
+        
            
+
             $attributes = $attribute->get();
-    
             $html = '';
-            $html .= view('products.partials.select-attributes', compact('attributes'))->render();
-            
+            $html .= view('products.partials.select-attributes', compact('attributes', 'type', 'system_type', 'standard'))->render();
+
             return response()->json(['html' => $html, 'success' => true]);
         }
+    }
+    public function getStandard(Request $request){
+        if($request->ajax()){
+            $system_type = $request->system_type_id;
+            
+
+            $standards= Standard:: where('created_at', '!=', Null)->where('system_type_id','=', $system_type)->get();
+
+
+            $html = '';
+            $html .= view('products.partials.standard-attribute', compact('standards'))->render();
+
+            return response()->json(['html' => $html, 'success' => true]);
+        }
+    }
+
+    public function deleteAllProducts()
+    {
+        $delete_all_product = Product::whereNotNull('id')->delete();
+        return redirect()->route('products.index')->with('deleted',__('message.Products deleted successfully'));
     }
 }

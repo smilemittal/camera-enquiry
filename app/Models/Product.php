@@ -10,16 +10,19 @@ class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    public $fillable=['name','type', 'system_type_id', 'standard_id'];
+    public $fillable=['name','type_id', 'system_type_id','priority', 'standard_id', 'price'];
 
     public function product_attributes(){
         return $this->hasMany('App\Models\ProductAttribute', 'product_id', 'id');
     }
     public function standards(){
-        return $this-> belongsTo('App\Models\Standards');
+        return $this->belongsTo('App\Models\Standard', 'standard_id', 'id');
     }
     public function system_types(){
-        return $this-> belongsTo('App\Models\SystemType');
+        return $this->belongsTo('App\Models\SystemType', 'system_type_id', 'id');
     }
-   
+    public function types(){
+        return $this->belongsTo('App\Models\Type','type_id', 'id');
+    }
+
 }

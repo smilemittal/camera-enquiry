@@ -1,80 +1,44 @@
-@if($product_type == 'camera')
-<div class="col-kemey {{ 'camera_'.$i }}">
-    <div class="row d-flex align-items-center">
+<div class="col-kemey section_{{ $type->slug }} {{ $type->slug . '_' . $i }}" data-type="{{ $type->slug }}">
+    <div class="row d-flex align-items-center helo">
         <div class="col-xl-3 col-md-6">
-        <a class="btn" data-toggle="collapse" href="#{{ 'multiCollapseExample'.$product_type.$i  }}" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">kamery / Cameras</a>
+            <a class="btn @if($type->slug == 'camera') showProductFilterBtn @endif" data-toggle="collapse" href="#{{ 'multiCollapseExample' . $type->slug . $i }}" role="button"
+                aria-expanded="false" aria-controls="multiCollapseExample1">{{ translate($type->name) }}</a>
         </div>
         <div class="col-xl-2 col-md-6">
             <div class="kamaroty">
-                <input type="text" name="quantity[{{ $product_type }}][{{ $i }}]" placeholder="Qty"/>
+                <input type="text" class="qty" name="quantity[{{ $type->slug }}][{{ $i }}]"
+                    placeholder="{{translate('Qty')}}" id="quantity"/>
             </div>
         </div>
-        <div class="col-md-12 col-xl-7 pl-lg-3">
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+        <div class="col-md-12 col-xl-5 pl-lg-3">
+            <p>{{ translate($type->name . ' panel description') }}</p>
+            <div class="totalQty">
+                <input type="hidden" class="total_qty" name="total_qty[{{ $type->slug }}][{{ $i }}]"
+                    placeholder="{{translate('Qty')}}" />
+                <span class=""></span>
+            </div>
         </div>
+        {{-- <div class="col-xl-2 col-md-6">
+
+        </div> --}}
     </div>
-    <div class="collapse multi-collapse" id="{{ 'multiCollapseExample'.$product_type.$i }}">
+    <div class="collapse multi-collapse" id="{{ 'multiCollapseExample' . $type->slug . $i }}">
         <div class="card card-body">
-            <input type="hidden" name="{{ 'selected_'.$product_type.'_attributes_'.$i}}">
-        
-            <div id="camera_attribute_div">
-               
-                    @if(!empty($attribute_html))
-                        {!! $attribute_html !!}
-                    @endif
-               
+            <input type="hidden" name="{{ 'selected_' . $type->slug . '_attributes_' . $i }}">
 
-            </div>
-
-            <p class="earch">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-
-            <div class="col-kemey kemey-boxbtn">
-                <div class="row d-flex align-items-center">
-                    <div class="col-xl-3 col-md-6">
-                        <button type="button" class="next_type" data-product_type="camera">Kamey / Next Type of Cameras</button>
-                    </div>
-                    {{-- <div class="col-xl-3 col-md-6">
-                        <button>Kamey / Cameras</button>
-                    </div> --}}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endif 
-
-
-
-@if($product_type == 'recorder')
-<div class="col-kemey {{ 'recorder_'.$i }} {{ $product_type.'_btn' }}" style="display:none;" >
-    <div class="row d-flex align-items-center">
-        <div class="col-xl-3 col-md-6">
-            <a class="btn" data-toggle="collapse" href="#{{ 'multiCollapseExample'.$product_type.$i }}" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">kamery / Recorders</a>
-        </div>
-        <div class="col-xl-2 col-md-6">
-            <div class="kamaroty">
-                <input type="text" name="quantity[{{ $product_type }}][{{ $i }}]" placeholder="Qty"/>
-            </div>
-        </div>
-        <div class="col-md-12 col-xl-7 pl-lg-3">
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-        </div>
-    </div>
-    <div class="collapse multi-collapse" id="{{ 'multiCollapseExample'.$product_type.$i }}">
-        <div class="card card-body">
-            <input type="hidden" name="{{ 'selected_'.$product_type.'_attributes_'.$i}}">
-            <div id="recorder_attribute_div">
-                @if(!empty($attribute_html))
-                {!! $attribute_html !!}
+            <div id="{{ $type->slug }}_attribute_div">
+                @if (!empty($attribute_html))
+                    {!! $attribute_html !!}
                 @endif
             </div>
 
-            <p class="earch">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+            <p class="earch">{{ translate($type->name . ' panel description') }}</p>
 
             <div class="col-kemey kemey-boxbtn">
                 <div class="row d-flex align-items-center">
                     <div class="col-xl-3 col-md-6">
-                        <button type="button" class="next_type" data-product_type="recorder">Kamey / Next Type of Recorder</button>
+                        <button type="button" class="next_type"
+                            data-product_type="{{ $type->slug }}">{{ translate('Next Type of ' . $type->name) }}</button>
                     </div>
                     {{-- <div class="col-xl-3 col-md-6">
                         <button>Kamey / Cameras</button>
@@ -84,6 +48,3 @@
         </div>
     </div>
 </div>
-
-@endif
-

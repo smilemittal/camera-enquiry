@@ -13,16 +13,18 @@ class EnquiryMail extends Mailable
 
     protected $products;
     protected $quantities;
+    protected $enquiry;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($products, $quantities)
+    public function __construct($products, $quantities,$enquiry)
     {
         $this->products = $products;
         $this->quantities = $quantities;
+        $this->enquiry = $enquiry;
     }
 
     /**
@@ -32,6 +34,7 @@ class EnquiryMail extends Mailable
      */
     public function build()
     {
-        return $this->view('enquiries.partials.pdf')->with(['products' => $this->products, 'quantities' => $this->quantities]);
+        return $this->from($this->enquiry->email, $this->enquiry->first_name)->view('enquiries.partials.pdf')->with(['products' => $this->products, 'quantities' => $this->quantities, 'enquiry'=> $this->enquiry]);
+    
     }
 }
